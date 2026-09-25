@@ -75,17 +75,24 @@ export async function signInAction(prevState: unknown, formData: FormData): Prom
  * Signs up a new user with metadata and provisions role in Supabase
  */
 export async function signUpAction(prevState: unknown, formData: FormData): Promise<AuthActionResult> {
-  const email = formData.get('email') as string;
+  const rawEmail = (formData.get('email') as string)?.trim().toLowerCase();
   const password = formData.get('password') as string;
-  const name = formData.get('name') as string;
-  const role = (formData.get('role') as UserRole) || 'student';
-  const department = (formData.get('department') as string) || 'Computer Science & Engineering';
-  const contactNumber = formData.get('contactNumber') as string;
-  const identifier = (formData.get('identifier') as string) || 'ID-DEFAULT';
+  const rawName = (formData.get('name') as string)?.trim();
+  const rawRole = ((formData.get('role') as string) || 'student').trim().toLowerCase() as UserRole;
+  const role: UserRole = ['student', 'faculty', 'placement_officer', 'administrator'].includes(rawRole)
+    ? rawRole
+    : 'student';
+  const department = ((formData.get('department') as string) || 'Computer Science & Engineering').trim();
+  const contactNumber = ((formData.get('contactNumber') as string) || '').trim();
+  const rawIdentifier = ((formData.get('identifier') as string) || '').trim();
+  const identifier = rawIdentifier || `${role === 'student' ? 'STU' : role === 'faculty' ? 'FAC' : role === 'placement_officer' ? 'TPO' : 'ADM'}-${Date.now().toString().slice(-6)}`;
 
-  if (!email || !password || !name) {
+  if (!rawEmail || !password || !rawName) {
     return { success: false, error: 'Please provide all required fields.' };
   }
+
+  const email = rawEmail;
+  const name = rawName;
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const isPlaceholderSupabase = !supabaseUrl || supabaseUrl.includes('placeholder');
@@ -114,11 +121,18 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
           contact_number: contactNumber,
           identifier,
           year: 3,
+          skills: ['JavaScript', 'TypeScript'],
         },
       },
     });
 
     if (error) {
+      if (error.message.toLowerCase().includes('rate limit')) {
+        return {
+          success: false,
+          error: 'Email confirmation rate limit exceeded on authentication server. Please wait a few minutes before trying again.',
+        };
+      }
       return { success: false, error: error.message };
     }
 
@@ -128,7 +142,7 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
 
     return {
       success: true,
-      error: 'Account created! If email confirmation is enabled in your Supabase project, check your inbox to verify your email.',
+      error: 'Account created! If email confirmation is enabled on your institutional portal, please check your inbox to activate your account.',
     };
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'digest' in err && typeof (err as { digest?: unknown }).digest === 'string' && (err as { digest?: string }).digest?.startsWith('NEXT_REDIRECT')) {

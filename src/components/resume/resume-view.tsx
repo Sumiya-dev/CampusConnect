@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FileText, Download, Trash2, Eye, Calendar, RefreshCw } from 'lucide-react';
+import { FileText, Download, Trash2, Eye, Calendar, RefreshCw, ExternalLink } from 'lucide-react';
 import { Resume } from '@/lib/types/resume.types';
 import { getResumeUrl, deleteResume } from '@/lib/resume/actions';
 
@@ -155,12 +155,23 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
         
         {isViewing && viewUrl && (
           <div className="mt-6 pt-6 border-t border-[#222222]">
-            <h4 className="text-sm font-medium text-[#EDEDED] mb-3">Resume Preview</h4>
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-sm font-medium text-[#EDEDED]">Resume Preview</h4>
+              <a
+                href={viewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-[#FF6B00] hover:text-[#FF6B00]/80 transition-colors"
+              >
+                <span>Open in new window</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
             <div className="w-full h-[600px] rounded border border-[#333333] overflow-hidden bg-white">
               {resume.file_type === 'application/pdf' ? (
                 <iframe 
                   src={`${viewUrl}#toolbar=0`} 
-                  className="w-full h-full"
+                  className="w-full h-full border-0"
                   title="Resume Preview"
                 />
               ) : (

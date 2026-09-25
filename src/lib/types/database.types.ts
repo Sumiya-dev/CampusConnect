@@ -212,6 +212,93 @@ export type Database = {
         Update: Partial<Omit<import('./resume.types').Resume, 'id' | 'student_id'>>;
         Relationships: [];
       };
+      community_posts: {
+        Row: {
+          id: string;
+          author_id: string;
+          category: 'Placement' | 'Preparation' | 'Technical' | 'Career' | 'General';
+          visibility: 'PUBLIC' | 'STUDENTS_ONLY';
+          title: string;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          author_id: string;
+          category: 'Placement' | 'Preparation' | 'Technical' | 'Career' | 'General';
+          visibility: 'PUBLIC' | 'STUDENTS_ONLY';
+          title: string;
+          content: string;
+          is_deleted?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          author_id: string;
+          category: 'Placement' | 'Preparation' | 'Technical' | 'Career' | 'General';
+          visibility: 'PUBLIC' | 'STUDENTS_ONLY';
+          title: string;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      community_comments: {
+        Row: {
+          id: string;
+          post_id: string;
+          author_id: string;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          author_id: string;
+          content: string;
+          is_deleted?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          post_id: string;
+          author_id: string;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      community_likes: {
+        Row: {
+          id: string;
+          post_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          post_id: string;
+          user_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

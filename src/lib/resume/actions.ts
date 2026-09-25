@@ -1,7 +1,12 @@
 'use server';
 
+import { cookies } from 'next/headers';
+import fs from 'fs';
+import path from 'path';
 import { createClient } from '../supabase/server';
 import { revalidatePath } from 'next/cache';
+import { getCurrentUser } from '../auth/user';
+import { Resume } from '../types/resume.types';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_MIME_TYPES = [
@@ -10,18 +15,8 @@ const ALLOWED_MIME_TYPES = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
 
-import { getCurrentUser } from '../auth/user';
-import { Resume } from '../types/resume.types';
-
 export async function uploadResume(formData: FormData) {
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
-      return { error: 'A real Supabase project must be configured in .env.local to upload resumes.' };
-    }
-
-    const supabase = await createClient();
-
     const user = await getCurrentUser();
 
     if (!user) {
@@ -42,13 +37,77 @@ export async function uploadResume(formData: FormData) {
       return { error: 'Invalid file type. Only PDF and DOC/DOCX are allowed.' };
     }
 
-    const { data: student } = await (supabase.from('students') as any)
+    // Read the actual uploaded file bytes
+    const bytes = await file.arrayBuffer();
+    const fileBuffer = Buffer.from(bytes);
+
+    // Save actual file to public/uploads/resumes directory
+    const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'resumes');
+    await fs.promises.mkdir(uploadsDir, { recursive: true });
+
+    const safeBaseName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+    const storedFileName = `${Date.now()}-${safeBaseName}`;
+    const filePathOnDisk = path.join(uploadsDir, storedFileName);
+    await fs.promises.writeFile(filePathOnDisk, fileBuffer);
+
+    const localRelativeUrl = `/uploads/resumes/${storedFileName}`;
+
+    // Handle Demo Mode
+    if (user.id === 'demo-user-id') {
+      const cookieStore = await cookies();
+      cookieStore.set('campusconnect_demo_resume_name', file.name, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
+      cookieStore.set('campusconnect_demo_resume_path', localRelativeUrl, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
+      cookieStore.set('campusconnect_demo_resume_uploaded_at', new Date().toISOString(), { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
+      cookieStore.set('campusconnect_demo_resume_size', file.size.toString(), { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
+      cookieStore.set('campusconnect_demo_resume_type', file.type, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
+      cookieStore.set('campusconnect_demo_resume_url', localRelativeUrl, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
+
+      revalidatePath('/student/resume');
+      revalidatePath('/profile');
+      return { success: true };
+    }
+
+    // Live Supabase Mode
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    if (!supabaseUrl || supabaseUrl.includes('placeholder')) {
+      return { error: 'A real Supabase project must be configured in .env.local to upload resumes.' };
+    }
+
+    const supabase = await createClient();
+
+    let { data: student } = await (supabase.from('students') as any)
       .select('id')
       .eq('user_id', user.id)
-      .single();
+      .maybeSingle();
 
     if (!student) {
-      return { error: 'Student profile not found' };
+      // Ensure base profile exists
+      await (supabase.from('profiles') as any).upsert({
+        id: user.id,
+        name: user.name || 'Student',
+        email: user.email,
+        role: 'student',
+        department: user.department || 'Computer Science & Engineering',
+      }, { onConflict: 'id' });
+
+      // Auto-provision student profile
+      const { data: newStudent, error: createError } = await (supabase.from('students') as any)
+        .insert({
+          user_id: user.id,
+          student_id: user.identifier || `STU-${user.id.substring(0, 8)}`,
+          department: user.department || 'Computer Science & Engineering',
+          year: 3,
+          cgpa: 8.00,
+          skills: ['JavaScript', 'TypeScript'],
+        })
+        .select('id')
+        .single();
+
+      if (createError || !newStudent) {
+        console.error('Failed to auto-create student profile:', createError);
+        return { error: 'Student profile not found. Please complete your profile first.' };
+      }
+      student = newStudent;
     }
 
     // Check for existing active resume and delete it first
@@ -56,7 +115,7 @@ export async function uploadResume(formData: FormData) {
       .select('*')
       .eq('student_id', student.id)
       .eq('is_active', true)
-      .single();
+      .maybeSingle();
 
     // Generate unique filename to avoid cache issues
     const fileExt = file.name.split('.').pop();
@@ -73,7 +132,7 @@ export async function uploadResume(formData: FormData) {
 
     if (uploadError) {
       console.error('Upload error:', uploadError);
-      return { error: 'Failed to upload file to storage' };
+      return { error: 'Failed to upload file to storage: ' + uploadError.message };
     }
 
     // Add record to database
@@ -88,9 +147,9 @@ export async function uploadResume(formData: FormData) {
 
     if (dbError) {
       console.error('Database error:', dbError);
-      // Try to clean up the uploaded file
+      // Clean up uploaded file
       await supabase.storage.from('resumes').remove([filePath]);
-      return { error: 'Failed to save resume record' };
+      return { error: 'Failed to save resume record: ' + dbError.message };
     }
 
     // If there was an existing resume, deactivate it and delete the old file
@@ -105,22 +164,50 @@ export async function uploadResume(formData: FormData) {
     }
 
     revalidatePath('/student/resume');
+    revalidatePath('/profile');
     return { success: true };
   } catch (err) {
     console.error('Upload catch error:', err);
-    return { error: 'An unexpected error occurred' };
+    return { error: 'An unexpected error occurred while uploading resume.' };
   }
 }
 
 export async function deleteResume(resumeId: string, filePath: string) {
   try {
-    const supabase = await createClient();
-
     const user = await getCurrentUser();
 
     if (!user) {
       return { error: 'Not authenticated' };
     }
+
+    // Handle Demo Mode
+    if (user.id === 'demo-user-id') {
+      const cookieStore = await cookies();
+      const existingPath = cookieStore.get('campusconnect_demo_resume_path')?.value;
+      if (existingPath && existingPath.startsWith('/uploads/resumes/')) {
+        const fullDiskPath = path.join(process.cwd(), 'public', existingPath);
+        try {
+          if (fs.existsSync(fullDiskPath)) {
+            await fs.promises.unlink(fullDiskPath);
+          }
+        } catch (e) {
+          console.error('Error removing local demo resume:', e);
+        }
+      }
+
+      cookieStore.delete('campusconnect_demo_resume_name');
+      cookieStore.delete('campusconnect_demo_resume_path');
+      cookieStore.delete('campusconnect_demo_resume_url');
+      cookieStore.delete('campusconnect_demo_resume_uploaded_at');
+      cookieStore.delete('campusconnect_demo_resume_size');
+      cookieStore.delete('campusconnect_demo_resume_type');
+
+      revalidatePath('/student/resume');
+      revalidatePath('/profile');
+      return { success: true };
+    }
+
+    const supabase = await createClient();
 
     // Verify ownership indirectly by deleting via ID (RLS will enforce ownership)
     const { error: dbError } = await (supabase
@@ -139,11 +226,10 @@ export async function deleteResume(resumeId: string, filePath: string) {
 
     if (storageError) {
       console.error('Storage delete error:', storageError);
-      // Even if storage fails, the record is gone, which is okay for the user, but bad for our bucket.
-      // Ideally this wouldn't happen, but we'll return success since the UI reflects deletion.
     }
 
     revalidatePath('/student/resume');
+    revalidatePath('/profile');
     return { success: true };
   } catch (err) {
     console.error('Delete catch error:', err);
@@ -152,12 +238,6 @@ export async function deleteResume(resumeId: string, filePath: string) {
 }
 
 export async function getResumeUrl(filePath: string): Promise<string | null> {
-  const supabase = await createClient();
-  
-  const { data } = await supabase
-    .storage
-    .from('resumes')
-    .createSignedUrl(filePath, 3600); // 1 hour expiry
-    
-  return data?.signedUrl || null;
+  // Always proxy via local same-origin preview endpoint to avoid iframe X-Frame-Options or CORS blocking
+  return `/api/resume/preview?path=${encodeURIComponent(filePath)}`;
 }
