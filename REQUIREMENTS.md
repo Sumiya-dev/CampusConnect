@@ -131,6 +131,21 @@ The system enforces strict Role-Based Access Control mapped to 4 system roles:
 - **FR-8.1**: Administrators must be able to view and manage all registered users, roles, and status (`/admin/users`).
 - **FR-8.2**: Administrators must have access to moderation queues (`/admin/moderation`) and global placement metrics (`/admin/placements`).
 
+### FR-9: Community Module (Public & Role-Isolated Student Discussions)
+- **FR-9.1**: The system must provide two strictly segregated discussion spaces:
+  - **Public Community**: Accessible to all verified institutional roles across categories: `Placement`, `Preparation`, `Technical`, `Career`, `General`.
+  - **Students Only Community 🔒**: A completely private space accessible **exclusively** to users with the `student` role.
+- **FR-9.2**: Faculty, Placement Officers, and Administrators must **never** be able to:
+  - View or toggle the Students Only tab in the user interface.
+  - View, search, or fetch student-only posts, comments, or likes.
+  - Create or interact with student-only discussions.
+  - Access student-only discussions via direct URL or PostgREST API calls.
+- **FR-9.3**: Database-level Row-Level Security (RLS) must enforce student-only isolation:
+  - `public.is_student()` helper function evaluated in `USING` and `WITH CHECK` clauses.
+  - Non-students querying `community_posts` must receive zero rows for student-only records.
+- **FR-9.4**: Posts must include: category badge, author name/role/department, title, content preview, creation timestamp, interactive like counters, and comment counters.
+- **FR-9.5**: Dedicated post detail routes (`/student/community/[postId]` and `/faculty/community/[postId]`) must provide full content viewing, threaded comments, and author-controlled deletion.
+
 ---
 
 ## 5. Non-Functional Requirements (NFR)
@@ -138,15 +153,17 @@ The system enforces strict Role-Based Access Control mapped to 4 system roles:
 ### NFR-1: Security & Data Privacy
 - **Row-Level Security (RLS)**: PostgreSQL RLS must be enabled on every table in the public schema.
 - **Policy Enforcement**:
-  - Students may only read/write their own profile, resumes, progress, and applications.
+  - Students may only read/write their own profile, resumes, progress, applications, and community interactions.
   - Faculty may only read sessions allocated to them and registrations for those sessions.
+  - Non-students are strictly blocked at the database level from accessing student-only community discussions.
   - Placement Officers and Admins have elevated access to placement entities.
-- **Authentication**: JWT tokens managed via HTTP-only secure cookies via `@supabase/ssr`.
+- **Authentication**: JWT tokens managed via HTTP-only secure cookies via `@supabase/ssr` with seamless local demo session fallback.
 
 ### NFR-2: Performance & Responsiveness
 - **Server-Side Rendering (SSR)**: Critical authenticated pages must be rendered server-side using React Server Components (RSC) to minimize client bundle sizes.
 - **Response Time**: Page response times must remain under 300ms for cached routes and under 800ms for dynamic database queries.
 - **Database Optimization**: Foreign keys must have corresponding B-Tree indexes to prevent table scans during join operations.
+- **Concurrency Scaling**: Indexes on `(visibility, created_at DESC)`, `(category, created_at DESC)`, and `(author_id)` ensure sub-millisecond query execution as community volume grows.
 
 ### NFR-3: User Interface & Visual Aesthetics
 - **Theme**: Strict **Pure Black** theme (`#000000` background, `#0A0A0A` surface containers, `#222222` subtle borders).
@@ -158,7 +175,7 @@ The system enforces strict Role-Based Access Control mapped to 4 system roles:
 
 ### NFR-4: Data Integrity & Constraints
 - Database relationships must enforce referential integrity with appropriate `ON DELETE CASCADE` or `ON DELETE SET NULL` constraints.
-- Unique constraints must prevent duplicate applications per student per drive (`(drive_id, student_id)`) and duplicate session registrations (`(session_id, student_id)`).
+- Unique constraints must prevent duplicate applications per student per drive (`(drive_id, student_id)`), duplicate session registrations (`(session_id, student_id)`), and duplicate post likes (`(post_id, user_id)`).
 
 ---
 
@@ -187,30 +204,36 @@ The system enforces strict Role-Based Access Control mapped to 4 system roles:
                 │  drives    │  │session_regis...   │
                 └──────┬─────┘  └───────────────────┘
                        │
-                ┌──────▼─────┐
-                │ companies  │
-                └────────────┘
+                ┌──────▼─────┐  ┌───────────────────┐
+                │ companies  │  │ community_posts   │
+                └────────────┘  └────┬──────────────┘
+                                     │ 1:N
+                                ┌────┴──────────────┐
+                                │community_comments │
+                                └───────────────────┘
 ```
 
 ### 6.2 Table Inventory
 
 | Table Name | Description | Key Columns |
 | :--- | :--- | :--- |
-| `public.profiles` | Core user identity & role | `id (UUID, PK)`, `email`, `full_name`, `role (enum)`, `avatar_url` |
+| `public.profiles` | Core user identity & role | `id (UUID, PK)`, `email`, `name`, `role (enum)`, `department`, `contact_number`, `account_status` |
 | `public.departments` | Academic departments | `id (UUID, PK)`, `name`, `code` (e.g., CSE, AIDS, AIML) |
 | `public.academic_sections`| Department sections | `id (UUID, PK)`, `department_id (FK)`, `year`, `section_name` |
-| `public.students` | Student academic records | `id (UUID, PK)`, `user_id (FK)`, `student_id`, `cgpa`, `backlogs`, `skills` |
-| `public.faculty_members` | Faculty staff directory | `id (UUID, PK)`, `user_id (FK)`, `employee_id`, `designation` |
-| `public.companies` | Recruiter companies | `id (UUID, PK)`, `name`, `tier`, `industry`, `status`, `website` |
-| `public.placement_drives` | Recruitment drives | `id (UUID, PK)`, `company_id (FK)`, `role`, `package_ctc_lpa`, `min_cgpa` |
-| `public.drive_applications`| Student drive applications | `id (UUID, PK)`, `drive_id (FK)`, `student_id (FK)`, `status` |
+| `public.students` | Student academic records | `id (UUID, PK)`, `user_id (FK)`, `student_id (UNIQUE)`, `cgpa`, `year`, `skills`, `placement_status` |
+| `public.faculty_members` | Faculty staff directory | `id (UUID, PK)`, `user_id (FK)`, `employee_id (UNIQUE)`, `department`, `designation` |
+| `public.companies` | Recruiter companies | `id (UUID, PK)`, `company_name`, `tier`, `industry`, `status`, `website` |
+| `public.placement_drives` | Recruitment drives | `id (UUID, PK)`, `company_id (FK)`, `job_role`, `package_details`, `min_cgpa` |
+| `public.applications` | Student drive applications | `id (UUID, PK)`, `drive_id (FK)`, `student_id (FK)`, `status` |
 | `public.class_sessions` | Faculty teaching schedule | `id (UUID, PK)`, `faculty_id (FK)`, `session_date`, `start_time`, `venue` |
 | `public.session_registrations`| Student session enrollment| `id (UUID, PK)`, `session_id (FK)`, `student_id (FK)`, `status` |
 | `public.training_groups` | Training categories | `id (UUID, PK)`, `name` (Java, Python, Aptitude, Coding) |
-| `public.preparation_topics`| Interview prep topics | `id (UUID, PK)`, `category`, `title`, `slug` |
-| `public.preparation_materials`| Articles & questions | `id (UUID, PK)`, `topic_id (FK)`, `title`, `content`, `read_time_mins` |
-| `public.student_topic_progress`| Prep completion status| `id (UUID, PK)`, `student_id (FK)`, `topic_id (FK)`, `is_completed` |
-| `public.student_resumes` | Uploaded resumes | `id (UUID, PK)`, `student_id (FK)`, `file_url`, `is_primary` |
+| `public.preparation_materials`| Articles & questions | `id (UUID, PK)`, `title`, `category`, `technical_type`, `read_time_mins` |
+| `public.student_preparation_progress`| Prep completion status| `id (UUID, PK)`, `student_id (FK)`, `material_id (FK)`, `status` |
+| `public.resumes` | Uploaded resumes | `id (UUID, PK)`, `student_id (FK)`, `file_name`, `file_url`, `is_active` |
+| `public.community_posts` | Discussion board posts | `id (UUID, PK)`, `author_id (FK)`, `category`, `visibility (enum)`, `title`, `content`, `is_deleted` |
+| `public.community_comments`| Discussion comments | `id (UUID, PK)`, `post_id (FK)`, `author_id (FK)`, `content`, `is_deleted` |
+| `public.community_likes` | Post likes & reactions | `id (UUID, PK)`, `post_id (FK)`, `user_id (FK)`, `created_at` (UNIQUE constraint) |
 
 ---
 
@@ -218,12 +241,14 @@ The system enforces strict Role-Based Access Control mapped to 4 system roles:
 
 | Specification ID | Verification Method | Acceptance Standard |
 | :--- | :--- | :--- |
-| **AC-01: Build & Typing** | `npx tsc --noEmit` & `npm run build` | Zero compilation errors; all 35 Next.js routes statically or dynamically generated. |
+| **AC-01: Build & Typing** | `npx tsc --noEmit` & `npm run build` | Zero compilation errors; all Next.js routes statically or dynamically generated. |
 | **AC-02: RBAC Protection** | Route inspection with role cookies | Unauthenticated access redirects to `/login`; unauthorized roles redirect to assigned dashboard. |
 | **AC-03: Eligibility Check**| Submission test with varied CGPA/backlogs | Application denied when student CGPA < cutoff or active backlogs > allowed limit. |
 | **AC-04: Schedule Isolation**| Faculty query test | Faculty only sees allocated classes across `TODAY`, `TOMORROW`, and `UPCOMING`. |
 | **AC-05: Roster Privacy** | Session detail inspection | Only students registered for that specific session are returned; no academic-wide leaks. |
 | **AC-06: Database RLS** | Direct table query simulation | Queries without authenticated faculty context or ownership fail with permission denied. |
+| **AC-07: Community Isolation**| Cross-role query evaluation | Non-students receive 0 rows for `STUDENTS_ONLY` posts, comments, or likes in both PostgreSQL and UI. |
+| **AC-08: User Provisioning** | Auth signup stress test | Robust user creation via `handle_new_user()` trigger with collision avoidance and normalized roles. |
 
 ---
 
