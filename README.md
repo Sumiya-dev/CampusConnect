@@ -19,9 +19,9 @@ The platform provides automated placement eligibility checking, strictly isolate
 
 ---
 
-## 🚀 Key Modules & Capabilities
+##  Key Modules & Capabilities
 
-### 1. 🎓 Student Placement & Career Hub
+### 1. Student Placement & Career Hub
 - **Placement Drive Discovery**: Browse active, upcoming, and past recruitment drives categorized into recruitment tiers (`Tier 1`, `Tier 2`, `Tier 3`, `Dream`).
 - **Real-Time Eligibility Engine**: Automated validation evaluating student CGPA, active backlogs, eligible departments, and graduation year before application submission with detailed mismatch explanations.
 - **One-Click Application Workflow**: Apply to eligible drives referencing primary active resumes with real-time status tracking (`Applied`, `Shortlisted`, `Interview Scheduled`, `Selected`, `Rejected`).
@@ -32,34 +32,34 @@ The platform provides automated placement eligibility checking, strictly isolate
   - **Company-Specific Kits**: Tailored recruitment kits for top recruiters (Google, Amazon, TCS, Infosys, etc.) with interview difficulty metrics.
 - **Resume Manager & ATS Preview**: Upload PDF resumes to secure storage with inline preview (`/api/resume/preview`), ATS score indicators, and primary resume selection.
 
-### 2. 👨‍🏫 Faculty Classes & Schedule Allocation
+### 2. Faculty Classes & Schedule Allocation
 - **Isolated Allocation Workflow**: Organized strictly around **Faculty Allocation $\rightarrow$ Schedule $\rightarrow$ Registered Students**.
 - **Chronological Schedule**: Classes categorized into **`TODAY`**, **`TOMORROW`**, and **`UPCOMING`** sessions.
 - **Session Attendance Rosters**: Class-specific student rosters displaying enrolled students with dynamic training group filters (`Java`, `Python`, `Web Dev`, etc.).
 - **Privacy Enforcement**: Faculty members cannot view unrelated academic years, extraneous departments, or non-allocated students.
 
-### 3. 💼 Placement Officer Operations
+### 3. Placement Officer Operations
 - **Corporate Directory**: Manage participating companies, company tiers, primary HR contacts, recruitment histories, and compliance statuses.
 - **Drive Lifecycle Management**: Schedule recruitment drives, define eligibility parameters, configure selection stages, and publish instructions.
 - **Application & Shortlisting Pipelines**: Filter and shortlist candidate pools across departments, export rosters, and issue interview invites.
 - **Institutional Analytics**: Real-time tracking of placement percentages, average/highest CTC packages, and department-wise recruitment rates.
 
-### 4. 💬 Community Discussion Boards
+### 4. Community Discussion Boards
 - **Public Community**: University-wide forum visible to all authenticated institutional members (Students, Faculty, Placement Officers, Administrators) across categories:
   - `Placement`, `Preparation`, `Technical`, `Career`, `General`.
-- **Students Only Community 🔒**: A completely private, peer-to-peer discussion space accessible **exclusively** to users with the `student` role.
+- **Students Only Community **: A completely private, peer-to-peer discussion space accessible **exclusively** to users with the `student` role.
   - **Database-Level Row Level Security (RLS)**: Enforced via PostgreSQL RLS policies and `is_student()` helper functions. Non-students receive **0 rows** for student-only posts, comments, or likes, even via direct API calls.
   - **Role-Aware UI**: Non-students never see the Students Only tab or its discussions.
   - **Interactive Discussions**: Threaded comments, optimistic likes, and author-controlled deletion.
 
-### 5. 🛡️ Administrative Governance & User Management
+### 5.  Administrative Governance & User Management
 - **Account Directory**: Audit and manage user accounts, change account statuses (`active`, `inactive`, `pending`, `suspended`), and assign institutional roles.
 - **Moderation Queue**: Review flagged content, oversee communication conduct, and manage community policies.
 - **Platform Analytics**: Global insights into institutional hiring metrics, student engagement, and faculty allocations.
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 | Layer | Technology | Description |
 | :--- | :--- | :--- |
@@ -73,7 +73,7 @@ The platform provides automated placement eligibility checking, strictly isolate
 
 ---
 
-## 🔒 Security & Access Control Matrix
+##  Security & Access Control Matrix
 
 | Resource | Student | Faculty | Placement Officer | Administrator |
 | :--- | :---: | :---: | :---: | :---: |
@@ -82,12 +82,12 @@ The platform provides automated placement eligibility checking, strictly isolate
 | **Company Directory** | Read Only | Read Only | Full CRUD | Full CRUD |
 | **Allocated Classes & Rosters**| Enrolled Only| Allocated Only| Read Only | Full Management |
 | **Public Community** | Read / Write | Read / Write | Read / Write | Read / Write |
-| **Students Only Community 🔒** | **Full Access**| **No Access (RLS)**| **No Access (RLS)**| **No Access (RLS)**|
+| **Students Only Community ** | **Full Access**| **No Access (RLS)**| **No Access (RLS)**| **No Access (RLS)**|
 | **User Directory & Governance**| No Access | No Access | No Access | **Full Access** |
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 miniproject/
@@ -136,7 +136,7 @@ miniproject/
 
 ---
 
-## ⚡ Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Node.js**: `v18.18.0` or `v20.x` LTS
@@ -201,7 +201,7 @@ npm start
 
 ---
 
-## 🧪 Available Scripts
+##  Available Scripts
 
 | Command | Action |
 | :--- | :--- |
@@ -212,6 +212,6 @@ npm start
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the [MIT License](LICENSE).
