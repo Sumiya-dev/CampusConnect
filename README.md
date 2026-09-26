@@ -11,7 +11,7 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 **CampusConnect AI** is an enterprise-grade academic training and campus placement automation system designed for higher education institutions. It streamlines and bridges the operational gaps between students, academic faculty, corporate placement officers, and university administrators.
 
