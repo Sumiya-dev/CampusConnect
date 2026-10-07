@@ -7,6 +7,8 @@ export interface StudentEligibilityProfile {
   year: number;
   skills: string[];
   backlogs?: number;
+  graduation_year?: number;
+  program?: string;
 }
 
 export function evaluateEligibility(
@@ -71,6 +73,34 @@ export function evaluateEligibility(
       );
     } else {
       passedChecks.push(`Academic standing confirmed: Year ${studentYear} student.`);
+    }
+  }
+
+  // 3.1 Graduation Year Check
+  if (drive.graduation_year && student.graduation_year) {
+    if (Number(student.graduation_year) !== Number(drive.graduation_year)) {
+      reasons.push(
+        `Graduation cohort restriction: This drive is reserved for the Class of ${drive.graduation_year}, but your graduation year is ${student.graduation_year}.`
+      );
+    } else {
+      passedChecks.push(`Graduation cohort verified: Class of ${student.graduation_year}.`);
+    }
+  }
+
+  // 3.2 Degree Program Check
+  if (drive.eligible_programs && drive.eligible_programs.length > 0 && student.program) {
+    const sProgNorm = student.program.toLowerCase().trim();
+    const isProgEligible = drive.eligible_programs.some((prog) => {
+      const pNorm = prog.toLowerCase().trim();
+      return sProgNorm === pNorm || sProgNorm.includes(pNorm) || pNorm.includes(sProgNorm);
+    });
+
+    if (!isProgEligible) {
+      reasons.push(
+        `Degree program restriction: Your registered program (${student.program}) is not listed among approved programs (${drive.eligible_programs.join(', ')}).`
+      );
+    } else {
+      passedChecks.push(`Degree program approved: ${student.program}.`);
     }
   }
 

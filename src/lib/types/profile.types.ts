@@ -49,11 +49,23 @@ export interface AdminProfileData extends BaseProfileData {
   accessLevel: string;
 }
 
+export interface AlumniProfileData extends BaseProfileData {
+  role: 'alumni';
+  graduationYear?: number | null;
+  currentCompany?: string | null;
+  jobRole?: string | null;
+  location?: string | null;
+  bio?: string | null;
+  skills?: string[];
+  linkedinUrl?: string | null;
+}
+
 export type FullUserProfile =
   | StudentProfileData
   | FacultyProfileData
   | PlacementProfileData
-  | AdminProfileData;
+  | AdminProfileData
+  | AlumniProfileData;
 
 export interface ManagedUserSummary {
   id: string;

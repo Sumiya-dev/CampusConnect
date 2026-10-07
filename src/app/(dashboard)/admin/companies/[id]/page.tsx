@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { PageContainer } from '@/components/layout/page-container';
 import { CompanyDetailsView } from '@/components/companies/company-details-view';
-import { getCompanyById } from '@/lib/companies/queries';
+import { getCompanyById, getCompanyDrives } from '@/lib/companies/queries';
 import { getCurrentUser } from '@/lib/auth/user';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +19,10 @@ export default async function AdminCompanyDetailsPage({ params }: PageProps) {
   }
 
   const { id } = await params;
-  const company = await getCompanyById(id);
+  const [company, drives] = await Promise.all([
+    getCompanyById(id),
+    getCompanyDrives(id),
+  ]);
 
   if (!company) {
     notFound();
@@ -38,6 +41,7 @@ export default async function AdminCompanyDetailsPage({ params }: PageProps) {
     >
       <CompanyDetailsView
         company={company}
+        drives={drives}
         basePath="/admin/companies"
         roleTitle="Administrator"
       />

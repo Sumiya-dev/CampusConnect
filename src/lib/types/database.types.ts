@@ -1,8 +1,8 @@
-export type UserRole = 'student' | 'faculty' | 'placement_officer' | 'administrator';
+export type UserRole = 'student' | 'faculty' | 'placement_officer' | 'administrator' | 'alumni';
 export type AccountStatus = 'active' | 'inactive' | 'pending' | 'suspended';
 export type PlacementStatus = 'unplaced' | 'placed' | 'opted_out' | 'in_process';
 export type CompanyStatus = 'active' | 'inactive';
-export type DriveStatus = 'open' | 'in_progress' | 'completed' | 'cancelled';
+export type DriveStatus = 'open' | 'in_progress' | 'completed' | 'cancelled' | 'archived';
 export type ApplicationStatus =
   | 'applied'
   | 'shortlisted'
@@ -57,6 +57,8 @@ export interface PlacementDrive {
   min_cgpa: number;
   eligible_departments: string[];
   eligible_years: number[];
+  eligible_programs?: string[];
+  graduation_year?: number | null;
   max_backlogs: number;
   required_skills: string[];
   recruitment_stages: string[];
@@ -69,6 +71,7 @@ export interface PlacementDrive {
   vacancies: string | null;
   bond_period: string | null;
   status: DriveStatus;
+  is_published?: boolean;
   created_by: string | null;
   created_at: string;
   updated_at: string;
@@ -86,6 +89,23 @@ export interface Application {
   notes: string | null;
   applied_at: string;
   updated_at: string;
+  drive?: PlacementDrive;
+  student?: Student;
+}
+
+export interface ApplicationStatusHistory {
+  id: string;
+  application_id: string;
+  student_id: string;
+  drive_id: string;
+  from_status: ApplicationStatus | null;
+  to_status: ApplicationStatus;
+  notes: string | null;
+  interview_date: string | null;
+  interview_venue: string | null;
+  changed_by: string | null;
+  changed_by_email: string | null;
+  created_at: string;
   drive?: PlacementDrive;
   student?: Student;
 }
@@ -172,7 +192,7 @@ export type Database = {
       };
       faculty_members: {
         Row: FacultyMember;
-        Insert: Omit<FacultyMember, 'id' | 'created_at' | 'updated_at'>;
+        Insert: Omit<FacultyMember, 'id' | 'created_at' | 'updated_at' | 'profile'>;
         Update: Partial<Omit<FacultyMember, 'id' | 'user_id'>>;
         Relationships: [];
       };
@@ -295,6 +315,513 @@ export type Database = {
           id: string;
           post_id: string;
           user_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      alumni_profiles: {
+        Row: import('./alumni.types').AlumniProfile;
+        Insert: Omit<import('./alumni.types').AlumniProfile, 'id' | 'created_at' | 'updated_at' | 'user'>;
+        Update: Partial<Omit<import('./alumni.types').AlumniProfile, 'id' | 'user_id' | 'user'>>;
+        Relationships: [];
+      };
+      alumni_experiences: {
+        Row: import('./alumni.types').AlumniExperience;
+        Insert: Omit<import('./alumni.types').AlumniExperience, 'id' | 'created_at' | 'updated_at' | 'alumni'>;
+        Update: Partial<Omit<import('./alumni.types').AlumniExperience, 'id' | 'alumni_id' | 'alumni'>>;
+        Relationships: [];
+      };
+      alumni_community_posts: {
+        Row: {
+          id: string;
+          author_id: string;
+          category: 'Placements' | 'Careers' | 'Interviews' | 'Technical' | 'General';
+          title: string;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          author_id: string;
+          category: 'Placements' | 'Careers' | 'Interviews' | 'Technical' | 'General';
+          title: string;
+          content: string;
+          is_deleted?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          author_id: string;
+          category: 'Placements' | 'Careers' | 'Interviews' | 'Technical' | 'General';
+          title: string;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      alumni_community_comments: {
+        Row: {
+          id: string;
+          post_id: string;
+          author_id: string;
+          parent_comment_id: string | null;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          author_id: string;
+          parent_comment_id?: string | null;
+          content: string;
+          is_deleted?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          post_id: string;
+          author_id: string;
+          parent_comment_id: string | null;
+          content: string;
+          is_deleted: boolean;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      alumni_community_likes: {
+        Row: {
+          id: string;
+          post_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          post_id: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          post_id: string;
+          user_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      guidance_requests: {
+        Row: {
+          id: string;
+          student_id: string;
+          alumni_id: string;
+          message: string;
+          status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'COMPLETED';
+          response_note: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          alumni_id: string;
+          message: string;
+          status?: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'COMPLETED';
+          response_note?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          student_id: string;
+          alumni_id: string;
+          message: string;
+          status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'COMPLETED';
+          response_note: string | null;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      faculty_resources: {
+        Row: {
+          id: string;
+          faculty_id: string;
+          title: string;
+          description: string | null;
+          subject: string;
+          target_type: 'all' | 'section' | 'training_group';
+          section_id: string | null;
+          training_group_id: string | null;
+          file_path: string;
+          file_name: string;
+          file_size: number;
+          file_type: string;
+          is_published: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          faculty_id: string;
+          title: string;
+          description?: string | null;
+          subject: string;
+          target_type?: 'all' | 'section' | 'training_group';
+          section_id?: string | null;
+          training_group_id?: string | null;
+          file_path: string;
+          file_name: string;
+          file_size?: number;
+          file_type: string;
+          is_published?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          faculty_id: string;
+          title: string;
+          description: string | null;
+          subject: string;
+          target_type: 'all' | 'section' | 'training_group';
+          section_id: string | null;
+          training_group_id: string | null;
+          file_path: string;
+          file_name: string;
+          file_size: number;
+          file_type: string;
+          is_published: boolean;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      academic_sections: {
+        Row: {
+          id: string;
+          program_id: string;
+          academic_year: string;
+          year: number;
+          semester: number | null;
+          section_name: string;
+          status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          program_id: string;
+          academic_year: string;
+          year: number;
+          semester?: number | null;
+          section_name: string;
+          status?: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          program_id: string;
+          academic_year: string;
+          year: number;
+          semester: number | null;
+          section_name: string;
+          status: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      training_groups: {
+        Row: {
+          id: string;
+          name: string;
+          description: string | null;
+          status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          description?: string | null;
+          status?: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          name: string;
+          description: string | null;
+          status: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      faculty_class_assignments: {
+        Row: {
+          id: string;
+          faculty_id: string;
+          section_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          faculty_id: string;
+          section_id: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          faculty_id: string;
+          section_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      faculty_training_assignments: {
+        Row: {
+          id: string;
+          faculty_id: string;
+          training_group_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          faculty_id: string;
+          training_group_id: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          faculty_id: string;
+          training_group_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      student_academic_enrollments: {
+        Row: {
+          id: string;
+          student_id: string;
+          section_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          section_id: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          student_id: string;
+          section_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      student_training_enrollments: {
+        Row: {
+          id: string;
+          student_id: string;
+          training_group_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          student_id: string;
+          training_group_id: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          student_id: string;
+          training_group_id: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      notifications: {
+        Row: {
+          id: string;
+          title: string;
+          message: string;
+          type: 'Placement' | 'Drive' | 'Deadline' | 'Interview' | 'Announcement' | 'System' | 'General';
+          target_roles: string[];
+          target_department: string | null;
+          target_year: number | null;
+          target_section_id: string | null;
+          scheduled_at: string | null;
+          sent_at: string | null;
+          status: 'draft' | 'scheduled' | 'sent' | 'cancelled';
+          created_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          message: string;
+          type: 'Placement' | 'Drive' | 'Deadline' | 'Interview' | 'Announcement' | 'System' | 'General';
+          target_roles?: string[];
+          target_department?: string | null;
+          target_year?: number | null;
+          target_section_id?: string | null;
+          scheduled_at?: string | null;
+          sent_at?: string | null;
+          status?: 'draft' | 'scheduled' | 'sent' | 'cancelled';
+          created_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          title: string;
+          message: string;
+          type: 'Placement' | 'Drive' | 'Deadline' | 'Interview' | 'Announcement' | 'System' | 'General';
+          target_roles: string[];
+          target_department: string | null;
+          target_year: number | null;
+          target_section_id: string | null;
+          scheduled_at: string | null;
+          sent_at: string | null;
+          status: 'draft' | 'scheduled' | 'sent' | 'cancelled';
+          created_by: string | null;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      user_notifications: {
+        Row: {
+          id: string;
+          notification_id: string;
+          user_id: string;
+          is_read: boolean;
+          read_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          notification_id: string;
+          user_id: string;
+          is_read?: boolean;
+          read_at?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          notification_id: string;
+          user_id: string;
+          is_read: boolean;
+          read_at: string | null;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      help_articles: {
+        Row: {
+          id: string;
+          title: string;
+          category: 'FAQs' | 'Placement Guidelines' | 'Platform Guide' | 'Interview Preparation' | 'Placement Policies' | 'General';
+          content: string;
+          status: 'draft' | 'published';
+          created_by: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          category: 'FAQs' | 'Placement Guidelines' | 'Platform Guide' | 'Interview Preparation' | 'Placement Policies' | 'General';
+          content: string;
+          status?: 'draft' | 'published';
+          created_by?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          title: string;
+          category: 'FAQs' | 'Placement Guidelines' | 'Platform Guide' | 'Interview Preparation' | 'Placement Policies' | 'General';
+          content: string;
+          status: 'draft' | 'published';
+          created_by: string | null;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      system_settings: {
+        Row: {
+          category: 'general' | 'placement' | 'notifications' | 'system_controls';
+          values: Record<string, any>;
+          updated_by: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          category: 'general' | 'placement' | 'notifications' | 'system_controls';
+          values: Record<string, any>;
+          updated_by?: string | null;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          category: 'general' | 'placement' | 'notifications' | 'system_controls';
+          values: Record<string, any>;
+          updated_by: string | null;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      ai_conversations: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          title?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          user_id: string;
+          title: string;
+          created_at: string;
+          updated_at: string;
+        }>;
+        Relationships: [];
+      };
+      ai_messages: {
+        Row: {
+          id: string;
+          conversation_id: string;
+          role: 'user' | 'assistant';
+          content: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          conversation_id: string;
+          role: 'user' | 'assistant';
+          content: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          conversation_id: string;
+          role: 'user' | 'assistant';
+          content: string;
           created_at: string;
         }>;
         Relationships: [];

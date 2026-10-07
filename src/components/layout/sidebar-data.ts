@@ -17,6 +17,8 @@ import {
   ShieldAlert,
   Settings,
   ShieldCheck,
+  UserCheck,
+  Sparkles,
 } from 'lucide-react';
 import { UserRole } from '@/lib/types/database.types';
 
@@ -43,8 +45,10 @@ export const NAVIGATION_BY_ROLE: Record<UserRole, NavGroup[]> = {
     {
       groupTitle: 'Career & Drives',
       items: [
+        { title: 'CampusConnect AI', href: '/student/ai', icon: Sparkles },
+        { title: 'Resources', href: '/student/resources', icon: BookOpen },
         { title: 'Placements', href: '/student/placements', icon: Briefcase },
-        { title: 'Preparation', href: '/student/preparation', icon: BookOpen },
+        { title: 'Preparation', href: '/student/preparation', icon: Layers },
         { title: 'Resume', href: '/student/resume', icon: FileText },
       ],
     },
@@ -137,16 +141,44 @@ export const NAVIGATION_BY_ROLE: Record<UserRole, NavGroup[]> = {
       groupTitle: 'Directory & Ops',
       items: [
         { title: 'Users', href: '/admin/users', icon: Users },
+        { title: 'Faculty & Allocations', href: '/admin/faculty', icon: GraduationCap },
+        { title: 'Academic Structure', href: '/admin/departments', icon: Layers },
         { title: 'Companies', href: '/admin/companies', icon: Building },
         { title: 'Placements', href: '/admin/placements', icon: Briefcase },
+        { title: 'Student Placements', href: '/admin/placements/students', icon: UserCheck },
+        { title: 'Reports & Analytics', href: '/admin/reports', icon: BarChart3 },
       ],
     },
     {
       groupTitle: 'Governance',
       items: [
+        { title: 'Notifications', href: '/admin/notifications', icon: Bell },
         { title: 'Community Moderation', href: '/admin/moderation', icon: MessageSquare },
         { title: 'Help Center', href: '/admin/help', icon: HelpCircle },
         { title: 'System Settings', href: '/admin/settings', icon: Settings },
+        { title: 'Profile', href: '/superadmin/profile', icon: User },
+      ],
+    },
+  ],
+
+  alumni: [
+    {
+      items: [
+        { title: 'Home', href: '/student/alumni', icon: Home, exact: true },
+      ],
+    },
+    {
+      groupTitle: 'Alumni Network',
+      items: [
+        { title: 'Directory', href: '/student/alumni', icon: GraduationCap },
+        { title: 'Community', href: '/student/alumni/community', icon: MessageSquare },
+        { title: 'Experiences', href: '/student/alumni/experiences', icon: BookOpen },
+        { title: 'Guidance', href: '/student/alumni/guidance', icon: Users },
+      ],
+    },
+    {
+      groupTitle: 'Account',
+      items: [
         { title: 'Profile', href: '/profile', icon: User },
       ],
     },

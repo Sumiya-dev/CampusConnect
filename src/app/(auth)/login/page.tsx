@@ -1,11 +1,10 @@
 'use client';
 
-import { Suspense, useActionState, useState, useTransition } from 'react';
+import { Suspense, useActionState, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { GraduationCap, LogIn, Lock, Mail } from 'lucide-react';
-import { signInAction, switchDemoRoleAction } from '@/lib/auth/actions';
-import { UserRole } from '@/lib/types/database.types';
+import { GraduationCap, LogIn, Lock, Mail, KeyRound, ArrowLeft } from 'lucide-react';
+import { signInAction, forgotPasswordAction } from '@/lib/auth/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,150 +13,164 @@ import { Alert } from '@/components/ui/alert';
 function LoginFormContent() {
   const searchParams = useSearchParams();
   const redirectPath = searchParams.get('redirect');
+  const unauthorized = searchParams.get('unauthorized');
 
-  const [state, formAction, isPending] = useActionState(signInAction, {
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
+
+  // Sign In Form Action
+  const [signInState, signInFormAction, isSignInPending] = useActionState(signInAction, {
     success: false,
     error: undefined,
   });
 
-  const [selectedRole, setSelectedRole] = useState<UserRole>('student');
-  const [isRoleSwitching, startRoleSwitch] = useTransition();
-
-  const handleRoleQuickSwitch = (role: UserRole) => {
-    startRoleSwitch(async () => {
-      await switchDemoRoleAction(role);
-    });
-  };
-
-  const roles: Array<{ id: UserRole; label: string }> = [
-    { id: 'student', label: 'Student' },
-    { id: 'faculty', label: 'Faculty' },
-    { id: 'placement_officer', label: 'Placement' },
-    { id: 'administrator', label: 'Admin' },
-  ];
+  // Forgot Password Form Action
+  const [resetState, resetFormAction, isResetPending] = useActionState(forgotPasswordAction, {
+    success: false,
+    error: undefined,
+  });
 
   return (
     <div className="w-full max-w-sm border border-[#222222] bg-[#0A0A0A] rounded-md p-6 space-y-5">
       <div className="space-y-1">
         <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
-          Institutional Sign In
+          {isForgotPassword ? 'Reset Password' : 'Institutional Sign In'}
         </h2>
         <p className="text-sm text-[#9AA1AA]">
-          {redirectPath
-            ? 'Authentication required to access requested resource.'
-            : 'Enter institutional credentials to access your portal.'}
+          {isForgotPassword
+            ? 'Enter your institutional email to receive a secure password reset link.'
+            : redirectPath
+            ? 'Authentication required to access requested portal resource.'
+            : 'Enter credentials to access your designated institutional portal.'}
         </p>
       </div>
 
-      {state?.error && (
-        <Alert variant="destructive" title="Authentication Error">
-          {state.error}
+      {unauthorized && (
+        <Alert variant="destructive" title="Access Intercepted">
+          Your account role is not authorized to access that portal. Please sign in with appropriate credentials.
         </Alert>
       )}
 
-      <form action={formAction} className="space-y-4">
-        {/* Role Segmented Selector */}
-        <div className="space-y-1.5">
-          <Label htmlFor="role">Select Active Role</Label>
-          <div className="grid grid-cols-4 gap-1 p-1 bg-[#000000] border border-[#222222] rounded-md">
-            {roles.map((r) => (
-              <button
-                key={r.id}
-                type="button"
-                onClick={() => setSelectedRole(r.id)}
-                className={`py-1 text-sm font-medium rounded transition-colors ${
-                  selectedRole === r.id
-                    ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30'
-                    : 'text-[#9AA1AA] hover:text-[#EDEDED]'
-                }`}
-              >
-                {r.label}
-              </button>
-            ))}
-          </div>
-          <input type="hidden" name="role" value={selectedRole} />
-        </div>
+      {/* Normal Sign In View */}
+      {!isForgotPassword ? (
+        <>
+          {signInState?.error && (
+            <Alert variant="destructive" title="Authentication Failed">
+              {signInState.error}
+            </Alert>
+          )}
 
-        {/* Email */}
-        <div className="space-y-1.5">
-          <Label htmlFor="email">Institutional Email</Label>
-          <div className="relative">
-            <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              placeholder={`${selectedRole}@university.edu`}
-              defaultValue={`${selectedRole}@university.edu`}
-              className="pl-8 text-sm"
-            />
-          </div>
-        </div>
+          <form action={signInFormAction} className="space-y-4">
+            {/* Email */}
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Institutional Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  placeholder="name@university.edu"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
 
-        {/* Password */}
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="password">Password</Label>
-            <span className="text-sm text-[#9AA1AA]">Default: ••••••••</span>
-          </div>
-          <div className="relative">
-            <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              defaultValue="password123"
-              className="pl-8 text-sm"
-            />
-          </div>
-        </div>
+            {/* Password */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Password</Label>
+                <button
+                  type="button"
+                  onClick={() => setIsForgotPassword(true)}
+                  className="text-xs text-[#FF6B00] hover:underline"
+                >
+                  Forgot password?
+                </button>
+              </div>
+              <div className="relative">
+                <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  placeholder="••••••••"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
 
-        <Button
-          type="submit"
-          className="w-full text-sm font-semibold gap-2"
-          isLoading={isPending}
-        >
-          <LogIn className="h-3.5 w-3.5" />
-          <span>Sign In as {roles.find((r) => r.id === selectedRole)?.label}</span>
-        </Button>
-      </form>
-
-      {/* 1-Click Role Switcher for Phase 1 Demo */}
-      <div className="pt-3 border-t border-[#222222] space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider">
-            Quick Role Switcher
-          </span>
-          <span className="text-sm text-[#9AA1AA]">Phase 1 Evaluation</span>
-        </div>
-        <div className="grid grid-cols-2 gap-1.5">
-          {roles.map((r) => (
             <Button
-              key={r.id}
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => handleRoleQuickSwitch(r.id)}
-              disabled={isRoleSwitching}
-              className="text-sm justify-start px-2.5 py-1.5 h-9 font-normal"
+              type="submit"
+              className="w-full text-sm font-semibold gap-2 mt-2"
+              isLoading={isSignInPending}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00] mr-1.5" />
-              <span>As {r.label}</span>
+              <LogIn className="h-3.5 w-3.5" />
+              <span>Sign In</span>
             </Button>
-          ))}
-        </div>
-      </div>
+          </form>
 
-      <div className="pt-2 text-center text-sm text-[#9AA1AA] border-t border-[#222222]">
-        Need a new profile?{' '}
-        <Link href="/signup" className="text-[#FF6B00] hover:underline">
-          Register account
-        </Link>
-      </div>
+          <div className="pt-2 text-center text-sm text-[#9AA1AA] border-t border-[#222222]">
+            Need a student or faculty account?{' '}
+            <Link href="/signup" className="text-[#FF6B00] hover:underline font-medium">
+              Sign Up
+            </Link>
+          </div>
+        </>
+      ) : (
+        /* Forgot Password View */
+        <>
+          {resetState?.error && (
+            <Alert
+              variant={resetState.success ? 'success' : 'destructive'}
+              title={resetState.success ? 'Reset Link Dispatched' : 'Request Error'}
+            >
+              {resetState.error}
+            </Alert>
+          )}
+
+          <form action={resetFormAction} className="space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="reset-email">Institutional Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="reset-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  placeholder="name@university.edu"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full text-sm font-semibold gap-2 mt-2"
+              isLoading={isResetPending}
+            >
+              <KeyRound className="h-3.5 w-3.5" />
+              <span>Send Reset Link</span>
+            </Button>
+          </form>
+
+          <div className="pt-2 text-center text-sm text-[#9AA1AA] border-t border-[#222222]">
+            <button
+              type="button"
+              onClick={() => setIsForgotPassword(false)}
+              className="inline-flex items-center gap-1.5 text-xs text-[#EDEDED] hover:text-[#FF6B00] transition-colors"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Sign In</span>
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -181,7 +194,7 @@ export default function LoginPage() {
       <Suspense
         fallback={
           <div className="w-full max-w-sm border border-[#222222] bg-[#0A0A0A] rounded-md p-6 text-center text-sm text-[#9AA1AA]">
-            Loading authentication portal...
+            Loading institutional portal...
           </div>
         }
       >

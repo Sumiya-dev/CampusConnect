@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/lib/auth/user';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { UnauthorizedBanner } from '@/components/auth/unauthorized-banner';
-import { ShieldAlert, Database, Users, KeyRound, CheckCircle2, ArrowRight } from 'lucide-react';
+import { ShieldAlert, Database, Users, KeyRound, CheckCircle2, ArrowRight, GraduationCap, Briefcase, UserCheck, Bell, HelpCircle, BarChart3, Settings, Building, MessageSquare } from 'lucide-react';
 
 export default async function AdminDashboardPage() {
   const user = await getCurrentUser();
@@ -71,7 +71,67 @@ export default async function AdminDashboardPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <Link href="/admin/companies">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <Building className="h-3.5 w-3.5" />
+              <span>Companies</span>
+            </Button>
+          </Link>
+          <Link href="/admin/placements">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <Briefcase className="h-3.5 w-3.5" />
+              <span>Placement Drives</span>
+            </Button>
+          </Link>
+          <Link href="/admin/placements/students">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <UserCheck className="h-3.5 w-3.5" />
+              <span>Student Placements</span>
+            </Button>
+          </Link>
+          <Link href="/admin/faculty">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <GraduationCap className="h-3.5 w-3.5" />
+              <span>Faculty & Allocations</span>
+            </Button>
+          </Link>
+          <Link href="/admin/departments">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <Database className="h-3.5 w-3.5" />
+              <span>Academic Structure</span>
+            </Button>
+          </Link>
+          <Link href="/admin/notifications">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <Bell className="h-3.5 w-3.5" />
+              <span>Notifications</span>
+            </Button>
+          </Link>
+          <Link href="/admin/moderation">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <MessageSquare className="h-3.5 w-3.5" />
+              <span>Moderation</span>
+            </Button>
+          </Link>
+          <Link href="/admin/help">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <HelpCircle className="h-3.5 w-3.5" />
+              <span>Help Center</span>
+            </Button>
+          </Link>
+          <Link href="/admin/reports">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <BarChart3 className="h-3.5 w-3.5" />
+              <span>Reports & Analytics</span>
+            </Button>
+          </Link>
+          <Link href="/admin/settings">
+            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
+              <Settings className="h-3.5 w-3.5" />
+              <span>System Settings</span>
+            </Button>
+          </Link>
           <Link href="/admin/users">
             <Button size="sm" className="text-sm gap-1.5">
               <Users className="h-3.5 w-3.5" />

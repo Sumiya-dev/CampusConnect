@@ -1,39 +1,59 @@
-import Link from 'next/link';
-import { Briefcase, ArrowLeft } from 'lucide-react';
+import { Suspense } from 'react';
+import { redirect } from 'next/navigation';
+import { getCurrentUser } from '@/lib/auth/user';
+import { UnauthorizedBanner } from '@/components/auth/unauthorized-banner';
+import { getFacultyPlacementsOverview } from '@/lib/faculty/placement-queries';
+import { FacultyPlacementsListClient } from '@/components/faculty/faculty-placements-list-client';
 
-export default function FacultyPlacementsPlaceholder() {
+export const dynamic = 'force-dynamic';
+
+export default async function FacultyPlacementsPage() {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/login');
+  }
+
+  if (user.role !== 'faculty' && user.role !== 'administrator') {
+    redirect('/login?unauthorized=true');
+  }
+
+  const data = await getFacultyPlacementsOverview(user.id);
+
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6 max-w-6xl">
+      <Suspense fallback={null}>
+        <UnauthorizedBanner />
+      </Suspense>
+
+      {/* Header */}
       <div className="border-b border-[#222222] pb-5">
         <div className="flex items-center gap-2">
-          <span className="text-xs uppercase font-mono tracking-wider text-[#FF6B00]">Placements</span>
+          <span className="text-xs uppercase font-mono tracking-wider text-[#FF6B00]">
+            Placement Oversight
+          </span>
+          <span className="text-[#333333]">/</span>
+          <span className="text-xs font-mono text-[#9AA1AA]">
+            {data.faculty_department}
+          </span>
         </div>
         <h1 className="text-2xl font-semibold text-[#EDEDED] tracking-tight mt-1">
-          Placements
+          Placement Coordination
         </h1>
         <p className="text-sm text-[#9AA1AA] mt-1">
-          Departmental recruitment drives, student eligibility tracking, and placement statistics.
+          Monitor recruitment drives, verify applicant eligibility, and track candidate progress for your authorized student cohorts.
         </p>
       </div>
 
-      <div className="border border-[#222222] bg-[#0A0A0A] rounded-md p-8 text-center space-y-3">
-        <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-[#FF6B00] mb-2">
-          <Briefcase className="h-6 w-6" />
-        </div>
-        <h2 className="text-base font-medium text-[#EDEDED]">Faculty Placements Module Coming Soon</h2>
-        <p className="text-xs text-[#9AA1AA] max-w-md mx-auto">
-          Advisory view for monitoring student drive participation, shortlists, and placement conversion rates will be enabled in this section.
-        </p>
-        <div className="pt-2">
-          <Link
-            href="/faculty/classes"
-            className="inline-flex items-center gap-1.5 text-xs text-[#FF6B00] hover:underline"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Go to Classes & Groups
-          </Link>
-        </div>
-      </div>
+      <FacultyPlacementsListClient
+        initialDrives={data.drives}
+        allocatedDepartments={data.allocated_departments}
+        allocatedYears={data.allocated_years}
+        allocatedSections={data.allocated_sections}
+        facultyDepartment={data.faculty_department}
+        totalAuthorizedStudents={data.total_authorized_students}
+        totalPlacedAuthorizedStudents={data.total_placed_authorized_students}
+      />
     </div>
   );
 }

@@ -12,12 +12,11 @@ export interface AuthActionResult {
 }
 
 /**
- * Signs in a user using Supabase or local demo session fallback
+ * Signs in a user using Supabase Auth, securely verifying the actual user role from the database.
  */
 export async function signInAction(prevState: unknown, formData: FormData): Promise<AuthActionResult> {
-  const email = formData.get('email') as string;
+  const email = (formData.get('email') as string)?.trim().toLowerCase();
   const password = formData.get('password') as string;
-  const selectedRole = (formData.get('role') as UserRole) || 'student';
 
   if (!email || !password) {
     return { success: false, error: 'Email and password are required.' };
@@ -25,16 +24,29 @@ export async function signInAction(prevState: unknown, formData: FormData): Prom
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const isPlaceholderSupabase = !supabaseUrl || supabaseUrl.includes('placeholder');
-
   const cookieStore = await cookies();
 
   if (isPlaceholderSupabase) {
-    // Graceful demo mode: simulate authentication and store demo session cookie
+    // Demo fallback: infer role from email or previously stored demo cookie
+    let detectedRole: UserRole = 'student';
+    if (email.includes('faculty') || email.includes('prof')) {
+      detectedRole = 'faculty';
+    } else if (email.includes('placement') || email.includes('tpo')) {
+      detectedRole = 'placement_officer';
+    } else if (email.includes('admin') || email.includes('superadmin')) {
+      detectedRole = 'administrator';
+    } else {
+      const existingDemoRole = cookieStore.get('campusconnect_demo_role')?.value as UserRole | undefined;
+      if (existingDemoRole) {
+        detectedRole = existingDemoRole;
+      }
+    }
+
     cookieStore.set('campusconnect_demo_user', email, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
-    cookieStore.set('campusconnect_demo_role', selectedRole, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
+    cookieStore.set('campusconnect_demo_role', detectedRole, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
     cookieStore.set('campusconnect_demo_name', email.split('@')[0], { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
 
-    redirect(ROLE_HOME_ROUTES[selectedRole] || '/student');
+    redirect(ROLE_HOME_ROUTES[detectedRole] || '/student');
   }
 
   // Live Supabase Auth
@@ -53,7 +65,7 @@ export async function signInAction(prevState: unknown, formData: FormData): Prom
       return { success: false, error: 'Authentication failed. Please try again.' };
     }
 
-    // Fetch user profile to identify role
+    // Server-side role verification from profiles table
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
@@ -64,7 +76,13 @@ export async function signInAction(prevState: unknown, formData: FormData): Prom
     const role = userProfile?.role || (data.user.user_metadata?.role as UserRole) || 'student';
     redirect(ROLE_HOME_ROUTES[role] || '/student');
   } catch (err: unknown) {
-    if (err && typeof err === 'object' && 'digest' in err && typeof (err as { digest?: unknown }).digest === 'string' && (err as { digest?: string }).digest?.startsWith('NEXT_REDIRECT')) {
+    if (
+      err &&
+      typeof err === 'object' &&
+      'digest' in err &&
+      typeof (err as { digest?: unknown }).digest === 'string' &&
+      (err as { digest?: string }).digest?.startsWith('NEXT_REDIRECT')
+    ) {
       throw err;
     }
     return { success: false, error: (err as Error).message || 'An unexpected error occurred.' };
@@ -72,36 +90,87 @@ export async function signInAction(prevState: unknown, formData: FormData): Prom
 }
 
 /**
- * Signs up a new user with metadata and provisions role in Supabase
+ * Signs up a new user (Student or Faculty) with complete metadata and provisions their profile in Supabase.
+ * Rejects public registration for privileged roles (Placement Officer, Administrator).
  */
 export async function signUpAction(prevState: unknown, formData: FormData): Promise<AuthActionResult> {
   const rawEmail = (formData.get('email') as string)?.trim().toLowerCase();
   const password = formData.get('password') as string;
+  const confirmPassword = formData.get('confirmPassword') as string;
   const rawName = (formData.get('name') as string)?.trim();
-  const rawRole = ((formData.get('role') as string) || 'student').trim().toLowerCase() as UserRole;
-  const role: UserRole = ['student', 'faculty', 'placement_officer', 'administrator'].includes(rawRole)
-    ? rawRole
-    : 'student';
-  const department = ((formData.get('department') as string) || 'Computer Science & Engineering').trim();
-  const contactNumber = ((formData.get('contactNumber') as string) || '').trim();
-  const rawIdentifier = ((formData.get('identifier') as string) || '').trim();
-  const identifier = rawIdentifier || `${role === 'student' ? 'STU' : role === 'faculty' ? 'FAC' : role === 'placement_officer' ? 'TPO' : 'ADM'}-${Date.now().toString().slice(-6)}`;
+  const rawRole = ((formData.get('role') as string) || 'student').trim().toLowerCase();
 
-  if (!rawEmail || !password || !rawName) {
-    return { success: false, error: 'Please provide all required fields.' };
+  // Strict server-side prevention of privilege escalation
+  if (
+    rawRole === 'placement_officer' ||
+    rawRole === 'administrator' ||
+    rawRole === 'admin' ||
+    rawRole === 'superadmin'
+  ) {
+    return {
+      success: false,
+      error: 'Privileged accounts (Placement Officer, Administrator) cannot be registered via public sign-up. Please contact your institution administrator.',
+    };
   }
 
-  const email = rawEmail;
-  const name = rawName;
+  if (rawRole !== 'student' && rawRole !== 'faculty') {
+    return { success: false, error: 'Invalid institutional role selected.' };
+  }
+
+  const role: UserRole = rawRole;
+
+  if (!rawName || rawName.length < 2) {
+    return { success: false, error: 'Full Name is required (minimum 2 characters).' };
+  }
+
+  if (!rawEmail || !rawEmail.includes('@')) {
+    return { success: false, error: 'A valid email address is required.' };
+  }
+
+  if (!password || password.length < 6) {
+    return { success: false, error: 'Password must be at least 6 characters long.' };
+  }
+
+  if (password !== confirmPassword) {
+    return { success: false, error: 'Passwords do not match. Please re-enter your password.' };
+  }
+
+  const department = ((formData.get('department') as string) || '').trim();
+  if (!department) {
+    return { success: false, error: 'Department selection is required.' };
+  }
+
+  const identifier = ((formData.get('identifier') as string) || '').trim();
+  if (!identifier) {
+    return {
+      success: false,
+      error: role === 'student' ? 'Student / Roll Number is required.' : 'Faculty ID is required.',
+    };
+  }
+
+  let academicYear = 1;
+  let section = '';
+  if (role === 'student') {
+    const rawYear = formData.get('academicYear') as string;
+    academicYear = parseInt(rawYear, 10);
+    if (isNaN(academicYear) || academicYear < 1 || academicYear > 4) {
+      return { success: false, error: 'Please select a valid academic year (1-4).' };
+    }
+
+    section = ((formData.get('section') as string) || '').trim().toUpperCase();
+    if (!section) {
+      return { success: false, error: 'Section is required for student registration.' };
+    }
+  }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const isPlaceholderSupabase = !supabaseUrl || supabaseUrl.includes('placeholder');
   const cookieStore = await cookies();
 
   if (isPlaceholderSupabase) {
-    cookieStore.set('campusconnect_demo_user', email, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
+    cookieStore.set('campusconnect_demo_user', rawEmail, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
     cookieStore.set('campusconnect_demo_role', role, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
-    cookieStore.set('campusconnect_demo_name', name, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
+    cookieStore.set('campusconnect_demo_name', rawName, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
     cookieStore.set('campusconnect_demo_dept', department, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
     cookieStore.set('campusconnect_demo_id', identifier, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
 
@@ -110,19 +179,24 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
 
   try {
     const supabase = await createClient();
+    const metadata: Record<string, unknown> = {
+      name: rawName,
+      role,
+      department,
+      identifier,
+    };
+
+    if (role === 'student') {
+      metadata.year = academicYear;
+      metadata.section = section;
+      metadata.skills = ['Core Fundamentals'];
+    }
+
     const { data, error } = await supabase.auth.signUp({
-      email,
+      email: rawEmail,
       password,
       options: {
-        data: {
-          name,
-          role,
-          department,
-          contact_number: contactNumber,
-          identifier,
-          year: 3,
-          skills: ['JavaScript', 'TypeScript'],
-        },
+        data: metadata,
       },
     });
 
@@ -142,13 +216,59 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
 
     return {
       success: true,
-      error: 'Account created! If email confirmation is enabled on your institutional portal, please check your inbox to activate your account.',
+      error: 'Account created successfully! If email confirmation is required, please check your inbox to activate your account, then sign in.',
     };
   } catch (err: unknown) {
-    if (err && typeof err === 'object' && 'digest' in err && typeof (err as { digest?: unknown }).digest === 'string' && (err as { digest?: string }).digest?.startsWith('NEXT_REDIRECT')) {
+    if (
+      err &&
+      typeof err === 'object' &&
+      'digest' in err &&
+      typeof (err as { digest?: unknown }).digest === 'string' &&
+      (err as { digest?: string }).digest?.startsWith('NEXT_REDIRECT')
+    ) {
       throw err;
     }
     return { success: false, error: (err as Error).message || 'Registration failed.' };
+  }
+}
+
+/**
+ * Sends a password reset email using Supabase Auth.
+ */
+export async function forgotPasswordAction(prevState: unknown, formData: FormData): Promise<AuthActionResult> {
+  const email = (formData.get('email') as string)?.trim().toLowerCase();
+
+  if (!email || !email.includes('@')) {
+    return { success: false, error: 'A valid email address is required.' };
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const isPlaceholderSupabase = !supabaseUrl || supabaseUrl.includes('placeholder');
+
+  if (isPlaceholderSupabase) {
+    return {
+      success: true,
+      error: 'Password reset link sent! If this email exists in our system, you will receive reset instructions shortly.',
+    };
+  }
+
+  try {
+    const supabase = await createClient();
+    const origin = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${origin}/auth/callback?next=/profile`,
+    });
+
+    if (error) {
+      return { success: false, error: error.message };
+    }
+
+    return {
+      success: true,
+      error: 'Password reset link sent! If this email exists in our system, you will receive reset instructions shortly.',
+    };
+  } catch (err: unknown) {
+    return { success: false, error: (err as Error).message || 'Failed to send password reset request.' };
   }
 }
 
@@ -188,6 +308,7 @@ export async function switchDemoRoleAction(role: UserRole) {
     faculty: 'Dr. Priya Raman (Faculty Advisor)',
     placement_officer: 'Mr. Vikram Verma (Placement Head)',
     administrator: 'Super Admin (System Admin)',
+    alumni: 'Rahul Kumar (Alumni)',
   };
 
   cookieStore.set('campusconnect_demo_role', role, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });

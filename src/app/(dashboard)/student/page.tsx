@@ -2,301 +2,336 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { getCurrentUser, getFullUserProfile } from '@/lib/auth/user';
 import { StudentProfileData } from '@/lib/types/profile.types';
-import { getPlacementDrives, getStudentApplications } from '@/lib/placements/queries';
-import { Badge } from '@/components/ui/badge';
+import {
+  getPlacementDrives,
+  getStudentApplications,
+  getStudentShortlists,
+} from '@/lib/placements/queries';
 import { Button } from '@/components/ui/button';
 import { UnauthorizedBanner } from '@/components/auth/unauthorized-banner';
-import {
-  Bell,
-  Calendar,
-  Clock,
-  ArrowRight,
-  Briefcase,
-  Pin,
-  CheckCircle2,
-  Megaphone,
-  Layers,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
+function formatShortDate(dateStr?: string | null): string {
+  if (!dateStr) return '';
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  } catch {
+    return '';
+  }
+}
+
 export default async function StudentHomePage() {
   const user = await getCurrentUser();
-  const [profile, drives, applications] = await Promise.all([
+  const [profile, drives, applications, shortlists] = await Promise.all([
     getFullUserProfile(),
     getPlacementDrives(),
     user ? getStudentApplications(user.id) : Promise.resolve([]),
+    user ? getStudentShortlists(user.id) : Promise.resolve([]),
   ]);
 
   const student = profile?.role === 'student' ? (profile as StudentProfileData) : null;
-  const recentDrives = drives.slice(0, 3);
 
-  const announcements = [
-    {
-      id: 'ann-01',
-      author: 'Placement Directorate',
-      role: 'Directorate Office',
-      title: 'Mandatory Pre-Placement Orientation & Resume Certification Window',
-      content:
-        'All candidates eligible for recruitment drives must verify their academic credentials and attend the orientation talk. Verified student ID cards are mandatory for entry.',
-      date: '2 hours ago',
-      pinned: true,
-      tag: 'Urgent Directive',
-    },
-    {
-      id: 'ann-02',
-      author: 'Dr. Priya Raman',
-      role: 'Faculty Advisor, CSE',
-      title: 'Department Endorsement & CGPA Audit Period',
-      content:
-        'Faculty reviews for departmental transcripts are underway. If you updated your CGPA or academic year recently in your profile, ensure your official grade card is uploaded for verification.',
-      date: 'Yesterday at 4:30 PM',
-      pinned: false,
-      tag: 'Departmental',
-    },
-  ];
+  // Student Identity Details
+  const studentName = profile?.name
+    ? profile.name.split(' ')[0]
+    : user?.name
+    ? user.name.split(' ')[0]
+    : 'Student';
+  const studentRoll = student?.studentId || user?.identifier || 'Roll No';
+  const studentDept = profile?.department || user?.department || 'Department';
+  const studentYear = student?.year ? `Year ${student.year}` : 'Year 3';
+
+  // 1. Upcoming Drives (Max 3)
+  const now = Date.now();
+  const openWithFutureDeadline = drives.filter(
+    (d) => d.status === 'open' && new Date(d.registration_deadline).getTime() >= now
+  );
+  const upcomingDrives = (
+    openWithFutureDeadline.length > 0
+      ? openWithFutureDeadline
+      : drives.filter((d) => d.status === 'open')
+  ).slice(0, 3);
+
+  // 2. Recent Activity Items (Max 4)
+  const recentActivities = applications.slice(0, 4).map((app) => {
+    const company = app.drive?.company?.company_name || 'Placement Drive';
+    let label = `Application submitted — ${company}`;
+
+    switch (app.status) {
+      case 'shortlisted':
+        label = `Shortlisted — ${company}`;
+        break;
+      case 'interview':
+        label = `Interview scheduled — ${company}`;
+        break;
+      case 'selected':
+        label = `Selected — ${company}`;
+        break;
+      case 'placed':
+        label = `Placed — ${company}`;
+        break;
+      case 'rejected':
+        label = `Application status updated — ${company}`;
+        break;
+      case 'withdrawn':
+        label = `Application withdrawn — ${company}`;
+        break;
+      case 'applied':
+      default:
+        label = `Application submitted — ${company}`;
+        break;
+    }
+
+    const date = formatShortDate(app.updated_at || app.applied_at);
+
+    return {
+      id: app.id,
+      label,
+      date,
+      href: `/student/placements/${app.drive_id}`,
+    };
+  });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 py-2">
       <Suspense fallback={null}>
         <UnauthorizedBanner />
       </Suspense>
 
-      {/* 1. Contextual Welcome Header */}
-      <div className="border-b border-[#222222] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <h1 className="text-xl font-semibold text-[#EDEDED] tracking-tight">
-              Welcome back, {profile?.name?.split(' ')[0] || 'Student'}
-            </h1>
-            <span className="inline-flex items-center text-sm font-medium text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/20 px-2 py-0.5 rounded">
-              Placement Cycle Active
-            </span>
-          </div>
-          <p className="text-sm text-[#9AA1AA] mt-1">
-            Roll No: <span className="font-mono text-[#EDEDED]">{student?.studentId || 'CS-2026-042'}</span> •{' '}
-            Department of {profile?.department} • Year {student?.year ?? 3}
+      {/* 1. Simple Welcome Header & Primary Action */}
+      <section className="space-y-4">
+        <div className="space-y-1">
+          <h1 className="text-xl font-semibold text-[#EDEDED] tracking-tight">
+            Welcome back, {studentName}
+          </h1>
+          <p className="text-sm text-[#888888]">
+            {studentRoll} · {studentDept} · {studentYear}
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div>
           <Link href="/student/placements">
-            <Button size="sm" className="text-sm gap-1.5 font-semibold">
-              <Briefcase className="h-3.5 w-3.5" />
-              <span>Explore Placements ({drives.length})</span>
-              <ArrowRight className="h-3 w-3" />
-            </Button>
-          </Link>
-          <Link href="/student/placements/applications">
-            <Button variant="outline" size="sm" className="text-sm gap-1.5 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]">
-              <Layers className="h-3.5 w-3.5" />
-              <span>My Applications ({applications.length})</span>
+            <Button className="bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold text-sm px-4 h-9 rounded-md inline-flex items-center gap-1.5 shadow-none border-0">
+              <span>View Placements</span>
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </Link>
         </div>
-      </div>
+      </section>
 
-      {/* 2. Compact Academic Standing Summary Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#222222] border border-[#222222] rounded-md overflow-hidden text-sm">
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
-            Academic CGPA
-          </span>
-          <div className="text-base font-semibold text-[#EDEDED] mt-0.5">
-            {student?.cgpa ? student.cgpa.toFixed(2) : '8.75'} <span className="text-sm text-[#9AA1AA] font-normal">/ 10.0</span>
-          </div>
-          <span className="text-sm text-emerald-400">Department Standing</span>
-        </div>
+      {/* Thin Divider */}
+      <div className="border-t border-[#1F1F1F]" />
 
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
-            Available Drives
-          </span>
-          <div className="text-base font-semibold text-[#EDEDED] mt-0.5">
-            {drives.length} Opportunities
-          </div>
-          <span className="text-sm text-[#9AA1AA]">Verified Recruitment</span>
-        </div>
-
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
-            Submitted Applications
-          </span>
-          <div className="text-base font-semibold text-[#EDEDED] mt-0.5">
-            {applications.length} Submissions
-          </div>
-          <span className="text-sm text-[#FF6B00]">Active In Pipeline</span>
-        </div>
-
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
-            Placement Status
-          </span>
-          <div className="text-base font-semibold text-[#EDEDED] mt-0.5">
-            {student?.placementStatus === 'placed' ? 'Placed' : 'In Process'}
-          </div>
-          <span className="text-sm text-[#9AA1AA]">Recruitment Pool</span>
-        </div>
-      </div>
-
-      {/* 3. Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        {/* Left 2 Cols: Bulletins & Recently Posted Placement Opportunities */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Recently Posted Placement Drives */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-2">
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-[#FF6B00]" />
-                <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
-                  Featured Recruitment Opportunities
-                </h2>
-              </div>
-              <Link href="/student/placements" className="text-sm text-[#9AA1AA] hover:text-[#EDEDED] transition-colors">
-                View All Drives ({drives.length}) →
-              </Link>
+      {/* 2-Column Balanced Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Left Column: Upcoming & My Applications */}
+        <div className="lg:col-span-7 space-y-8">
+          {/* Upcoming Section */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-wider font-semibold text-[#888888]">
+                Upcoming
+              </h2>
+              {upcomingDrives.length > 0 && (
+                <Link
+                  href="/student/placements"
+                  className="text-xs text-[#888888] hover:text-[#EDEDED] transition-colors"
+                >
+                  View all →
+                </Link>
+              )}
             </div>
 
-            {recentDrives.length === 0 ? (
-              <div className="p-6 rounded-md border border-[#222222] bg-[#0A0A0A] text-center space-y-2">
-                <Briefcase className="h-6 w-6 text-[#9AA1AA] mx-auto opacity-50" />
-                <p className="text-sm text-[#9AA1AA]">No active placement drives announced yet.</p>
-              </div>
+            {upcomingDrives.length === 0 ? (
+              <p className="text-sm text-[#666666] py-1">No upcoming drives or deadlines.</p>
             ) : (
-              <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#222222] overflow-hidden">
-                {recentDrives.map((drive) => (
+              <div className="divide-y divide-[#1A1A1A]">
+                {upcomingDrives.map((drive) => (
                   <div
                     key={drive.id}
-                    className="p-3.5 sm:p-4 flex items-center justify-between gap-4 hover:bg-[#121212]/50 transition-colors"
+                    className="py-3 flex items-center justify-between gap-4 text-sm"
                   >
-                    <div className="space-y-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm px-1.5 py-0.2 rounded border border-[#222222] bg-[#121212] text-[#EDEDED]">
-                          {drive.tier}
-                        </span>
-                        <span className="text-sm text-[#9AA1AA] truncate">
-                          Min CGPA: {Number(drive.min_cgpa).toFixed(2)}
-                        </span>
-                      </div>
-                      <h3 className="text-base font-semibold text-[#EDEDED] truncate">
+                    <div className="min-w-0">
+                      <p className="font-medium text-[#EDEDED] truncate">
                         {drive.company?.company_name} — {drive.job_role}
-                      </h3>
-                      <p className="text-sm text-[#FF6B00] font-medium">
-                        {drive.package_details}
+                      </p>
+                      <p className="text-xs text-[#888888] mt-0.5">
+                        Application closes · {formatShortDate(drive.registration_deadline)}
                       </p>
                     </div>
+                    <Link
+                      href={`/student/placements/${drive.id}`}
+                      className="text-xs text-[#FF6B00] hover:underline shrink-0 font-medium"
+                    >
+                      View →
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
 
-                    <div className="shrink-0">
-                      <Link href={`/student/placements/${drive.id}`}>
-                        <Button size="sm" variant="outline" className="text-sm border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]">
-                          <span>Check</span>
-                          <ArrowRight className="h-3 w-3 ml-1" />
-                        </Button>
+          {/* Thin Divider */}
+          <div className="border-t border-[#1F1F1F]" />
+
+          {/* My Applications Section */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-wider font-semibold text-[#888888]">
+                My Applications {applications.length > 0 && `(${applications.length})`}
+              </h2>
+              {applications.length > 0 && (
+                <Link
+                  href="/student/placements/applications"
+                  className="text-xs text-[#888888] hover:text-[#EDEDED] transition-colors"
+                >
+                  View all →
+                </Link>
+              )}
+            </div>
+
+            {applications.length === 0 ? (
+              <p className="text-sm text-[#666666] py-1">No applications submitted yet.</p>
+            ) : (
+              <div className="divide-y divide-[#1A1A1A]">
+                {applications.slice(0, 3).map((app) => (
+                  <div
+                    key={app.id}
+                    className="py-3 flex items-center justify-between gap-4 text-sm"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-medium text-[#EDEDED] truncate">
+                        {app.drive?.company?.company_name} — {app.drive?.job_role}
+                      </p>
+                      <p className="text-xs text-[#888888] mt-0.5">
+                        Applied · {formatShortDate(app.applied_at)}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="text-xs text-[#AAAAAA] capitalize font-mono">
+                        {app.status.replace('_', ' ')}
+                      </span>
+                      <Link
+                        href={`/student/placements/${app.drive_id}`}
+                        className="text-xs text-[#FF6B00] hover:underline font-medium"
+                      >
+                        View →
                       </Link>
                     </div>
                   </div>
                 ))}
               </div>
             )}
-          </div>
-
-          {/* Bulletins Section */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-2">
-              <div className="flex items-center gap-2">
-                <Megaphone className="h-4 w-4 text-[#FF6B00]" />
-                <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
-                  Directorate & Department Bulletins
-                </h2>
-              </div>
-              <Link href="/student/notifications" className="text-sm text-[#9AA1AA] hover:text-[#EDEDED] transition-colors">
-                View All Bulletins →
-              </Link>
-            </div>
-
-            <div className="space-y-3">
-              {announcements.map((item) => (
-                <article
-                  key={item.id}
-                  className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-2.5"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        {item.pinned && (
-                          <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#FF6B00] bg-[#FF6B00]/10 px-1.5 py-0.2 rounded border border-[#FF6B00]/20">
-                            <Pin className="h-2.5 w-2.5" />
-                            <span>Pinned</span>
-                          </span>
-                        )}
-                        <span className="text-sm text-[#9AA1AA] uppercase font-semibold tracking-wider">
-                          {item.tag}
-                        </span>
-                        <span className="text-[#222222]">•</span>
-                        <span className="text-sm text-[#9AA1AA]">{item.date}</span>
-                      </div>
-
-                      <h3 className="text-base font-semibold text-[#EDEDED] leading-snug">
-                        {item.title}
-                      </h3>
-                    </div>
-
-                    <div className="text-right shrink-0 hidden sm:block">
-                      <div className="text-sm font-medium text-[#EDEDED]">{item.author}</div>
-                      <div className="text-sm text-[#9AA1AA]">{item.role}</div>
-                    </div>
-                  </div>
-
-                  <p className="text-sm text-[#9AA1AA] leading-relaxed">
-                    {item.content}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
+          </section>
         </div>
 
-        {/* Right 1 Col: Application Pipeline & Activity Timeline */}
-        <div className="space-y-6">
-          {/* Recent Applications Tracker */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-2">
-              <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-[#FF6B00]" />
-                <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
-                  Application Updates
-                </h2>
-              </div>
-              <Link href="/student/placements/applications" className="text-sm text-[#9AA1AA] hover:text-[#EDEDED] transition-colors">
-                View All ({applications.length}) →
-              </Link>
+        {/* Right Column: Shortlistings, Recent Activity & Placement Cell */}
+        <div className="lg:col-span-5 space-y-8">
+          {/* Shortlistings Section */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-wider font-semibold text-[#888888]">
+                Shortlistings {shortlists.length > 0 && `(${shortlists.length})`}
+              </h2>
+              {shortlists.length > 0 && (
+                <Link
+                  href="/student/placements/shortlists"
+                  className="text-xs text-[#888888] hover:text-[#EDEDED] transition-colors"
+                >
+                  View all →
+                </Link>
+              )}
             </div>
 
-            {applications.length === 0 ? (
-              <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] text-center space-y-1.5">
-                <p className="text-sm text-[#EDEDED]">No applications submitted</p>
-                <p className="text-sm text-[#9AA1AA]">Review open drives and apply when eligible.</p>
-              </div>
+            {shortlists.length === 0 ? (
+              <p className="text-sm text-[#666666] py-1">No active shortlistings at this time.</p>
             ) : (
-              <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#222222]">
-                {applications.slice(0, 3).map((app) => (
-                  <div key={app.id} className="p-3 space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-semibold text-[#EDEDED] truncate">
-                        {app.drive?.company?.company_name}
-                      </span>
-                      <span className="text-[9px] font-semibold text-[#FF6B00] uppercase">
-                        {app.status}
-                      </span>
+              <div className="divide-y divide-[#1A1A1A]">
+                {shortlists.slice(0, 3).map((app) => (
+                  <div
+                    key={app.id}
+                    className="py-3 flex items-center justify-between gap-4 text-sm"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-medium text-[#EDEDED] truncate">
+                        {app.drive?.company?.company_name} — {app.drive?.job_role}
+                      </p>
+                      <p className="text-xs text-emerald-400 mt-0.5">
+                        {app.status === 'interview' && app.interview_date
+                          ? `Interview scheduled · ${formatShortDate(app.interview_date)}`
+                          : app.status === 'selected' || app.status === 'placed'
+                          ? `Offer extended · Final Selection`
+                          : `Shortlisted · Next stage pending`}
+                      </p>
                     </div>
-                    <p className="text-sm text-[#9AA1AA] truncate">
-                      {app.drive?.job_role}
-                    </p>
+                    <Link
+                      href={`/student/placements/${app.drive_id}`}
+                      className="text-xs text-[#FF6B00] hover:underline shrink-0 font-medium"
+                    >
+                      View →
+                    </Link>
                   </div>
                 ))}
               </div>
             )}
-          </div>
+          </section>
+
+          {/* Thin Divider */}
+          <div className="border-t border-[#1F1F1F]" />
+
+          {/* Recent Activity Section */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-wider font-semibold text-[#888888]">
+                Recent Activity
+              </h2>
+            </div>
+
+            {recentActivities.length === 0 ? (
+              <p className="text-sm text-[#666666] py-1">No recent activity.</p>
+            ) : (
+              <div className="divide-y divide-[#1A1A1A]">
+                {recentActivities.map((activity) => (
+                  <div
+                    key={activity.id}
+                    className="py-3 flex items-center justify-between gap-4 text-sm"
+                  >
+                    <p className="font-medium text-[#EDEDED] truncate">
+                      {activity.label}
+                    </p>
+                    <span className="text-xs text-[#888888] shrink-0">
+                      {activity.date}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Thin Divider */}
+          <div className="border-t border-[#1F1F1F]" />
+
+          {/* Support & Resources Section */}
+          <section className="space-y-2">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xs uppercase tracking-wider font-semibold text-[#888888]">
+                Placement Help & Cell
+              </h2>
+              <Link
+                href="/student/help"
+                className="text-xs text-[#888888] hover:text-[#EDEDED] transition-colors"
+              >
+                Help Center →
+              </Link>
+            </div>
+            <p className="text-xs text-[#777777] leading-relaxed">
+              Career & Placement Directorate · Admin Block, Floor 2
+            </p>
+          </section>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FileText, Download, Trash2, Eye, Calendar, RefreshCw, ExternalLink } from 'lucide-react';
+import { FileText, Download, Trash2, Eye, Calendar, RefreshCw, ExternalLink, Sparkles, Wand2 } from 'lucide-react';
 import { Resume } from '@/lib/types/resume.types';
 import { getResumeUrl, deleteResume } from '@/lib/resume/actions';
 
@@ -81,6 +81,16 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
     }
   };
 
+  const handleAskAI = () => {
+    // Placeholder handler for Ask AI
+    console.log('Ask AI clicked for resume:', resume.id);
+  };
+
+  const handleModifyWithAI = () => {
+    // Placeholder handler for Modify with AI
+    console.log('Modify with AI clicked for resume:', resume.id);
+  };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-US', {
@@ -134,6 +144,22 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
             >
               <Download className="w-4 h-4" />
               {isDownloading ? 'Downloading...' : 'Download'}
+            </button>
+            <button
+              type="button"
+              onClick={handleAskAI}
+              className="flex items-center gap-2 px-3 py-1.5 bg-[#121212] border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] hover:border-[#444444] transition-colors"
+            >
+              <Sparkles className="w-4 h-4 text-[#FF6B00]" />
+              Ask AI
+            </button>
+            <button
+              type="button"
+              onClick={handleModifyWithAI}
+              className="flex items-center gap-2 px-3 py-1.5 bg-[#121212] border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] hover:border-[#444444] transition-colors"
+            >
+              <Wand2 className="w-4 h-4 text-[#FF6B00]" />
+              Modify with AI
             </button>
             <button
               onClick={onReplace}

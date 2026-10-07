@@ -4,13 +4,16 @@ import { ROLE_LABELS } from '@/lib/types/auth.types';
 import { StudentProfileForm } from '@/components/profile/student-profile-form';
 import { FacultyProfileForm } from '@/components/profile/faculty-profile-form';
 import { PlacementProfileForm } from '@/components/profile/placement-profile-form';
-import { AdminProfileForm } from '@/components/profile/admin-profile-form';
 
 export default async function ProfilePage() {
   const profile = await getFullUserProfile();
 
   if (!profile) {
     redirect('/login');
+  }
+
+  if (profile.role === 'administrator') {
+    redirect('/superadmin/profile');
   }
 
   return (
@@ -29,7 +32,6 @@ export default async function ProfilePage() {
       {profile.role === 'student' && <StudentProfileForm initialData={profile} />}
       {profile.role === 'faculty' && <FacultyProfileForm initialData={profile} />}
       {profile.role === 'placement_officer' && <PlacementProfileForm initialData={profile} />}
-      {profile.role === 'administrator' && <AdminProfileForm initialData={profile} />}
     </div>
   );
 }

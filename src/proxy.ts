@@ -9,9 +9,10 @@ const ROLE_ROUTE_MAP: Record<string, UserRole> = {
   '/faculty': 'faculty',
   '/placement': 'placement_officer',
   '/admin': 'administrator',
+  '/superadmin': 'administrator',
 };
 
-const PROTECTED_PREFIXES = ['/student', '/faculty', '/placement', '/admin', '/profile'];
+const PROTECTED_PREFIXES = ['/student', '/faculty', '/placement', '/admin', '/superadmin', '/profile'];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -27,7 +28,10 @@ export async function proxy(request: NextRequest) {
   const activeRole: UserRole | null = (supabaseRole as UserRole) || demoRoleCookie || null;
 
   const isProtectedPath = PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix));
-  const isAuthPath = pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isAuthPath =
+    pathname.startsWith('/login') ||
+    pathname.startsWith('/signup') ||
+    pathname.startsWith('/forgot-password');
 
   // Case 1: Unauthenticated user trying to access a protected route
   if (isProtectedPath && !activeUser) {

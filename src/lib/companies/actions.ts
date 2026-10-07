@@ -5,10 +5,32 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '../supabase/server';
 import { getCurrentUser } from '../auth/user';
 import { Company, CompanyStatus } from '../types/database.types';
-import { CompanyActionState } from '../types/company.types';
+import { CompanyActionState, DeleteCompanyResult } from '../types/company.types';
 import { getCompanies, SEED_COMPANIES } from './queries';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+async function logAudit(
+  supabase: any,
+  user: { id: string; email: string },
+  action: string,
+  details: Record<string, unknown>
+) {
+  try {
+    await supabase.from('admin_audit_logs').insert({
+      actor_id: user.id,
+      actor_email: user.email,
+      action,
+      target_user_id: null,
+      target_user_email: null,
+      details,
+      status: 'success',
+      created_at: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error('Audit logging failed:', err);
+  }
+}
 
 function sanitizeUrl(urlStr: string): string {
   const trimmed = urlStr.trim();
@@ -115,6 +137,14 @@ export async function createCompanyAction(
       if (data?.id) {
         generatedId = data.id;
       }
+
+      await logAudit(supabase, user, 'CREATE_COMPANY', {
+        company_id: generatedId,
+        company_name,
+        industry,
+        status,
+        location,
+      });
     } catch (err: unknown) {
       return { success: false, error: (err as Error).message || 'Failed to connect to database.' };
     }
@@ -262,6 +292,14 @@ export async function updateCompanyAction(
       if (error) {
         return { success: false, error: error.message || 'Database error occurred while updating company.' };
       }
+
+      await logAudit(supabase, user, 'UPDATE_COMPANY', {
+        company_id: companyId,
+        company_name,
+        industry,
+        status,
+        location,
+      });
     } catch (err: unknown) {
       return { success: false, error: (err as Error).message || 'Failed to connect to database.' };
     }
@@ -366,6 +404,11 @@ export async function toggleCompanyStatusAction(
       if (error) {
         return { success: false, error: error.message || 'Database error while toggling status.' };
       }
+
+      await logAudit(supabase, user, 'TOGGLE_COMPANY_STATUS', {
+        company_id: companyId,
+        target_status: targetStatus,
+      });
     } catch (err: unknown) {
       return { success: false, error: (err as Error).message || 'Failed to update company status.' };
     }
@@ -410,4 +453,138 @@ export async function toggleCompanyStatusAction(
       : 'Company reactivated successfully.',
     companyId,
   };
+}
+
+/**
+ * Safely deletes a company or prevents deletion if linked to placement drives/materials
+ */
+export async function deleteCompanyAction(
+  companyId: string,
+  forceDeactivateIfBlocked: boolean = false
+): Promise<DeleteCompanyResult> {
+  const user = await getCurrentUser();
+  if (!user) {
+    return { success: false, error: 'Authentication required. Please log in.' };
+  }
+
+  if (user.role !== 'administrator' && user.role !== 'placement_officer') {
+    return { success: false, error: 'Unauthorized: Only Administrators can delete companies.' };
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const isLiveSupabase = supabaseUrl && !supabaseUrl.includes('placeholder');
+
+  if (isLiveSupabase) {
+    try {
+      const supabase: any = await createClient();
+
+      // Check dependent records
+      const [drivesRes, prepRes, qRes] = await Promise.all([
+        supabase.from('placement_drives').select('id', { count: 'exact', head: true }).eq('company_id', companyId),
+        supabase.from('preparation_materials').select('id', { count: 'exact', head: true }).eq('company_id', companyId),
+        supabase.from('interview_questions').select('id', { count: 'exact', head: true }).eq('company_id', companyId),
+      ]);
+
+      const drivesCount = drivesRes.count || 0;
+      const prepCount = prepRes.count || 0;
+      const qCount = qRes.count || 0;
+      const totalRelations = drivesCount + prepCount + qCount;
+
+      if (totalRelations > 0) {
+        if (!forceDeactivateIfBlocked) {
+          return {
+            success: false,
+            blocked: true,
+            reason: `Company cannot be deleted permanently because it is linked to ${drivesCount} placement drive(s), ${prepCount} preparation material(s), and ${qCount} interview question(s). You can safely deactivate it instead to preserve placement records.`,
+          };
+        }
+
+        // Force deactivate instead of delete
+        const { error: updateErr } = await supabase
+          .from('companies')
+          .update({
+            status: 'inactive',
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', companyId);
+
+        if (updateErr) {
+          return { success: false, error: updateErr.message || 'Failed to deactivate company.' };
+        }
+
+        await logAudit(supabase, user, 'DEACTIVATE_COMPANY_BLOCKED_DELETE', {
+          company_id: companyId,
+          drives_count: drivesCount,
+          prep_count: prepCount,
+          q_count: qCount,
+          reason: 'Hard delete blocked due to active placement dependencies; company deactivated instead.',
+        });
+
+        revalidatePath('/admin/companies');
+        revalidatePath(`/admin/companies/${companyId}`);
+        revalidatePath('/placement/companies');
+        revalidatePath(`/placement/companies/${companyId}`);
+
+        return {
+          success: true,
+          actionTaken: 'deactivated',
+          reason: `Company has been safely deactivated instead of deleted to protect ${drivesCount} placement drive(s) and historical student records.`,
+        };
+      }
+
+      // Safe to permanently delete
+      const { error: deleteErr } = await supabase
+        .from('companies')
+        .delete()
+        .eq('id', companyId);
+
+      if (deleteErr) {
+        return { success: false, error: deleteErr.message || 'Failed to delete company.' };
+      }
+
+      await logAudit(supabase, user, 'DELETE_COMPANY', {
+        company_id: companyId,
+      });
+
+      revalidatePath('/admin/companies');
+      revalidatePath('/placement/companies');
+
+      return {
+        success: true,
+        actionTaken: 'deleted',
+        reason: 'Company permanently removed from the system.',
+      };
+    } catch (err: unknown) {
+      return { success: false, error: (err as Error).message || 'Server error occurred during deletion.' };
+    }
+  } else {
+    // Demo cookie fallback
+    const cookieStore = await cookies();
+    const demoCookie = cookieStore.get('campusconnect_demo_companies')?.value;
+    let list: Company[] = [...SEED_COMPANIES];
+    if (demoCookie) {
+      try {
+        const parsed = JSON.parse(demoCookie);
+        if (Array.isArray(parsed)) list = parsed;
+      } catch {
+        // ignore
+      }
+    }
+
+    const filtered = list.filter((c) => c.id !== companyId);
+    cookieStore.set('campusconnect_demo_companies', JSON.stringify(filtered), {
+      path: '/',
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7,
+    });
+
+    revalidatePath('/admin/companies');
+    revalidatePath('/placement/companies');
+
+    return {
+      success: true,
+      actionTaken: 'deleted',
+      reason: 'Company removed from local demo data.',
+    };
+  }
 }

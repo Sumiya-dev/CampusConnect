@@ -1,25 +1,56 @@
+import { redirect } from 'next/navigation';
+import { getCurrentUser } from '@/lib/auth/user';
+import { getAlumniProfiles } from '@/lib/alumni/queries';
 import { PageContainer } from '@/components/layout/page-container';
-import { EmptyState } from '@/components/ui/empty-state';
-import { GraduationCap } from 'lucide-react';
+import { AlumniDirectoryView } from '@/components/alumni/alumni-directory-view';
 
-export default function StudentAlumniPage() {
+export const metadata = {
+  title: 'Alumni Directory | CampusConnect',
+  description: 'Discover and connect with university graduates across technology and corporate companies.',
+};
+
+export default async function AlumniDirectoryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    redirect('/auth/login');
+  }
+
+  const resolvedParams = await searchParams;
+  const query = typeof resolvedParams.q === 'string' ? resolvedParams.q : undefined;
+  const dept = typeof resolvedParams.dept === 'string' ? resolvedParams.dept : undefined;
+  const year = typeof resolvedParams.year === 'string' ? resolvedParams.year : undefined;
+  const company = typeof resolvedParams.company === 'string' ? resolvedParams.company : undefined;
+  const role = typeof resolvedParams.role === 'string' ? resolvedParams.role : undefined;
+
+  const { profiles } = await getAlumniProfiles(
+    {
+      query,
+      department: dept,
+      graduation_year: year,
+      company,
+      job_role: role,
+    },
+    currentUser.id
+  );
+
   return (
     <PageContainer
-      title="Alumni Mentorship Network"
-      description="Connect with university graduates placed at premier technology and corporate institutions globally."
-      badgeText="Mentorship Directory"
+      title="Alumni Network"
+      description="Discover university alumni, explore verified career journeys, and seek professional guidance."
+      badgeText="Alumni Directory"
       breadcrumbs={[
-        { label: 'Student Home', href: '/student' },
-        { label: 'Alumni' },
+        { label: 'Dashboard', href: `/${currentUser.role}` },
+        { label: 'Alumni Network' },
       ]}
     >
-      <EmptyState
-        icon={GraduationCap}
-        badgeText="Alumni Relations"
-        title="Alumni Directory & Mock Interviews"
-        description="The alumni mentorship booking and mock interview schedule will be initiated once the corporate placement drives calendar is finalized."
-        actionLabel="Back to Home"
-        actionHref="/student"
+      <AlumniDirectoryView
+        initialProfiles={profiles}
+        isStudent={currentUser.role === 'student'}
+        baseHref="/student/alumni"
       />
     </PageContainer>
   );

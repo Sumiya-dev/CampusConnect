@@ -34,3 +34,26 @@ export interface CompanyActionState {
 export interface CompanySummary extends Company {
   drivesCount?: number;
 }
+
+export interface CompanyDriveDetail {
+  id: string;
+  company_id: string;
+  job_role: string;
+  package_details: string;
+  tier: string;
+  location: string | null;
+  status: string;
+  registration_deadline: string;
+  drive_date: string | null;
+  drive_time: string | null;
+  venue: string | null;
+  applications_count: number;
+}
+
+export interface DeleteCompanyResult {
+  success: boolean;
+  blocked?: boolean;
+  actionTaken?: 'deleted' | 'deactivated';
+  reason?: string;
+  error?: string;
+}

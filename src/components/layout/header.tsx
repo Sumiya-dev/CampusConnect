@@ -28,6 +28,8 @@ export function Header({
   // Determine section title from pathname
   const getSectionTitle = () => {
     if (pathname === '/student') return 'Student Home';
+    if (pathname.startsWith('/student/ai')) return 'CampusConnect AI';
+    if (pathname.startsWith('/student/resources')) return 'Academic Resources';
     if (pathname.startsWith('/student/placements')) return 'Placement Opportunities';
     if (pathname.startsWith('/student/preparation')) return 'Placement Preparation';
     if (pathname.startsWith('/student/resume')) return 'Resume Management';
@@ -56,16 +58,29 @@ export function Header({
 
     if (pathname === '/admin') return 'Administration Home';
     if (pathname.startsWith('/admin/users')) return 'User Directory';
+    if (pathname.startsWith('/admin/faculty')) return 'Faculty Management & Allocations';
+    if (pathname.startsWith('/admin/departments')) return 'Departments & Academic Structure';
     if (pathname.startsWith('/admin/companies')) return 'Company Audit';
+    if (pathname.startsWith('/admin/placements/students')) return 'Student Placement Roster';
     if (pathname.startsWith('/admin/placements')) return 'Placement Governance';
+    if (pathname.startsWith('/admin/notifications')) return 'Notifications Management';
     if (pathname.startsWith('/admin/moderation')) return 'Community Moderation';
+    if (pathname.startsWith('/admin/help')) return 'Help Center Management';
+    if (pathname.startsWith('/admin/reports') || pathname.startsWith('/admin/analytics')) return 'Reports & Analytics';
     if (pathname.startsWith('/admin/settings')) return 'System Settings';
 
-    if (pathname === '/profile') return 'My Profile';
+    if (pathname === '/profile' || pathname.startsWith('/superadmin/profile')) return 'My Profile';
     return `${ROLE_LABELS[role]} Workspace`;
   };
 
-  const notificationPath = role === 'student' ? '/student/notifications' : `/${role === 'placement_officer' ? 'placement' : role}/announcements`;
+  const notificationPath =
+    role === 'student'
+      ? '/student/notifications'
+      : role === 'alumni'
+      ? '/student/alumni'
+      : role === 'administrator'
+      ? '/admin/notifications'
+      : `/${role === 'placement_officer' ? 'placement' : role}/announcements`;
 
   return (
     <header className="h-14 border-b border-[#222222] bg-[#000000] px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">

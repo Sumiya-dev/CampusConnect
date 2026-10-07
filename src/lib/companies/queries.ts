@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { createClient } from '../supabase/server';
 import { Company, CompanyStatus } from '../types/database.types';
-import { CompanyFilterState } from '../types/company.types';
+import { CompanyDriveDetail, CompanyFilterState, CompanySummary } from '../types/company.types';
 
 // Initial seed companies for fallback/demo mode
 export const SEED_COMPANIES: Company[] = [
@@ -97,13 +97,13 @@ export const SEED_COMPANIES: Company[] = [
   },
 ];
 
-export async function getCompanies(filters?: CompanyFilterState): Promise<Company[]> {
+export async function getCompanies(filters?: CompanyFilterState): Promise<CompanySummary[]> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const isLiveSupabase = supabaseUrl && !supabaseUrl.includes('placeholder');
 
   if (isLiveSupabase) {
     try {
-      const supabase = await createClient();
+      const supabase: any = await createClient();
       let query = supabase
         .from('companies')
         .select(`
@@ -129,9 +129,23 @@ export async function getCompanies(filters?: CompanyFilterState): Promise<Compan
         query = query.or(`company_name.ilike.%${term}%,industry.ilike.%${term}%,location.ilike.%${term}%,contact_name.ilike.%${term}%`);
       }
 
-      const { data, error } = await query;
+      const [{ data, error }, { data: drives }] = await Promise.all([
+        query,
+        supabase.from('placement_drives').select('company_id'),
+      ]);
+
       if (!error && data) {
-        return data as unknown as Company[];
+        const driveCountMap: Record<string, number> = {};
+        (drives || []).forEach((d: any) => {
+          if (d.company_id) {
+            driveCountMap[d.company_id] = (driveCountMap[d.company_id] || 0) + 1;
+          }
+        });
+
+        return data.map((c: any) => ({
+          ...c,
+          drivesCount: driveCountMap[c.id] || 0,
+        }));
       }
     } catch {
       // Fallback to local store
@@ -141,13 +155,13 @@ export async function getCompanies(filters?: CompanyFilterState): Promise<Compan
   // Fallback / Demo Mode store reading from cookies
   const cookieStore = await cookies();
   const demoCompaniesCookie = cookieStore.get('campusconnect_demo_companies')?.value;
-  let companies: Company[] = [...SEED_COMPANIES];
+  let companies: CompanySummary[] = [...SEED_COMPANIES].map((c) => ({ ...c, drivesCount: 1 }));
 
   if (demoCompaniesCookie) {
     try {
       const parsed = JSON.parse(demoCompaniesCookie);
       if (Array.isArray(parsed)) {
-        companies = parsed;
+        companies = parsed.map((c) => ({ ...c, drivesCount: c.drivesCount || 0 }));
       }
     } catch {
       // Ignore parse failure
@@ -179,28 +193,37 @@ export async function getCompanies(filters?: CompanyFilterState): Promise<Compan
   return filtered.sort((a, b) => a.company_name.localeCompare(b.company_name));
 }
 
-export async function getCompanyById(id: string): Promise<Company | null> {
+export async function getCompanyById(id: string): Promise<CompanySummary | null> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const isLiveSupabase = supabaseUrl && !supabaseUrl.includes('placeholder');
 
   if (isLiveSupabase) {
     try {
-      const supabase = await createClient();
-      const { data, error } = await supabase
-        .from('companies')
-        .select(`
-          *,
-          creator:created_by (
-            name,
-            email,
-            role
-          )
-        `)
-        .eq('id', id)
-        .single();
+      const supabase: any = await createClient();
+      const [{ data, error }, { count: dCount }] = await Promise.all([
+        supabase
+          .from('companies')
+          .select(`
+            *,
+            creator:created_by (
+              name,
+              email,
+              role
+            )
+          `)
+          .eq('id', id)
+          .single(),
+        supabase
+          .from('placement_drives')
+          .select('id', { count: 'exact', head: true })
+          .eq('company_id', id),
+      ]);
 
       if (!error && data) {
-        return data as unknown as Company;
+        return {
+          ...data,
+          drivesCount: dCount || 0,
+        } as unknown as CompanySummary;
       }
     } catch {
       // Continue fallback
@@ -210,6 +233,56 @@ export async function getCompanyById(id: string): Promise<Company | null> {
   // Fallback / Demo Mode
   const companies = await getCompanies();
   return companies.find((c) => c.id === id) || null;
+}
+
+export async function getCompanyDrives(companyId: string): Promise<CompanyDriveDetail[]> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const isLiveSupabase = supabaseUrl && !supabaseUrl.includes('placeholder');
+
+  if (isLiveSupabase) {
+    try {
+      const supabase: any = await createClient();
+      const { data: drives, error } = await supabase
+        .from('placement_drives')
+        .select(`
+          id,
+          company_id,
+          job_role,
+          package_details,
+          tier,
+          location,
+          status,
+          registration_deadline,
+          drive_date,
+          drive_time,
+          venue,
+          applications (count)
+        `)
+        .eq('company_id', companyId)
+        .order('registration_deadline', { ascending: false });
+
+      if (!error && drives) {
+        return drives.map((d: any) => ({
+          id: d.id,
+          company_id: d.company_id,
+          job_role: d.job_role,
+          package_details: d.package_details,
+          tier: d.tier,
+          location: d.location,
+          status: d.status,
+          registration_deadline: d.registration_deadline,
+          drive_date: d.drive_date,
+          drive_time: d.drive_time,
+          venue: d.venue,
+          applications_count: d.applications?.[0]?.count ?? 0,
+        }));
+      }
+    } catch {
+      // Return empty array
+    }
+  }
+
+  return [];
 }
 
 export async function getDistinctIndustries(): Promise<string[]> {
@@ -222,3 +295,4 @@ export async function getDistinctIndustries(): Promise<string[]> {
   });
   return Array.from(set).sort();
 }
+

@@ -17,6 +17,7 @@ export const ROLE_HOME_ROUTES: RoleRedirectMap = {
   faculty: '/faculty',
   placement_officer: '/placement',
   administrator: '/admin',
+  alumni: '/student/alumni',
 };
 
 export const ROLE_LABELS: Record<UserRole, string> = {
@@ -24,4 +25,5 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   faculty: 'Faculty Member',
   placement_officer: 'Placement Officer',
   administrator: 'Administrator',
+  alumni: 'Alumni',
 };
