@@ -36,7 +36,8 @@ export function Header({
     if (pathname.startsWith('/student/community')) return 'University Community';
     if (pathname.startsWith('/student/alumni')) return 'Alumni Network';
     if (pathname.startsWith('/student/notifications')) return 'Notifications & Bulletins';
-    if (pathname.startsWith('/student/help')) return 'Placement Directorate Help';
+
+    if (pathname.startsWith('/help')) return 'Placement Directorate Help';
 
     if (pathname === '/faculty') return 'Faculty Home';
     if (pathname.startsWith('/faculty/classes')) return 'Classes & Groups';

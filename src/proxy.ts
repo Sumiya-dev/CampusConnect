@@ -12,7 +12,7 @@ const ROLE_ROUTE_MAP: Record<string, UserRole> = {
   '/superadmin': 'administrator',
 };
 
-const PROTECTED_PREFIXES = ['/student', '/faculty', '/placement', '/admin', '/superadmin', '/profile'];
+const PROTECTED_PREFIXES = ['/student', '/faculty', '/placement', '/admin', '/superadmin', '/profile', '/help'];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
