@@ -49,7 +49,7 @@ export async function getPlacementDrives(
       }
 
       const { data, error } = await query;
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data as unknown as DriveWithCompany[];
       }
     } catch {

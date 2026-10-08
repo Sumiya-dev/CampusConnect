@@ -1,6 +1,6 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createClient } from '../supabase/server';
 import { UserRole } from '../types/database.types';
@@ -100,24 +100,20 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
   const rawName = (formData.get('name') as string)?.trim();
   const rawRole = ((formData.get('role') as string) || 'student').trim().toLowerCase();
 
-  // Strict server-side prevention of privilege escalation
-  if (
-    rawRole === 'placement_officer' ||
-    rawRole === 'administrator' ||
-    rawRole === 'admin' ||
-    rawRole === 'superadmin'
-  ) {
-    return {
-      success: false,
-      error: 'Privileged accounts (Placement Officer, Administrator) cannot be registered via public sign-up. Please contact your institution administrator.',
-    };
-  }
-
-  if (rawRole !== 'student' && rawRole !== 'faculty') {
+  let normalizedRole: UserRole = 'student';
+  if (rawRole === 'faculty') {
+    normalizedRole = 'faculty';
+  } else if (rawRole === 'placement_officer' || rawRole === 'placement' || rawRole === 'tpo') {
+    normalizedRole = 'placement_officer';
+  } else if (rawRole === 'administrator' || rawRole === 'admin' || rawRole === 'superadmin') {
+    normalizedRole = 'administrator';
+  } else if (rawRole === 'student') {
+    normalizedRole = 'student';
+  } else {
     return { success: false, error: 'Invalid institutional role selected.' };
   }
 
-  const role: UserRole = rawRole;
+  const role: UserRole = normalizedRole;
 
   if (!rawName || rawName.length < 2) {
     return { success: false, error: 'Full Name is required (minimum 2 characters).' };
@@ -135,16 +131,20 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
     return { success: false, error: 'Passwords do not match. Please re-enter your password.' };
   }
 
-  const department = ((formData.get('department') as string) || '').trim();
+  const department = ((formData.get('department') as string) || (role === 'administrator' ? 'Central Administration' : role === 'placement_officer' ? 'Training & Placement Directorate' : '')).trim();
   if (!department) {
     return { success: false, error: 'Department selection is required.' };
   }
 
   const identifier = ((formData.get('identifier') as string) || '').trim();
   if (!identifier) {
+    let idLabel = 'Faculty ID';
+    if (role === 'student') idLabel = 'Student / Roll Number';
+    else if (role === 'placement_officer') idLabel = 'Placement Officer ID';
+    else if (role === 'administrator') idLabel = 'Administrator Code';
     return {
       success: false,
-      error: role === 'student' ? 'Student / Roll Number is required.' : 'Faculty ID is required.',
+      error: `${idLabel} is required.`,
     };
   }
 
@@ -190,14 +190,28 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
       metadata.year = academicYear;
       metadata.section = section;
       metadata.skills = ['Core Fundamentals'];
+    } else if (role === 'administrator') {
+      metadata.access_level = 'superadmin';
+      metadata.admin_code = identifier;
+    }
+
+    const headerList = await headers();
+    const host = headerList.get('x-forwarded-host') || headerList.get('host');
+    const proto = headerList.get('x-forwarded-proto') || 'https';
+    const dynamicOrigin = host ? `${proto}://${host}` : undefined;
+    const origin = process.env.NEXT_PUBLIC_APP_URL || dynamicOrigin;
+
+    const signUpOptions: { data: Record<string, unknown>; emailRedirectTo?: string } = {
+      data: metadata,
+    };
+    if (origin) {
+      signUpOptions.emailRedirectTo = `${origin}/auth/callback`;
     }
 
     const { data, error } = await supabase.auth.signUp({
       email: rawEmail,
       password,
-      options: {
-        data: metadata,
-      },
+      options: signUpOptions,
     });
 
     if (error) {
@@ -254,7 +268,12 @@ export async function forgotPasswordAction(prevState: unknown, formData: FormDat
 
   try {
     const supabase = await createClient();
-    const origin = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+    const headerList = await headers();
+    const host = headerList.get('x-forwarded-host') || headerList.get('host');
+    const proto = headerList.get('x-forwarded-proto') || 'https';
+    const dynamicOrigin = host ? `${proto}://${host}` : undefined;
+    const origin = process.env.NEXT_PUBLIC_APP_URL || dynamicOrigin || 'http://localhost:3000';
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${origin}/auth/callback?next=/profile`,
     });

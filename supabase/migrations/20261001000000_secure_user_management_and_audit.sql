@@ -199,7 +199,7 @@ BEGIN
 
     RETURN new_user_id;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, auth, pg_temp;
+$$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public, auth, extensions, pg_temp;
 
 -- 5. SECURE ROLE CHANGE WITH LAST-SUPERADMIN PROTECTION
 CREATE OR REPLACE FUNCTION public.admin_change_user_role(

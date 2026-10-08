@@ -18,7 +18,7 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
     SELECT EXISTS (
-        SELECT 1 FROM public.users
+        SELECT 1 FROM public.profiles
         WHERE id = auth.uid()
         AND role = 'alumni'
     );
@@ -32,7 +32,7 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
     SELECT EXISTS (
-        SELECT 1 FROM public.users
+        SELECT 1 FROM public.profiles
         WHERE id = auth.uid()
         AND role IN ('student', 'alumni')
     );
@@ -41,7 +41,7 @@ $$;
 -- 3. ALUMNI PROFILES
 CREATE TABLE IF NOT EXISTS public.alumni_profiles (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     graduation_year INTEGER,
     department TEXT,
     degree TEXT DEFAULT 'B.Tech',
@@ -92,7 +92,7 @@ CREATE INDEX IF NOT EXISTS idx_alumni_exp_company ON public.alumni_experiences(c
 -- 5. ALUMNI COMMUNITY POSTS
 CREATE TABLE IF NOT EXISTS public.alumni_community_posts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    author_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    author_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     category TEXT NOT NULL CHECK (category IN (
         'Placements',
         'Careers',
@@ -115,7 +115,7 @@ CREATE INDEX IF NOT EXISTS idx_alumni_posts_created ON public.alumni_community_p
 CREATE TABLE IF NOT EXISTS public.alumni_community_comments (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     post_id UUID NOT NULL REFERENCES public.alumni_community_posts(id) ON DELETE CASCADE,
-    author_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    author_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     parent_comment_id UUID REFERENCES public.alumni_community_comments(id) ON DELETE CASCADE,
     content TEXT NOT NULL,
     is_deleted BOOLEAN NOT NULL DEFAULT false,
@@ -131,7 +131,7 @@ CREATE INDEX IF NOT EXISTS idx_alumni_comments_parent ON public.alumni_community
 CREATE TABLE IF NOT EXISTS public.alumni_community_likes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     post_id UUID NOT NULL REFERENCES public.alumni_community_posts(id) ON DELETE CASCADE,
-    user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
     CONSTRAINT uq_alumni_likes_post_user UNIQUE (post_id, user_id)
 );
@@ -142,7 +142,7 @@ CREATE INDEX IF NOT EXISTS idx_alumni_likes_user ON public.alumni_community_like
 -- 8. GUIDANCE REQUESTS
 CREATE TABLE IF NOT EXISTS public.guidance_requests (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    student_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    student_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     alumni_id UUID NOT NULL REFERENCES public.alumni_profiles(id) ON DELETE CASCADE,
     message TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'PENDING' CHECK (status IN ('PENDING', 'ACCEPTED', 'REJECTED', 'COMPLETED')),
@@ -261,7 +261,7 @@ CREATE POLICY "guidance_requests_insert" ON public.guidance_requests
     FOR INSERT TO authenticated
     WITH CHECK (
         student_id = auth.uid() AND
-        EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'student')
+        EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'student')
     );
 
 CREATE POLICY "guidance_requests_update" ON public.guidance_requests

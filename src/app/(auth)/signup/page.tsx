@@ -9,8 +9,6 @@ import {
   Mail,
   User,
   Hash,
-  ShieldAlert,
-  ArrowRight,
 } from 'lucide-react';
 import { signUpAction } from '@/lib/auth/actions';
 import { Button } from '@/components/ui/button';
@@ -27,6 +25,8 @@ export const DEPARTMENTS = [
   'Mechanical Engineering',
   'Civil Engineering',
   'Management Studies',
+  'Training & Placement Directorate',
+  'Central Administration',
 ];
 
 export const ACADEMIC_YEARS = [
@@ -396,37 +396,242 @@ export default function SignUpPage() {
           </form>
         )}
 
-        {/* Roles 3 & 4: Privileged Roles Restricted Notice */}
-        {(selectedRole === 'placement_officer' || selectedRole === 'administrator') && (
-          <div className="border border-[#222222] bg-[#000000] rounded-md p-5 space-y-4 text-center">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#222222] bg-[#121212] text-[#FF6B00] mx-auto">
-              <ShieldAlert className="h-5 w-5" />
-            </div>
+        {/* Role 3: Placement Officer Registration Form */}
+        {selectedRole === 'placement_officer' && (
+          <form action={handleSubmit} className="space-y-3.5">
+            <input type="hidden" name="role" value="placement_officer" />
 
+            {/* Full Name */}
             <div className="space-y-1.5">
-              <h3 className="text-sm font-semibold text-[#EDEDED]">
-                Restricted Institutional Access
-              </h3>
-              <p className="text-xs sm:text-sm text-[#9AA1AA] max-w-sm mx-auto leading-relaxed">
-                {selectedRole === 'placement_officer'
-                  ? 'Placement Officer accounts are granted strictly via official administrative appointment and cannot be self-registered.'
-                  : 'Platform Administrator accounts are governed under institutional security protocols and cannot be self-registered.'}
-              </p>
+              <Label htmlFor="name">Full Name</Label>
+              <div className="relative">
+                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  placeholder="e.g. Vikram Verma"
+                  className="pl-8 text-sm"
+                />
+              </div>
             </div>
 
-            <div className="pt-2">
-              <Link href="/login" className="w-full inline-block">
-                <Button className="w-full text-sm font-semibold gap-2">
-                  <span>Sign In with Institutional Credentials</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Button>
-              </Link>
+            {/* Official Email */}
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Official Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="placement@university.edu"
+                  className="pl-8 text-sm"
+                />
+              </div>
             </div>
 
-            <p className="text-xs text-[#9AA1AA]">
-              Contact your university Directorate of Placement for credential provisioning.
-            </p>
-          </div>
+            {/* Passwords */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    minLength={6}
+                    placeholder="Min 6 characters"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    minLength={6}
+                    placeholder="Re-enter password"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Placement Officer ID & Department */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="identifier">Placement Officer ID</Label>
+                <div className="relative">
+                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Input
+                    id="identifier"
+                    name="identifier"
+                    type="text"
+                    required
+                    placeholder="e.g. TPO-2026-001"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="department">Department</Label>
+                <div className="relative">
+                  <Select
+                    id="department"
+                    name="department"
+                    defaultValue="Training & Placement Directorate"
+                    className="text-sm"
+                  >
+                    {DEPARTMENTS.map((dept) => (
+                      <option key={dept} value={dept} className="bg-[#0A0A0A] text-[#EDEDED]">
+                        {dept}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full text-sm font-semibold gap-2 mt-2"
+              isLoading={isPending}
+            >
+              <UserPlus className="h-3.5 w-3.5" />
+              <span>Register as Placement Officer</span>
+            </Button>
+          </form>
+        )}
+
+        {/* Role 4: Administrator Registration Form */}
+        {selectedRole === 'administrator' && (
+          <form action={handleSubmit} className="space-y-3.5">
+            <input type="hidden" name="role" value="administrator" />
+
+            {/* Full Name */}
+            <div className="space-y-1.5">
+              <Label htmlFor="name">Full Name</Label>
+              <div className="relative">
+                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  placeholder="e.g. Dr. Vikram Singhania"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Official Email */}
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Administrator Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="admin@university.edu"
+                  className="pl-8 text-sm"
+                />
+              </div>
+            </div>
+
+            {/* Passwords */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    minLength={6}
+                    placeholder="Min 6 characters"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    required
+                    minLength={6}
+                    placeholder="Re-enter password"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Administrator Code & Department */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="identifier">Administrator Code</Label>
+                <div className="relative">
+                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Input
+                    id="identifier"
+                    name="identifier"
+                    type="text"
+                    required
+                    placeholder="e.g. ADM-2026-001"
+                    className="pl-8 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="department">Department / Office</Label>
+                <div className="relative">
+                  <Select
+                    id="department"
+                    name="department"
+                    defaultValue="Central Administration"
+                    className="text-sm"
+                  >
+                    {DEPARTMENTS.map((dept) => (
+                      <option key={dept} value={dept} className="bg-[#0A0A0A] text-[#EDEDED]">
+                        {dept}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full text-sm font-semibold gap-2 mt-2"
+              isLoading={isPending}
+            >
+              <UserPlus className="h-3.5 w-3.5" />
+              <span>Register as Administrator</span>
+            </Button>
+          </form>
         )}
 
         {/* Footer Navigation */}

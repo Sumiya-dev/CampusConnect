@@ -122,7 +122,7 @@ export function AlumniCommunityPostCard({
             )}
 
             <div className="text-[10px] text-[#717784] font-mono">
-              {new Date(post.created_at).toLocaleDateString(undefined, {
+              {new Date(post.created_at).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',

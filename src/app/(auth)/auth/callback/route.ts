@@ -4,7 +4,11 @@ import { ROLE_HOME_ROUTES } from '@/lib/types/auth.types';
 import { UserRole } from '@/lib/types/database.types';
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
+  const { searchParams, origin: defaultOrigin } = new URL(request.url);
+  const forwardedHost = request.headers.get('x-forwarded-host');
+  const forwardedProto = request.headers.get('x-forwarded-proto') || 'https';
+  const origin = process.env.NEXT_PUBLIC_APP_URL || (forwardedHost ? `${forwardedProto}://${forwardedHost}` : defaultOrigin);
+
   const code = searchParams.get('code');
   const next = searchParams.get('next') ?? '/';
 

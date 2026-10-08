@@ -33,29 +33,44 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith('/signup') ||
     pathname.startsWith('/forgot-password');
 
+  // Helper to preserve refreshed session cookies across redirects
+  function createRedirect(targetUrl: URL | string) {
+    const redirectResponse = NextResponse.redirect(targetUrl);
+    const cookiesToCopy = supabaseResponse.cookies.getAll();
+    for (const cookie of cookiesToCopy) {
+      redirectResponse.cookies.set(cookie.name, cookie.value, cookie);
+    }
+    return redirectResponse;
+  }
+
   // Case 1: Unauthenticated user trying to access a protected route
   if (isProtectedPath && !activeUser) {
     const redirectUrl = new URL('/login', request.url);
     redirectUrl.searchParams.set('redirect', pathname);
-    return NextResponse.redirect(redirectUrl);
+    return createRedirect(redirectUrl);
   }
 
   // Case 2: Authenticated user visiting /login or /signup -> redirect to their role dashboard
   if (isAuthPath && activeUser && activeRole) {
     const targetDashboard = ROLE_HOME_ROUTES[activeRole] || '/student';
-    return NextResponse.redirect(new URL(targetDashboard, request.url));
+    return createRedirect(new URL(targetDashboard, request.url));
   }
 
   // Case 3: RBAC authorization check for role-specific routes
   for (const [routePrefix, requiredRole] of Object.entries(ROLE_ROUTE_MAP)) {
     if (pathname.startsWith(routePrefix)) {
+      // Special allowance: Alumni and students can access alumni resources under /student/alumni
+      if (pathname.startsWith('/student/alumni') && (activeRole === 'alumni' || activeRole === 'student')) {
+        continue;
+      }
+
       if (activeRole !== requiredRole) {
         // Unauthorized access attempt - redirect to their authorized dashboard
         const fallbackDashboard = activeRole ? ROLE_HOME_ROUTES[activeRole] : '/login';
         const redirectUrl = new URL(fallbackDashboard, request.url);
         redirectUrl.searchParams.set('unauthorized', 'true');
         redirectUrl.searchParams.set('attempted', pathname);
-        return NextResponse.redirect(redirectUrl);
+        return createRedirect(redirectUrl);
       }
     }
   }
