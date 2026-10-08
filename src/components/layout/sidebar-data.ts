@@ -63,7 +63,7 @@ export const NAVIGATION_BY_ROLE: Record<UserRole, NavGroup[]> = {
       groupTitle: 'Account & Support',
       items: [
         { title: 'Notifications', href: '/student/notifications', icon: Bell },
-        { title: 'Help Center', href: '/help', icon: HelpCircle },
+        { title: 'Help Center', href: '/student/help', icon: HelpCircle },
         { title: 'Profile', href: '/profile', icon: User },
       ],
     },
@@ -99,7 +99,6 @@ export const NAVIGATION_BY_ROLE: Record<UserRole, NavGroup[]> = {
       groupTitle: 'ACCOUNT',
       items: [
         { title: 'Notifications', href: '/faculty/notifications', icon: Bell },
-        { title: 'Help Center', href: '/help', icon: HelpCircle },
         { title: 'Profile', href: '/profile', icon: User },
       ],
     },
@@ -127,7 +126,6 @@ export const NAVIGATION_BY_ROLE: Record<UserRole, NavGroup[]> = {
       items: [
         { title: 'Announcements', href: '/placement/announcements', icon: Bell },
         { title: 'Analytics', href: '/placement/analytics', icon: BarChart3 },
-        { title: 'Help Center', href: '/help', icon: HelpCircle },
         { title: 'Profile', href: '/profile', icon: User },
       ],
     },

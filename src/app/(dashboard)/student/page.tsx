@@ -322,7 +322,7 @@ export default async function StudentHomePage() {
                 Placement Help & Cell
               </h2>
               <Link
-                href="/help"
+                href="/student/help"
                 className="text-xs text-[#888888] hover:text-[#EDEDED] transition-colors"
               >
                 Help Center →
