@@ -41,19 +41,27 @@ export async function uploadResume(formData: FormData) {
     const bytes = await file.arrayBuffer();
     const fileBuffer = Buffer.from(bytes);
 
-    // Save actual file to public/uploads/resumes directory
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'resumes');
-    await fs.promises.mkdir(uploadsDir, { recursive: true });
-
-    const safeBaseName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const storedFileName = `${Date.now()}-${safeBaseName}`;
-    const filePathOnDisk = path.join(uploadsDir, storedFileName);
-    await fs.promises.writeFile(filePathOnDisk, fileBuffer);
-
-    const localRelativeUrl = `/uploads/resumes/${storedFileName}`;
-
     // Handle Demo Mode
     if (user.id === 'demo-user-id') {
+      let localRelativeUrl = '';
+      
+      try {
+        // Save actual file to public/uploads/resumes directory for demo purposes
+        const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'resumes');
+        await fs.promises.mkdir(uploadsDir, { recursive: true });
+
+        const safeBaseName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const storedFileName = `${Date.now()}-${safeBaseName}`;
+        const filePathOnDisk = path.join(uploadsDir, storedFileName);
+        await fs.promises.writeFile(filePathOnDisk, fileBuffer);
+
+        localRelativeUrl = `/uploads/resumes/${storedFileName}`;
+      } catch (err) {
+        console.warn('Failed to save demo resume locally (expected in serverless):', err);
+        // Fallback fake URL
+        localRelativeUrl = `/demo-placeholder.pdf`;
+      }
+
       const cookieStore = await cookies();
       cookieStore.set('campusconnect_demo_resume_name', file.name, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });
       cookieStore.set('campusconnect_demo_resume_path', localRelativeUrl, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 * 7 });

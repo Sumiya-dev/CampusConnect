@@ -8,7 +8,7 @@
     --text-primary: #EDEDED;
     --text-secondary: #9AA1AA;
     --border-subtle: #222222;
-    --accent: #FF6B00;
+    --accent: #ff0000;
     --accent-hover: #E05E00;
     --accent-muted: rgba(255, 107, 0, 0.12);
   }
@@ -29,13 +29,16 @@
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: #000000;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #222222;
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #333333;
 }

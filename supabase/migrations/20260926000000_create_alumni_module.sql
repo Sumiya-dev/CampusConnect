@@ -1,4 +1,4 @@
--- Migration: 20260926000000_create_alumni_module.sql
+`-- Migration: 20260926000000_create_alumni_module.sql
 -- Description: Sets up the Alumni module including profiles, experiences, community posts/comments/likes, and guidance requests with RLS.
 
 -- 1. Ensure 'alumni' role exists in user_role enum

@@ -1,120 +1,86 @@
-import { PageContainer } from '@/components/layout/page-container';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ListFilter, Upload, CheckCircle2, ArrowRight, Building, FileSpreadsheet } from 'lucide-react';
+import Link from 'next/link';
 
-const mockShortlists = [
+const shortlists = [
   {
-    company: 'Microsoft India Development Center',
-    drive: 'SDE-1 Campus Drive 2026',
-    round: 'Final Technical & System Design Round',
+    id: 'msft',
+    company: 'Microsoft',
+    role: 'SDE',
+    round: 'Final Technical Round',
     count: 45,
-    status: 'Published to Students',
-    publishedOn: 'Yesterday, 06:30 PM',
+    status: 'Published',
   },
   {
-    company: 'Tata Consultancy Services',
-    drive: 'Digital Software Engineer',
+    id: 'tcs',
+    company: 'TCS',
+    role: 'Digital Software Engineer',
     round: 'Technical Interview Round 1',
     count: 180,
     status: 'Pending Verification',
-    publishedOn: 'Awaiting TPO Approval',
   },
   {
-    company: 'Deloitte USI',
-    drive: 'Analyst - Technology Advisory',
-    round: 'Online Assessment Qualified',
+    id: 'deloitte',
+    company: 'Deloitte',
+    role: 'Technology Analyst',
+    round: 'Online Assessment',
     count: 110,
-    status: 'Published to Students',
-    publishedOn: 'Oct 11, 2026',
+    status: 'Published',
   },
 ];
 
 export default function PlacementShortlistingPage() {
   return (
-    <PageContainer
-      title="Shortlisting & Round Clearance"
-      description="Process recruiter-provided shortlist dossiers, verify criteria adherence, and publish round advancement circulars."
-      breadcrumbs={[
-        { label: 'Placement', href: '/placement' },
-        { label: 'Shortlisting' },
-      ]}
-      badgeText="3 Active Shortlists"
-      actions={
-        <Button size="sm" className="text-sm gap-1.5 font-medium">
-          <Upload className="h-3.5 w-3.5" />
-          <span>Upload Recruiter Shortlist CSV</span>
-        </Button>
-      }
-    >
-      <div className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-1">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Total Candidates Shortlisted</span>
-            <div className="text-xl font-semibold text-[#EDEDED]">335 Candidates</div>
-            <span className="text-[#9AA1AA]">Across 3 recruitment tracks</span>
-          </div>
-
-          <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-1">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Interviews Scheduled This Week</span>
-            <div className="text-xl font-semibold text-[#EDEDED]">155 Slots</div>
-            <span className="text-emerald-400">Labs 2, 4 & Zoom Suites</span>
-          </div>
-
-          <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-1">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Pending TPO Approvals</span>
-            <div className="text-xl font-semibold text-[#EDEDED]">1 Shortlist</div>
-            <span className="text-amber-400">TCS Digital OA Results</span>
-          </div>
+    <div className="space-y-8 max-w-5xl">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight text-[#EDEDED]">
+            Shortlisting
+          </h1>
+          <p className="text-sm text-[#9AA1AA] mt-1">
+            Review and manage recruiter shortlists.
+          </p>
         </div>
-
-        {/* Shortlists List */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between border-b border-[#222222] pb-2">
-            <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
-              Recruiter Round Shortlists
-            </h2>
-          </div>
-
-          <div className="space-y-3">
-            {mockShortlists.map((sl, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-              >
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-[#EDEDED]">{sl.company}</span>
-                    <Badge
-                      variant={sl.status.includes('Published') ? 'success' : 'warning'}
-                      className="text-sm"
-                    >
-                      {sl.status}
-                    </Badge>
-                  </div>
-                  <div className="text-sm text-[#9AA1AA]">
-                    {sl.drive} • <span className="text-[#F1F3F5]">{sl.round}</span>
-                  </div>
-                  <div className="text-sm text-[#9AA1AA]">
-                    {sl.publishedOn} • <strong>{sl.count}</strong> candidates selected
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 shrink-0">
-                  <Button variant="outline" size="sm" className="text-sm gap-1.5 font-normal">
-                    <FileSpreadsheet className="h-3.5 w-3.5 text-[#9AA1AA]" />
-                    <span>Download Roster</span>
-                  </Button>
-                  <Button size="sm" className="text-sm gap-1.5 font-medium">
-                    <span>Manage Rollout</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div>
+          <Link
+            href="/placement/shortlisting/upload"
+            className="inline-flex items-center justify-center text-sm font-medium transition-colors bg-[#FF6B00] text-white hover:bg-[#FF6B00]/90 h-9 px-4 py-2 rounded-md"
+          >
+            Upload Shortlist
+          </Link>
         </div>
       </div>
-    </PageContainer>
+
+      <div className="border-t border-[#222222]" />
+
+      {/* Active Shortlists */}
+      <section className="space-y-3">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+          Active Shortlists
+        </h2>
+        <div className="divide-y divide-[#222222]">
+          {shortlists.map((sl) => (
+            <div
+              key={sl.id}
+              className="flex items-center justify-between py-3.5 first:pt-1 last:pb-1"
+            >
+              <div>
+                <div className="text-sm font-medium text-[#EDEDED]">
+                  {sl.company} — {sl.role}
+                </div>
+                <div className="text-xs text-[#9AA1AA] mt-0.5">
+                  {sl.round} · {sl.count} candidates · {sl.status}
+                </div>
+              </div>
+              <Link
+                href={`/placement/shortlisting/${sl.id}`}
+                className="text-xs font-medium text-[#FF6B00] hover:text-[#FFA347] transition-colors"
+              >
+                Manage →
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }
