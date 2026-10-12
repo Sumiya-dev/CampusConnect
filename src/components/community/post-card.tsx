@@ -72,40 +72,40 @@ export function PostCard({ post, currentUserId, baseHref = '/student/community' 
   });
 
   return (
-    <article className="group border border-[#222222] bg-[#0A0A0A] hover:border-[#333333] rounded-md transition-colors">
+    <article className="group border border-border bg-surface hover:border-[#333333] rounded-md transition-colors">
       <Link href={`${baseHref}/${post.id}`} className="block p-4 sm:p-5 space-y-3">
         {/* Top Meta: Category + Visibility + Date */}
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-medium px-2 py-0.5 rounded bg-[#161616] text-[#EDEDED] border border-[#262626]">
+            <span className="font-medium px-2 py-0.5 rounded bg-[#161616] text-foreground border border-[#262626]">
               {post.category}
             </span>
 
             {post.visibility === 'STUDENTS_ONLY' && (
-              <span className="inline-flex items-center gap-1 font-medium px-2 py-0.5 rounded bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20">
+              <span className="inline-flex items-center gap-1 font-medium px-2 py-0.5 rounded bg-accent/10 text-accent border border-accent/20">
                 <Lock className="h-3 w-3" />
                 <span>Students Only</span>
               </span>
             )}
           </div>
 
-          <span className="text-[#9AA1AA]">{formattedDate}</span>
+          <span className="text-muted">{formattedDate}</span>
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-semibold text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors leading-snug">
+        <h3 className="text-base font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
           {post.title}
         </h3>
 
         {/* Content Preview */}
-        <p className="text-sm text-[#9AA1AA] line-clamp-2 leading-relaxed">
+        <p className="text-sm text-muted line-clamp-2 leading-relaxed">
           {post.content}
         </p>
 
         {/* Footer: Author Info + Actions */}
-        <div className="pt-2 border-t border-[#1C1C1C] flex items-center justify-between gap-3 text-xs text-[#9AA1AA]">
+        <div className="pt-2 border-t border-[#1C1C1C] flex items-center justify-between gap-3 text-xs text-muted">
           <div className="flex items-center gap-1.5 truncate">
-            <span className="font-medium text-[#EDEDED]">
+            <span className="font-medium text-foreground">
               {post.author?.name || 'Anonymous User'}
             </span>
             <span>·</span>
@@ -113,7 +113,7 @@ export function PostCard({ post, currentUserId, baseHref = '/student/community' 
               {post.author?.department || 'University'}
             </span>
             {post.author?.role && post.author.role !== 'student' && (
-              <span className="capitalize px-1.5 py-0.2 rounded bg-[#1A1A1A] text-[#9AA1AA] border border-[#2B2B2B]">
+              <span className="capitalize px-1.5 py-0.2 rounded bg-[#1A1A1A] text-muted border border-[#2B2B2B]">
                 {post.author.role.replace('_', ' ')}
               </span>
             )}
@@ -126,8 +126,8 @@ export function PostCard({ post, currentUserId, baseHref = '/student/community' 
               onClick={handleLike}
               className={`flex items-center gap-1 px-2 py-1 rounded transition-colors ${
                 hasLiked
-                  ? 'text-[#FF6B00] bg-[#FF6B00]/10'
-                  : 'hover:text-[#EDEDED] hover:bg-[#161616]'
+                  ? 'text-accent bg-accent/10'
+                  : 'hover:text-foreground hover:bg-[#161616]'
               }`}
               title={hasLiked ? 'Unlike' : 'Like'}
             >
@@ -136,7 +136,7 @@ export function PostCard({ post, currentUserId, baseHref = '/student/community' 
             </button>
 
             {/* Comment Count */}
-            <div className="flex items-center gap-1 px-2 py-1 text-[#9AA1AA]">
+            <div className="flex items-center gap-1 px-2 py-1 text-muted">
               <MessageSquare className="h-3.5 w-3.5" />
               <span>{post.comment_count}</span>
             </div>
@@ -146,7 +146,7 @@ export function PostCard({ post, currentUserId, baseHref = '/student/community' 
               <button
                 type="button"
                 onClick={handleDelete}
-                className="p-1 rounded text-[#9AA1AA] hover:text-red-400 hover:bg-red-500/10 transition-colors"
+                className="p-1 rounded text-muted hover:text-red-400 hover:bg-red-500/10 transition-colors"
                 title="Delete Post"
               >
                 <Trash2 className="h-3.5 w-3.5" />

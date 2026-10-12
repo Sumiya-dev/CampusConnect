@@ -53,20 +53,20 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
         <div className="space-y-6">
           {/* 1. Learning Objectives */}
           <div className="space-y-4">
-            <h2 className="text-base font-semibold uppercase tracking-wider text-[#EDEDED]">
+            <h2 className="text-base font-semibold uppercase tracking-wider text-foreground">
               Learning Objectives
             </h2>
-            <ul className="space-y-3 text-base text-[#EDEDED] pl-1">
+            <ul className="space-y-3 text-base text-foreground pl-1">
               {material.key_takeaways && material.key_takeaways.length > 0 ? (
                 material.key_takeaways.map((obj, i) => (
                   <li key={i} className="flex items-start gap-3 leading-relaxed">
-                    <span className="text-[#FF6B00] font-bold mt-0.5">•</span>
+                    <span className="text-accent font-bold mt-0.5">•</span>
                     <span>{obj}</span>
                   </li>
                 ))
               ) : (
                 <li className="flex items-start gap-3 leading-relaxed">
-                  <span className="text-[#FF6B00] font-bold mt-0.5">•</span>
+                  <span className="text-accent font-bold mt-0.5">•</span>
                   <span>
                     Master the fundamental algorithms, data structures, and evaluation rubrics required for campus recruitment rounds.
                   </span>
@@ -76,11 +76,11 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
           </div>
 
           {/* 2. Instructions & Study Guidelines */}
-          <div className="space-y-4 pt-8 border-t border-[#222222]">
-            <h2 className="text-base font-semibold uppercase tracking-wider text-[#EDEDED]">
+          <div className="space-y-4 pt-8 border-t border-border">
+            <h2 className="text-base font-semibold uppercase tracking-wider text-foreground">
               Instructions & Study Guidelines
             </h2>
-            <div className="space-y-3 text-base text-[#9AA1AA] leading-relaxed pl-1">
+            <div className="space-y-3 text-base text-muted leading-relaxed pl-1">
               <p>
                 1. Review the foundational guide and study the trade-offs, invariants, and edge conditions.
               </p>
@@ -97,15 +97,15 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
           </div>
 
           {/* 3. Proceed / Start Button */}
-          <div className="pt-8 border-t border-[#222222] flex items-center justify-between">
-            <span className="text-base text-[#9AA1AA]">
+          <div className="pt-8 border-t border-border flex items-center justify-between">
+            <span className="text-base text-muted">
               Self-paced guide • {material.questions?.length || 0} questions attached
             </span>
 
             <Button
               onClick={handleStartGuide}
               disabled={isPending}
-              className="bg-[#FF6B00] hover:bg-[#FF6B00]/90 text-white text-base px-8 py-2.5 h-auto gap-2"
+              className="bg-accent hover:bg-accent/90 text-white text-base px-8 py-2.5 h-auto gap-2"
             >
               <span>Start Guide</span>
               <ArrowRight className="h-4 w-4" />
@@ -118,21 +118,21 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
         /* ========================================================================= */
         <div className="space-y-6">
           {/* Top Control Strip */}
-          <div className="flex items-center justify-between pb-6 border-b border-[#222222] text-base">
+          <div className="flex items-center justify-between pb-6 border-b border-border text-base">
             <button
               onClick={() => setHasStarted(false)}
-              className="text-[#9AA1AA] hover:text-[#EDEDED] flex items-center gap-2 transition-colors"
+              className="text-muted hover:text-foreground flex items-center gap-2 transition-colors"
             >
               <FileText className="h-4 w-4" />
               <span>Review Objectives & Instructions</span>
             </button>
 
             <div className="flex items-center gap-4">
-              <span className="text-[#9AA1AA]">
+              <span className="text-muted">
                 Status:{' '}
                 <strong
                   className={
-                    status === 'completed' ? 'text-[#22C55E]' : 'text-[#FF6B00]'
+                    status === 'completed' ? 'text-green-500' : 'text-accent'
                   }
                 >
                   {status === 'completed' ? 'Completed' : 'In Progress'}
@@ -146,8 +146,8 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
                 variant={status === 'completed' ? 'outline' : 'default'}
                 className={`text-base gap-2 h-10 px-4 ${
                   status === 'completed'
-                    ? 'border-[#22C55E]/40 text-[#22C55E] hover:bg-[#22C55E]/10'
-                    : 'bg-[#22C55E] hover:bg-[#22C55E]/90 text-white'
+                    ? 'border-green-500/40 text-green-500 hover:bg-green-500/10'
+                    : 'bg-green-500 hover:bg-green-500/90 text-white'
                 }`}
               >
                 <CheckCircle2 className="h-4 w-4" />
@@ -161,11 +161,11 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
           </div>
 
           {/* Study Guide Content */}
-          <div className="py-6 border-b border-[#222222]">
-            <h2 className="text-lg font-semibold uppercase tracking-wider text-[#EDEDED] mb-4">
+          <div className="py-6 border-b border-border">
+            <h2 className="text-lg font-semibold uppercase tracking-wider text-foreground mb-4">
               Instructional Guide
             </h2>
-            <div className="text-base text-[#EDEDED] leading-relaxed whitespace-pre-wrap">
+            <div className="text-base text-foreground leading-relaxed whitespace-pre-wrap">
               {material.content}
             </div>
           </div>
@@ -173,52 +173,52 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
           {/* Curated Interview Questions Section */}
           {material.questions && material.questions.length > 0 && (
             <div className="space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-[#222222]">
-                <h2 className="text-base font-semibold uppercase tracking-wider text-[#EDEDED]">
+              <div className="flex items-center justify-between pb-4 border-b border-border">
+                <h2 className="text-base font-semibold uppercase tracking-wider text-foreground">
                   Targeted Interview Questions & Model Answers
                 </h2>
-                <span className="text-base text-[#9AA1AA]">
+                <span className="text-base text-muted">
                   {material.questions.length}{' '}
                   {material.questions.length === 1 ? 'scenario' : 'scenarios'}
                 </span>
               </div>
 
-              <div className="divide-y divide-[#222222]">
+              <div className="divide-y divide-border">
                 {material.questions.map((q, idx) => (
                   <div key={q.id} className="py-6 space-y-4 first:pt-4">
                     <div className="flex items-center justify-between text-base">
-                      <span className="font-semibold text-[#EDEDED]">
+                      <span className="font-semibold text-foreground">
                         Question {idx + 1} • {q.interview_type}
                       </span>
-                      <span className="text-[#9AA1AA]">{q.difficulty}</span>
+                      <span className="text-muted">{q.difficulty}</span>
                     </div>
 
-                    <p className="text-base font-medium text-[#FF6B00] leading-relaxed">
+                    <p className="text-base font-medium text-accent leading-relaxed">
                       {q.question}
                     </p>
 
                     <div className="space-y-2">
-                      <span className="text-sm uppercase font-bold text-[#22C55E] tracking-wider block">
+                      <span className="text-sm uppercase font-bold text-green-500 tracking-wider block">
                         Model Answer & Reasoning
                       </span>
-                      <p className="text-base text-[#9AA1AA] leading-relaxed whitespace-pre-wrap">
+                      <p className="text-base text-muted leading-relaxed whitespace-pre-wrap">
                         {q.answer_guide}
                       </p>
                     </div>
 
                     {q.sample_code && (
-                      <details className="group border border-[#222222] rounded-md overflow-hidden bg-[#0A0A0A]">
-                        <summary className="cursor-pointer bg-[#121212] px-4 py-3 text-sm font-semibold uppercase tracking-wider text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors select-none list-none flex items-center justify-between">
+                      <details className="group border border-border rounded-md overflow-hidden bg-surface">
+                        <summary className="cursor-pointer bg-elevated px-4 py-3 text-sm font-semibold uppercase tracking-wider text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors select-none list-none flex items-center justify-between">
                           <span>View Code & Implementation</span>
                           <span className="transition-transform duration-200 group-open:-rotate-180">▼</span>
                         </summary>
                         <div className="p-4 space-y-4">
                           <div className="space-y-2">
-                            <div className="flex items-center gap-2 text-sm uppercase font-bold text-[#9AA1AA] tracking-wider">
-                              <Code2 className="h-4 w-4 text-[#FF6B00]" />
+                            <div className="flex items-center gap-2 text-sm uppercase font-bold text-muted tracking-wider">
+                              <Code2 className="h-4 w-4 text-accent" />
                               <span>Implementation Blueprint</span>
                             </div>
-                            <pre className="bg-[#121212] p-4 rounded-md text-[#EDEDED] font-mono text-sm overflow-x-auto leading-relaxed border border-[#222222]">
+                            <pre className="bg-elevated p-4 rounded-md text-foreground font-mono text-sm overflow-x-auto leading-relaxed border border-border">
                               <code>{q.sample_code}</code>
                             </pre>
                           </div>
@@ -232,8 +232,8 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
           )}
 
           {/* Bottom Completion Action */}
-          <div className="pt-8 border-t border-[#222222] flex items-center justify-between">
-            <span className="text-base text-[#9AA1AA]">
+          <div className="pt-8 border-t border-border flex items-center justify-between">
+            <span className="text-base text-muted">
               {status === 'completed'
                 ? 'Module completed. Ready for review or next topic.'
                 : 'Mark completed once you have practiced the concepts and questions.'}
@@ -245,8 +245,8 @@ export function MaterialStudyView({ material }: MaterialStudyViewProps) {
               variant={status === 'completed' ? 'outline' : 'default'}
               className={`text-base gap-2 h-10 px-6 ${
                 status === 'completed'
-                  ? 'border-[#22C55E]/40 text-[#22C55E] hover:bg-[#22C55E]/10'
-                  : 'bg-[#22C55E] hover:bg-[#22C55E]/90 text-white'
+                  ? 'border-green-500/40 text-green-500 hover:bg-green-500/10'
+                  : 'bg-green-500 hover:bg-green-500/90 text-white'
               }`}
             >
               <CheckCircle2 className="h-4 w-4" />

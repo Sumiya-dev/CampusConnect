@@ -8,7 +8,7 @@ import {
 } from '@/lib/announcements/queries';
 import { FacultyAnnouncementsClient } from '@/components/faculty/faculty-announcements-client';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function FacultyAnnouncementsPage() {
   const user = await getCurrentUser();
@@ -33,20 +33,20 @@ export default async function FacultyAnnouncementsPage() {
       </Suspense>
 
       {/* Header */}
-      <div className="border-b border-[#222222] pb-5">
+      <div className="border-b border-border pb-5">
         <div className="flex items-center gap-2">
-          <span className="text-xs uppercase font-mono tracking-wider text-[#FF6B00]">
+          <span className="text-xs uppercase font-mono tracking-wider text-accent">
             Academic Broadcasts
           </span>
           <span className="text-[#333333]">/</span>
-          <span className="text-xs font-mono text-[#9AA1AA]">
+          <span className="text-xs font-mono text-muted">
             {allocations.faculty_department}
           </span>
         </div>
-        <h1 className="text-2xl font-semibold text-[#EDEDED] tracking-tight mt-1">
+        <h1 className="text-2xl font-semibold text-foreground tracking-tight mt-1">
           Faculty Announcements
         </h1>
-        <p className="text-sm text-[#9AA1AA] mt-1">
+        <p className="text-sm text-muted mt-1">
           Publish and manage official academic circulars, reschedule advisories, and targeted cohort notices.
         </p>
       </div>

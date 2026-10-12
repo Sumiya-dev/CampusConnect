@@ -50,25 +50,25 @@ export default function PlacementAnnouncementsPage() {
     >
       <div className="space-y-6">
         {/* Notice Composer */}
-        <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-3">
+        <div className="p-4 rounded-md border border-border bg-surface space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-[#EDEDED] flex items-center gap-1.5">
-              <Megaphone className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
+              <Megaphone className="h-3.5 w-3.5 text-accent" />
               Dispatch Campus Bulletin
             </span>
-            <span className="text-sm text-[#9AA1AA]">Audience: University-Wide</span>
+            <span className="text-sm text-muted">Audience: University-Wide</span>
           </div>
           <Input
             placeholder="Bulletin Headline (e.g. Schedule Change: Amazon PPT moved to 10:00 AM)..."
-            className="text-sm bg-[#121212] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA]"
+            className="text-sm bg-elevated border-border text-foreground placeholder:text-muted"
           />
           <textarea
             rows={3}
             placeholder="Detailed instructions, eligibility qualifications, or reporting requirements..."
-            className="w-full rounded-md border border-[#222222] bg-[#121212] px-3 py-2 text-sm text-[#EDEDED] placeholder:text-[#9AA1AA] focus:outline-none focus:border-[#FF6B00] resize-none"
+            className="w-full rounded-md border border-border bg-elevated px-3 py-2 text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent resize-none"
           />
           <div className="flex items-center justify-between pt-1">
-            <span className="text-sm text-[#9AA1AA]">
+            <span className="text-sm text-muted">
               Bulletin will be immediately visible on all student Home news feeds.
             </span>
             <Button size="sm" className="text-sm gap-1.5 font-medium">
@@ -80,32 +80,32 @@ export default function PlacementAnnouncementsPage() {
 
         {/* Existing Notices */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between border-b border-[#222222] pb-2">
-            <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
+          <div className="flex items-center justify-between border-b border-border pb-2">
+            <h2 className="text-base font-semibold text-foreground tracking-tight">
               Active Circulars & Bulletins
             </h2>
-            <span className="text-sm text-[#9AA1AA]">3 Broadcasts Published</span>
+            <span className="text-sm text-muted">3 Broadcasts Published</span>
           </div>
 
           <div className="space-y-3">
             {mockPlacementNotices.map((n) => (
               <div
                 key={n.id}
-                className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-2"
+                className="p-4 rounded-md border border-border bg-surface space-y-2"
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-[#EDEDED]">{n.title}</span>
+                    <span className="text-sm font-semibold text-foreground">{n.title}</span>
                     <Badge variant={n.status.includes('Active') ? 'success' : 'secondary'} className="text-sm">
                       {n.status}
                     </Badge>
                   </div>
-                  <span className="text-sm text-[#9AA1AA]">{n.publishedOn}</span>
+                  <span className="text-sm text-muted">{n.publishedOn}</span>
                 </div>
-                <p className="text-sm text-[#9AA1AA] leading-relaxed">{n.content}</p>
-                <div className="flex items-center justify-between pt-2 border-t border-[#222222] text-sm text-[#9AA1AA]">
-                  <span>Targeted to: <strong className="text-[#EDEDED] font-normal">{n.audience}</strong></span>
-                  <Button variant="ghost" size="sm" className="text-sm h-6 px-2 text-[#EDEDED] hover:text-[#EDEDED]">
+                <p className="text-sm text-muted leading-relaxed">{n.content}</p>
+                <div className="flex items-center justify-between pt-2 border-t border-border text-sm text-muted">
+                  <span>Targeted to: <strong className="text-foreground font-normal">{n.audience}</strong></span>
+                  <Button variant="ghost" size="sm" className="text-sm h-6 px-2 text-foreground hover:text-foreground">
                     Update Circular
                   </Button>
                 </div>

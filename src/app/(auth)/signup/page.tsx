@@ -9,8 +9,10 @@ import {
   Mail,
   User,
   Hash,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
-import { signUpAction } from '@/lib/auth/actions';
+import { signUpAction, switchDemoRoleAction } from '@/lib/auth/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -55,6 +57,8 @@ const ROLE_OPTIONS: RoleOption[] = [
 export default function SignUpPage() {
   const [selectedRole, setSelectedRole] = useState<SignupRole>('student');
   const [clientError, setClientError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [state, formAction, isPending] = useActionState(signUpAction, {
     success: false,
@@ -81,26 +85,26 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-[#EDEDED] flex flex-col justify-center items-center px-4 py-12">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-center items-center px-4 py-12">
       {/* Brand Header */}
       <div className="mb-6 text-center space-y-1">
         <Link href="/" className="inline-flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded border border-[#222222] bg-[#121212] text-[#FF6B00]">
+          <div className="flex h-7 w-7 items-center justify-center rounded border border-border bg-elevated text-accent">
             <GraduationCap className="h-4 w-4" />
           </div>
-          <span className="text-base font-semibold tracking-tight text-[#EDEDED]">
-            CampusConnect <span className="text-[#FF6B00]">AI</span>
+          <span className="text-base font-semibold tracking-tight text-foreground">
+            CampusConnect <span className="text-accent">AI</span>
           </span>
         </Link>
-        <p className="text-sm text-[#9AA1AA]">Institutional Access Platform</p>
+        <p className="text-sm text-muted">Institutional Access Platform</p>
       </div>
 
-      <div className="w-full max-w-lg border border-[#222222] bg-[#0A0A0A] rounded-md p-6 space-y-5">
+      <div className="w-full max-w-lg border border-border bg-surface rounded-md p-6 space-y-5">
         <div className="space-y-1">
-          <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
+          <h2 className="text-base font-semibold text-foreground tracking-tight">
             Account Registration
           </h2>
-          <p className="text-sm text-[#9AA1AA]">
+          <p className="text-sm text-muted">
             Select your institutional role to create your verified portal profile.
           </p>
         </div>
@@ -108,7 +112,7 @@ export default function SignUpPage() {
         {/* Role Selector Tabs */}
         <div className="space-y-1.5">
           <Label>Select Institutional Role</Label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 p-1 bg-[#000000] border border-[#222222] rounded-md">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 p-1 bg-background border border-border rounded-md">
             {ROLE_OPTIONS.map((r) => (
               <button
                 key={r.id}
@@ -119,8 +123,8 @@ export default function SignUpPage() {
                 }}
                 className={`py-1.5 px-2 text-xs sm:text-sm font-medium rounded transition-colors text-center truncate ${
                   selectedRole === r.id
-                    ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/40'
-                    : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                    ? 'bg-elevated text-accent border border-accent/40'
+                    : 'text-muted hover:text-foreground'
                 }`}
               >
                 {r.label}
@@ -148,7 +152,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="name"
                   name="name"
@@ -164,7 +168,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="email">Institutional Email</Label>
               <div className="relative">
-                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="email"
                   name="email"
@@ -181,32 +185,46 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     required
                     minLength={6}
                     placeholder="Min 6 characters"
-                    className="pl-8 text-sm"
+                    className="pl-8 pr-9 text-sm"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-2.5 top-2.5 text-muted hover:text-foreground transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
                 </div>
               </div>
 
               <div className="space-y-1.5">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="confirmPassword"
                     name="confirmPassword"
-                    type="password"
+                    type={showConfirmPassword ? 'text' : 'password'}
                     required
                     minLength={6}
                     placeholder="Re-enter password"
-                    className="pl-8 text-sm"
+                    className="pl-8 pr-9 text-sm"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-2.5 top-2.5 text-muted hover:text-foreground transition-colors"
+                  >
+                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
                 </div>
               </div>
             </div>
@@ -216,7 +234,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="identifier">Student / Roll Number</Label>
                 <div className="relative">
-                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="identifier"
                     name="identifier"
@@ -233,7 +251,7 @@ export default function SignUpPage() {
                 <div className="relative">
                   <Select id="department" name="department" defaultValue={DEPARTMENTS[0]} className="text-sm">
                     {DEPARTMENTS.map((dept) => (
-                      <option key={dept} value={dept} className="bg-[#0A0A0A] text-[#EDEDED]">
+                      <option key={dept} value={dept} className="bg-surface text-foreground">
                         {dept}
                       </option>
                     ))}
@@ -249,7 +267,7 @@ export default function SignUpPage() {
                 <div className="relative">
                   <Select id="academicYear" name="academicYear" defaultValue="3" className="text-sm">
                     {ACADEMIC_YEARS.map((yr) => (
-                      <option key={yr.value} value={yr.value} className="bg-[#0A0A0A] text-[#EDEDED]">
+                      <option key={yr.value} value={yr.value} className="bg-surface text-foreground">
                         {yr.label}
                       </option>
                     ))}
@@ -262,7 +280,7 @@ export default function SignUpPage() {
                 <div className="relative">
                   <Select id="section" name="section" defaultValue="A" className="text-sm">
                     {SECTIONS.map((sec) => (
-                      <option key={sec} value={sec} className="bg-[#0A0A0A] text-[#EDEDED]">
+                      <option key={sec} value={sec} className="bg-surface text-foreground">
                         Section {sec}
                       </option>
                     ))}
@@ -291,7 +309,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="name"
                   name="name"
@@ -307,7 +325,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="email">Official Email</Label>
               <div className="relative">
-                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="email"
                   name="email"
@@ -324,7 +342,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="password"
                     name="password"
@@ -340,7 +358,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="confirmPassword"
                     name="confirmPassword"
@@ -359,7 +377,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="identifier">Faculty ID</Label>
                 <div className="relative">
-                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="identifier"
                     name="identifier"
@@ -376,7 +394,7 @@ export default function SignUpPage() {
                 <div className="relative">
                   <Select id="department" name="department" defaultValue={DEPARTMENTS[0]} className="text-sm">
                     {DEPARTMENTS.map((dept) => (
-                      <option key={dept} value={dept} className="bg-[#0A0A0A] text-[#EDEDED]">
+                      <option key={dept} value={dept} className="bg-surface text-foreground">
                         {dept}
                       </option>
                     ))}
@@ -405,7 +423,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="name"
                   name="name"
@@ -421,7 +439,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="email">Official Email</Label>
               <div className="relative">
-                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="email"
                   name="email"
@@ -438,7 +456,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="password"
                     name="password"
@@ -454,7 +472,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="confirmPassword"
                     name="confirmPassword"
@@ -473,7 +491,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="identifier">Placement Officer ID</Label>
                 <div className="relative">
-                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="identifier"
                     name="identifier"
@@ -495,7 +513,7 @@ export default function SignUpPage() {
                     className="text-sm"
                   >
                     {DEPARTMENTS.map((dept) => (
-                      <option key={dept} value={dept} className="bg-[#0A0A0A] text-[#EDEDED]">
+                      <option key={dept} value={dept} className="bg-surface text-foreground">
                         {dept}
                       </option>
                     ))}
@@ -524,7 +542,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="name">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <User className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="name"
                   name="name"
@@ -540,7 +558,7 @@ export default function SignUpPage() {
             <div className="space-y-1.5">
               <Label htmlFor="email">Administrator Email</Label>
               <div className="relative">
-                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="email"
                   name="email"
@@ -557,7 +575,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="password"
                     name="password"
@@ -573,7 +591,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="confirmPassword"
                     name="confirmPassword"
@@ -592,7 +610,7 @@ export default function SignUpPage() {
               <div className="space-y-1.5">
                 <Label htmlFor="identifier">Administrator Code</Label>
                 <div className="relative">
-                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                  <Hash className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                   <Input
                     id="identifier"
                     name="identifier"
@@ -614,7 +632,7 @@ export default function SignUpPage() {
                     className="text-sm"
                   >
                     {DEPARTMENTS.map((dept) => (
-                      <option key={dept} value={dept} className="bg-[#0A0A0A] text-[#EDEDED]">
+                      <option key={dept} value={dept} className="bg-surface text-foreground">
                         {dept}
                       </option>
                     ))}
@@ -635,11 +653,32 @@ export default function SignUpPage() {
         )}
 
         {/* Footer Navigation */}
-        <div className="pt-2 text-center text-sm text-[#9AA1AA] border-t border-[#222222]">
+        <div className="pt-2 text-center text-sm text-muted border-t border-border">
           Already have an institutional account?{' '}
-          <Link href="/login" className="text-[#FF6B00] hover:underline font-medium">
+          <Link href="/login" className="text-accent hover:underline font-medium">
             Sign In
           </Link>
+        </div>
+
+        {/* Localhost Demo Switcher */}
+        <div className="pt-4 mt-2 border-t border-border">
+          <p className="text-xs text-center text-[#6E7681] uppercase font-semibold mb-3 tracking-wider">
+            Demo Quick Login
+          </p>
+          <div className="grid grid-cols-2 gap-2">
+            <form action={switchDemoRoleAction.bind(null, 'student')}>
+              <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Student</Button>
+            </form>
+            <form action={switchDemoRoleAction.bind(null, 'faculty')}>
+              <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Faculty</Button>
+            </form>
+            <form action={switchDemoRoleAction.bind(null, 'placement_officer')}>
+              <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Placement Officer</Button>
+            </form>
+            <form action={switchDemoRoleAction.bind(null, 'administrator')}>
+              <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Admin</Button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -67,7 +67,7 @@ const TYPE_COLORS: Record<NotificationType, string> = {
   Interview: 'text-purple-400 border-purple-900/40 bg-purple-950/20',
   Announcement: 'text-sky-400 border-sky-900/40 bg-sky-950/20',
   System: 'text-neutral-300 border-neutral-700 bg-neutral-900/40',
-  General: 'text-[#FF6B00] border-[#FF6B00]/30 bg-[#FF6B00]/10',
+  General: 'text-accent border-accent/30 bg-accent/10',
 };
 
 export function NotificationsDashboard({
@@ -247,18 +247,18 @@ export function NotificationsDashboard({
 
       {/* METRICS STRIP */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Total Broadcasts</span>
-            <Bell className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <Bell className="h-3.5 w-3.5 text-accent" />
           </div>
-          <div className="text-xl font-bold font-mono text-[#EDEDED] mt-2">
+          <div className="text-xl font-bold font-mono text-foreground mt-2">
             {initialStats.total}
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Sent / Dispatched</span>
             <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
           </div>
@@ -267,8 +267,8 @@ export function NotificationsDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Scheduled</span>
             <Clock className="h-3.5 w-3.5 text-amber-400" />
           </div>
@@ -277,18 +277,18 @@ export function NotificationsDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Drafts / Inactive</span>
             <FileText className="h-3.5 w-3.5 text-neutral-400" />
           </div>
-          <div className="text-xl font-bold font-mono text-[#EDEDED] mt-2">
+          <div className="text-xl font-bold font-mono text-foreground mt-2">
             {initialStats.draft + initialStats.cancelled}
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Delivered Inboxes</span>
             <Users className="h-3.5 w-3.5 text-sky-400" />
           </div>
@@ -297,14 +297,14 @@ export function NotificationsDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Read Acknowledgements</span>
             <Check className="h-3.5 w-3.5 text-emerald-400" />
           </div>
-          <div className="text-xl font-bold font-mono text-[#EDEDED] mt-2">
+          <div className="text-xl font-bold font-mono text-foreground mt-2">
             {initialStats.totalRead}
-            <span className="text-xs text-[#9AA1AA] font-normal ml-1">
+            <span className="text-xs text-muted font-normal ml-1">
               (
               {initialStats.totalDelivered > 0
                 ? Math.round(
@@ -318,23 +318,23 @@ export function NotificationsDashboard({
       </div>
 
       {/* SEARCH AND FILTERS BAR */}
-      <div className="border border-[#222222] bg-[#121212] p-4 rounded-md space-y-3">
+      <div className="border border-border bg-elevated p-4 rounded-md space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Search Input */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
             <Input
               type="text"
               placeholder="Search by title, message body, or department..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9 focus-visible:ring-1 focus-visible:ring-[#FF6B00]"
+              className="pl-9 bg-surface border-border text-foreground text-xs h-9 focus-visible:ring-1 focus-visible:ring-accent"
             />
           </div>
 
           {/* Action button */}
           <Link href="/admin/notifications/new">
-            <Button className="bg-[#FF6B00] hover:bg-[#E05D00] text-black text-xs font-semibold h-9 px-4 shrink-0">
+            <Button className="bg-accent hover:bg-[#E05D00] text-black text-xs font-semibold h-9 px-4 shrink-0">
               <Plus className="h-3.5 w-3.5 mr-1.5" />
               Create Notification
             </Button>
@@ -345,13 +345,13 @@ export function NotificationsDashboard({
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 pt-2 border-t border-[#1C1C1C]">
           {/* Type Filter */}
           <div>
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block mb-1">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block mb-1">
               Type
             </label>
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2.5 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Types</option>
               <option value="Placement">Placement</option>
@@ -366,13 +366,13 @@ export function NotificationsDashboard({
 
           {/* Target Role Filter */}
           <div>
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block mb-1">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block mb-1">
               Target Role
             </label>
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2.5 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Roles</option>
               <option value="student">Students</option>
@@ -384,13 +384,13 @@ export function NotificationsDashboard({
 
           {/* Status Filter */}
           <div>
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block mb-1">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block mb-1">
               Status
             </label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2.5 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Statuses</option>
               <option value="sent">Sent</option>
@@ -402,27 +402,27 @@ export function NotificationsDashboard({
 
           {/* Date From */}
           <div>
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block mb-1">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block mb-1">
               Date From
             </label>
             <Input
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border-[#222222] text-xs text-[#EDEDED]"
+              className="w-full h-8 px-2 rounded bg-surface border-border text-xs text-foreground"
             />
           </div>
 
           {/* Date To */}
           <div>
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block mb-1">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block mb-1">
               Date To
             </label>
             <Input
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border-[#222222] text-xs text-[#EDEDED]"
+              className="w-full h-8 px-2 rounded bg-surface border-border text-xs text-foreground"
             />
           </div>
         </div>
@@ -434,7 +434,7 @@ export function NotificationsDashboard({
           statusFilter !== 'all' ||
           dateFrom ||
           dateTo) && (
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA] pt-1">
+          <div className="flex items-center justify-between text-xs text-muted pt-1">
             <span>
               Showing {filteredNotifications.length} of {initialNotifications.length}{' '}
               notifications
@@ -448,7 +448,7 @@ export function NotificationsDashboard({
                 setDateFrom('');
                 setDateTo('');
               }}
-              className="text-[#FF6B00] hover:underline"
+              className="text-accent hover:underline"
             >
               Reset all filters
             </button>
@@ -457,20 +457,20 @@ export function NotificationsDashboard({
       </div>
 
       {/* NOTIFICATIONS LIST / TABLE */}
-      <div className="border border-[#222222] bg-[#0A0A0A] rounded-md divide-y divide-[#1A1A1A] overflow-hidden">
+      <div className="border border-border bg-surface rounded-md divide-y divide-[#1A1A1A] overflow-hidden">
         {filteredNotifications.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <Bell className="h-8 w-8 text-[#9AA1AA] mx-auto opacity-40" />
-            <div className="text-sm font-medium text-[#EDEDED]">
+            <Bell className="h-8 w-8 text-muted mx-auto opacity-40" />
+            <div className="text-sm font-medium text-foreground">
               No notifications found
             </div>
-            <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+            <p className="text-xs text-muted max-w-sm mx-auto">
               No administrative notifications matched your active filter criteria.
               Create a new notification or clear search filters.
             </p>
             <div className="pt-2">
               <Link href="/admin/notifications/new">
-                <Button className="bg-[#FF6B00] hover:bg-[#E05D00] text-black text-xs font-semibold h-8 px-3">
+                <Button className="bg-accent hover:bg-[#E05D00] text-black text-xs font-semibold h-8 px-3">
                   <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Create Notification
                 </Button>
@@ -482,12 +482,12 @@ export function NotificationsDashboard({
             const TypeIcon = TYPE_ICONS[notification.type] || Bell;
             const typeColorClass =
               TYPE_COLORS[notification.type] ||
-              'text-[#FF6B00] border-[#FF6B00]/30 bg-[#FF6B00]/10';
+              'text-accent border-accent/30 bg-accent/10';
 
             return (
               <div
                 key={notification.id}
-                className="p-4 sm:p-5 hover:bg-[#121212]/70 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="p-4 sm:p-5 hover:bg-elevated/70 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
                 {/* Left Content Column */}
                 <div className="space-y-2 min-w-0 flex-1">
@@ -529,7 +529,7 @@ export function NotificationsDashboard({
 
                     {/* Schedule or Sent date */}
                     {notification.status === 'sent' && notification.sent_at && (
-                      <span className="text-xs text-[#9AA1AA] font-mono">
+                      <span className="text-xs text-muted font-mono">
                         Sent on {formatTimestamp(notification.sent_at)}
                       </span>
                     )}
@@ -539,29 +539,29 @@ export function NotificationsDashboard({
                       </span>
                     )}
                     {notification.status === 'draft' && (
-                      <span className="text-xs text-[#9AA1AA] font-mono">
+                      <span className="text-xs text-muted font-mono">
                         Created {formatTimestamp(notification.created_at)}
                       </span>
                     )}
                   </div>
 
                   {/* Title & snippet */}
-                  <h3 className="text-sm font-semibold text-[#EDEDED] leading-snug">
+                  <h3 className="text-sm font-semibold text-foreground leading-snug">
                     <Link
                       href={`/admin/notifications/${notification.id}`}
-                      className="hover:text-[#FF6B00] transition-colors"
+                      className="hover:text-accent transition-colors"
                     >
                       {notification.title}
                     </Link>
                   </h3>
-                  <p className="text-xs text-[#9AA1AA] line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-muted line-clamp-2 leading-relaxed">
                     {notification.message}
                   </p>
 
                   {/* Targeting Meta chips */}
-                  <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-[#9AA1AA]">
+                  <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] text-muted">
                     <span className="inline-flex items-center gap-1 font-mono text-neutral-300">
-                      <Users className="h-3 w-3 text-[#FF6B00]" />
+                      <Users className="h-3 w-3 text-accent" />
                       Audience:
                     </span>
 
@@ -587,7 +587,7 @@ export function NotificationsDashboard({
                     {/* Department */}
                     {notification.target_department && (
                       <span className="inline-flex items-center gap-1 text-neutral-300">
-                        • <Building2 className="h-3 w-3 text-[#9AA1AA]" />
+                        • <Building2 className="h-3 w-3 text-muted" />
                         {notification.target_department}
                       </span>
                     )}
@@ -595,7 +595,7 @@ export function NotificationsDashboard({
                     {/* Year */}
                     {notification.target_year && (
                       <span className="inline-flex items-center gap-1 text-neutral-300">
-                        • <GraduationCap className="h-3 w-3 text-[#9AA1AA]" />
+                        • <GraduationCap className="h-3 w-3 text-muted" />
                         Year {notification.target_year}
                       </span>
                     )}
@@ -615,10 +615,10 @@ export function NotificationsDashboard({
                   <div className="text-right">
                     {notification.status === 'sent' ? (
                       <div>
-                        <div className="text-xs font-mono font-medium text-[#EDEDED]">
+                        <div className="text-xs font-mono font-medium text-foreground">
                           {notification.recipient_count || 0} delivered
                         </div>
-                        <div className="text-[11px] text-[#9AA1AA] font-mono">
+                        <div className="text-[11px] text-muted font-mono">
                           {notification.read_count || 0} read (
                           {notification.recipient_count && notification.recipient_count > 0
                             ? Math.round(
@@ -635,7 +635,7 @@ export function NotificationsDashboard({
                         Pending scheduled trigger
                       </div>
                     ) : (
-                      <div className="text-[11px] text-[#9AA1AA] font-mono">
+                      <div className="text-[11px] text-muted font-mono">
                         Unsent draft
                       </div>
                     )}
@@ -648,7 +648,7 @@ export function NotificationsDashboard({
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-7 px-2.5 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                        className="h-7 px-2.5 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
                         title="View details & delivery logs"
                       >
                         <Eye className="h-3.5 w-3.5 mr-1" />
@@ -662,7 +662,7 @@ export function NotificationsDashboard({
                         <Button
                           variant="outline"
                           size="sm"
-                          className="h-7 px-2 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                          className="h-7 px-2 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
                           title="Edit notification"
                         >
                           <Edit className="h-3.5 w-3.5" />
@@ -675,7 +675,7 @@ export function NotificationsDashboard({
                       <Button
                         size="sm"
                         onClick={() => setConfirmSendId(notification)}
-                        className="h-7 px-2.5 text-xs bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold"
+                        className="h-7 px-2.5 text-xs bg-accent hover:bg-[#E05D00] text-black font-semibold"
                         title="Dispatch now"
                       >
                         <Send className="h-3.5 w-3.5 mr-1" />
@@ -720,18 +720,18 @@ export function NotificationsDashboard({
       {/* MODAL: CONFIRM SEND NOTIFICATION NOW */}
       {confirmSendId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4 shadow-2xl">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4 shadow-2xl">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-[#FF6B00] shrink-0 mt-0.5">
+              <div className="p-2 rounded bg-accent/10 border border-accent/30 text-accent shrink-0 mt-0.5">
                 <Send className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Dispatch Notification Immediately?
                 </h3>
-                <p className="text-xs text-[#9AA1AA] leading-relaxed">
+                <p className="text-xs text-muted leading-relaxed">
                   You are about to broadcast{' '}
-                  <span className="text-[#EDEDED] font-medium font-mono">
+                  <span className="text-foreground font-medium font-mono">
                     "{confirmSendId.title}"
                   </span>{' '}
                   to its targeted audience.
@@ -739,21 +739,21 @@ export function NotificationsDashboard({
               </div>
             </div>
 
-            <div className="p-3 bg-[#0A0A0A] border border-[#222222] rounded text-xs space-y-1.5 text-[#9AA1AA]">
+            <div className="p-3 bg-surface border border-border rounded text-xs space-y-1.5 text-muted">
               <div className="flex justify-between">
                 <span>Notification Type:</span>
-                <span className="text-[#EDEDED] font-mono">{confirmSendId.type}</span>
+                <span className="text-foreground font-mono">{confirmSendId.type}</span>
               </div>
               <div className="flex justify-between">
                 <span>Target Roles:</span>
-                <span className="text-[#EDEDED] font-mono">
+                <span className="text-foreground font-mono">
                   {confirmSendId.target_roles?.join(', ') || 'All Roles'}
                 </span>
               </div>
               {confirmSendId.target_department && (
                 <div className="flex justify-between">
                   <span>Department:</span>
-                  <span className="text-[#EDEDED]">
+                  <span className="text-foreground">
                     {confirmSendId.target_department}
                   </span>
                 </div>
@@ -769,7 +769,7 @@ export function NotificationsDashboard({
                 size="sm"
                 onClick={() => setConfirmSendId(null)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>
@@ -777,7 +777,7 @@ export function NotificationsDashboard({
                 size="sm"
                 onClick={handleSendNow}
                 disabled={isPending}
-                className="bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold text-xs h-8"
+                className="bg-accent hover:bg-[#E05D00] text-black font-semibold text-xs h-8"
               >
                 {isPending ? (
                   <>
@@ -799,18 +799,18 @@ export function NotificationsDashboard({
       {/* MODAL: CONFIRM CANCEL SCHEDULED */}
       {confirmCancelId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4 shadow-2xl">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4 shadow-2xl">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-amber-950/30 border border-amber-900/60 text-amber-400 shrink-0 mt-0.5">
                 <Ban className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Cancel Scheduled Broadcast?
                 </h3>
-                <p className="text-xs text-[#9AA1AA] leading-relaxed">
+                <p className="text-xs text-muted leading-relaxed">
                   This will cancel the scheduled trigger for{' '}
-                  <span className="text-[#EDEDED] font-medium font-mono">
+                  <span className="text-foreground font-medium font-mono">
                     "{confirmCancelId.title}"
                   </span>
                   . It will not be sent to recipients.
@@ -824,7 +824,7 @@ export function NotificationsDashboard({
                 size="sm"
                 onClick={() => setConfirmCancelId(null)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Keep Scheduled
               </Button>
@@ -851,18 +851,18 @@ export function NotificationsDashboard({
       {/* MODAL: CONFIRM DELETE NOTIFICATION */}
       {confirmDeleteId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4 shadow-2xl">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4 shadow-2xl">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-rose-950/30 border border-rose-900/60 text-rose-400 shrink-0 mt-0.5">
                 <Trash2 className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Permanently Delete Notification?
                 </h3>
-                <p className="text-xs text-[#9AA1AA] leading-relaxed">
+                <p className="text-xs text-muted leading-relaxed">
                   Are you sure you want to delete{' '}
-                  <span className="text-[#EDEDED] font-medium font-mono">
+                  <span className="text-foreground font-medium font-mono">
                     "{confirmDeleteId.title}"
                   </span>
                   ? This action cannot be undone.
@@ -876,7 +876,7 @@ export function NotificationsDashboard({
                 size="sm"
                 onClick={() => setConfirmDeleteId(null)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>

@@ -195,7 +195,7 @@ export function AlumniPostDetailView({
       <div>
         <Link
           href={baseHref}
-          className="inline-flex items-center gap-1.5 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Back to Discussions</span>
@@ -203,11 +203,11 @@ export function AlumniPostDetailView({
       </div>
 
       {/* Main Post Card */}
-      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-6 space-y-5">
+      <div className="bg-surface border border-border rounded-lg p-6 space-y-5">
         {/* Author Header */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-sm font-semibold text-[#FF6B00] shrink-0 mt-0.5 overflow-hidden">
+            <div className="h-10 w-10 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-sm font-semibold text-accent shrink-0 mt-0.5 overflow-hidden">
               {post.author.avatar_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -222,15 +222,15 @@ export function AlumniPostDetailView({
 
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap text-xs">
-                <span className="font-semibold text-sm text-[#EDEDED]">
+                <span className="font-semibold text-sm text-foreground">
                   {post.author.name}
                 </span>
                 <span className="text-[#333333]">•</span>
                 <span
                   className={`font-mono text-[10px] uppercase font-bold px-1.5 py-0.2 rounded border ${
                     isPostAlumni
-                      ? 'bg-[#FF6B00]/10 text-[#FF6B00] border-[#FF6B00]/30'
-                      : 'bg-[#161616] text-[#9AA1AA] border-[#262626]'
+                      ? 'bg-accent/10 text-accent border-accent/30'
+                      : 'bg-[#161616] text-muted border-[#262626]'
                   }`}
                 >
                   {isPostAlumni ? 'ALUMNI' : 'STUDENT'}
@@ -238,19 +238,19 @@ export function AlumniPostDetailView({
                 {post.author.department && (
                   <>
                     <span className="text-[#333333]">•</span>
-                    <span className="text-[#9AA1AA] text-xs">{post.author.department}</span>
+                    <span className="text-muted text-xs">{post.author.department}</span>
                   </>
                 )}
                 {isPostAlumni && post.author.graduation_year && (
-                  <span className="text-[#FF6B00] font-mono text-xs">
+                  <span className="text-accent font-mono text-xs">
                     {post.author.graduation_year}
                   </span>
                 )}
               </div>
 
               {isPostAlumni && (post.author.job_role || post.author.current_company) && (
-                <div className="flex items-center gap-1.5 text-xs text-[#9AA1AA]">
-                  <Briefcase className="h-3 w-3 text-[#FF6B00]" />
+                <div className="flex items-center gap-1.5 text-xs text-muted">
+                  <Briefcase className="h-3 w-3 text-accent" />
                   <span>
                     {post.author.job_role}
                     {post.author.current_company && ` @ ${post.author.current_company}`}
@@ -268,7 +268,7 @@ export function AlumniPostDetailView({
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 text-xs font-mono uppercase rounded bg-[#121212] border border-[#222222] text-[#9AA1AA]">
+            <span className="px-2.5 py-0.5 text-xs font-mono uppercase rounded bg-elevated border border-border text-muted">
               {post.category}
             </span>
             {isPostOwner && (
@@ -287,7 +287,7 @@ export function AlumniPostDetailView({
 
         {/* Post Title & Content */}
         <div className="space-y-3 pt-2">
-          <h1 className="text-lg font-bold text-[#EDEDED] leading-snug">
+          <h1 className="text-lg font-bold text-foreground leading-snug">
             {post.title}
           </h1>
           <p className="text-xs text-[#CCCCCC] leading-relaxed whitespace-pre-line">
@@ -303,11 +303,11 @@ export function AlumniPostDetailView({
             disabled={isLiking}
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
               isLiked
-                ? 'border-[#FF6B00]/40 text-[#FF6B00] bg-[#FF6B00]/10'
-                : 'border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED] bg-[#121212]'
+                ? 'border-accent/40 text-accent bg-accent/10'
+                : 'border-border text-muted hover:text-foreground bg-elevated'
             }`}
           >
-            <Heart className={`h-3.5 w-3.5 ${isLiked ? 'fill-[#FF6B00]' : ''}`} />
+            <Heart className={`h-3.5 w-3.5 ${isLiked ? 'fill-accent' : ''}`} />
             <span>{likesCount} Likes</span>
           </button>
 
@@ -319,8 +319,8 @@ export function AlumniPostDetailView({
       </div>
 
       {/* Comments Section */}
-      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-6 space-y-6">
-        <h3 className="text-sm font-semibold text-[#EDEDED]">
+      <div className="bg-surface border border-border rounded-lg p-6 space-y-6">
+        <h3 className="text-sm font-semibold text-foreground">
           Comments ({comments.length})
         </h3>
 
@@ -338,7 +338,7 @@ export function AlumniPostDetailView({
             onChange={(e) => setCommentText(e.target.value)}
             placeholder="Share your thoughts, advice, or follow-up question..."
             rows={3}
-            className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] transition-colors resize-none"
+            className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent transition-colors resize-none"
             disabled={isSubmittingComment}
           />
           <div className="flex justify-end">
@@ -346,7 +346,7 @@ export function AlumniPostDetailView({
               type="submit"
               size="sm"
               disabled={isSubmittingComment || !commentText.trim()}
-              className="text-xs gap-1.5 font-semibold bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+              className="text-xs gap-1.5 font-semibold bg-accent text-black hover:bg-[#E05E00]"
             >
               <Send className="h-3.5 w-3.5" />
               <span>{isSubmittingComment ? 'Submitting...' : 'Comment'}</span>
@@ -356,7 +356,7 @@ export function AlumniPostDetailView({
 
         {/* Comments Feed */}
         {comments.length === 0 ? (
-          <div className="text-center py-8 border border-dashed border-[#222222] rounded-md text-xs text-[#717784]">
+          <div className="text-center py-8 border border-dashed border-border rounded-md text-xs text-[#717784]">
             No comments yet. Start the conversation!
           </div>
         ) : (
@@ -368,31 +368,31 @@ export function AlumniPostDetailView({
               return (
                 <div
                   key={comment.id}
-                  className="p-4 bg-[#121212] border border-[#222222] rounded-md space-y-3"
+                  className="p-4 bg-elevated border border-border rounded-md space-y-3"
                 >
                   {/* Comment Author Header */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="space-y-0.5">
                       <div className="flex items-center gap-2 flex-wrap text-xs">
-                        <span className="font-semibold text-[#EDEDED]">
+                        <span className="font-semibold text-foreground">
                           {comment.author.name}
                         </span>
                         <span
                           className={`font-mono text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border ${
                             isCommentAlumni
-                              ? 'bg-[#FF6B00]/10 text-[#FF6B00] border-[#FF6B00]/30'
-                              : 'bg-[#161616] text-[#9AA1AA] border-[#262626]'
+                              ? 'bg-accent/10 text-accent border-accent/30'
+                              : 'bg-[#161616] text-muted border-[#262626]'
                           }`}
                         >
                           {isCommentAlumni ? 'ALUMNI' : 'STUDENT'}
                         </span>
                         {comment.author.department && (
-                          <span className="text-[#9AA1AA] text-[11px]">
+                          <span className="text-muted text-[11px]">
                             {comment.author.department}
                           </span>
                         )}
                         {isCommentAlumni && (comment.author.job_role || comment.author.current_company) && (
-                          <span className="text-[#9AA1AA] text-[11px]">
+                          <span className="text-muted text-[11px]">
                             • {[comment.author.job_role, comment.author.current_company].filter(Boolean).join(' @ ')}
                           </span>
                         )}
@@ -429,7 +429,7 @@ export function AlumniPostDetailView({
                       onClick={() =>
                         setReplyingToId(replyingToId === comment.id ? null : comment.id)
                       }
-                      className="inline-flex items-center gap-1 text-[11px] text-[#717784] hover:text-[#EDEDED] transition-colors"
+                      className="inline-flex items-center gap-1 text-[11px] text-[#717784] hover:text-foreground transition-colors"
                     >
                       <CornerDownRight className="h-3 w-3" />
                       <span>{replyingToId === comment.id ? 'Cancel Reply' : 'Reply'}</span>
@@ -438,13 +438,13 @@ export function AlumniPostDetailView({
 
                   {/* Reply Form */}
                   {replyingToId === comment.id && (
-                    <div className="pt-2 pl-4 border-l-2 border-[#FF6B00]/40 space-y-2">
+                    <div className="pt-2 pl-4 border-l-2 border-accent/40 space-y-2">
                       <textarea
                         value={replyText}
                         onChange={(e) => setReplyText(e.target.value)}
                         placeholder={`Reply to ${comment.author.name}...`}
                         rows={2}
-                        className="w-full bg-[#0A0A0A] border border-[#262626] rounded p-2.5 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] resize-none"
+                        className="w-full bg-surface border border-[#262626] rounded p-2.5 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent resize-none"
                       />
                       <div className="flex justify-end gap-2">
                         <Button
@@ -464,7 +464,7 @@ export function AlumniPostDetailView({
                           size="sm"
                           disabled={isSubmittingReply || !replyText.trim()}
                           onClick={() => handleAddReply(comment.id)}
-                          className="text-xs h-7 bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+                          className="text-xs h-7 bg-accent text-black hover:bg-[#E05E00]"
                         >
                           <span>{isSubmittingReply ? 'Replying...' : 'Send Reply'}</span>
                         </Button>
@@ -474,7 +474,7 @@ export function AlumniPostDetailView({
 
                   {/* Nested Replies */}
                   {comment.replies && comment.replies.length > 0 && (
-                    <div className="pt-2 pl-4 space-y-2.5 border-l border-[#222222]">
+                    <div className="pt-2 pl-4 space-y-2.5 border-l border-border">
                       {comment.replies.map((reply) => {
                         const isReplyAuthor = currentUser.id === reply.author_id;
                         const isReplyAlumni = reply.author.role === 'alumni';
@@ -482,18 +482,18 @@ export function AlumniPostDetailView({
                         return (
                           <div
                             key={reply.id}
-                            className="p-3 bg-[#0A0A0A] border border-[#1F1F1F] rounded space-y-1.5"
+                            className="p-3 bg-surface border border-[#1F1F1F] rounded space-y-1.5"
                           >
                             <div className="flex items-start justify-between gap-2">
                               <div className="flex items-center gap-2 flex-wrap text-xs">
-                                <span className="font-semibold text-[#EDEDED]">
+                                <span className="font-semibold text-foreground">
                                   {reply.author.name}
                                 </span>
                                 <span
                                   className={`font-mono text-[9px] uppercase font-bold px-1.5 py-0.2 rounded border ${
                                     isReplyAlumni
-                                      ? 'bg-[#FF6B00]/10 text-[#FF6B00] border-[#FF6B00]/30'
-                                      : 'bg-[#161616] text-[#9AA1AA] border-[#262626]'
+                                      ? 'bg-accent/10 text-accent border-accent/30'
+                                      : 'bg-[#161616] text-muted border-[#262626]'
                                   }`}
                                 >
                                   {isReplyAlumni ? 'ALUMNI' : 'STUDENT'}

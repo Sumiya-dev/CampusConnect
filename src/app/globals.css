@@ -1,25 +1,51 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: var(--bg-main);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  --color-foreground: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-border: var(--border-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-muted: var(--accent-muted);
+}
+
 @layer base {
   :root {
+    /* Light Theme */
+    --bg-main: #FFFFFF;
+    --bg-surface: #F9FAFB;
+    --bg-elevated: #F3F4F6;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --border-subtle: #E5E7EB;
+    --accent: #FF6B00;
+    --accent-hover: #E05E00;
+    --accent-muted: rgba(255, 107, 0, 0.12);
+  }
+
+  .dark {
+    /* Dark Theme */
     --bg-main: #000000;
     --bg-surface: #0A0A0A;
     --bg-elevated: #121212;
     --text-primary: #EDEDED;
     --text-secondary: #9AA1AA;
     --border-subtle: #222222;
-    --accent: #ff0000;
+    --accent: #FF6B00;
     --accent-hover: #E05E00;
     --accent-muted: rgba(255, 107, 0, 0.12);
   }
 
   * {
-    border-color: #222222;
+    border-color: var(--border-subtle);
   }
 
   body {
-    background-color: #000000;
-    color: #EDEDED;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
@@ -31,14 +57,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--bg-main);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222222;
+  background: var(--border-subtle);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333333;
+  background: var(--text-secondary);
 }

@@ -41,12 +41,12 @@ export function ApplyButton({
   if (appliedSuccess) {
     return (
       <div className="flex flex-col sm:flex-row items-center gap-3">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#22C55E]/30 bg-[#22C55E]/10 text-[#22C55E] text-sm font-semibold">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-green-500/30 bg-green-500/10 text-green-500 text-sm font-semibold">
           <CheckCircle2 className="h-4 w-4 shrink-0" />
           <span>Application Submitted</span>
         </div>
         <Link href="/student/placements/applications">
-          <Button variant="outline" size="sm" className="text-sm h-9 gap-1.5 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]">
+          <Button variant="outline" size="sm" className="text-sm h-9 gap-1.5 border-border text-foreground hover:border-accent hover:text-accent">
             <span>View Tracker</span>
             <ArrowRight className="h-3 w-3" />
           </Button>
@@ -68,7 +68,7 @@ export function ApplyButton({
       <Button
         size="sm"
         disabled
-        className="text-sm h-10 px-5 font-medium border border-[#222222] bg-[#121212] text-[#9AA1AA] cursor-not-allowed"
+        className="text-sm h-10 px-5 font-medium border border-border bg-elevated text-muted cursor-not-allowed"
       >
         <span>Not Eligible to Apply</span>
       </Button>
@@ -78,14 +78,14 @@ export function ApplyButton({
   return (
     <div className="space-y-2">
       {state?.error && (
-        <div className="p-2.5 rounded-md border border-[#EF4444]/30 bg-[#EF4444]/10 text-sm text-[#EF4444] flex items-center gap-2">
+        <div className="p-2.5 rounded-md border border-red-500/30 bg-red-500/10 text-sm text-red-500 flex items-center gap-2">
           <AlertCircle className="h-3.5 w-3.5 shrink-0" />
           <span>{state.error}</span>
         </div>
       )}
 
       {state?.success && (
-        <div className="p-2.5 rounded-md border border-[#22C55E]/30 bg-[#22C55E]/10 text-sm text-[#22C55E] flex items-center gap-2">
+        <div className="p-2.5 rounded-md border border-green-500/30 bg-green-500/10 text-sm text-green-500 flex items-center gap-2">
           <CheckCircle2 className="h-3.5 w-3.5 shrink-0" />
           <span>{state.message}</span>
         </div>

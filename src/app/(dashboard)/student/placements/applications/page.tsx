@@ -15,19 +15,19 @@ import {
   Building,
 } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+
 
 function getStatusBadge(status: string) {
   switch (status) {
     case 'applied':
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#EDEDED]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-border bg-elevated text-foreground">
           Applied
         </span>
       );
     case 'shortlisted':
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#FF6B00]/30 bg-[#FF6B00]/10 text-[#FF6B00]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-accent/30 bg-accent/10 text-accent">
           Shortlisted
         </span>
       );
@@ -39,31 +39,31 @@ function getStatusBadge(status: string) {
       );
     case 'selected':
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#22C55E]/30 bg-[#22C55E]/10 text-[#22C55E]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-green-500/30 bg-green-500/10 text-green-500">
           Selected
         </span>
       );
     case 'placed':
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#22C55E]/30 bg-[#22C55E]/10 text-[#22C55E]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-green-500/30 bg-green-500/10 text-green-500">
           Placed
         </span>
       );
     case 'rejected':
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#EF4444]/30 bg-[#EF4444]/10 text-[#EF4444]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-red-500/30 bg-red-500/10 text-red-500">
           Rejected
         </span>
       );
     case 'withdrawn':
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#9AA1AA]/30 bg-[#9AA1AA]/10 text-[#9AA1AA]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-muted/30 bg-muted/10 text-muted">
           Withdrawn
         </span>
       );
     default:
       return (
-        <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#9AA1AA]">
+        <span className="text-sm font-medium px-2 py-0.5 rounded border border-border bg-elevated text-muted">
           {status}
         </span>
       );
@@ -106,7 +106,7 @@ export default async function StudentApplicationsPage() {
       ]}
       actions={
         <Link href="/student/placements">
-          <Button variant="outline" size="sm" className="text-sm gap-1 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]">
+          <Button variant="outline" size="sm" className="text-sm gap-1 border-border text-muted hover:text-foreground">
             <ArrowLeft className="h-3 w-3" />
             <span>All Opportunities</span>
           </Button>
@@ -115,22 +115,22 @@ export default async function StudentApplicationsPage() {
     >
       <div className="space-y-6">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 border-b border-[#222222] pb-2 text-sm">
+        <div className="flex items-center gap-2 border-b border-border pb-2 text-sm">
           <Link
             href="/student/placements"
-            className="px-3 py-1.5 rounded-md font-medium text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212] transition-colors"
+            className="px-3 py-1.5 rounded-md font-medium text-muted hover:text-foreground hover:bg-elevated transition-colors"
           >
             Opportunities ({drives.length})
           </Link>
           <Link
             href="/student/placements/applications"
-            className="px-3 py-1.5 rounded-md font-medium bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30"
+            className="px-3 py-1.5 rounded-md font-medium bg-elevated text-accent border border-accent/30"
           >
             My Applications ({applications.length})
           </Link>
           <Link
             href="/student/placements/shortlists"
-            className="px-3 py-1.5 rounded-md font-medium text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212] transition-colors"
+            className="px-3 py-1.5 rounded-md font-medium text-muted hover:text-foreground hover:bg-elevated transition-colors"
           >
             My Shortlists ({shortlists.length})
           </Link>
@@ -138,10 +138,10 @@ export default async function StudentApplicationsPage() {
 
         {/* Applications List */}
         {applications.length === 0 ? (
-          <div className="border border-[#222222] rounded-md bg-[#0A0A0A] py-16 px-4 text-center space-y-3">
-            <Briefcase className="h-9 w-8 text-[#9AA1AA] mx-auto opacity-50" />
-            <div className="text-base font-medium text-[#EDEDED]">No Applications Submitted Yet</div>
-            <p className="text-sm text-[#9AA1AA] max-w-sm mx-auto">
+          <div className="border border-border rounded-md bg-surface py-16 px-4 text-center space-y-3">
+            <Briefcase className="h-9 w-8 text-muted mx-auto opacity-50" />
+            <div className="text-base font-medium text-foreground">No Applications Submitted Yet</div>
+            <p className="text-sm text-muted max-w-sm mx-auto">
               You haven&apos;t submitted applications to any campus recruitment drives yet. Explore available opportunities to verify your eligibility and apply.
             </p>
             <Link href="/student/placements">
@@ -151,35 +151,35 @@ export default async function StudentApplicationsPage() {
             </Link>
           </div>
         ) : (
-          <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#222222] overflow-hidden">
+          <div className="border border-border rounded-md bg-surface divide-y divide-border overflow-hidden">
             {applications.map((app) => (
               <div
                 key={app.id}
-                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#121212]/50 transition-colors"
+                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-elevated/50 transition-colors"
               >
                 <div className="space-y-1.5">
                   <div className="flex flex-wrap items-center gap-2">
                     {getStatusBadge(app.status)}
-                    <span className="text-sm text-[#9AA1AA]">
+                    <span className="text-sm text-muted">
                       Submitted on {formatDate(app.applied_at)}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-semibold text-[#EDEDED]">
+                  <h3 className="text-base font-semibold text-foreground">
                     {app.drive?.company?.company_name || 'Corporate Partner'}
                   </h3>
 
-                  <p className="text-sm text-[#9AA1AA]">
+                  <p className="text-sm text-muted">
                     {app.drive?.job_role || 'Job Role'} • {app.drive?.package_details || 'Compensation upon selection'}
                   </p>
 
                   {app.drive?.drive_date && (
-                    <div className="flex items-center gap-2 text-sm text-[#9AA1AA] pt-1">
-                      <Calendar className="h-3 w-3 text-[#FF6B00]" />
+                    <div className="flex items-center gap-2 text-sm text-muted pt-1">
+                      <Calendar className="h-3 w-3 text-accent" />
                       <span>Drive Date: {formatDate(app.drive.drive_date)}</span>
                       {app.drive.venue && (
                         <>
-                          <span className="text-[#222222]">|</span>
+                          <span className="text-border">|</span>
                           <span className="truncate max-w-[250px]">{app.drive.venue}</span>
                         </>
                       )}
@@ -187,7 +187,7 @@ export default async function StudentApplicationsPage() {
                   )}
 
                   {app.notes && (
-                    <p className="text-sm text-[#EDEDED] bg-[#121212] p-2 rounded border border-[#222222] mt-1 max-w-lg">
+                    <p className="text-sm text-foreground bg-elevated p-2 rounded border border-border mt-1 max-w-lg">
                       {app.notes}
                     </p>
                   )}
@@ -195,7 +195,7 @@ export default async function StudentApplicationsPage() {
 
                 <div className="sm:shrink-0 pt-2 sm:pt-0">
                   <Link href={`/student/placements/${app.drive_id}`}>
-                    <Button variant="outline" size="sm" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]">
+                    <Button variant="outline" size="sm" className="text-sm gap-1.5 border-border text-foreground hover:border-accent hover:text-accent">
                       <span>Drive Details</span>
                       <ArrowRight className="h-3.5 w-3.5" />
                     </Button>

@@ -69,7 +69,7 @@ export default function FacultyStudentsPage() {
       badgeText="CSE Department"
       actions={
         <Button variant="outline" size="sm" className="text-sm gap-1.5 font-normal">
-          <Download className="h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Download className="h-3.5 w-3.5 text-muted" />
           <span>Export Roster CSV</span>
         </Button>
       }
@@ -78,15 +78,15 @@ export default function FacultyStudentsPage() {
         {/* Filter bar */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               placeholder="Search by student name, roll number, or skill..."
-              className="pl-9 text-sm h-10 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA]"
+              className="pl-9 text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted"
             />
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" className="text-sm gap-1.5 h-10 font-normal">
-              <Filter className="h-3.5 w-3.5 text-[#9AA1AA]" />
+              <Filter className="h-3.5 w-3.5 text-muted" />
               <span>All Statuses</span>
             </Button>
             <Button variant="outline" size="sm" className="text-sm gap-1.5 h-10 font-normal">
@@ -96,10 +96,10 @@ export default function FacultyStudentsPage() {
         </div>
 
         {/* Student Roster Table */}
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-[#222222] bg-[#121212] text-[#9AA1AA] uppercase tracking-wider text-sm">
+              <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-sm">
                 <tr>
                   <th className="py-3 px-4 font-semibold">Student ID & Name</th>
                   <th className="py-3 px-4 font-semibold">CGPA</th>
@@ -110,17 +110,17 @@ export default function FacultyStudentsPage() {
                   <th className="py-3 px-4 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#222222] text-[#EDEDED]">
+              <tbody className="divide-y divide-border text-foreground">
                 {mockDepartmentStudents.map((s) => (
-                  <tr key={s.id} className="hover:bg-[#121212] transition-colors">
+                  <tr key={s.id} className="hover:bg-elevated transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-medium text-[#EDEDED]">{s.name}</div>
-                      <div className="text-sm text-[#9AA1AA] font-mono">{s.id}</div>
+                      <div className="font-medium text-foreground">{s.name}</div>
+                      <div className="text-sm text-muted font-mono">{s.id}</div>
                     </td>
                     <td className="py-3 px-4 font-mono font-medium">
                       {s.cgpa}
                     </td>
-                    <td className="py-3 px-4 text-[#9AA1AA]">
+                    <td className="py-3 px-4 text-muted">
                       {s.year}
                     </td>
                     <td className="py-3 px-4">
@@ -128,13 +128,13 @@ export default function FacultyStudentsPage() {
                         {s.skills.slice(0, 3).map((skill) => (
                           <span
                             key={skill}
-                            className="inline-block px-1.5 py-0.5 rounded bg-[#121212] border border-[#222222] text-sm text-[#9AA1AA]"
+                            className="inline-block px-1.5 py-0.5 rounded bg-elevated border border-border text-sm text-muted"
                           >
                             {skill}
                           </span>
                         ))}
                         {s.skills.length > 3 && (
-                          <span className="text-sm text-[#9AA1AA] self-center">
+                          <span className="text-sm text-muted self-center">
                             +{s.skills.length - 3}
                           </span>
                         )}
@@ -180,10 +180,10 @@ export default function FacultyStudentsPage() {
         </div>
 
         {/* Footer Note */}
-        <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] text-sm text-[#9AA1AA] flex items-start gap-3">
+        <div className="p-4 rounded-md border border-border bg-surface text-sm text-muted flex items-start gap-3">
           <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
           <div>
-            <span className="text-[#EDEDED] font-medium">Advisory Record Verification Policy</span>
+            <span className="text-foreground font-medium">Advisory Record Verification Policy</span>
             <p className="mt-0.5">
               Faculty endorsement certifies that the candidate has completed all required department labs, has no active academic conduct infractions, and meets the minimum attendance threshold for placement drive participation.
             </p>

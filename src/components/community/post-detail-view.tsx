@@ -135,7 +135,7 @@ export function PostDetailView({
       <div>
         <Link
           href={baseHref}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-muted hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Back to Community</span>
@@ -143,51 +143,51 @@ export function PostDetailView({
       </div>
 
       {/* Main Post Article */}
-      <article className="border border-[#222222] bg-[#0A0A0A] rounded-md p-6 space-y-5">
+      <article className="border border-border bg-surface rounded-md p-6 space-y-5">
         {/* Header Meta */}
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
-            <span className="font-medium px-2.5 py-0.5 rounded bg-[#161616] text-[#EDEDED] border border-[#262626]">
+            <span className="font-medium px-2.5 py-0.5 rounded bg-[#161616] text-foreground border border-[#262626]">
               {post.category}
             </span>
 
             {post.visibility === 'STUDENTS_ONLY' ? (
-              <span className="inline-flex items-center gap-1 font-medium px-2.5 py-0.5 rounded bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/20">
+              <span className="inline-flex items-center gap-1 font-medium px-2.5 py-0.5 rounded bg-accent/10 text-accent border border-accent/20">
                 <Lock className="h-3 w-3" />
                 <span>Students Only 🔒</span>
               </span>
             ) : (
-              <span className="inline-flex items-center gap-1 font-medium px-2.5 py-0.5 rounded bg-[#161616] text-[#9AA1AA] border border-[#262626]">
+              <span className="inline-flex items-center gap-1 font-medium px-2.5 py-0.5 rounded bg-[#161616] text-muted border border-[#262626]">
                 <Globe className="h-3 w-3" />
                 <span>Public Post</span>
               </span>
             )}
           </div>
 
-          <span className="text-[#9AA1AA]">{formattedDate}</span>
+          <span className="text-muted">{formattedDate}</span>
         </div>
 
         {/* Title */}
-        <h1 className="text-xl sm:text-2xl font-semibold text-[#EDEDED] tracking-tight leading-tight">
+        <h1 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight leading-tight">
           {post.title}
         </h1>
 
         {/* Author Bio */}
         <div className="flex items-center justify-between pb-4 border-b border-[#1C1C1C]">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-full bg-[#1A1A1A] border border-[#2B2B2B] flex items-center justify-center font-semibold text-xs text-[#FF6B00]">
+            <div className="h-9 w-9 rounded-full bg-[#1A1A1A] border border-[#2B2B2B] flex items-center justify-center font-semibold text-xs text-accent">
               {post.author?.name ? post.author.name.charAt(0).toUpperCase() : 'U'}
             </div>
             <div>
-              <div className="text-sm font-medium text-[#EDEDED] flex items-center gap-2">
+              <div className="text-sm font-medium text-foreground flex items-center gap-2">
                 <span>{post.author?.name || 'Anonymous User'}</span>
                 {post.author?.role && post.author.role !== 'student' && (
-                  <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded bg-[#1E1E1E] text-[#9AA1AA] border border-[#2E2E2E]">
+                  <span className="text-[10px] uppercase tracking-wider font-semibold px-1.5 py-0.5 rounded bg-[#1E1E1E] text-muted border border-[#2E2E2E]">
                     {post.author.role.replace('_', ' ')}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-[#9AA1AA]">
+              <p className="text-xs text-muted">
                 {post.author?.department || 'University Member'}
               </p>
             </div>
@@ -217,16 +217,16 @@ export function PostDetailView({
             onClick={handleLike}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
               hasLiked
-                ? 'text-[#FF6B00] bg-[#FF6B00]/10 border-[#FF6B00]/30'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED] bg-[#121212] border-[#222222]'
+                ? 'text-accent bg-accent/10 border-accent/30'
+                : 'text-muted hover:text-foreground bg-elevated border-border'
             }`}
           >
             <ThumbsUp className={`h-3.5 w-3.5 ${hasLiked ? 'fill-current' : ''}`} />
             <span>{hasLiked ? 'Liked' : 'Like'}</span>
-            <span className="ml-1 text-[11px] font-semibold text-[#EDEDED]">({likes})</span>
+            <span className="ml-1 text-[11px] font-semibold text-foreground">({likes})</span>
           </button>
 
-          <div className="inline-flex items-center gap-1.5 text-xs text-[#9AA1AA]">
+          <div className="inline-flex items-center gap-1.5 text-xs text-muted">
             <MessageSquare className="h-3.5 w-3.5" />
             <span>{comments.length} comments</span>
           </div>
@@ -235,8 +235,8 @@ export function PostDetailView({
 
       {/* Comments Section */}
       <section className="space-y-4">
-        <h2 className="text-base font-semibold text-[#EDEDED] flex items-center gap-2">
-          <MessageSquare className="h-4 w-4 text-[#FF6B00]" />
+        <h2 className="text-base font-semibold text-foreground flex items-center gap-2">
+          <MessageSquare className="h-4 w-4 text-accent" />
           <span>Discussion & Comments ({comments.length})</span>
         </h2>
 
@@ -247,14 +247,14 @@ export function PostDetailView({
         )}
 
         {/* Comment Composer */}
-        <form onSubmit={handleAddComment} className="border border-[#222222] bg-[#0A0A0A] rounded-md p-4 space-y-3">
+        <form onSubmit={handleAddComment} className="border border-border bg-surface rounded-md p-4 space-y-3">
           <textarea
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             rows={3}
             placeholder="Write a constructive response or follow-up question..."
             required
-            className="w-full rounded-md border border-[#222222] bg-[#121212] px-3 py-2 text-sm text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] transition-colors resize-y min-h-[70px]"
+            className="w-full rounded-md border border-border bg-elevated px-3 py-2 text-sm text-foreground placeholder-[#717784] focus:outline-none focus:border-accent transition-colors resize-y min-h-[70px]"
           />
           <div className="flex justify-end">
             <Button
@@ -272,7 +272,7 @@ export function PostDetailView({
         {/* Comments Feed */}
         <div className="space-y-2.5">
           {comments.length === 0 ? (
-            <div className="text-center py-8 border border-[#222222] bg-[#0A0A0A] rounded-md text-xs text-[#9AA1AA]">
+            <div className="text-center py-8 border border-border bg-surface rounded-md text-xs text-muted">
               No comments yet. Start the conversation.
             </div>
           ) : (
@@ -293,11 +293,11 @@ export function PostDetailView({
                 >
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-[#EDEDED]">
+                      <span className="font-medium text-foreground">
                         {comment.author?.name || 'Anonymous User'}
                       </span>
                       {comment.author?.role && comment.author.role !== 'student' && (
-                        <span className="text-[10px] uppercase tracking-wider font-semibold px-1 py-0.2 rounded bg-[#181818] text-[#9AA1AA] border border-[#262626]">
+                        <span className="text-[10px] uppercase tracking-wider font-semibold px-1 py-0.2 rounded bg-[#181818] text-muted border border-[#262626]">
                           {comment.author.role.replace('_', ' ')}
                         </span>
                       )}

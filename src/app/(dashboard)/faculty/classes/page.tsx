@@ -16,13 +16,13 @@ export default async function FacultyClassesSchedulePage() {
     <div className="max-w-2xl space-y-10">
       {/* Title */}
       <div>
-        <h1 className="text-xl font-medium tracking-tight text-[#EDEDED]">
+        <h1 className="text-xl font-medium tracking-tight text-foreground">
           Classes
         </h1>
       </div>
 
       {!hasAnySessions ? (
-        <div className="py-8 text-sm text-[#9AA1AA]">
+        <div className="py-8 text-sm text-muted">
           No classes or training sessions currently allocated to your schedule.
         </div>
       ) : (
@@ -30,8 +30,8 @@ export default async function FacultyClassesSchedulePage() {
           {/* TODAY */}
           {schedule.today.length > 0 && (
             <section className="space-y-3">
-              <div className="border-b border-[#222222] pb-1.5">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#9AA1AA]">
+              <div className="border-b border-border pb-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted">
                   Today
                 </span>
               </div>
@@ -47,8 +47,8 @@ export default async function FacultyClassesSchedulePage() {
           {/* TOMORROW */}
           {schedule.tomorrow.length > 0 && (
             <section className="space-y-3">
-              <div className="border-b border-[#222222] pb-1.5">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#9AA1AA]">
+              <div className="border-b border-border pb-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted">
                   Tomorrow
                 </span>
               </div>
@@ -64,8 +64,8 @@ export default async function FacultyClassesSchedulePage() {
           {/* UPCOMING */}
           {schedule.upcoming.length > 0 && (
             <section className="space-y-3">
-              <div className="border-b border-[#222222] pb-1.5">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#9AA1AA]">
+              <div className="border-b border-border pb-1.5">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted">
                   Upcoming
                 </span>
               </div>
@@ -87,39 +87,39 @@ function SessionRow({ session }: { session: any }) {
   return (
     <Link
       href={`/faculty/classes/${session.id}`}
-      className="group block py-4 text-left transition-colors hover:text-[#FF6B00]"
+      className="group block py-4 text-left transition-colors hover:text-accent"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="space-y-1">
           {/* Time */}
-          <div className="text-xs text-[#9AA1AA] font-mono">
+          <div className="text-xs text-muted font-mono">
             {session.time_range}
           </div>
 
           {/* Subject / Training Name */}
-          <div className="text-base text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors">
+          <div className="text-base text-foreground group-hover:text-accent transition-colors">
             {session.training_name}
           </div>
 
           {/* Context: Year · Section */}
-          <div className="text-xs text-[#9AA1AA]">
+          <div className="text-xs text-muted">
             {session.year_label} · {session.section_code}
           </div>
 
           {/* Room / Venue */}
-          <div className="text-xs text-[#9AA1AA]">
+          <div className="text-xs text-muted">
             {session.venue}
           </div>
 
           {/* Registered count */}
-          <div className="text-xs text-[#9AA1AA] pt-0.5">
+          <div className="text-xs text-muted pt-0.5">
             {session.registered_count} students registered
           </div>
         </div>
 
         {/* Right Arrow */}
         <div className="pt-2">
-          <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
         </div>
       </div>
     </Link>

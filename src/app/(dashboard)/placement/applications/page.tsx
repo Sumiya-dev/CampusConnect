@@ -59,7 +59,7 @@ export default function PlacementApplicationsPage() {
       badgeText="1,567 Total Submissions"
       actions={
         <Button variant="outline" size="sm" className="text-sm gap-1.5 font-normal">
-          <Download className="h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Download className="h-3.5 w-3.5 text-muted" />
           <span>Export Pipeline Report</span>
         </Button>
       }
@@ -68,10 +68,10 @@ export default function PlacementApplicationsPage() {
         {/* Filter */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               placeholder="Search by student name, roll number, or drive name..."
-              className="pl-9 text-sm h-10 bg-[#111418] border-[#252A31] text-[#F1F3F5] placeholder:text-[#9AA1AA]"
+              className="pl-9 text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted"
             />
           </div>
           <Button variant="outline" size="sm" className="text-sm h-10 font-normal">
@@ -80,10 +80,10 @@ export default function PlacementApplicationsPage() {
         </div>
 
         {/* Applications Table */}
-        <div className="border border-[#252A31] rounded-md bg-[#111418] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-[#252A31] bg-[#171B20] text-[#9AA1AA] uppercase tracking-wider text-sm">
+              <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-sm">
                 <tr>
                   <th className="py-3 px-4 font-semibold">Application ID & Student</th>
                   <th className="py-3 px-4 font-semibold">Drive & Job Role</th>
@@ -92,18 +92,18 @@ export default function PlacementApplicationsPage() {
                   <th className="py-3 px-4 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#252A31] text-[#F1F3F5]">
+              <tbody className="divide-y divide-border text-foreground">
                 {mockApplications.map((app) => (
-                  <tr key={app.id} className="hover:bg-[#171B20]/50 transition-colors">
+                  <tr key={app.id} className="hover:bg-elevated/50 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-medium text-[#F1F3F5]">{app.candidate}</div>
-                      <div className="text-sm text-[#9AA1AA] font-mono">{app.id} • {app.roll}</div>
+                      <div className="font-medium text-foreground">{app.candidate}</div>
+                      <div className="text-sm text-muted font-mono">{app.id} • {app.roll}</div>
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-medium text-[#F1F3F5]">{app.drive}</div>
-                      <div className="text-sm text-[#9AA1AA]">{app.role}</div>
+                      <div className="font-medium text-foreground">{app.drive}</div>
+                      <div className="text-sm text-muted">{app.role}</div>
                     </td>
-                    <td className="py-3 px-4 text-[#9AA1AA]">{app.appliedOn}</td>
+                    <td className="py-3 px-4 text-muted">{app.appliedOn}</td>
                     <td className="py-3 px-4">
                       <Badge variant={app.stageVariant} className="text-sm">
                         {app.stage}

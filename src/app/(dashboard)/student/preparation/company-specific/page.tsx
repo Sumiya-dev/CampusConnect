@@ -6,7 +6,7 @@ import { getPreparationMaterials } from '@/lib/preparation/queries';
 import { getCompanies } from '@/lib/companies/queries';
 import { ArrowRight } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function CompanySpecificSectionPage() {
   const user = await getCurrentUser();
@@ -46,9 +46,9 @@ export default async function CompanySpecificSectionPage() {
       ]}
     >
       <div className="max-w-3xl">
-        <div className="border-t border-b border-[#222222] divide-y divide-[#222222]">
+        <div className="border-t border-b border-border divide-y divide-border">
           {companiesWithContent.length === 0 ? (
-            <div className="py-12 text-center text-sm text-[#9AA1AA]">
+            <div className="py-12 text-center text-sm text-muted">
               No company-specific preparation kits are currently published.
             </div>
           ) : (
@@ -56,19 +56,19 @@ export default async function CompanySpecificSectionPage() {
               <Link
                 key={company.id}
                 href={`/student/preparation/company-specific/${company.id}`}
-                className="group py-4 px-3 -mx-3 flex items-center justify-between gap-4 hover:bg-[#121212]/50 transition-colors"
+                className="group py-4 px-3 -mx-3 flex items-center justify-between gap-4 hover:bg-elevated/50 transition-colors"
               >
                 <div className="space-y-1 min-w-0">
-                  <span className="text-base font-medium text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors">
+                  <span className="text-base font-medium text-foreground group-hover:text-accent transition-colors">
                     {company.company_name}
                   </span>
-                  <p className="text-sm text-[#9AA1AA] leading-relaxed line-clamp-1">
+                  <p className="text-sm text-muted leading-relaxed line-clamp-1">
                     {company.industry} • {company.location}
                   </p>
                 </div>
 
                 <div className="shrink-0">
-                  <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all" />
                 </div>
               </Link>
             ))

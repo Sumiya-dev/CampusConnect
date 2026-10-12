@@ -160,7 +160,8 @@ export async function getFacultyAnnouncements(
       )
     `)
     .eq('faculty_id', faculty.id)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(50);
 
   if (error || !rows) {
     return [];
@@ -358,7 +359,8 @@ export async function getStudentAnnouncements(): Promise<FacultyAnnouncement[]> 
         )
       )
     `)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(50);
 
   if (error || !rows) {
     return [];

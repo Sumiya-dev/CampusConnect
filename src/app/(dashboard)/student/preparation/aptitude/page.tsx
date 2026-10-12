@@ -5,7 +5,7 @@ import { getCurrentUser } from '@/lib/auth/user';
 import { APTITUDE_TOPICS } from '@/lib/preparation/topics';
 import { ArrowRight } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function AptitudeSectionPage() {
   const user = await getCurrentUser();
@@ -23,19 +23,19 @@ export default async function AptitudeSectionPage() {
       ]}
     >
       <div className="max-w-3xl">
-        <div className="border-t border-b border-[#222222] divide-y divide-[#222222]">
+        <div className="border-t border-b border-border divide-y divide-border">
           {APTITUDE_TOPICS.map((topic) => (
             <Link
               key={topic.id}
               href={`/student/preparation/aptitude/${topic.slug}`}
-              className="group py-4 px-3 -mx-3 flex items-center justify-between gap-4 hover:bg-[#121212]/50 transition-colors"
+              className="group py-4 px-3 -mx-3 flex items-center justify-between gap-4 hover:bg-elevated/50 transition-colors"
             >
-              <span className="text-base font-medium text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors">
+              <span className="text-base font-medium text-foreground group-hover:text-accent transition-colors">
                 {topic.title}
               </span>
 
               <div className="shrink-0">
-                <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all" />
               </div>
             </Link>
           ))}

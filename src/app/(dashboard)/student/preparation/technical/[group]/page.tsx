@@ -60,7 +60,7 @@ export default async function TechnicalGroupPage({ params }: PageProps) {
           <Button
             variant="outline"
             size="sm"
-            className="text-sm gap-1 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+            className="text-sm gap-1 border-border text-muted hover:text-foreground"
           >
             <ArrowLeft className="h-3 w-3" />
             <span>Back to Preparation</span>
@@ -69,28 +69,28 @@ export default async function TechnicalGroupPage({ params }: PageProps) {
       }
     >
       <div className="max-w-3xl space-y-4">
-        <p className="text-base font-medium text-[#EDEDED]">
+        <p className="text-base font-medium text-foreground">
           Select a topic to view its guides.
         </p>
 
-        <div className="border-t border-b border-[#222222] divide-y divide-[#222222]">
+        <div className="border-t border-b border-border divide-y divide-border">
           {topics.map((topic) => (
             <Link
               key={topic.id}
               href={`/student/preparation/technical/${group}/${topic.slug}`}
-              className="group py-6 px-3 -mx-3 flex items-center justify-between gap-6 hover:bg-[#121212]/50 transition-colors"
+              className="group py-6 px-3 -mx-3 flex items-center justify-between gap-6 hover:bg-elevated/50 transition-colors"
             >
               <div className="space-y-1.5 min-w-0">
-                <h2 className="text-base font-medium text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors">
+                <h2 className="text-base font-medium text-foreground group-hover:text-accent transition-colors">
                   {topic.title}
                 </h2>
-                <p className="text-sm text-[#9AA1AA] leading-relaxed">
+                <p className="text-sm text-muted leading-relaxed">
                   {topic.description}
                 </p>
               </div>
 
               <div className="shrink-0">
-                <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all" />
               </div>
             </Link>
           ))}

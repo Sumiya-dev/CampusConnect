@@ -73,10 +73,10 @@ export default function PlacementDrivesPage() {
         {/* Filter bar */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               placeholder="Search drives by company name or role..."
-              className="pl-9 text-sm h-10 bg-[#111418] border-[#252A31] text-[#F1F3F5] placeholder:text-[#9AA1AA]"
+              className="pl-9 text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted"
             />
           </div>
           <Button variant="outline" size="sm" className="text-sm h-10 font-normal">
@@ -85,10 +85,10 @@ export default function PlacementDrivesPage() {
         </div>
 
         {/* Drives List */}
-        <div className="border border-[#252A31] rounded-md bg-[#111418] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-[#252A31] bg-[#171B20] text-[#9AA1AA] uppercase tracking-wider text-sm">
+              <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-sm">
                 <tr>
                   <th className="py-3 px-4 font-semibold">Recruiting Company & Role</th>
                   <th className="py-3 px-4 font-semibold">Compensation (CTC)</th>
@@ -98,17 +98,17 @@ export default function PlacementDrivesPage() {
                   <th className="py-3 px-4 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#252A31] text-[#F1F3F5]">
+              <tbody className="divide-y divide-border text-foreground">
                 {mockDrives.map((d) => (
-                  <tr key={d.id} className="hover:bg-[#171B20]/50 transition-colors">
+                  <tr key={d.id} className="hover:bg-elevated/50 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-medium text-[#F1F3F5]">{d.company}</div>
-                      <div className="text-sm text-[#9AA1AA]">{d.role}</div>
+                      <div className="font-medium text-foreground">{d.company}</div>
+                      <div className="text-sm text-muted">{d.role}</div>
                     </td>
-                    <td className="py-3 px-4 font-mono font-medium text-[#F1F3F5]">
+                    <td className="py-3 px-4 font-mono font-medium text-foreground">
                       {d.ctc}
                     </td>
-                    <td className="py-3 px-4 text-[#9AA1AA]">
+                    <td className="py-3 px-4 text-muted">
                       <div className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
                         <span>{d.deadline}</span>
@@ -116,9 +116,9 @@ export default function PlacementDrivesPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-1.5">
-                        <Users className="h-3 w-3 text-[#9AA1AA]" />
-                        <span className="font-medium text-[#F1F3F5]">{d.registered}</span>
-                        <span className="text-sm text-[#9AA1AA]">({d.shortlisted} shortlisted)</span>
+                        <Users className="h-3 w-3 text-muted" />
+                        <span className="font-medium text-foreground">{d.registered}</span>
+                        <span className="text-sm text-muted">({d.shortlisted} shortlisted)</span>
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -129,7 +129,7 @@ export default function PlacementDrivesPage() {
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <Link href={`/student/placements/${d.id}`} target="_blank">
-                          <Button variant="ghost" size="sm" className="text-sm h-7 px-2 font-normal text-[#9AA1AA] hover:text-[#F1F3F5]">
+                          <Button variant="ghost" size="sm" className="text-sm h-7 px-2 font-normal text-muted hover:text-foreground">
                             <span>Preview</span>
                             <ArrowUpRight className="h-3 w-3 ml-1" />
                           </Button>

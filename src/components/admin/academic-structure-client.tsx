@@ -355,7 +355,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
               : notice.type === 'error'
               ? 'border-rose-500/20 bg-rose-500/10 text-rose-400'
-              : 'border-[#FF6B00]/20 bg-[#FF6B00]/10 text-[#FF6B00]'
+              : 'border-accent/20 bg-accent/10 text-accent'
           }`}
         >
           <span>{notice.message}</span>
@@ -370,7 +370,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       )}
 
       {/* Tabs Header */}
-      <div className="border-b border-[#222222] flex items-center gap-2 overflow-x-auto pb-px">
+      <div className="border-b border-border flex items-center gap-2 overflow-x-auto pb-px">
         <button
           type="button"
           onClick={() => {
@@ -379,13 +379,13 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
           }}
           className={`flex items-center gap-2 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'departments'
-              ? 'border-[#FF6B00] text-[#EDEDED]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-foreground'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <Building className="h-3.5 w-3.5" />
           <span>Departments</span>
-          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#262626]">
+          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-muted border border-[#262626]">
             {data.departments.length}
           </span>
         </button>
@@ -398,13 +398,13 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
           }}
           className={`flex items-center gap-2 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'programs'
-              ? 'border-[#FF6B00] text-[#EDEDED]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-foreground'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <Layers className="h-3.5 w-3.5" />
           <span>Programs / Branches</span>
-          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#262626]">
+          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-muted border border-[#262626]">
             {data.programs.length}
           </span>
         </button>
@@ -417,13 +417,13 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
           }}
           className={`flex items-center gap-2 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'sections'
-              ? 'border-[#FF6B00] text-[#EDEDED]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-foreground'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <Users className="h-3.5 w-3.5" />
           <span>Sections</span>
-          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#262626]">
+          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-muted border border-[#262626]">
             {data.sections.length}
           </span>
         </button>
@@ -436,13 +436,13 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
           }}
           className={`flex items-center gap-2 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'training_groups'
-              ? 'border-[#FF6B00] text-[#EDEDED]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-foreground'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <Code className="h-3.5 w-3.5" />
           <span>Training Groups</span>
-          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#262626]">
+          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-muted border border-[#262626]">
             {data.trainingGroups.length}
           </span>
         </button>
@@ -455,35 +455,35 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
           }}
           className={`flex items-center gap-2 px-3 py-2 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'academic_years'
-              ? 'border-[#FF6B00] text-[#EDEDED]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-foreground'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <Calendar className="h-3.5 w-3.5" />
           <span>Academic Years</span>
-          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#262626]">
+          <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] bg-[#161616] text-muted border border-[#262626]">
             {data.academicYears.length}
           </span>
         </button>
       </div>
 
       {/* Action Bar (Search, Filters, Add Button) */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0E0E0E] p-3 rounded-md border border-[#222222]">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0E0E0E] p-3 rounded-md border border-border">
         <div className="flex flex-wrap items-center gap-2.5 flex-1">
           {/* Search Bar */}
           <div className="relative min-w-[200px] flex-1 max-w-sm">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={`Search ${activeTab.replace('_', ' ')}...`}
-              className="pl-8 h-8 text-xs bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#666666] focus:border-[#FF6B00]"
+              className="pl-8 h-8 text-xs bg-surface border-border text-foreground placeholder:text-[#666666] focus:border-accent"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -494,7 +494,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+            className="h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active Only</option>
@@ -506,7 +506,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
             <select
               value={departmentFilter}
               onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00] max-w-[180px] truncate"
+              className="h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent max-w-[180px] truncate"
             >
               <option value="all">All Departments</option>
               {data.departments.map((d) => (
@@ -522,7 +522,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               <select
                 value={programFilter}
                 onChange={(e) => setProgramFilter(e.target.value)}
-                className="h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00] max-w-[180px] truncate"
+                className="h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent max-w-[180px] truncate"
               >
                 <option value="all">All Programs</option>
                 {data.programs.map((p) => (
@@ -535,7 +535,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               <select
                 value={yearFilter}
                 onChange={(e) => setYearFilter(e.target.value)}
-                className="h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value="all">All Years</option>
                 <option value="1">1st Year</option>
@@ -552,7 +552,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               variant="ghost"
               size="sm"
               onClick={clearFilters}
-              className="h-8 text-xs text-[#9AA1AA] hover:text-[#EDEDED] gap-1 px-2"
+              className="h-8 text-xs text-muted hover:text-foreground gap-1 px-2"
             >
               <RotateCcw className="h-3 w-3" />
               Reset
@@ -566,7 +566,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
             <Button
               size="sm"
               onClick={() => setDeptModal({ open: true })}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Department
@@ -576,7 +576,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
             <Button
               size="sm"
               onClick={() => setProgModal({ open: true })}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Program
@@ -586,7 +586,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
             <Button
               size="sm"
               onClick={() => setSecModal({ open: true })}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Section
@@ -596,7 +596,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
             <Button
               size="sm"
               onClick={() => setTrainModal({ open: true })}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Training Group
@@ -606,7 +606,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
             <Button
               size="sm"
               onClick={() => setYearModal({ open: true })}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-medium gap-1.5 shadow-none"
             >
               <Plus className="h-3.5 w-3.5" />
               Add Academic Year
@@ -619,10 +619,10 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       {/* 1. DEPARTMENTS TAB CONTENT                                           */}
       {/* -------------------------------------------------------------------- */}
       {activeTab === 'departments' && (
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+              <thead className="bg-elevated border-b border-border text-muted">
                 <tr>
                   <th className="py-2.5 px-3 font-medium">Department Name</th>
                   <th className="py-2.5 px-3 font-medium">Code</th>
@@ -636,30 +636,30 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               <tbody className="divide-y divide-[#1A1A1A]">
                 {filteredDepartments.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="text-center py-8 text-[#9AA1AA]">
+                    <td colSpan={7} className="text-center py-8 text-muted">
                       No departments found matching your criteria.
                     </td>
                   </tr>
                 ) : (
                   filteredDepartments.map((dept) => (
-                    <tr key={dept.id} className="hover:bg-[#121212]/60 transition-colors">
+                    <tr key={dept.id} className="hover:bg-elevated/60 transition-colors">
                       <td className="py-3 px-3">
-                        <div className="font-medium text-[#EDEDED]">{dept.name}</div>
+                        <div className="font-medium text-foreground">{dept.name}</div>
                         <div className="text-[11px] text-[#666666] font-mono">ID: {dept.id.slice(0, 8)}...</div>
                       </td>
                       <td className="py-3 px-3">
-                        <span className="font-mono text-xs text-[#FF6B00] bg-[#FF6B00]/10 px-2 py-0.5 rounded border border-[#FF6B00]/20">
+                        <span className="font-mono text-xs text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
                           {dept.code}
                         </span>
                       </td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{dept.programs_count || 0}</span> program(s)
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{dept.programs_count || 0}</span> program(s)
                       </td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{dept.students_count || 0}</span> student(s)
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{dept.students_count || 0}</span> student(s)
                       </td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{dept.faculty_count || 0}</span> faculty
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{dept.faculty_count || 0}</span> faculty
                       </td>
                       <td className="py-3 px-3">
                         <span
@@ -683,7 +683,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                             type="button"
                             title="Edit Department"
                             onClick={() => setDeptModal({ open: true, item: dept })}
-                            className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors"
+                            className="p-1 rounded text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
                           </button>
@@ -731,10 +731,10 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       {/* 2. PROGRAMS TAB CONTENT                                              */}
       {/* -------------------------------------------------------------------- */}
       {activeTab === 'programs' && (
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+              <thead className="bg-elevated border-b border-border text-muted">
                 <tr>
                   <th className="py-2.5 px-3 font-medium">Program / Branch</th>
                   <th className="py-2.5 px-3 font-medium">Code</th>
@@ -747,28 +747,28 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               <tbody className="divide-y divide-[#1A1A1A]">
                 {filteredPrograms.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-8 text-[#9AA1AA]">
+                    <td colSpan={6} className="text-center py-8 text-muted">
                       No programs found matching your criteria.
                     </td>
                   </tr>
                 ) : (
                   filteredPrograms.map((prog) => (
-                    <tr key={prog.id} className="hover:bg-[#121212]/60 transition-colors">
+                    <tr key={prog.id} className="hover:bg-elevated/60 transition-colors">
                       <td className="py-3 px-3">
-                        <div className="font-medium text-[#EDEDED]">{prog.name}</div>
+                        <div className="font-medium text-foreground">{prog.name}</div>
                         <div className="text-[11px] text-[#666666] font-mono">ID: {prog.id.slice(0, 8)}...</div>
                       </td>
                       <td className="py-3 px-3">
-                        <span className="font-mono text-xs text-[#EDEDED] bg-[#161616] px-2 py-0.5 rounded border border-[#262626]">
+                        <span className="font-mono text-xs text-foreground bg-[#161616] px-2 py-0.5 rounded border border-[#262626]">
                           {prog.code}
                         </span>
                       </td>
                       <td className="py-3 px-3">
-                        <div className="text-[#EDEDED]">{prog.department_name || '—'}</div>
-                        <div className="text-[11px] text-[#9AA1AA] font-mono">{prog.department_code}</div>
+                        <div className="text-foreground">{prog.department_name || '—'}</div>
+                        <div className="text-[11px] text-muted font-mono">{prog.department_code}</div>
                       </td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{prog.sections_count || 0}</span> section(s)
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{prog.sections_count || 0}</span> section(s)
                       </td>
                       <td className="py-3 px-3">
                         <span
@@ -792,7 +792,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                             type="button"
                             title="Edit Program"
                             onClick={() => setProgModal({ open: true, item: prog })}
-                            className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors"
+                            className="p-1 rounded text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
                           </button>
@@ -840,10 +840,10 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       {/* 3. SECTIONS TAB CONTENT                                              */}
       {/* -------------------------------------------------------------------- */}
       {activeTab === 'sections' && (
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+              <thead className="bg-elevated border-b border-border text-muted">
                 <tr>
                   <th className="py-2.5 px-3 font-medium">Academic Hierarchy</th>
                   <th className="py-2.5 px-3 font-medium">Section Name</th>
@@ -857,39 +857,39 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               <tbody className="divide-y divide-[#1A1A1A]">
                 {filteredSections.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="text-center py-8 text-[#9AA1AA]">
+                    <td colSpan={7} className="text-center py-8 text-muted">
                       No academic sections found matching your criteria.
                     </td>
                   </tr>
                 ) : (
                   filteredSections.map((sec) => (
-                    <tr key={sec.id} className="hover:bg-[#121212]/60 transition-colors">
+                    <tr key={sec.id} className="hover:bg-elevated/60 transition-colors">
                       <td className="py-3 px-3">
-                        <div className="flex items-center gap-1.5 text-xs text-[#EDEDED]">
-                          <span className="font-semibold text-[#FF6B00]">{sec.department_code || sec.program_code}</span>
+                        <div className="flex items-center gap-1.5 text-xs text-foreground">
+                          <span className="font-semibold text-accent">{sec.department_code || sec.program_code}</span>
                           <span className="text-[#444444]">→</span>
                           <span>Year {sec.year}</span>
                           <span className="text-[#444444]">→</span>
-                          <span className="font-medium text-[#EDEDED]">{sec.section_name}</span>
+                          <span className="font-medium text-foreground">{sec.section_name}</span>
                         </div>
-                        <div className="text-[11px] text-[#9AA1AA] mt-0.5 truncate max-w-xs">
+                        <div className="text-[11px] text-muted mt-0.5 truncate max-w-xs">
                           {sec.program_name} {sec.semester ? `• Sem ${sec.semester}` : ''}
                         </div>
                       </td>
                       <td className="py-3 px-3">
-                        <span className="font-medium text-xs text-[#EDEDED] bg-[#161616] px-2 py-0.5 rounded border border-[#262626]">
+                        <span className="font-medium text-xs text-foreground bg-[#161616] px-2 py-0.5 rounded border border-[#262626]">
                           {sec.section_name}
                         </span>
                       </td>
                       <td className="py-3 px-3">
-                        <div className="font-mono text-xs text-[#EDEDED]">{sec.academic_year}</div>
-                        <div className="text-[10px] text-[#9AA1AA]">Year {sec.year}</div>
+                        <div className="font-mono text-xs text-foreground">{sec.academic_year}</div>
+                        <div className="text-[10px] text-muted">Year {sec.year}</div>
                       </td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{sec.students_count || 0}</span> student(s)
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{sec.students_count || 0}</span> student(s)
                       </td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{sec.faculty_count || 0}</span> faculty
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{sec.faculty_count || 0}</span> faculty
                       </td>
                       <td className="py-3 px-3">
                         <span
@@ -913,7 +913,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                             type="button"
                             title="Edit Section"
                             onClick={() => setSecModal({ open: true, item: sec })}
-                            className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors"
+                            className="p-1 rounded text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
                           </button>
@@ -962,20 +962,20 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       {/* -------------------------------------------------------------------- */}
       {activeTab === 'training_groups' && (
         <div className="space-y-4">
-          <div className="bg-[#121212] border border-[#222222] p-3 rounded-md text-xs text-[#9AA1AA] flex items-center justify-between">
+          <div className="bg-elevated border border-border p-3 rounded-md text-xs text-muted flex items-center justify-between">
             <div>
-              <span className="text-[#EDEDED] font-medium">Cross-Disciplinary Cohorts: </span>
+              <span className="text-foreground font-medium">Cross-Disciplinary Cohorts: </span>
               Training groups allow students from any branch to enroll in specialized tracks (e.g. Java, Python, Aptitude, Fullstack). A single student can belong to multiple groups concurrently.
             </div>
-            <Badge variant="outline" className="text-[10px] font-mono border-[#333333] text-[#EDEDED] whitespace-nowrap ml-3">
+            <Badge variant="outline" className="text-[10px] font-mono border-[#333333] text-foreground whitespace-nowrap ml-3">
               M:N Enrollment
             </Badge>
           </div>
 
-          <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+          <div className="border border-border rounded-md bg-surface overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+                <thead className="bg-elevated border-b border-border text-muted">
                   <tr>
                     <th className="py-2.5 px-3 font-medium">Training Track</th>
                     <th className="py-2.5 px-3 font-medium">Curriculum / Description</th>
@@ -988,27 +988,27 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                 <tbody className="divide-y divide-[#1A1A1A]">
                   {filteredTrainingGroups.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="text-center py-8 text-[#9AA1AA]">
+                      <td colSpan={6} className="text-center py-8 text-muted">
                         No training groups found matching your criteria.
                       </td>
                     </tr>
                   ) : (
                     filteredTrainingGroups.map((tg) => (
-                      <tr key={tg.id} className="hover:bg-[#121212]/60 transition-colors">
+                      <tr key={tg.id} className="hover:bg-elevated/60 transition-colors">
                         <td className="py-3 px-3">
-                          <div className="font-medium text-[#EDEDED]">{tg.name}</div>
+                          <div className="font-medium text-foreground">{tg.name}</div>
                           <div className="text-[11px] text-[#666666] font-mono">ID: {tg.id.slice(0, 8)}...</div>
                         </td>
                         <td className="py-3 px-3 max-w-md">
-                          <p className="text-[#9AA1AA] text-xs line-clamp-2">
+                          <p className="text-muted text-xs line-clamp-2">
                             {tg.description || 'No description provided.'}
                           </p>
                         </td>
-                        <td className="py-3 px-3 text-[#9AA1AA]">
-                          <span className="font-mono text-[#EDEDED]">{tg.students_count || 0}</span> student(s)
+                        <td className="py-3 px-3 text-muted">
+                          <span className="font-mono text-foreground">{tg.students_count || 0}</span> student(s)
                         </td>
-                        <td className="py-3 px-3 text-[#9AA1AA]">
-                          <span className="font-mono text-[#EDEDED]">{tg.faculty_count || 0}</span> faculty
+                        <td className="py-3 px-3 text-muted">
+                          <span className="font-mono text-foreground">{tg.faculty_count || 0}</span> faculty
                         </td>
                         <td className="py-3 px-3">
                           <span
@@ -1032,7 +1032,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                               type="button"
                               title="Edit Training Group"
                               onClick={() => setTrainModal({ open: true, item: tg })}
-                              className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors"
+                              className="p-1 rounded text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors"
                             >
                               <Edit2 className="h-3.5 w-3.5" />
                             </button>
@@ -1081,10 +1081,10 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       {/* 5. ACADEMIC YEARS TAB CONTENT                                        */}
       {/* -------------------------------------------------------------------- */}
       {activeTab === 'academic_years' && (
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+              <thead className="bg-elevated border-b border-border text-muted">
                 <tr>
                   <th className="py-2.5 px-3 font-medium">Year Level</th>
                   <th className="py-2.5 px-3 font-medium">Display Title</th>
@@ -1097,22 +1097,22 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
               <tbody className="divide-y divide-[#1A1A1A]">
                 {filteredAcademicYears.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-8 text-[#9AA1AA]">
+                    <td colSpan={6} className="text-center py-8 text-muted">
                       No academic years found matching your criteria.
                     </td>
                   </tr>
                 ) : (
                   filteredAcademicYears.map((ay) => (
-                    <tr key={ay.id} className="hover:bg-[#121212]/60 transition-colors">
+                    <tr key={ay.id} className="hover:bg-elevated/60 transition-colors">
                       <td className="py-3 px-3">
-                        <span className="font-mono text-xs font-semibold text-[#FF6B00] bg-[#FF6B00]/10 px-2 py-0.5 rounded border border-[#FF6B00]/20">
+                        <span className="font-mono text-xs font-semibold text-accent bg-accent/10 px-2 py-0.5 rounded border border-accent/20">
                           Year {ay.year_number}
                         </span>
                       </td>
-                      <td className="py-3 px-3 font-medium text-[#EDEDED]">{ay.display_name}</td>
-                      <td className="py-3 px-3 font-mono text-[#9AA1AA]">{ay.current_academic_calendar}</td>
-                      <td className="py-3 px-3 text-[#9AA1AA]">
-                        <span className="font-mono text-[#EDEDED]">{ay.sections_count || 0}</span> section(s)
+                      <td className="py-3 px-3 font-medium text-foreground">{ay.display_name}</td>
+                      <td className="py-3 px-3 font-mono text-muted">{ay.current_academic_calendar}</td>
+                      <td className="py-3 px-3 text-muted">
+                        <span className="font-mono text-foreground">{ay.sections_count || 0}</span> section(s)
                       </td>
                       <td className="py-3 px-3">
                         <span
@@ -1136,7 +1136,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                             type="button"
                             title="Edit Academic Year"
                             onClick={() => setYearModal({ open: true, item: ay })}
-                            className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors"
+                            className="p-1 rounded text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors"
                           >
                             <Edit2 className="h-3.5 w-3.5" />
                           </button>
@@ -1319,7 +1319,7 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
       {/* -------------------------------------------------------------------- */}
       {deleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+          <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
             <div className="flex items-start gap-3">
               <div
                 className={`p-2 rounded-full ${
@@ -1329,43 +1329,43 @@ export function AcademicStructureClient({ initialData }: AcademicStructureClient
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div className="flex-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   {deleteConfirm.dependencyCount > 0 ? 'Protected Institutional Record' : 'Confirm Permanent Deletion'}
                 </h3>
-                <p className="text-xs text-[#9AA1AA] mt-1 font-medium">{deleteConfirm.name}</p>
+                <p className="text-xs text-muted mt-1 font-medium">{deleteConfirm.name}</p>
               </div>
             </div>
 
             {deleteConfirm.dependencyCount > 0 ? (
               <div className="p-3 rounded-md bg-[#1A1A1A] border border-[#282828] text-xs text-[#CCCCCC] space-y-2">
-                <p className="text-[#EDEDED] font-medium">Active Dependencies Detected:</p>
+                <p className="text-foreground font-medium">Active Dependencies Detected:</p>
                 <p>
                   This record is referenced by{' '}
-                  <span className="font-semibold text-[#FF6B00]">
+                  <span className="font-semibold text-accent">
                     {deleteConfirm.dependencyCount} {deleteConfirm.dependencyLabel}
                   </span>
                   .
                 </p>
-                <p className="text-[11px] text-[#9AA1AA]">
+                <p className="text-[11px] text-muted">
                   Hard deletion is prevented by database constraints to safeguard academic data integrity. You can
-                  safely <span className="text-[#EDEDED] font-semibold">deactivate</span> it instead.
+                  safely <span className="text-foreground font-semibold">deactivate</span> it instead.
                 </p>
               </div>
             ) : (
-              <p className="text-xs text-[#9AA1AA]">
+              <p className="text-xs text-muted">
                 This entity has zero active dependencies. Are you sure you want to permanently remove it from the
                 database? This action is logged to the Superadmin audit trail and cannot be undone.
               </p>
             )}
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setDeleteConfirm(null)}
                 disabled={isPending}
-                className="h-8 text-xs border-[#262626] text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="h-8 text-xs border-[#262626] text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -1461,13 +1461,13 @@ function DepartmentDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <Building className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Building className="h-4 w-4 text-accent" />
             <span>{item ? 'Edit Department' : 'Create Department'}</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -1480,47 +1480,47 @@ function DepartmentDialog({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Department Name</label>
+            <label className="block text-muted mb-1 font-medium">Department Name</label>
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Computer Science & Engineering"
-              className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Department Code</label>
+            <label className="block text-muted mb-1 font-medium">Department Code</label>
             <Input
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               placeholder="e.g. CSE"
-              className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Status</label>
+            <label className="block text-muted mb-1 font-medium">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as EntityStatus)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -1528,7 +1528,7 @@ function DepartmentDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Saving...' : item ? 'Update Department' : 'Create Department'}
             </Button>
@@ -1605,13 +1605,13 @@ function ProgramDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <Layers className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Layers className="h-4 w-4 text-accent" />
             <span>{item ? 'Edit Program / Branch' : 'Create Program / Branch'}</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -1624,11 +1624,11 @@ function ProgramDialog({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Parent Department</label>
+            <label className="block text-muted mb-1 font-medium">Parent Department</label>
             <select
               value={departmentId}
               onChange={(e) => setDepartmentId(e.target.value)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               required
             >
               {departments.map((d) => (
@@ -1640,47 +1640,47 @@ function ProgramDialog({
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Program / Branch Name</label>
+            <label className="block text-muted mb-1 font-medium">Program / Branch Name</label>
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. B.Tech Computer Science & Engineering"
-              className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Program Code</label>
+            <label className="block text-muted mb-1 font-medium">Program Code</label>
             <Input
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
               placeholder="e.g. CSE"
-              className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Status</label>
+            <label className="block text-muted mb-1 font-medium">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as EntityStatus)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -1688,7 +1688,7 @@ function ProgramDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Saving...' : item ? 'Update Program' : 'Create Program'}
             </Button>
@@ -1777,13 +1777,13 @@ function SectionDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <Users className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Users className="h-4 w-4 text-accent" />
             <span>{item ? 'Edit Section' : 'Create Section'}</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -1796,11 +1796,11 @@ function SectionDialog({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Program / Branch</label>
+            <label className="block text-muted mb-1 font-medium">Program / Branch</label>
             <select
               value={programId}
               onChange={(e) => setProgramId(e.target.value)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               required
             >
               {programs.map((p) => (
@@ -1813,11 +1813,11 @@ function SectionDialog({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Year Level</label>
+              <label className="block text-muted mb-1 font-medium">Year Level</label>
               <select
                 value={yearNumber}
                 onChange={(e) => setYearNumber(Number(e.target.value))}
-                className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value={1}>1st Year</option>
                 <option value={2}>2nd Year</option>
@@ -1827,7 +1827,7 @@ function SectionDialog({
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Semester (Optional)</label>
+              <label className="block text-muted mb-1 font-medium">Semester (Optional)</label>
               <Input
                 type="number"
                 min={1}
@@ -1835,55 +1835,55 @@ function SectionDialog({
                 value={semester}
                 onChange={(e) => setSemester(e.target.value)}
                 placeholder="e.g. 7 or 8"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Academic Cycle</label>
+              <label className="block text-muted mb-1 font-medium">Academic Cycle</label>
               <Input
                 value={academicYear}
                 onChange={(e) => setAcademicYear(e.target.value)}
                 placeholder="2025-2026"
-                className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Section Name</label>
+              <label className="block text-muted mb-1 font-medium">Section Name</label>
               <Input
                 value={sectionName}
                 onChange={(e) => setSectionName(e.target.value)}
                 placeholder="e.g. Section A or CSE-A"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Status</label>
+            <label className="block text-muted mb-1 font-medium">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as EntityStatus)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -1891,7 +1891,7 @@ function SectionDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Saving...' : item ? 'Update Section' : 'Create Section'}
             </Button>
@@ -1961,13 +1961,13 @@ function TrainingGroupDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <Code className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Code className="h-4 w-4 text-accent" />
             <span>{item ? 'Edit Training Group' : 'Create Training Group'}</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -1980,47 +1980,47 @@ function TrainingGroupDialog({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Group Name</label>
+            <label className="block text-muted mb-1 font-medium">Group Name</label>
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Java Training, Python Training, Aptitude"
-              className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Curriculum / Description</label>
+            <label className="block text-muted mb-1 font-medium">Curriculum / Description</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Outline the core topics, technologies, and objectives..."
               rows={3}
-              className="w-full p-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00] resize-none"
+              className="w-full p-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Status</label>
+            <label className="block text-muted mb-1 font-medium">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as EntityStatus)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -2028,7 +2028,7 @@ function TrainingGroupDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Saving...' : item ? 'Update Training Group' : 'Create Training Group'}
             </Button>
@@ -2101,13 +2101,13 @@ function AcademicYearDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-accent" />
             <span>{item ? 'Edit Academic Year' : 'Create Academic Year'}</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -2120,7 +2120,7 @@ function AcademicYearDialog({
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Year Number (1 - 5)</label>
+            <label className="block text-muted mb-1 font-medium">Year Number (1 - 5)</label>
             <Input
               type="number"
               min={1}
@@ -2128,53 +2128,53 @@ function AcademicYearDialog({
               value={yearNumber}
               onChange={(e) => setYearNumber(Number(e.target.value))}
               disabled={Boolean(item?.id)}
-              className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Display Title</label>
+            <label className="block text-muted mb-1 font-medium">Display Title</label>
             <Input
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               placeholder="e.g. 4th Year (Graduating)"
-              className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Academic Calendar Cycle</label>
+            <label className="block text-muted mb-1 font-medium">Academic Calendar Cycle</label>
             <Input
               value={calendar}
               onChange={(e) => setCalendar(e.target.value)}
               placeholder="e.g. 2025-2026"
-              className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+              className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-[#9AA1AA] mb-1 font-medium">Status</label>
+            <label className="block text-muted mb-1 font-medium">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as EntityStatus)}
-              className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+              className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
             >
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -2182,7 +2182,7 @@ function AcademicYearDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Saving...' : item ? 'Update Academic Year' : 'Create Academic Year'}
             </Button>

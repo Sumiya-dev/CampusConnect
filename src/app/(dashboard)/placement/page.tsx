@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { getPlacementDrives } from '@/lib/placements/queries';
 import { UnauthorizedBanner } from '@/components/auth/unauthorized-banner';
+import { Loader2 } from 'lucide-react';
+
+
 
 function cleanCompanyName(name?: string | null): string {
   if (!name) return 'Recruiter';
@@ -56,7 +59,15 @@ function formatDepartments(departments?: string[] | null): string {
   return departments.map((dept) => deptMap[dept] || dept).join(', ');
 }
 
-export default async function PlacementDashboardPage() {
+function PlacementSkeleton() {
+  return (
+    <div className="flex h-[40vh] w-full items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-accent" />
+    </div>
+  );
+}
+
+async function PlacementDashboardContent() {
   const drives = await getPlacementDrives();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -139,83 +150,64 @@ export default async function PlacementDashboardPage() {
         ];
 
   return (
-    <div className="space-y-8 max-w-5xl">
-      <Suspense fallback={null}>
-        <UnauthorizedBanner />
-      </Suspense>
-
-      {/* Header */}
-      <div>
-        <div className="text-xs font-medium uppercase tracking-wider text-[#FF6B00]">
-          Placement Officer
-        </div>
-        <h1 className="text-2xl font-semibold tracking-tight text-[#EDEDED] mt-1.5">
-          Central Placement Operations
-        </h1>
-        <p className="text-sm text-[#9AA1AA] mt-1">
-          Manage placement activities, drives and student recruitment.
-        </p>
-      </div>
-
-      <div className="border-t border-[#222222]" />
-
+    <>
       {/* Quick Overview */}
       <section className="space-y-3">
-        <h2 className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted">
           Quick Overview
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 pt-1">
           <div>
-            <div className="text-xs text-[#9AA1AA]">Eligible Students</div>
-            <div className="text-2xl font-medium text-[#EDEDED] mt-1 tabular-nums">
+            <div className="text-xs text-muted">Eligible Students</div>
+            <div className="text-2xl font-medium text-foreground mt-1 tabular-nums">
               {stats.eligibleStudents.toLocaleString()}
             </div>
           </div>
           <div>
-            <div className="text-xs text-[#9AA1AA]">Active Drives</div>
-            <div className="text-2xl font-medium text-[#EDEDED] mt-1 tabular-nums">
+            <div className="text-xs text-muted">Active Drives</div>
+            <div className="text-2xl font-medium text-foreground mt-1 tabular-nums">
               {stats.activeDrives.toLocaleString()}
             </div>
           </div>
           <div>
-            <div className="text-xs text-[#9AA1AA]">Applications</div>
-            <div className="text-2xl font-medium text-[#EDEDED] mt-1 tabular-nums">
+            <div className="text-xs text-muted">Applications</div>
+            <div className="text-2xl font-medium text-foreground mt-1 tabular-nums">
               {stats.applications.toLocaleString()}
             </div>
           </div>
           <div>
-            <div className="text-xs text-[#9AA1AA]">Selected</div>
-            <div className="text-2xl font-medium text-[#EDEDED] mt-1 tabular-nums">
+            <div className="text-xs text-muted">Selected</div>
+            <div className="text-2xl font-medium text-foreground mt-1 tabular-nums">
               {stats.selected.toLocaleString()}
             </div>
           </div>
         </div>
       </section>
 
-      <div className="border-t border-[#222222]" />
+      <div className="border-t border-border" />
 
       {/* Upcoming Drives */}
       <section className="space-y-3">
-        <h2 className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted">
           Upcoming Drives
         </h2>
-        <div className="divide-y divide-[#222222]">
+        <div className="divide-y divide-border">
           {upcomingDrives.map((drive) => (
             <div
               key={drive.id}
               className="flex items-center justify-between py-3.5 first:pt-1 last:pb-1"
             >
               <div>
-                <div className="text-sm font-medium text-[#EDEDED]">
+                <div className="text-sm font-medium text-foreground">
                   {drive.title}
                 </div>
-                <div className="text-xs text-[#9AA1AA] mt-0.5">
+                <div className="text-xs text-muted mt-0.5">
                   {drive.subtitle}
                 </div>
               </div>
               <Link
                 href={drive.href}
-                className="text-xs font-medium text-[#FF6B00] hover:text-[#FFA347] transition-colors"
+                className="text-xs font-medium text-accent hover:text-[#FFA347] transition-colors"
               >
                 View →
               </Link>
@@ -225,32 +217,61 @@ export default async function PlacementDashboardPage() {
         <div className="pt-2">
           <Link
             href="/placement/drives"
-            className="text-xs font-medium text-[#9AA1AA] hover:text-[#EDEDED] transition-colors inline-block"
+            className="text-xs font-medium text-muted hover:text-foreground transition-colors inline-block"
           >
             View all drives →
           </Link>
         </div>
       </section>
 
-      <div className="border-t border-[#222222]" />
+      <div className="border-t border-border" />
 
       {/* Recent Activity */}
       <section className="space-y-3">
-        <h2 className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+        <h2 className="text-xs font-medium uppercase tracking-wider text-muted">
           Recent Activity
         </h2>
-        <div className="divide-y divide-[#222222]">
-          <div className="py-3 first:pt-1 text-sm text-[#EDEDED]">
+        <div className="divide-y divide-border">
+          <div className="py-3 first:pt-1 text-sm text-foreground">
             New application received
           </div>
-          <div className="py-3 text-sm text-[#EDEDED]">
+          <div className="py-3 text-sm text-foreground">
             Microsoft drive shortlist published
           </div>
-          <div className="py-3 last:pb-1 text-sm text-[#EDEDED]">
+          <div className="py-3 last:pb-1 text-sm text-foreground">
             Interview schedule updated
           </div>
         </div>
       </section>
+    </>
+  );
+}
+
+export default async function PlacementDashboardPage() {
+  return (
+    <div className="space-y-8 max-w-5xl">
+      <Suspense fallback={null}>
+        <UnauthorizedBanner />
+      </Suspense>
+
+      {/* Header */}
+      <div>
+        <div className="text-xs font-medium uppercase tracking-wider text-accent">
+          Placement Officer
+        </div>
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground mt-1.5">
+          Central Placement Operations
+        </h1>
+        <p className="text-sm text-muted mt-1">
+          Manage placement activities, drives and student recruitment.
+        </p>
+      </div>
+
+      <div className="border-t border-border" />
+
+      <Suspense fallback={<PlacementSkeleton />}>
+        <PlacementDashboardContent />
+      </Suspense>
     </div>
   );
 }

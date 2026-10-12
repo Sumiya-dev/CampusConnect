@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 
 import { PreparationSectionsList } from '@/components/preparation/preparation-sections-list';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function StudentPreparationLandingPage() {
   const user = await getCurrentUser();
@@ -21,7 +21,7 @@ export default async function StudentPreparationLandingPage() {
       breadcrumbs={[{ label: 'Preparation' }]}
     >
       <div className="max-w-3xl space-y-4">
-        <p className="text-base font-medium text-[#EDEDED]">
+        <p className="text-base font-medium text-foreground">
           What do you want to prepare for?
         </p>
 

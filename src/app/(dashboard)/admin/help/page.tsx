@@ -7,7 +7,7 @@ import {
 } from '@/lib/help/queries';
 import { HelpDashboard } from '@/components/admin/help-dashboard';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Help Center Management | Superadmin | CampusConnect AI',

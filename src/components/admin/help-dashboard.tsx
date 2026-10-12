@@ -173,18 +173,18 @@ export function HelpDashboard({
 
       {/* METRICS STRIP */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Total Articles</span>
-            <BookOpen className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <BookOpen className="h-3.5 w-3.5 text-accent" />
           </div>
-          <div className="text-xl font-bold font-mono text-[#EDEDED] mt-2">
+          <div className="text-xl font-bold font-mono text-foreground mt-2">
             {stats.total}
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Live / Published</span>
             <Globe className="h-3.5 w-3.5 text-emerald-400" />
           </div>
@@ -193,8 +193,8 @@ export function HelpDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Draft Articles</span>
             <FileText className="h-3.5 w-3.5 text-neutral-400" />
           </div>
@@ -203,35 +203,35 @@ export function HelpDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-4 rounded-md">
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+        <div className="border border-border bg-elevated p-4 rounded-md">
+          <div className="flex items-center justify-between text-xs text-muted">
             <span>Active Categories</span>
             <Layers className="h-3.5 w-3.5 text-sky-400" />
           </div>
-          <div className="text-xl font-bold font-mono text-[#EDEDED] mt-2">
+          <div className="text-xl font-bold font-mono text-foreground mt-2">
             {Object.keys(stats.categoriesCount).length}
           </div>
         </div>
       </div>
 
       {/* SEARCH AND FILTERS */}
-      <div className="border border-[#222222] bg-[#121212] p-4 rounded-md space-y-3">
+      <div className="border border-border bg-elevated p-4 rounded-md space-y-3">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Search bar */}
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
             <Input
               type="text"
               placeholder="Search articles by title, content, or category..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9 focus-visible:ring-1 focus-visible:ring-[#FF6B00]"
+              className="pl-9 bg-surface border-border text-foreground text-xs h-9 focus-visible:ring-1 focus-visible:ring-accent"
             />
           </div>
 
           {/* Action Button */}
           <Link href="/admin/help/new">
-            <Button className="bg-[#FF6B00] hover:bg-[#E05D00] text-black text-xs font-semibold h-9 px-4 shrink-0">
+            <Button className="bg-accent hover:bg-[#E05D00] text-black text-xs font-semibold h-9 px-4 shrink-0">
               <Plus className="h-3.5 w-3.5 mr-1.5" />
               New Article
             </Button>
@@ -242,13 +242,13 @@ export function HelpDashboard({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#1C1C1C]">
           {/* Category Filter */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA]">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted">
               Category
             </label>
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2.5 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Categories</option>
               {CATEGORIES.map((cat) => (
@@ -261,13 +261,13 @@ export function HelpDashboard({
 
           {/* Status Filter */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA]">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted">
               Status
             </label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full h-8 px-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2.5 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Statuses</option>
               <option value="published">Published</option>
@@ -278,7 +278,7 @@ export function HelpDashboard({
 
         {/* Reset Filter indicator */}
         {(search || categoryFilter !== 'all' || statusFilter !== 'all') && (
-          <div className="flex items-center justify-between text-xs text-[#9AA1AA] pt-1">
+          <div className="flex items-center justify-between text-xs text-muted pt-1">
             <span>
               Showing {filteredArticles.length} of {initialArticles.length} articles
             </span>
@@ -288,7 +288,7 @@ export function HelpDashboard({
                 setCategoryFilter('all');
                 setStatusFilter('all');
               }}
-              className="text-[#FF6B00] hover:underline"
+              className="text-accent hover:underline"
             >
               Reset all filters
             </button>
@@ -297,20 +297,20 @@ export function HelpDashboard({
       </div>
 
       {/* ARTICLES LIST */}
-      <div className="border border-[#222222] bg-[#0A0A0A] rounded-md divide-y divide-[#1A1A1A] overflow-hidden">
+      <div className="border border-border bg-surface rounded-md divide-y divide-[#1A1A1A] overflow-hidden">
         {filteredArticles.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <HelpCircle className="h-8 w-8 text-[#9AA1AA] mx-auto opacity-40" />
-            <div className="text-sm font-medium text-[#EDEDED]">
+            <HelpCircle className="h-8 w-8 text-muted mx-auto opacity-40" />
+            <div className="text-sm font-medium text-foreground">
               No help articles found
             </div>
-            <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+            <p className="text-xs text-muted max-w-sm mx-auto">
               No help articles match the active search or filter criteria. Create
               a new article or reset filters.
             </p>
             <div className="pt-2">
               <Link href="/admin/help/new">
-                <Button className="bg-[#FF6B00] hover:bg-[#E05D00] text-black text-xs font-semibold h-8 px-3">
+                <Button className="bg-accent hover:bg-[#E05D00] text-black text-xs font-semibold h-8 px-3">
                   <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Create Article
                 </Button>
@@ -321,7 +321,7 @@ export function HelpDashboard({
           filteredArticles.map((article) => (
             <div
               key={article.id}
-              className="p-4 sm:p-5 hover:bg-[#121212]/70 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
+              className="p-4 sm:p-5 hover:bg-elevated/70 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
             >
               {/* Content Column */}
               <div className="space-y-1.5 min-w-0 flex-1">
@@ -342,21 +342,21 @@ export function HelpDashboard({
                     </span>
                   )}
 
-                  <span className="text-xs text-[#9AA1AA] font-mono">
+                  <span className="text-xs text-muted font-mono">
                     Updated {formatTimestamp(article.updated_at)}
                   </span>
                 </div>
 
-                <h3 className="text-sm font-semibold text-[#EDEDED] leading-snug">
+                <h3 className="text-sm font-semibold text-foreground leading-snug">
                   <Link
                     href={`/admin/help/${article.id}`}
-                    className="hover:text-[#FF6B00] transition-colors"
+                    className="hover:text-accent transition-colors"
                   >
                     {article.title}
                   </Link>
                 </h3>
 
-                <p className="text-xs text-[#9AA1AA] line-clamp-2 leading-relaxed">
+                <p className="text-xs text-muted line-clamp-2 leading-relaxed">
                   {article.content}
                 </p>
               </div>
@@ -368,7 +368,7 @@ export function HelpDashboard({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-7 px-2.5 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                    className="h-7 px-2.5 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
                     title="View article details"
                   >
                     <Eye className="h-3.5 w-3.5 mr-1" />
@@ -381,7 +381,7 @@ export function HelpDashboard({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="h-7 px-2.5 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                    className="h-7 px-2.5 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
                     title="Edit article"
                   >
                     <Edit className="h-3.5 w-3.5 mr-1" />
@@ -427,18 +427,18 @@ export function HelpDashboard({
       {/* CONFIRM DELETE MODAL */}
       {articleToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-rose-950/30 border border-rose-900/60 text-rose-400 shrink-0 mt-0.5">
                 <Trash2 className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Delete Help Article?
                 </h3>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   Are you sure you want to delete{' '}
-                  <span className="text-[#EDEDED] font-medium">
+                  <span className="text-foreground font-medium">
                     "{articleToDelete.title}"
                   </span>
                   ? This action is permanent and cannot be undone.
@@ -452,7 +452,7 @@ export function HelpDashboard({
                 size="sm"
                 onClick={() => setArticleToDelete(null)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>
@@ -472,9 +472,9 @@ export function HelpDashboard({
       {/* CONFIRM TOGGLE PUBLISH MODAL */}
       {articleToToggle && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-[#FF6B00] shrink-0 mt-0.5">
+              <div className="p-2 rounded bg-accent/10 border border-accent/30 text-accent shrink-0 mt-0.5">
                 {articleToToggle.status === 'published' ? (
                   <Lock className="h-5 w-5" />
                 ) : (
@@ -482,12 +482,12 @@ export function HelpDashboard({
                 )}
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   {articleToToggle.status === 'published'
                     ? 'Unpublish Help Article?'
                     : 'Publish Help Article?'}
                 </h3>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   {articleToToggle.status === 'published'
                     ? `This will remove "${articleToToggle.title}" from the public Help Center and revert it to an internal draft.`
                     : `This will make "${articleToToggle.title}" live and visible to students and faculty in the Help Center.`}
@@ -501,7 +501,7 @@ export function HelpDashboard({
                 size="sm"
                 onClick={() => setArticleToToggle(null)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>
@@ -509,7 +509,7 @@ export function HelpDashboard({
                 size="sm"
                 onClick={handleTogglePublish}
                 disabled={isPending}
-                className="bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold text-xs h-8"
+                className="bg-accent hover:bg-[#E05D00] text-black font-semibold text-xs h-8"
               >
                 {isPending
                   ? 'Updating...'

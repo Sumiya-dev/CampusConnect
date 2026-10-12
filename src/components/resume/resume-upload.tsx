@@ -60,31 +60,31 @@ export function ResumeUpload({ onSuccess, onCancel, isReplacing }: ResumeUploadP
   };
 
   return (
-    <div className="border border-[#222222] rounded-md p-6 bg-[#0A0A0A]">
+    <div className="border border-border rounded-md p-6 bg-surface">
       <div className="flex flex-col items-center justify-center space-y-4">
         {!file ? (
           <>
-            <div className="w-12 h-12 rounded-full bg-[#121212] flex items-center justify-center">
-              <Upload className="w-5 h-5 text-[#9AA1AA]" />
+            <div className="w-12 h-12 rounded-full bg-elevated flex items-center justify-center">
+              <Upload className="w-5 h-5 text-muted" />
             </div>
             <div className="text-center">
-              <p className="text-sm font-medium text-[#EDEDED]">
+              <p className="text-sm font-medium text-foreground">
                 Click to upload or drag and drop
               </p>
-              <p className="text-xs text-[#9AA1AA] mt-1">
+              <p className="text-xs text-muted mt-1">
                 PDF, DOC, DOCX (max. 5MB)
               </p>
             </div>
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="px-4 py-2 bg-[#FF6B00] text-white text-sm font-medium rounded-md hover:bg-[#FF6B00]/90 transition-colors"
+              className="px-4 py-2 bg-accent text-white text-sm font-medium rounded-md hover:bg-accent/90 transition-colors"
             >
               Select File
             </button>
             {isReplacing && onCancel && (
               <button
                 onClick={onCancel}
-                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+                className="text-xs text-muted hover:text-foreground transition-colors"
               >
                 Cancel replacement
               </button>
@@ -92,13 +92,13 @@ export function ResumeUpload({ onSuccess, onCancel, isReplacing }: ResumeUploadP
           </>
         ) : (
           <div className="w-full flex flex-col items-center">
-            <div className="flex items-center gap-3 p-4 border border-[#222222] rounded-md bg-[#121212] w-full max-w-sm mb-4">
-              <FileText className="w-6 h-6 text-[#FF6B00]" />
+            <div className="flex items-center gap-3 p-4 border border-border rounded-md bg-elevated w-full max-w-sm mb-4">
+              <FileText className="w-6 h-6 text-accent" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-[#EDEDED] truncate">
+                <p className="text-sm font-medium text-foreground truncate">
                   {file.name}
                 </p>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
@@ -107,14 +107,14 @@ export function ResumeUpload({ onSuccess, onCancel, isReplacing }: ResumeUploadP
               <button
                 onClick={() => setFile(null)}
                 disabled={isUploading}
-                className="px-4 py-2 bg-transparent border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] transition-colors disabled:opacity-50"
+                className="px-4 py-2 bg-transparent border border-[#333333] text-foreground text-sm font-medium rounded-md hover:bg-[#1A1A1A] transition-colors disabled:opacity-50"
               >
                 Remove
               </button>
               <button
                 onClick={handleUpload}
                 disabled={isUploading}
-                className="px-4 py-2 bg-[#FF6B00] text-white text-sm font-medium rounded-md hover:bg-[#FF6B00]/90 transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="px-4 py-2 bg-accent text-white text-sm font-medium rounded-md hover:bg-accent/90 transition-colors disabled:opacity-50 flex items-center gap-2"
               >
                 {isUploading ? (
                   <>

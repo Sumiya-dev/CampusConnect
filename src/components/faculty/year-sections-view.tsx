@@ -27,7 +27,7 @@ export function YearSectionsView({
 
   if (sections.length === 0) {
     return (
-      <div className="py-6 text-sm text-[#9AA1AA]">
+      <div className="py-6 text-sm text-muted">
         No sections found for this academic year.
       </div>
     );
@@ -50,24 +50,24 @@ export function YearSectionsView({
               <span
                 className={`text-base font-normal transition-colors ${
                   isOpen
-                    ? 'text-[#FF6B00] font-medium'
-                    : 'text-[#EDEDED] group-hover:text-[#FF6B00]'
+                    ? 'text-accent font-medium'
+                    : 'text-foreground group-hover:text-accent'
                 }`}
               >
                 {sec.section_code}
               </span>
 
               {isOpen ? (
-                <ChevronDown className="h-4 w-4 text-[#FF6B00] transition-transform" />
+                <ChevronDown className="h-4 w-4 text-accent transition-transform" />
               ) : (
-                <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-0.5 transition-all" />
+                <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-0.5 transition-all" />
               )}
             </button>
 
             {/* Inline Expanded Section Roster (No separate page needed) */}
             {isOpen && (
               <div className="pt-2 pb-6 px-1 space-y-4 animate-in fade-in-50 duration-200">
-                <div className="text-sm font-medium text-[#9AA1AA]">
+                <div className="text-sm font-medium text-muted">
                   Students
                 </div>
 
@@ -77,7 +77,7 @@ export function YearSectionsView({
                     availableGroups={currentSectionData.available_training_groups}
                   />
                 ) : (
-                  <div className="py-4 text-xs text-[#9AA1AA]">
+                  <div className="py-4 text-xs text-muted">
                     No student records found for this section.
                   </div>
                 )}

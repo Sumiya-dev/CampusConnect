@@ -7,7 +7,7 @@ import {
 } from '@/lib/notifications/admin-queries';
 import { NotificationsDashboard } from '@/components/admin/notifications-dashboard';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Notifications Management | Superadmin | CampusConnect AI',

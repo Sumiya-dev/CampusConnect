@@ -24,52 +24,52 @@ export default function PlacementAnalyticsPage() {
       badgeText="Batch of 2026"
       actions={
         <Button variant="outline" size="sm" className="text-sm gap-1.5 font-normal">
-          <Download className="h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Download className="h-3.5 w-3.5 text-muted" />
           <span>Export Institutional Report (PDF)</span>
         </Button>
       }
     >
       <div className="space-y-6">
         {/* Core summary strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#252A31] border border-[#252A31] rounded-md overflow-hidden text-sm">
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Overall Placement Rate</span>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">78.4%</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border rounded-md overflow-hidden text-sm">
+          <div className="bg-surface p-4">
+            <span className="text-sm uppercase font-semibold text-muted">Overall Placement Rate</span>
+            <div className="text-xl font-semibold text-foreground mt-1">78.4%</div>
             <span className="text-sm text-emerald-400 font-medium">872 of 1,120 Eligible Placed</span>
           </div>
 
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Highest Compensation</span>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">₹51.0 LPA</div>
-            <span className="text-sm text-[#EDEDED]">Microsoft IDC (SDE-1)</span>
+          <div className="bg-surface p-4">
+            <span className="text-sm uppercase font-semibold text-muted">Highest Compensation</span>
+            <div className="text-xl font-semibold text-foreground mt-1">₹51.0 LPA</div>
+            <span className="text-sm text-foreground">Microsoft IDC (SDE-1)</span>
           </div>
 
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Average Package</span>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">₹9.85 LPA</div>
+          <div className="bg-surface p-4">
+            <span className="text-sm uppercase font-semibold text-muted">Average Package</span>
+            <div className="text-xl font-semibold text-foreground mt-1">₹9.85 LPA</div>
             <span className="text-sm text-emerald-400">+12% increase vs 2025</span>
           </div>
 
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm uppercase font-semibold text-[#9AA1AA]">Participating Recruiters</span>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">84 Companies</div>
-            <span className="text-sm text-[#9AA1AA]">42 Tier-1 Dream Employers</span>
+          <div className="bg-surface p-4">
+            <span className="text-sm uppercase font-semibold text-muted">Participating Recruiters</span>
+            <div className="text-xl font-semibold text-foreground mt-1">84 Companies</div>
+            <span className="text-sm text-muted">42 Tier-1 Dream Employers</span>
           </div>
         </div>
 
         {/* Department Conversion Table */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between border-b border-[#222222] pb-2">
-            <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
+          <div className="flex items-center justify-between border-b border-border pb-2">
+            <h2 className="text-base font-semibold text-foreground tracking-tight">
               Departmental Conversion & Compensation Benchmark
             </h2>
-            <span className="text-sm text-[#9AA1AA]">6 Departments Tracked</span>
+            <span className="text-sm text-muted">6 Departments Tracked</span>
           </div>
 
-          <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+          <div className="border border-border rounded-md bg-surface overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="border-b border-[#222222] bg-[#121212] text-[#9AA1AA] uppercase tracking-wider text-sm">
+                <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-sm">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Academic Department</th>
                     <th className="py-3 px-4 font-semibold">Eligible Pool</th>
@@ -79,17 +79,17 @@ export default function PlacementAnalyticsPage() {
                     <th className="py-3 px-4 font-semibold text-right">Highest CTC</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#222222] text-[#EDEDED]">
+                <tbody className="divide-y divide-border text-foreground">
                   {branchMetrics.map((b) => (
-                    <tr key={b.branch} className="hover:bg-[#121212] transition-colors">
+                    <tr key={b.branch} className="hover:bg-elevated transition-colors">
                       <td className="py-3 px-4 font-medium">{b.branch}</td>
-                      <td className="py-3 px-4 text-[#9AA1AA] font-mono">{b.eligible}</td>
-                      <td className="py-3 px-4 text-[#9AA1AA] font-mono">{b.placed}</td>
+                      <td className="py-3 px-4 text-muted font-mono">{b.eligible}</td>
+                      <td className="py-3 px-4 text-muted font-mono">{b.placed}</td>
                       <td className="py-3 px-4">
                         <span className="text-emerald-400 font-semibold">{b.rate}</span>
                       </td>
-                      <td className="py-3 px-4 font-mono text-[#EDEDED]">{b.avgCtc}</td>
-                      <td className="py-3 px-4 font-mono font-medium text-right text-[#EDEDED]">{b.highestCtc}</td>
+                      <td className="py-3 px-4 font-mono text-foreground">{b.avgCtc}</td>
+                      <td className="py-3 px-4 font-mono font-medium text-right text-foreground">{b.highestCtc}</td>
                     </tr>
                   ))}
                 </tbody>

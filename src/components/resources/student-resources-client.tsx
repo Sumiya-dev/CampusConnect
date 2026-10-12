@@ -46,7 +46,7 @@ function getFileIcon(fileName: string) {
   if (['pdf'].includes(ext)) {
     return <FileText className="h-5 w-5 text-rose-400" />;
   }
-  return <FileCode className="h-5 w-5 text-[#9AA1AA]" />;
+  return <FileCode className="h-5 w-5 text-muted" />;
 }
 
 export function StudentResourcesClient({
@@ -81,13 +81,13 @@ export function StudentResourcesClient({
       {/* Search and Filters */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
           <Input
             type="text"
             placeholder="Search resources by title, subject, or faculty..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-9"
+            className="pl-9 bg-surface border-border text-foreground text-sm h-9"
           />
         </div>
 
@@ -96,7 +96,7 @@ export function StudentResourcesClient({
           <select
             value={subjectFilter}
             onChange={(e) => setSubjectFilter(e.target.value)}
-            className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Subjects</option>
             {allSubjects.map((sub) => (
@@ -110,7 +110,7 @@ export function StudentResourcesClient({
           <select
             value={scopeFilter}
             onChange={(e) => setScopeFilter(e.target.value)}
-            className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Audiences</option>
             <option value="section">My Section</option>
@@ -121,16 +121,16 @@ export function StudentResourcesClient({
 
       {/* Resources Feed */}
       {filteredResources.length === 0 ? (
-        <div className="border border-[#222222] bg-[#0A0A0A] rounded-md p-10 text-center space-y-3">
-          <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-[#9AA1AA]">
-            <BookOpen className="h-6 w-6 text-[#FF6B00]" />
+        <div className="border border-border bg-surface rounded-md p-10 text-center space-y-3">
+          <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-muted">
+            <BookOpen className="h-6 w-6 text-accent" />
           </div>
-          <h3 className="text-base font-medium text-[#EDEDED]">
+          <h3 className="text-base font-medium text-foreground">
             {searchQuery || subjectFilter !== 'all' || scopeFilter !== 'all'
               ? 'No matching resources found'
               : 'No academic resources available yet'}
           </h3>
-          <p className="text-xs text-[#9AA1AA] max-w-md mx-auto">
+          <p className="text-xs text-muted max-w-md mx-auto">
             {searchQuery || subjectFilter !== 'all' || scopeFilter !== 'all'
               ? 'Try resetting the filters or modifying your search keywords.'
               : 'Course slides, lab manuals, and syllabus resources shared by your professors will appear here.'}
@@ -148,12 +148,12 @@ export function StudentResourcesClient({
             return (
               <div
                 key={res.id}
-                className="border border-[#222222] bg-[#0A0A0A] rounded-md p-4 sm:p-5 flex flex-col justify-between space-y-4 hover:border-[#333333] transition-colors"
+                className="border border-border bg-surface rounded-md p-4 sm:p-5 flex flex-col justify-between space-y-4 hover:border-[#333333] transition-colors"
               >
                 <div className="space-y-3">
                   {/* Badges */}
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-medium px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#EDEDED]">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded border border-border bg-elevated text-foreground">
                       {res.subject}
                     </span>
 
@@ -179,20 +179,20 @@ export function StudentResourcesClient({
 
                   {/* Title & Desc */}
                   <div>
-                    <h3 className="text-base font-semibold text-[#EDEDED]">
+                    <h3 className="text-base font-semibold text-foreground">
                       {res.title}
                     </h3>
                     {res.description && (
-                      <p className="text-xs text-[#9AA1AA] mt-1.5 line-clamp-3">
+                      <p className="text-xs text-muted mt-1.5 line-clamp-3">
                         {res.description}
                       </p>
                     )}
                   </div>
 
                   {/* Faculty Meta */}
-                  <div className="flex items-center gap-2 text-xs text-[#9AA1AA] pt-1 border-t border-[#1A1A1A]">
-                    <User className="h-3.5 w-3.5 text-[#FF6B00]" />
-                    <span className="text-[#EDEDED] font-medium">
+                  <div className="flex items-center gap-2 text-xs text-muted pt-1 border-t border-[#1A1A1A]">
+                    <User className="h-3.5 w-3.5 text-accent" />
+                    <span className="text-foreground font-medium">
                       {res.faculty_name || 'Department Faculty'}
                     </span>
                     {res.faculty_department && (
@@ -202,16 +202,16 @@ export function StudentResourcesClient({
                 </div>
 
                 {/* Footer: File Meta + Download */}
-                <div className="flex items-center justify-between gap-3 pt-3 border-t border-[#222222]">
+                <div className="flex items-center justify-between gap-3 pt-3 border-t border-border">
                   <div className="flex items-center gap-2 min-w-0">
-                    <div className="p-1.5 rounded bg-[#161616] border border-[#222222] shrink-0">
+                    <div className="p-1.5 rounded bg-[#161616] border border-border shrink-0">
                       {getFileIcon(res.file_name)}
                     </div>
                     <div className="min-w-0 text-xs">
                       <p className="font-mono text-[#CCCCCC] truncate">
                         {res.file_name}
                       </p>
-                      <p className="text-[11px] text-[#9AA1AA]">
+                      <p className="text-[11px] text-muted">
                         {formatBytes(res.file_size)} • {uploadDate}
                       </p>
                     </div>

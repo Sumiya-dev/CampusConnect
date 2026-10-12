@@ -11,7 +11,7 @@ export async function getSuperadminProfileDetails(): Promise<SuperadminProfileDe
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const isLiveSupabase = supabaseUrl && !supabaseUrl.includes('placeholder');
 
-  if (isLiveSupabase) {
+  if (isLiveSupabase && user.id !== 'demo-user-id') {
     try {
       const supabase: any = await createClient();
 

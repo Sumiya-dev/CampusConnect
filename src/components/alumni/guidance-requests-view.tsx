@@ -123,11 +123,11 @@ export function GuidanceRequestsView({
       <AlumniNavigation baseHref={baseHref} isStudentOrAlumni={isStudentOrAlumni} />
 
       {/* Header Info Banner */}
-      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-1">
-        <h2 className="text-base font-semibold text-[#EDEDED]">
+      <div className="bg-surface border border-border rounded-lg p-5 space-y-1">
+        <h2 className="text-base font-semibold text-foreground">
           {isAlumni ? 'Incoming Guidance Requests' : 'My Guidance Requests'}
         </h2>
-        <p className="text-xs text-[#9AA1AA]">
+        <p className="text-xs text-muted">
           {isAlumni
             ? 'Review and manage guidance inquiries submitted by current university students seeking your career mentorship.'
             : 'Track the status of your guidance inquiries sent to alumni graduates.'}
@@ -142,7 +142,7 @@ export function GuidanceRequestsView({
       )}
 
       {/* Status Filter Tabs */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-[#222222] scrollbar-none">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-border scrollbar-none">
         {(['ALL', 'PENDING', 'ACCEPTED', 'COMPLETED', 'REJECTED'] as const).map((st) => (
           <button
             key={st}
@@ -150,8 +150,8 @@ export function GuidanceRequestsView({
             onClick={() => setActiveFilter(st)}
             className={`px-3 py-1 text-xs rounded transition-colors whitespace-nowrap ${
               activeFilter === st
-                ? 'bg-[#161616] text-[#FF6B00] border border-[#FF6B00]/30 font-semibold'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#161616] text-accent border border-accent/30 font-semibold'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             {st === 'ALL' ? 'All Requests' : st}
@@ -162,13 +162,13 @@ export function GuidanceRequestsView({
       {/* Requests List */}
       <div className="space-y-4">
         {filteredRequests.length === 0 ? (
-          <div className="text-center py-16 px-4 border border-[#222222] bg-[#0A0A0A] rounded-lg space-y-3">
+          <div className="text-center py-16 px-4 border border-border bg-surface rounded-lg space-y-3">
             <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#161616] text-[#717784]">
               <Send className="h-5 w-5" />
             </div>
             <div className="space-y-1">
-              <h4 className="text-sm font-semibold text-[#EDEDED]">No guidance requests yet.</h4>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <h4 className="text-sm font-semibold text-foreground">No guidance requests yet.</h4>
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 {isAlumni
                   ? 'Inquiries sent to you by students will appear here.'
                   : 'You have not submitted any guidance requests. Discover alumni in the directory to request mentorship.'}
@@ -177,7 +177,7 @@ export function GuidanceRequestsView({
             {isStudent && (
               <Link
                 href={baseHref}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded bg-[#FF6B00] text-black hover:bg-[#E05E00] mt-2 transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded bg-accent text-black hover:bg-[#E05E00] mt-2 transition-colors"
               >
                 <span>Browse Alumni Directory</span>
               </Link>
@@ -192,12 +192,12 @@ export function GuidanceRequestsView({
             return (
               <div
                 key={req.id}
-                className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-4 hover:border-[#333333] transition-colors"
+                className="bg-surface border border-border rounded-lg p-5 space-y-4 hover:border-[#333333] transition-colors"
               >
                 {/* Header Row */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[#1C1C1C]">
                   <div className="flex items-start gap-3">
-                    <div className="h-9 w-9 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-xs font-semibold text-[#FF6B00] shrink-0 mt-0.5">
+                    <div className="h-9 w-9 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-xs font-semibold text-accent shrink-0 mt-0.5">
                       {isAlumni
                         ? studentName.charAt(0).toUpperCase()
                         : alumniName.charAt(0).toUpperCase()}
@@ -205,25 +205,25 @@ export function GuidanceRequestsView({
                     <div>
                       {isAlumni ? (
                         <>
-                          <h4 className="text-sm font-semibold text-[#EDEDED]">{studentName}</h4>
-                          <p className="text-xs text-[#9AA1AA]">
+                          <h4 className="text-sm font-semibold text-foreground">{studentName}</h4>
+                          <p className="text-xs text-muted">
                             {req.student?.department || 'Student'} • University Student
                           </p>
                         </>
                       ) : (
                         <>
-                          <h4 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
+                          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                             <span>{alumniName}</span>
                             {req.alumni && (
                               <Link
                                 href={`${baseHref}/${req.alumni.id}`}
-                                className="text-[11px] text-[#717784] hover:text-[#FF6B00] underline"
+                                className="text-[11px] text-[#717784] hover:text-accent underline"
                               >
                                 View Profile
                               </Link>
                             )}
                           </h4>
-                          <p className="text-xs text-[#9AA1AA] flex items-center gap-1">
+                          <p className="text-xs text-muted flex items-center gap-1">
                             <Building className="h-3 w-3 text-[#717784]" />
                             {[req.alumni?.job_role, req.alumni?.current_company]
                               .filter(Boolean)
@@ -247,7 +247,7 @@ export function GuidanceRequestsView({
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#717784] block">
                     Guidance Request Message
                   </span>
-                  <div className="p-3 bg-[#121212] border border-[#1F1F1F] rounded-md text-xs text-[#EDEDED] leading-relaxed whitespace-pre-line">
+                  <div className="p-3 bg-elevated border border-[#1F1F1F] rounded-md text-xs text-foreground leading-relaxed whitespace-pre-line">
                     {req.message}
                   </div>
                 </div>
@@ -255,10 +255,10 @@ export function GuidanceRequestsView({
                 {/* Response Note if present */}
                 {req.response_note && (
                   <div className="space-y-1.5 pt-1">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00] block">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-accent block">
                       Alumni Response Note
                     </span>
-                    <div className="p-3 bg-[#FF6B00]/5 border border-[#FF6B00]/20 rounded-md text-xs text-[#EDEDED] leading-relaxed whitespace-pre-line">
+                    <div className="p-3 bg-accent/5 border border-accent/20 rounded-md text-xs text-foreground leading-relaxed whitespace-pre-line">
                       {req.response_note}
                     </div>
                   </div>
@@ -310,7 +310,7 @@ export function GuidanceRequestsView({
                         onClick={() =>
                           setActiveNoteBoxId(activeNoteBoxId === req.id ? null : req.id)
                         }
-                        className="text-xs gap-1.5 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED] h-7"
+                        className="text-xs gap-1.5 border-border text-muted hover:text-foreground h-7"
                       >
                         <MessageSquare className="h-3.5 w-3.5" />
                         <span>{req.response_note ? 'Edit Note' : 'Add Note'}</span>
@@ -319,7 +319,7 @@ export function GuidanceRequestsView({
 
                     {/* Note Box */}
                     {activeNoteBoxId === req.id && (
-                      <div className="p-3 bg-[#121212] border border-[#262626] rounded space-y-2">
+                      <div className="p-3 bg-elevated border border-[#262626] rounded space-y-2">
                         <textarea
                           value={
                             responseNoteInput[req.id] !== undefined
@@ -334,7 +334,7 @@ export function GuidanceRequestsView({
                           }
                           placeholder="Add advice, contact instructions, or meeting links for the student..."
                           rows={2}
-                          className="w-full bg-[#0A0A0A] border border-[#222222] rounded p-2 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] resize-none"
+                          className="w-full bg-surface border border-border rounded p-2 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent resize-none"
                         />
                         <div className="flex justify-end gap-2">
                           <Button
@@ -359,7 +359,7 @@ export function GuidanceRequestsView({
                                   : req.response_note || ''
                               )
                             }
-                            className="text-xs h-7 bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+                            className="text-xs h-7 bg-accent text-black hover:bg-[#E05E00]"
                           >
                             Save Note
                           </Button>

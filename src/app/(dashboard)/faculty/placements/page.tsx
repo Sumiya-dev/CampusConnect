@@ -5,7 +5,7 @@ import { UnauthorizedBanner } from '@/components/auth/unauthorized-banner';
 import { getFacultyPlacementsOverview } from '@/lib/faculty/placement-queries';
 import { FacultyPlacementsListClient } from '@/components/faculty/faculty-placements-list-client';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function FacultyPlacementsPage() {
   const user = await getCurrentUser();
@@ -27,20 +27,20 @@ export default async function FacultyPlacementsPage() {
       </Suspense>
 
       {/* Header */}
-      <div className="border-b border-[#222222] pb-5">
+      <div className="border-b border-border pb-5">
         <div className="flex items-center gap-2">
-          <span className="text-xs uppercase font-mono tracking-wider text-[#FF6B00]">
+          <span className="text-xs uppercase font-mono tracking-wider text-accent">
             Placement Oversight
           </span>
           <span className="text-[#333333]">/</span>
-          <span className="text-xs font-mono text-[#9AA1AA]">
+          <span className="text-xs font-mono text-muted">
             {data.faculty_department}
           </span>
         </div>
-        <h1 className="text-2xl font-semibold text-[#EDEDED] tracking-tight mt-1">
+        <h1 className="text-2xl font-semibold text-foreground tracking-tight mt-1">
           Placement Coordination
         </h1>
-        <p className="text-sm text-[#9AA1AA] mt-1">
+        <p className="text-sm text-muted mt-1">
           Monitor recruitment drives, verify applicant eligibility, and track candidate progress for your authorized student cohorts.
         </p>
       </div>

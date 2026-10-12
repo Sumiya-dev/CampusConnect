@@ -64,25 +64,25 @@ export function RequestGuidanceModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-[#0A0A0A] border border-[#222222] rounded-lg shadow-2xl p-6 space-y-5">
+      <div className="relative w-full max-w-lg bg-surface border border-border rounded-lg shadow-2xl p-6 space-y-5">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
-            <span className="text-[10px] font-mono tracking-wider uppercase text-[#FF6B00]">
+            <span className="text-[10px] font-mono tracking-wider uppercase text-accent">
               Mentorship & Guidance
             </span>
-            <h3 className="text-base font-semibold text-[#EDEDED] mt-0.5">
+            <h3 className="text-base font-semibold text-foreground mt-0.5">
               Request Guidance from {alumniName}
             </h3>
             {(alumniRole || alumniCompany) && (
-              <p className="text-xs text-[#9AA1AA] mt-0.5">
+              <p className="text-xs text-muted mt-0.5">
                 {[alumniRole, alumniCompany].filter(Boolean).join(' at ')}
               </p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="text-[#717784] hover:text-[#EDEDED] p-1 rounded-md transition-colors"
+            className="text-[#717784] hover:text-foreground p-1 rounded-md transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -97,18 +97,18 @@ export function RequestGuidanceModal({
 
         {submitted ? (
           <div className="py-8 text-center space-y-2">
-            <div className="h-10 w-10 mx-auto rounded-full bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00]">
+            <div className="h-10 w-10 mx-auto rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center text-accent">
               <Send className="h-5 w-5" />
             </div>
-            <h4 className="text-sm font-semibold text-[#EDEDED]">Request Submitted!</h4>
-            <p className="text-xs text-[#9AA1AA]">
+            <h4 className="text-sm font-semibold text-foreground">Request Submitted!</h4>
+            <p className="text-xs text-muted">
               Your guidance request has been sent to {alumniName}. You can track status under Guidance Requests.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+              <label className="block text-xs font-medium text-foreground mb-1.5">
                 Guidance Objective / Message
               </label>
               <textarea
@@ -116,7 +116,7 @@ export function RequestGuidanceModal({
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="I would like guidance regarding software engineering interview preparation, resume feedback, or career transitions..."
                 rows={5}
-                className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] transition-colors resize-none"
+                className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent transition-colors resize-none"
                 disabled={isSubmitting}
               />
               <span className="text-[10px] text-[#717784] mt-1 block">
@@ -124,7 +124,7 @@ export function RequestGuidanceModal({
               </span>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
               <Button
                 type="button"
                 variant="outline"
@@ -139,7 +139,7 @@ export function RequestGuidanceModal({
                 type="submit"
                 size="sm"
                 disabled={isSubmitting || !message.trim()}
-                className="text-xs gap-1.5 font-semibold bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+                className="text-xs gap-1.5 font-semibold bg-accent text-black hover:bg-[#E05E00]"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span>{isSubmitting ? 'Sending...' : 'Send Request'}</span>

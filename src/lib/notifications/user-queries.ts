@@ -41,7 +41,8 @@ export async function getUserDeliveredNotifications(): Promise<UserInboxNotifica
     `
     )
     .eq('user_id', user.id)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(50);
 
   if (error || !data) {
     return [];

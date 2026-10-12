@@ -8,6 +8,7 @@ import { ROLE_LABELS } from '@/lib/types/auth.types';
 import { signOutAction } from '@/lib/auth/actions';
 import { cn } from '@/lib/utils';
 import { GraduationCap, LogOut, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 interface SidebarProps {
   role: UserRole;
@@ -41,22 +42,22 @@ export function Sidebar({ role, userName, isOpen = false, onClose }: SidebarProp
       {/* Sidebar Container */}
       <aside
         className={cn(
-          'w-60 border-r border-[#222222] bg-[#000000] flex flex-col justify-between h-screen sticky top-0 shrink-0 select-none z-50 transition-transform duration-200 ease-in-out md:translate-x-0',
+          'w-60 border-r border-border bg-background flex flex-col justify-between h-screen sticky top-0 shrink-0 select-none z-50 transition-transform duration-200 ease-in-out md:translate-x-0',
           isOpen ? 'fixed inset-y-0 left-0 translate-x-0' : 'hidden md:flex'
         )}
       >
         {/* Brand & Role Header */}
         <div>
-          <div className="h-14 px-4 border-b border-[#222222] flex items-center justify-between">
-            <Link href={`/${role === 'placement_officer' ? 'placement' : role}`} className="flex items-center gap-2.5 min-w-0" onClick={onClose}>
-              <div className="flex h-7 w-7 items-center justify-center rounded border border-[#222222] bg-[#0A0A0A] text-[#FF6B00] shrink-0">
+          <div className="h-14 px-4 border-b border-border flex items-center justify-between">
+            <Link href={`/${role === 'placement_officer' ? 'placement' : role}`} className="flex items-center gap-2.5 min-w-0" onClick={onClose} prefetch={true}>
+              <div className="flex h-7 w-7 items-center justify-center rounded border border-border bg-surface text-accent shrink-0">
                 <GraduationCap className="h-4 w-4" />
               </div>
               <div className="min-w-0">
-                <div className="font-semibold text-sm tracking-tight text-[#EDEDED] truncate">
-                  CampusConnect <span className="text-[#FF6B00]">AI</span>
+                <div className="font-semibold text-sm tracking-tight text-foreground truncate">
+                  CampusConnect <span className="text-accent">AI</span>
                 </div>
-                <div className="text-sm text-[#9AA1AA] tracking-wider uppercase font-medium truncate">
+                <div className="text-sm text-muted tracking-wider uppercase font-medium truncate">
                   {ROLE_LABELS[role]}
                 </div>
               </div>
@@ -65,7 +66,7 @@ export function Sidebar({ role, userName, isOpen = false, onClose }: SidebarProp
             {onClose && (
               <button
                 onClick={onClose}
-                className="md:hidden text-[#9AA1AA] hover:text-[#EDEDED] p-1"
+                className="md:hidden text-muted hover:text-foreground p-1"
                 aria-label="Close menu"
               >
                 <X className="h-4 w-4" />
@@ -78,7 +79,7 @@ export function Sidebar({ role, userName, isOpen = false, onClose }: SidebarProp
             {navGroups.map((group, gIdx) => (
               <div key={gIdx} className="space-y-1">
                 {group.groupTitle && (
-                  <div className="px-2.5 py-1 text-sm font-semibold uppercase tracking-wider text-[#9AA1AA]/60">
+                  <div className="px-2.5 py-1 text-sm font-semibold uppercase tracking-wider text-muted/60">
                     {group.groupTitle}
                   </div>
                 )}
@@ -89,19 +90,20 @@ export function Sidebar({ role, userName, isOpen = false, onClose }: SidebarProp
                     <Link
                       key={item.href}
                       href={item.href}
+                      prefetch={true}
                       onClick={onClose}
                       className={cn(
                         'flex items-center justify-between px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors duration-150',
                         isActive
-                          ? 'text-[#FF6B00] bg-[#121212] border-l-2 border-l-[#FF6B00]'
-                          : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#0A0A0A]'
+                          ? 'text-accent bg-elevated border-l-2 border-l-accent'
+                          : 'text-muted hover:text-foreground hover:bg-surface'
                       )}
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
                         <Icon
                           className={cn(
                             'h-3.5 w-3.5 shrink-0 transition-colors',
-                            isActive ? 'text-[#FF6B00]' : 'text-[#9AA1AA]'
+                            isActive ? 'text-accent' : 'text-muted'
                           )}
                         />
                         <span className="truncate">{item.title}</span>
@@ -111,8 +113,8 @@ export function Sidebar({ role, userName, isOpen = false, onClose }: SidebarProp
                           className={cn(
                             'text-[9px] px-1.5 py-0.2 rounded font-semibold border',
                             isActive
-                              ? 'bg-[#FF6B00]/10 text-[#FF6B00] border-[#FF6B00]/25'
-                              : 'bg-[#121212] text-[#9AA1AA] border-[#222222]'
+                              ? 'bg-accent/10 text-accent border-accent/25'
+                              : 'bg-elevated text-muted border-border'
                           )}
                         >
                           {item.badge}
@@ -127,20 +129,23 @@ export function Sidebar({ role, userName, isOpen = false, onClose }: SidebarProp
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-[#222222] space-y-2">
-          <div className="px-2.5 py-2 bg-[#0A0A0A] rounded border border-[#222222] text-sm">
-            <div className="text-[#9AA1AA] text-sm uppercase font-medium tracking-wider">
-              Signed in as
+        <div className="p-3 border-t border-border space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="flex-1 px-2.5 py-2 bg-surface rounded border border-border text-sm min-w-0">
+              <div className="text-muted text-sm uppercase font-medium tracking-wider">
+                Signed in as
+              </div>
+              <div className="text-foreground font-medium mt-0.5 truncate">
+                {userName}
+              </div>
             </div>
-            <div className="text-[#EDEDED] font-medium mt-0.5 truncate">
-              {userName}
-            </div>
+            <ThemeToggle className="shrink-0" />
           </div>
 
           <form action={signOutAction}>
             <button
               type="submit"
-              className="w-full flex items-center gap-2 px-2.5 py-1.5 text-sm font-medium text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212] rounded-md transition-colors cursor-pointer"
+              className="w-full flex items-center gap-2 px-2.5 py-1.5 text-sm font-medium text-muted hover:text-foreground hover:bg-elevated rounded-md transition-colors cursor-pointer"
             >
               <LogOut className="h-3.5 w-3.5" />
               <span>Sign Out</span>

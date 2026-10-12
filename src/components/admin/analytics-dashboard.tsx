@@ -120,18 +120,18 @@ export function AnalyticsDashboard({
     <div className="space-y-6">
       {/* 1. OVERVIEW KPIS */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Students</span>
-            <Users className="h-3 w-3 text-[#FF6B00]" />
+            <Users className="h-3 w-3 text-accent" />
           </div>
-          <div className="text-lg font-bold font-mono text-[#EDEDED] mt-1.5">
+          <div className="text-lg font-bold font-mono text-foreground mt-1.5">
             {overview.totalStudents}
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Placed</span>
             <CheckCircle2 className="h-3 w-3 text-emerald-400" />
           </div>
@@ -140,8 +140,8 @@ export function AnalyticsDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Unplaced</span>
             <Clock className="h-3 w-3 text-amber-400" />
           </div>
@@ -150,38 +150,38 @@ export function AnalyticsDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Placement %</span>
-            <TrendingUp className="h-3 w-3 text-[#FF6B00]" />
+            <TrendingUp className="h-3 w-3 text-accent" />
           </div>
-          <div className="text-lg font-bold font-mono text-[#FF6B00] mt-1.5">
+          <div className="text-lg font-bold font-mono text-accent mt-1.5">
             {overview.placementPercentage}%
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Companies</span>
             <Building className="h-3 w-3 text-neutral-400" />
           </div>
-          <div className="text-lg font-bold font-mono text-[#EDEDED] mt-1.5">
+          <div className="text-lg font-bold font-mono text-foreground mt-1.5">
             {overview.totalCompanies}
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Drives</span>
             <Briefcase className="h-3 w-3 text-neutral-400" />
           </div>
-          <div className="text-lg font-bold font-mono text-[#EDEDED] mt-1.5">
+          <div className="text-lg font-bold font-mono text-foreground mt-1.5">
             {overview.totalDrives}
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Applications</span>
             <Layers className="h-3 w-3 text-sky-400" />
           </div>
@@ -190,8 +190,8 @@ export function AnalyticsDashboard({
           </div>
         </div>
 
-        <div className="border border-[#222222] bg-[#121212] p-3.5 rounded-md">
-          <div className="text-[11px] text-[#9AA1AA] flex items-center justify-between">
+        <div className="border border-border bg-elevated p-3.5 rounded-md">
+          <div className="text-[11px] text-muted flex items-center justify-between">
             <span>Selections</span>
             <Award className="h-3 w-3 text-purple-400" />
           </div>
@@ -202,12 +202,12 @@ export function AnalyticsDashboard({
       </div>
 
       {/* 2. PLACEMENT STATUS DISTRIBUTION BAR */}
-      <div className="border border-[#222222] bg-[#121212] p-4 rounded-md space-y-2">
+      <div className="border border-border bg-elevated p-4 rounded-md space-y-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-[#EDEDED] uppercase tracking-wider font-mono">
+          <span className="font-semibold text-foreground uppercase tracking-wider font-mono">
             Candidate Cohort Status Distribution
           </span>
-          <span className="text-[#9AA1AA] font-mono text-[11px]">
+          <span className="text-muted font-mono text-[11px]">
             {overview.totalStudents} total student records in active filter pool
           </span>
         </div>
@@ -223,7 +223,7 @@ export function AnalyticsDashboard({
               />
               <div
                 style={{ width: `${(overview.inProcessStudents / overview.totalStudents) * 100}%` }}
-                className="bg-[#FF6B00] h-full"
+                className="bg-accent h-full"
                 title={`In Process: ${overview.inProcessStudents}`}
               />
               <div
@@ -238,12 +238,12 @@ export function AnalyticsDashboard({
               />
             </>
           ) : (
-            <div className="w-full bg-[#222222] h-full" />
+            <div className="w-full bg-border h-full" />
           )}
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap items-center gap-4 pt-1 text-[11px] font-mono text-[#9AA1AA]">
+        <div className="flex flex-wrap items-center gap-4 pt-1 text-[11px] font-mono text-muted">
           <span className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-emerald-500 inline-block" />
             Placed: {overview.placedStudents} (
@@ -253,7 +253,7 @@ export function AnalyticsDashboard({
             %)
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[#FF6B00] inline-block" />
+            <span className="h-2 w-2 rounded-full bg-accent inline-block" />
             In Process: {overview.inProcessStudents} (
             {overview.totalStudents > 0
               ? Math.round((overview.inProcessStudents / overview.totalStudents) * 100)
@@ -280,11 +280,11 @@ export function AnalyticsDashboard({
       </div>
 
       {/* 3. MULTI-DIMENSIONAL FILTERS BAR */}
-      <div className="border border-[#222222] bg-[#121212] p-4 rounded-md space-y-3">
+      <div className="border border-border bg-elevated p-4 rounded-md space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Filter className="h-3.5 w-3.5 text-[#FF6B00]" />
-            <span className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono">
+            <Filter className="h-3.5 w-3.5 text-accent" />
+            <span className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono">
               Analytics Filter Dimensions
             </span>
           </div>
@@ -295,7 +295,7 @@ export function AnalyticsDashboard({
               size="sm"
               onClick={handleResetFilters}
               disabled={isPending}
-              className="h-7 px-2 text-xs border-[#222222] bg-[#0A0A0A] hover:bg-[#1A1A1A] text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="h-7 px-2 text-xs border-border bg-surface hover:bg-[#1A1A1A] text-muted hover:text-foreground"
             >
               <RotateCcw className="h-3 w-3 mr-1" />
               Reset All Filters
@@ -307,14 +307,14 @@ export function AnalyticsDashboard({
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-1">
           {/* Department */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block">
               Department
             </label>
             <select
               value={activeFilters.department || 'all'}
               onChange={(e) => handleFilterChange('department', e.target.value)}
               disabled={isPending}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Departments</option>
               {metadata.departments.map((d) => (
@@ -327,14 +327,14 @@ export function AnalyticsDashboard({
 
           {/* Program / Branch */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block">
               Program / Branch
             </label>
             <select
               value={activeFilters.program_id || 'all'}
               onChange={(e) => handleFilterChange('program_id', e.target.value)}
               disabled={isPending}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Programs</option>
               {metadata.programs.map((p) => (
@@ -347,14 +347,14 @@ export function AnalyticsDashboard({
 
           {/* Academic Year */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block">
               Academic Year
             </label>
             <select
               value={activeFilters.year || 'all'}
               onChange={(e) => handleFilterChange('year', e.target.value)}
               disabled={isPending}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Years</option>
               {metadata.academicYears.map((y) => (
@@ -367,14 +367,14 @@ export function AnalyticsDashboard({
 
           {/* Company */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block">
               Recruiter / Company
             </label>
             <select
               value={activeFilters.company_id || 'all'}
               onChange={(e) => handleFilterChange('company_id', e.target.value)}
               disabled={isPending}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Recruiters</option>
               {metadata.companies.map((c) => (
@@ -387,14 +387,14 @@ export function AnalyticsDashboard({
 
           {/* Placement Drive */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block">
               Placement Drive
             </label>
             <select
               value={activeFilters.drive_id || 'all'}
               onChange={(e) => handleFilterChange('drive_id', e.target.value)}
               disabled={isPending}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Drives</option>
               {metadata.drives.map((dr) => (
@@ -407,14 +407,14 @@ export function AnalyticsDashboard({
 
           {/* Placement Status */}
           <div className="space-y-1">
-            <label className="text-[10px] uppercase font-mono tracking-wider text-[#9AA1AA] block">
+            <label className="text-[10px] uppercase font-mono tracking-wider text-muted block">
               Placement Status
             </label>
             <select
               value={activeFilters.placement_status || 'all'}
               onChange={(e) => handleFilterChange('placement_status', e.target.value)}
               disabled={isPending}
-              className="w-full h-8 px-2 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+              className="w-full h-8 px-2 rounded bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
             >
               <option value="all">All Statuses</option>
               <option value="placed">Placed</option>
@@ -428,15 +428,15 @@ export function AnalyticsDashboard({
 
       {/* 4. REPORTS TABS AND NAVIGATION */}
       <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-[#222222] pb-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-border pb-3">
           {/* Tab buttons */}
           <div className="flex flex-wrap items-center gap-1.5">
             <button
               onClick={() => setActiveTab('departments')}
               className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                 activeTab === 'departments'
-                  ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                  : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                  ? 'bg-accent text-black border-accent font-semibold'
+                  : 'bg-surface text-muted border-border hover:bg-[#161616]'
               }`}
             >
               Department Report
@@ -446,8 +446,8 @@ export function AnalyticsDashboard({
               onClick={() => setActiveTab('companies')}
               className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                 activeTab === 'companies'
-                  ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                  : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                  ? 'bg-accent text-black border-accent font-semibold'
+                  : 'bg-surface text-muted border-border hover:bg-[#161616]'
               }`}
             >
               Company Report
@@ -457,8 +457,8 @@ export function AnalyticsDashboard({
               onClick={() => setActiveTab('years')}
               className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                 activeTab === 'years'
-                  ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                  : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                  ? 'bg-accent text-black border-accent font-semibold'
+                  : 'bg-surface text-muted border-border hover:bg-[#161616]'
               }`}
             >
               Academic Year Report
@@ -468,8 +468,8 @@ export function AnalyticsDashboard({
               onClick={() => setActiveTab('drives')}
               className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                 activeTab === 'drives'
-                  ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                  : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                  ? 'bg-accent text-black border-accent font-semibold'
+                  : 'bg-surface text-muted border-border hover:bg-[#161616]'
               }`}
             >
               Drive Performance
@@ -479,8 +479,8 @@ export function AnalyticsDashboard({
               onClick={() => setActiveTab('students')}
               className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                 activeTab === 'students'
-                  ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                  : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                  ? 'bg-accent text-black border-accent font-semibold'
+                  : 'bg-surface text-muted border-border hover:bg-[#161616]'
               }`}
             >
               Student Placement Roster ({studentRows.length})
@@ -518,9 +518,9 @@ export function AnalyticsDashboard({
                     ])
                   )
                 }
-                className="h-8 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                className="h-8 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
               >
-                <Download className="h-3.5 w-3.5 mr-1.5 text-[#9AA1AA]" />
+                <Download className="h-3.5 w-3.5 mr-1.5 text-muted" />
                 Export CSV
               </Button>
             )}
@@ -550,9 +550,9 @@ export function AnalyticsDashboard({
                     ])
                   )
                 }
-                className="h-8 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                className="h-8 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
               >
-                <Download className="h-3.5 w-3.5 mr-1.5 text-[#9AA1AA]" />
+                <Download className="h-3.5 w-3.5 mr-1.5 text-muted" />
                 Export CSV
               </Button>
             )}
@@ -584,9 +584,9 @@ export function AnalyticsDashboard({
                     ])
                   )
                 }
-                className="h-8 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                className="h-8 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
               >
-                <Download className="h-3.5 w-3.5 mr-1.5 text-[#9AA1AA]" />
+                <Download className="h-3.5 w-3.5 mr-1.5 text-muted" />
                 Export CSV
               </Button>
             )}
@@ -622,9 +622,9 @@ export function AnalyticsDashboard({
                     ])
                   )
                 }
-                className="h-8 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                className="h-8 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
               >
-                <Download className="h-3.5 w-3.5 mr-1.5 text-[#9AA1AA]" />
+                <Download className="h-3.5 w-3.5 mr-1.5 text-muted" />
                 Export CSV
               </Button>
             )}
@@ -660,9 +660,9 @@ export function AnalyticsDashboard({
                     ])
                   )
                 }
-                className="h-8 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                className="h-8 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
               >
-                <Download className="h-3.5 w-3.5 mr-1.5 text-[#9AA1AA]" />
+                <Download className="h-3.5 w-3.5 mr-1.5 text-muted" />
                 Export CSV
               </Button>
             )}
@@ -671,10 +671,10 @@ export function AnalyticsDashboard({
 
         {/* TAB 1: DEPARTMENT PLACEMENT REPORT */}
         {activeTab === 'departments' && (
-          <div className="border border-[#222222] bg-[#0A0A0A] rounded-md overflow-hidden">
+          <div className="border border-border bg-surface rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#121212] text-[#9AA1AA] uppercase tracking-wider border-b border-[#222222]">
+                <thead className="bg-elevated text-muted uppercase tracking-wider border-b border-border">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Academic Department</th>
                     <th className="py-3 px-4 font-semibold text-right">Students</th>
@@ -686,24 +686,24 @@ export function AnalyticsDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Selections</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1A1A1A] text-[#EDEDED]">
+                <tbody className="divide-y divide-[#1A1A1A] text-foreground">
                   {departmentStats.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="py-8 text-center text-[#9AA1AA]">
+                      <td colSpan={8} className="py-8 text-center text-muted">
                         No departmental records matching current filter scope.
                       </td>
                     </tr>
                   ) : (
                     departmentStats.map((d) => (
-                      <tr key={d.department} className="hover:bg-[#121212] transition-colors">
-                        <td className="py-3 px-4 font-medium text-[#EDEDED]">{d.department}</td>
-                        <td className="py-3 px-4 text-right font-mono text-[#9AA1AA]">
+                      <tr key={d.department} className="hover:bg-elevated transition-colors">
+                        <td className="py-3 px-4 font-medium text-foreground">{d.department}</td>
+                        <td className="py-3 px-4 text-right font-mono text-muted">
                           {d.totalStudents}
                         </td>
                         <td className="py-3 px-4 text-right font-mono text-emerald-400 font-semibold">
                           {d.placedStudents}
                         </td>
-                        <td className="py-3 px-4 text-right font-mono text-[#FF6B00]">
+                        <td className="py-3 px-4 text-right font-mono text-accent">
                           {d.inProcessStudents}
                         </td>
                         <td className="py-3 px-4 text-right font-mono text-amber-400">
@@ -731,10 +731,10 @@ export function AnalyticsDashboard({
 
         {/* TAB 2: COMPANY PLACEMENT REPORT */}
         {activeTab === 'companies' && (
-          <div className="border border-[#222222] bg-[#0A0A0A] rounded-md overflow-hidden">
+          <div className="border border-border bg-surface rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#121212] text-[#9AA1AA] uppercase tracking-wider border-b border-[#222222]">
+                <thead className="bg-elevated text-muted uppercase tracking-wider border-b border-border">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Recruiting Enterprise</th>
                     <th className="py-3 px-4 font-semibold">Industry Sector</th>
@@ -744,25 +744,25 @@ export function AnalyticsDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Final Selections</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1A1A1A] text-[#EDEDED]">
+                <tbody className="divide-y divide-[#1A1A1A] text-foreground">
                   {companyStats.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-[#9AA1AA]">
+                      <td colSpan={6} className="py-8 text-center text-muted">
                         No company recruitment data matching current filter criteria.
                       </td>
                     </tr>
                   ) : (
                     companyStats.map((c) => (
-                      <tr key={c.companyId} className="hover:bg-[#121212] transition-colors">
-                        <td className="py-3 px-4 font-medium text-[#EDEDED]">{c.companyName}</td>
-                        <td className="py-3 px-4 text-[#9AA1AA]">{c.industry}</td>
-                        <td className="py-3 px-4 text-right font-mono text-[#9AA1AA]">
+                      <tr key={c.companyId} className="hover:bg-elevated transition-colors">
+                        <td className="py-3 px-4 font-medium text-foreground">{c.companyName}</td>
+                        <td className="py-3 px-4 text-muted">{c.industry}</td>
+                        <td className="py-3 px-4 text-right font-mono text-muted">
                           {c.drivesCount}
                         </td>
                         <td className="py-3 px-4 text-right font-mono text-sky-400">
                           {c.applicationsCount}
                         </td>
-                        <td className="py-3 px-4 text-right font-mono text-[#FF6B00]">
+                        <td className="py-3 px-4 text-right font-mono text-accent">
                           {c.shortlistedCount}
                         </td>
                         <td className="py-3 px-4 text-right font-mono text-emerald-400 font-semibold">
@@ -779,10 +779,10 @@ export function AnalyticsDashboard({
 
         {/* TAB 3: ACADEMIC YEAR REPORT */}
         {activeTab === 'years' && (
-          <div className="border border-[#222222] bg-[#0A0A0A] rounded-md overflow-hidden">
+          <div className="border border-border bg-surface rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#121212] text-[#9AA1AA] uppercase tracking-wider border-b border-[#222222]">
+                <thead className="bg-elevated text-muted uppercase tracking-wider border-b border-border">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Academic Year</th>
                     <th className="py-3 px-4 font-semibold text-right">Registered Pool</th>
@@ -793,18 +793,18 @@ export function AnalyticsDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Selections</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1A1A1A] text-[#EDEDED]">
+                <tbody className="divide-y divide-[#1A1A1A] text-foreground">
                   {yearStats.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="py-8 text-center text-[#9AA1AA]">
+                      <td colSpan={7} className="py-8 text-center text-muted">
                         No cohort records found.
                       </td>
                     </tr>
                   ) : (
                     yearStats.map((y) => (
-                      <tr key={y.year} className="hover:bg-[#121212] transition-colors">
-                        <td className="py-3 px-4 font-medium text-[#EDEDED]">{y.yearLabel}</td>
-                        <td className="py-3 px-4 text-right font-mono text-[#9AA1AA]">
+                      <tr key={y.year} className="hover:bg-elevated transition-colors">
+                        <td className="py-3 px-4 font-medium text-foreground">{y.yearLabel}</td>
+                        <td className="py-3 px-4 text-right font-mono text-muted">
                           {y.totalStudents}
                         </td>
                         <td className="py-3 px-4 text-right font-mono text-emerald-400 font-semibold">
@@ -835,10 +835,10 @@ export function AnalyticsDashboard({
 
         {/* TAB 4: DRIVE PERFORMANCE REPORT */}
         {activeTab === 'drives' && (
-          <div className="border border-[#222222] bg-[#0A0A0A] rounded-md overflow-hidden">
+          <div className="border border-border bg-surface rounded-md overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#121212] text-[#9AA1AA] uppercase tracking-wider border-b border-[#222222]">
+                <thead className="bg-elevated text-muted uppercase tracking-wider border-b border-border">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Recruiter & Role</th>
                     <th className="py-3 px-4 font-semibold">Tier</th>
@@ -850,19 +850,19 @@ export function AnalyticsDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Conversion %</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1A1A1A] text-[#EDEDED]">
+                <tbody className="divide-y divide-[#1A1A1A] text-foreground">
                   {driveStats.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="py-8 text-center text-[#9AA1AA]">
+                      <td colSpan={8} className="py-8 text-center text-muted">
                         No drives match current filter.
                       </td>
                     </tr>
                   ) : (
                     driveStats.map((d) => (
-                      <tr key={d.driveId} className="hover:bg-[#121212] transition-colors">
+                      <tr key={d.driveId} className="hover:bg-elevated transition-colors">
                         <td className="py-3 px-4">
-                          <div className="font-semibold text-[#EDEDED]">{d.companyName}</div>
-                          <div className="text-[11px] text-[#9AA1AA]">{d.jobRole}</div>
+                          <div className="font-semibold text-foreground">{d.companyName}</div>
+                          <div className="text-[11px] text-muted">{d.jobRole}</div>
                         </td>
                         <td className="py-3 px-4">
                           <Badge variant="secondary" className="text-[10px] font-mono">
@@ -877,7 +877,7 @@ export function AnalyticsDashboard({
                         <td className="py-3 px-4 text-right font-mono text-sky-400">
                           {d.applicationsCount}
                         </td>
-                        <td className="py-3 px-4 text-right font-mono text-[#FF6B00]">
+                        <td className="py-3 px-4 text-right font-mono text-accent">
                           {d.shortlistedCount}
                         </td>
                         <td className="py-3 px-4 text-right font-mono text-purple-400">
@@ -886,7 +886,7 @@ export function AnalyticsDashboard({
                         <td className="py-3 px-4 text-right font-mono text-emerald-400 font-semibold">
                           {d.selectionsCount}
                         </td>
-                        <td className="py-3 px-4 text-right font-mono text-[#EDEDED] font-semibold">
+                        <td className="py-3 px-4 text-right font-mono text-foreground font-semibold">
                           {d.conversionRate}%
                         </td>
                       </tr>
@@ -902,20 +902,20 @@ export function AnalyticsDashboard({
         {activeTab === 'students' && (
           <div className="space-y-3">
             <div className="relative max-w-sm">
-              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-muted" />
               <input
                 type="text"
                 placeholder="Search roster by roll number, name, or department..."
                 value={studentSearch}
                 onChange={(e) => setStudentSearch(e.target.value)}
-                className="w-full pl-8 pr-3 h-8 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] outline-none focus:border-[#FF6B00]"
+                className="w-full pl-8 pr-3 h-8 rounded bg-surface border border-border text-xs text-foreground outline-none focus:border-accent"
               />
             </div>
 
-            <div className="border border-[#222222] bg-[#0A0A0A] rounded-md overflow-hidden">
+            <div className="border border-border bg-surface rounded-md overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#121212] text-[#9AA1AA] uppercase tracking-wider border-b border-[#222222]">
+                  <thead className="bg-elevated text-muted uppercase tracking-wider border-b border-border">
                     <tr>
                       <th className="py-3 px-4 font-semibold">Roll Number</th>
                       <th className="py-3 px-4 font-semibold">Candidate Name</th>
@@ -927,26 +927,26 @@ export function AnalyticsDashboard({
                       <th className="py-3 px-4 font-semibold">Offer / Placement Details</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#1A1A1A] text-[#EDEDED]">
+                  <tbody className="divide-y divide-[#1A1A1A] text-foreground">
                     {filteredStudents.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="py-8 text-center text-[#9AA1AA]">
+                        <td colSpan={8} className="py-8 text-center text-muted">
                           No candidate records found matching search and filter parameters.
                         </td>
                       </tr>
                     ) : (
                       filteredStudents.map((s) => (
-                        <tr key={s.studentDbId} className="hover:bg-[#121212] transition-colors">
-                          <td className="py-3 px-4 font-mono font-medium text-[#FF6B00]">
+                        <tr key={s.studentDbId} className="hover:bg-elevated transition-colors">
+                          <td className="py-3 px-4 font-mono font-medium text-accent">
                             {s.studentRollNumber}
                           </td>
                           <td className="py-3 px-4">
-                            <div className="font-semibold text-[#EDEDED]">{s.name}</div>
-                            <div className="text-[11px] text-[#9AA1AA] font-mono">{s.email}</div>
+                            <div className="font-semibold text-foreground">{s.name}</div>
+                            <div className="text-[11px] text-muted font-mono">{s.email}</div>
                           </td>
-                          <td className="py-3 px-4 text-[#9AA1AA]">{s.department}</td>
+                          <td className="py-3 px-4 text-muted">{s.department}</td>
                           <td className="py-3 px-4 text-center font-mono">{s.year}</td>
-                          <td className="py-3 px-4 text-center font-mono font-medium text-[#EDEDED]">
+                          <td className="py-3 px-4 text-center font-mono font-medium text-foreground">
                             {s.cgpa.toFixed(2)}
                           </td>
                           <td className="py-3 px-4">
@@ -956,7 +956,7 @@ export function AnalyticsDashboard({
                               </span>
                             )}
                             {s.placementStatus === 'in_process' && (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 font-mono">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium text-accent bg-accent/10 border border-accent/30 font-mono">
                                 In Process
                               </span>
                             )}
@@ -981,13 +981,13 @@ export function AnalyticsDashboard({
                                   {s.placedCompany}
                                 </span>
                                 {s.placedRole && (
-                                  <span className="text-[11px] text-[#9AA1AA] block">
+                                  <span className="text-[11px] text-muted block">
                                     {s.placedRole}
                                   </span>
                                 )}
                               </div>
                             ) : (
-                              <span className="text-[#9AA1AA] text-xs">—</span>
+                              <span className="text-muted text-xs">—</span>
                             )}
                           </td>
                         </tr>

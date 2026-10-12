@@ -58,7 +58,7 @@ export function PreparationSectionsList() {
   };
 
   return (
-    <div className="border-t border-b border-[#222222] divide-y divide-[#222222]">
+    <div className="border-t border-b border-border divide-y divide-border">
       {sections.map((sec) => {
         const isTechnical = sec.id === 'technical';
         const isExpanded = expanded === sec.id;
@@ -66,22 +66,22 @@ export function PreparationSectionsList() {
         const content = (
           <>
             <div className="space-y-1.5 min-w-0 flex-1">
-              <h2 className="text-base font-medium text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors">
+              <h2 className="text-base font-medium text-foreground group-hover:text-accent transition-colors">
                 {sec.title}
               </h2>
-              <p className="text-sm text-[#9AA1AA] leading-relaxed">
+              <p className="text-sm text-muted leading-relaxed">
                 {sec.description}
               </p>
             </div>
             <div className="shrink-0 flex items-center justify-center w-6 h-6">
               {isTechnical ? (
                 isExpanded ? (
-                  <ArrowRight className="h-4 w-4 text-[#FF6B00] rotate-90 transition-transform duration-200" />
+                  <ArrowRight className="h-4 w-4 text-accent rotate-90 transition-transform duration-200" />
                 ) : (
-                  <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-1 transition-all duration-200" />
+                  <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-200" />
                 )
               ) : (
-                <ArrowRight className="h-4 w-4 text-[#9AA1AA] group-hover:text-[#FF6B00] group-hover:translate-x-1 transition-all duration-200" />
+                <ArrowRight className="h-4 w-4 text-muted group-hover:text-accent group-hover:translate-x-1 transition-all duration-200" />
               )}
             </div>
           </>
@@ -92,14 +92,14 @@ export function PreparationSectionsList() {
             {isTechnical ? (
               <button
                 onClick={() => toggleSection(sec.id)}
-                className="group py-6 px-3 -mx-3 flex items-center justify-between gap-6 hover:bg-[#121212]/50 transition-colors text-left"
+                className="group py-6 px-3 -mx-3 flex items-center justify-between gap-6 hover:bg-elevated/50 transition-colors text-left"
               >
                 {content}
               </button>
             ) : (
               <Link
                 href={sec.href!}
-                className="group py-6 px-3 -mx-3 flex items-center justify-between gap-6 hover:bg-[#121212]/50 transition-colors"
+                className="group py-6 px-3 -mx-3 flex items-center justify-between gap-6 hover:bg-elevated/50 transition-colors"
               >
                 {content}
               </Link>
@@ -107,14 +107,14 @@ export function PreparationSectionsList() {
 
             {/* Expandable Content for Technical */}
             {isTechnical && isExpanded && (
-              <div className="pl-6 border-l-2 border-[#222222] ml-1 mb-4 flex flex-col gap-1">
+              <div className="pl-6 border-l-2 border-border ml-1 mb-4 flex flex-col gap-1">
                 {technicalSubdivisions.map((sub) => (
                   <Link
                     key={sub.id}
                     href={sub.href}
-                    className="group py-3 px-3 flex items-center gap-4 hover:bg-[#121212]/50 transition-colors rounded-sm"
+                    className="group py-3 px-3 flex items-center gap-4 hover:bg-elevated/50 transition-colors rounded-sm"
                   >
-                    <span className="text-sm font-medium text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors">
+                    <span className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
                       {sub.title}
                     </span>
                   </Link>

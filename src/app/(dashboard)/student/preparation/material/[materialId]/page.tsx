@@ -40,19 +40,19 @@ export default async function DedicatedMaterialPage({ params }: PageProps) {
     switch (difficulty) {
       case 'Beginner':
         return (
-          <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#22C55E]/30 bg-[#22C55E]/10 text-[#22C55E]">
+          <span className="text-sm font-medium px-2 py-0.5 rounded border border-green-500/30 bg-green-500/10 text-green-500">
             Beginner
           </span>
         );
       case 'Advanced':
         return (
-          <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#EF4444]/30 bg-[#EF4444]/10 text-[#EF4444]">
+          <span className="text-sm font-medium px-2 py-0.5 rounded border border-red-500/30 bg-red-500/10 text-red-500">
             Advanced
           </span>
         );
       default:
         return (
-          <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#FF6B00]/30 bg-[#FF6B00]/10 text-[#FF6B00]">
+          <span className="text-sm font-medium px-2 py-0.5 rounded border border-accent/30 bg-accent/10 text-accent">
             Intermediate
           </span>
         );
@@ -166,7 +166,7 @@ export default async function DedicatedMaterialPage({ params }: PageProps) {
           <Button
             variant="outline"
             size="sm"
-            className="text-sm gap-1 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+            className="text-sm gap-1 border-border text-muted hover:text-foreground"
           >
             <ArrowLeft className="h-3 w-3" />
             <span>{backLabel}</span>

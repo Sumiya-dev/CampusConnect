@@ -67,7 +67,7 @@ function getFileIcon(fileName: string) {
   if (['pdf'].includes(ext)) {
     return <FileText className="h-5 w-5 text-rose-400" />;
   }
-  return <FileCode className="h-5 w-5 text-[#9AA1AA]" />;
+  return <FileCode className="h-5 w-5 text-muted" />;
 }
 
 export function FacultyResourcesClient({
@@ -316,50 +316,50 @@ export function FacultyResourcesClient({
     <div className="space-y-6">
       {/* Counters Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Total Uploads
           </span>
-          <div className="text-2xl font-semibold text-[#EDEDED] mt-1">
+          <div className="text-2xl font-semibold text-foreground mt-1">
             {totalCount}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Course Documents
           </span>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Published
           </span>
           <div className="text-2xl font-semibold text-emerald-400 mt-1">
             {publishedCount}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Accessible to Cohorts
           </span>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Drafts / Hidden
           </span>
           <div className="text-2xl font-semibold text-amber-400 mt-1">
             {draftCount}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Unpublished to Students
           </span>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Allocated Scope
           </span>
-          <div className="text-2xl font-semibold text-[#FF6B00] mt-1">
+          <div className="text-2xl font-semibold text-accent mt-1">
             {allocationOptions.sections.length + allocationOptions.training_groups.length}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Sections & Batches
           </span>
         </div>
@@ -369,13 +369,13 @@ export function FacultyResourcesClient({
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pt-2">
         <div className="flex flex-1 items-center gap-2 max-w-md">
           <div className="relative w-full">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
             <Input
               type="text"
               placeholder="Search by title, subject, or filename..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-9"
+              className="pl-9 bg-surface border-border text-foreground text-sm h-9"
             />
           </div>
         </div>
@@ -385,7 +385,7 @@ export function FacultyResourcesClient({
           <select
             value={targetFilter}
             onChange={(e) => setTargetFilter(e.target.value)}
-            className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Audiences</option>
             <option value="section">Academic Sections</option>
@@ -396,7 +396,7 @@ export function FacultyResourcesClient({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as 'all' | 'published' | 'draft')}
-            className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Status</option>
             <option value="published">Published</option>
@@ -417,14 +417,14 @@ export function FacultyResourcesClient({
 
       {/* Resources List / Table */}
       {filteredResources.length === 0 ? (
-        <div className="border border-[#222222] bg-[#0A0A0A] rounded-md p-10 text-center space-y-3">
-          <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-[#9AA1AA]">
-            <Upload className="h-6 w-6 text-[#FF6B00]" />
+        <div className="border border-border bg-surface rounded-md p-10 text-center space-y-3">
+          <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-muted">
+            <Upload className="h-6 w-6 text-accent" />
           </div>
-          <h3 className="text-base font-medium text-[#EDEDED]">
+          <h3 className="text-base font-medium text-foreground">
             {searchQuery ? 'No resources match your filter' : 'No resources uploaded yet'}
           </h3>
-          <p className="text-xs text-[#9AA1AA] max-w-md mx-auto">
+          <p className="text-xs text-muted max-w-md mx-auto">
             {searchQuery
               ? 'Try adjusting your search query or reset the target filters.'
               : 'Upload lecture slides, syllabus documents, lab guides, and reference material for your allocated sections and training batches.'}
@@ -439,7 +439,7 @@ export function FacultyResourcesClient({
           )}
         </div>
       ) : (
-        <div className="border border-[#222222] bg-[#0A0A0A] rounded-md divide-y divide-[#222222] overflow-hidden">
+        <div className="border border-border bg-surface rounded-md divide-y divide-border overflow-hidden">
           {filteredResources.map((res) => {
             const uploadDate = new Date(res.created_at).toLocaleDateString('en-US', {
               month: 'short',
@@ -450,17 +450,17 @@ export function FacultyResourcesClient({
             return (
               <div
                 key={res.id}
-                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#121212]/60 transition-colors"
+                className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-elevated/60 transition-colors"
               >
                 {/* Left: Icon & Meta */}
                 <div className="flex items-start gap-3.5 min-w-0">
-                  <div className="p-2.5 rounded border border-[#222222] bg-[#161616] shrink-0 mt-0.5">
+                  <div className="p-2.5 rounded border border-border bg-[#161616] shrink-0 mt-0.5">
                     {getFileIcon(res.file_name)}
                   </div>
 
                   <div className="space-y-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-medium px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#EDEDED]">
+                      <span className="text-xs font-medium px-2 py-0.5 rounded border border-border bg-elevated text-foreground">
                         {res.subject}
                       </span>
 
@@ -498,17 +498,17 @@ export function FacultyResourcesClient({
                       )}
                     </div>
 
-                    <h4 className="text-base font-medium text-[#EDEDED] truncate">
+                    <h4 className="text-base font-medium text-foreground truncate">
                       {res.title}
                     </h4>
 
                     {res.description && (
-                      <p className="text-xs text-[#9AA1AA] line-clamp-2 max-w-2xl">
+                      <p className="text-xs text-muted line-clamp-2 max-w-2xl">
                         {res.description}
                       </p>
                     )}
 
-                    <div className="flex items-center gap-3 text-xs text-[#9AA1AA] pt-1">
+                    <div className="flex items-center gap-3 text-xs text-muted pt-1">
                       <span className="font-mono text-[#CCCCCC]">{res.file_name}</span>
                       <span>•</span>
                       <span>{formatBytes(res.file_size)}</span>
@@ -529,7 +529,7 @@ export function FacultyResourcesClient({
                     <Button
                       size="sm"
                       variant="outline"
-                      className="text-xs h-8 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+                      className="text-xs h-8 border-border text-muted hover:text-foreground"
                       title="Download or Preview File"
                     >
                       <Download className="h-3.5 w-3.5 sm:mr-1" />
@@ -543,7 +543,7 @@ export function FacultyResourcesClient({
                     variant="outline"
                     onClick={() => handleTogglePublish(res)}
                     disabled={isPending}
-                    className={`text-xs h-8 border-[#222222] ${
+                    className={`text-xs h-8 border-border ${
                       res.is_published
                         ? 'text-amber-400 hover:text-amber-300'
                         : 'text-emerald-400 hover:text-emerald-300'
@@ -569,7 +569,7 @@ export function FacultyResourcesClient({
                     variant="outline"
                     onClick={() => openEditModal(res)}
                     disabled={isPending}
-                    className="text-xs h-8 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00]"
+                    className="text-xs h-8 border-border text-foreground hover:border-accent"
                     title="Edit Resource Details & Replace File"
                   >
                     <Edit className="h-3.5 w-3.5 sm:mr-1" />
@@ -599,15 +599,15 @@ export function FacultyResourcesClient({
       {/* ========================================================================= */}
       {isUploadModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg max-w-lg w-full p-6 space-y-5 text-[#EDEDED] max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="bg-surface border border-border rounded-lg max-w-lg w-full p-6 space-y-5 text-foreground max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <FileUp className="h-5 w-5 text-[#FF6B00]" />
+                <FileUp className="h-5 w-5 text-accent" />
                 <h3 className="text-base font-semibold">Upload Course Resource</h3>
               </div>
               <button
                 onClick={() => setIsUploadModalOpen(false)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-muted hover:text-foreground"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -623,37 +623,37 @@ export function FacultyResourcesClient({
             <form onSubmit={handleUploadSubmit} className="space-y-4 text-xs">
               {/* Title */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
-                  Resource Title <span className="text-[#FF6B00]">*</span>
+                <label className="text-muted font-medium block">
+                  Resource Title <span className="text-accent">*</span>
                 </label>
                 <Input
                   type="text"
                   placeholder="e.g. Lecture 04: Dynamic Programming & Knapsack Guide"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  className="bg-[#121212] border-[#222222] text-[#EDEDED] text-xs h-9"
+                  className="bg-elevated border-border text-foreground text-xs h-9"
                   required
                 />
               </div>
 
               {/* Subject */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
-                  Subject / Topic <span className="text-[#FF6B00]">*</span>
+                <label className="text-muted font-medium block">
+                  Subject / Topic <span className="text-accent">*</span>
                 </label>
                 <Input
                   type="text"
                   placeholder="e.g. Algorithms, Data Structures, Operating Systems, Java"
                   value={formSubject}
                   onChange={(e) => setFormSubject(e.target.value)}
-                  className="bg-[#121212] border-[#222222] text-[#EDEDED] text-xs h-9"
+                  className="bg-elevated border-border text-foreground text-xs h-9"
                   required
                 />
               </div>
 
               {/* Description */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
+                <label className="text-muted font-medium block">
                   Description / Study Guidelines (Optional)
                 </label>
                 <textarea
@@ -661,13 +661,13 @@ export function FacultyResourcesClient({
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   rows={3}
-                  className="w-full rounded-md bg-[#121212] border border-[#222222] p-2.5 text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+                  className="w-full rounded-md bg-elevated border border-border p-2.5 text-xs text-foreground focus:outline-none focus:border-accent"
                 />
               </div>
 
               {/* Target Audience */}
               <div className="space-y-2">
-                <label className="text-[#9AA1AA] font-medium block">
+                <label className="text-muted font-medium block">
                   Target Audience Scope
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -676,8 +676,8 @@ export function FacultyResourcesClient({
                     onClick={() => setFormTargetType('all')}
                     className={`p-2.5 rounded border text-left flex flex-col gap-1 transition-colors ${
                       formTargetType === 'all'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted'
                     }`}
                   >
                     <Layers className="h-4 w-4" />
@@ -689,8 +689,8 @@ export function FacultyResourcesClient({
                     onClick={() => setFormTargetType('section')}
                     className={`p-2.5 rounded border text-left flex flex-col gap-1 transition-colors ${
                       formTargetType === 'section'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted'
                     }`}
                   >
                     <GraduationCap className="h-4 w-4" />
@@ -702,8 +702,8 @@ export function FacultyResourcesClient({
                     onClick={() => setFormTargetType('training_group')}
                     className={`p-2.5 rounded border text-left flex flex-col gap-1 transition-colors ${
                       formTargetType === 'training_group'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted'
                     }`}
                   >
                     <Users className="h-4 w-4" />
@@ -714,13 +714,13 @@ export function FacultyResourcesClient({
                 {/* Sub-selectors */}
                 {formTargetType === 'section' && (
                   <div className="pt-1">
-                    <label className="text-[#9AA1AA] font-medium block mb-1">
+                    <label className="text-muted font-medium block mb-1">
                       Select Allocated Academic Section
                     </label>
                     <select
                       value={formSectionId}
                       onChange={(e) => setFormSectionId(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md bg-[#121212] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+                      className="w-full h-9 px-3 rounded-md bg-elevated border border-border text-xs text-foreground focus:outline-none focus:border-accent"
                       required
                     >
                       {allocationOptions.sections.map((s) => (
@@ -734,13 +734,13 @@ export function FacultyResourcesClient({
 
                 {formTargetType === 'training_group' && (
                   <div className="pt-1">
-                    <label className="text-[#9AA1AA] font-medium block mb-1">
+                    <label className="text-muted font-medium block mb-1">
                       Select Allocated Training Group
                     </label>
                     <select
                       value={formTrainingGroupId}
                       onChange={(e) => setFormTrainingGroupId(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md bg-[#121212] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+                      className="w-full h-9 px-3 rounded-md bg-elevated border border-border text-xs text-foreground focus:outline-none focus:border-accent"
                       required
                     >
                       {allocationOptions.training_groups.map((g) => (
@@ -755,10 +755,10 @@ export function FacultyResourcesClient({
 
               {/* File Upload */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
-                  Select Document <span className="text-[#FF6B00]">*</span>
+                <label className="text-muted font-medium block">
+                  Select Document <span className="text-accent">*</span>
                 </label>
-                <div className="border border-dashed border-[#333333] hover:border-[#FF6B00] rounded-md p-4 bg-[#121212] text-center space-y-2 transition-colors">
+                <div className="border border-dashed border-[#333333] hover:border-accent rounded-md p-4 bg-elevated text-center space-y-2 transition-colors">
                   <Input
                     type="file"
                     accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.zip"
@@ -775,11 +775,11 @@ export function FacultyResourcesClient({
                     htmlFor="resource-upload-input"
                     className="cursor-pointer block space-y-1"
                   >
-                    <Upload className="h-6 w-6 text-[#9AA1AA] mx-auto" />
-                    <p className="text-xs font-medium text-[#EDEDED]">
+                    <Upload className="h-6 w-6 text-muted mx-auto" />
+                    <p className="text-xs font-medium text-foreground">
                       {formFile ? formFile.name : 'Click to browse or drop file'}
                     </p>
-                    <p className="text-[11px] text-[#9AA1AA]">
+                    <p className="text-[11px] text-muted">
                       {formFile
                         ? `${formatBytes(formFile.size)} • Selected`
                         : 'PDF, Word (DOC/DOCX), PowerPoint (PPT/PPTX), TXT, ZIP up to 20MB'}
@@ -795,25 +795,25 @@ export function FacultyResourcesClient({
                   id="form-is-published"
                   checked={formIsPublished}
                   onChange={(e) => setFormIsPublished(e.target.checked)}
-                  className="rounded border-[#222222] bg-[#121212] text-[#FF6B00] focus:ring-0 cursor-pointer"
+                  className="rounded border-border bg-elevated text-accent focus:ring-0 cursor-pointer"
                 />
                 <label
                   htmlFor="form-is-published"
-                  className="text-xs text-[#EDEDED] cursor-pointer"
+                  className="text-xs text-foreground cursor-pointer"
                 >
                   Publish immediately (Students in targeted cohort can view and download)
                 </label>
               </div>
 
               {/* Buttons */}
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setIsUploadModalOpen(false)}
                   disabled={isPending}
-                  className="text-xs border-[#222222]"
+                  className="text-xs border-border"
                 >
                   Cancel
                 </Button>
@@ -836,15 +836,15 @@ export function FacultyResourcesClient({
       {/* ========================================================================= */}
       {editingResource && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg max-w-lg w-full p-6 space-y-5 text-[#EDEDED] max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="bg-surface border border-border rounded-lg max-w-lg w-full p-6 space-y-5 text-foreground max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <Edit className="h-5 w-5 text-[#FF6B00]" />
+                <Edit className="h-5 w-5 text-accent" />
                 <h3 className="text-base font-semibold">Edit Resource Details</h3>
               </div>
               <button
                 onClick={() => setEditingResource(null)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-muted hover:text-foreground"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -860,48 +860,48 @@ export function FacultyResourcesClient({
             <form onSubmit={handleEditSubmit} className="space-y-4 text-xs">
               {/* Title */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
-                  Resource Title <span className="text-[#FF6B00]">*</span>
+                <label className="text-muted font-medium block">
+                  Resource Title <span className="text-accent">*</span>
                 </label>
                 <Input
                   type="text"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  className="bg-[#121212] border-[#222222] text-[#EDEDED] text-xs h-9"
+                  className="bg-elevated border-border text-foreground text-xs h-9"
                   required
                 />
               </div>
 
               {/* Subject */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
-                  Subject / Topic <span className="text-[#FF6B00]">*</span>
+                <label className="text-muted font-medium block">
+                  Subject / Topic <span className="text-accent">*</span>
                 </label>
                 <Input
                   type="text"
                   value={formSubject}
                   onChange={(e) => setFormSubject(e.target.value)}
-                  className="bg-[#121212] border-[#222222] text-[#EDEDED] text-xs h-9"
+                  className="bg-elevated border-border text-foreground text-xs h-9"
                   required
                 />
               </div>
 
               {/* Description */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
+                <label className="text-muted font-medium block">
                   Description / Study Guidelines
                 </label>
                 <textarea
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
                   rows={3}
-                  className="w-full rounded-md bg-[#121212] border border-[#222222] p-2.5 text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+                  className="w-full rounded-md bg-elevated border border-border p-2.5 text-xs text-foreground focus:outline-none focus:border-accent"
                 />
               </div>
 
               {/* Target Audience */}
               <div className="space-y-2">
-                <label className="text-[#9AA1AA] font-medium block">
+                <label className="text-muted font-medium block">
                   Target Audience Scope
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -910,8 +910,8 @@ export function FacultyResourcesClient({
                     onClick={() => setFormTargetType('all')}
                     className={`p-2.5 rounded border text-left flex flex-col gap-1 transition-colors ${
                       formTargetType === 'all'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted'
                     }`}
                   >
                     <Layers className="h-4 w-4" />
@@ -923,8 +923,8 @@ export function FacultyResourcesClient({
                     onClick={() => setFormTargetType('section')}
                     className={`p-2.5 rounded border text-left flex flex-col gap-1 transition-colors ${
                       formTargetType === 'section'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted'
                     }`}
                   >
                     <GraduationCap className="h-4 w-4" />
@@ -936,8 +936,8 @@ export function FacultyResourcesClient({
                     onClick={() => setFormTargetType('training_group')}
                     className={`p-2.5 rounded border text-left flex flex-col gap-1 transition-colors ${
                       formTargetType === 'training_group'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted'
                     }`}
                   >
                     <Users className="h-4 w-4" />
@@ -947,13 +947,13 @@ export function FacultyResourcesClient({
 
                 {formTargetType === 'section' && (
                   <div className="pt-1">
-                    <label className="text-[#9AA1AA] font-medium block mb-1">
+                    <label className="text-muted font-medium block mb-1">
                       Select Allocated Academic Section
                     </label>
                     <select
                       value={formSectionId}
                       onChange={(e) => setFormSectionId(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md bg-[#121212] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+                      className="w-full h-9 px-3 rounded-md bg-elevated border border-border text-xs text-foreground focus:outline-none focus:border-accent"
                       required
                     >
                       {allocationOptions.sections.map((s) => (
@@ -967,13 +967,13 @@ export function FacultyResourcesClient({
 
                 {formTargetType === 'training_group' && (
                   <div className="pt-1">
-                    <label className="text-[#9AA1AA] font-medium block mb-1">
+                    <label className="text-muted font-medium block mb-1">
                       Select Allocated Training Group
                     </label>
                     <select
                       value={formTrainingGroupId}
                       onChange={(e) => setFormTrainingGroupId(e.target.value)}
-                      className="w-full h-9 px-3 rounded-md bg-[#121212] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+                      className="w-full h-9 px-3 rounded-md bg-elevated border border-border text-xs text-foreground focus:outline-none focus:border-accent"
                       required
                     >
                       {allocationOptions.training_groups.map((g) => (
@@ -988,12 +988,12 @@ export function FacultyResourcesClient({
 
               {/* Replace File (Optional) */}
               <div className="space-y-1">
-                <label className="text-[#9AA1AA] font-medium block">
+                <label className="text-muted font-medium block">
                   Replace File (Optional)
                 </label>
-                <div className="p-3 rounded-md bg-[#121212] border border-[#222222] text-xs space-y-2">
-                  <div className="text-xs text-[#9AA1AA]">
-                    Current file: <span className="font-mono text-[#EDEDED]">{editingResource.file_name}</span> ({formatBytes(editingResource.file_size)})
+                <div className="p-3 rounded-md bg-elevated border border-border text-xs space-y-2">
+                  <div className="text-xs text-muted">
+                    Current file: <span className="font-mono text-foreground">{editingResource.file_name}</span> ({formatBytes(editingResource.file_size)})
                   </div>
                   <Input
                     type="file"
@@ -1003,7 +1003,7 @@ export function FacultyResourcesClient({
                         setFormFile(e.target.files[0]);
                       }
                     }}
-                    className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9 cursor-pointer"
+                    className="bg-surface border-border text-foreground text-xs h-9 cursor-pointer"
                   />
                   {formFile && (
                     <div className="text-xs text-emerald-400">
@@ -1020,25 +1020,25 @@ export function FacultyResourcesClient({
                   id="edit-form-is-published"
                   checked={formIsPublished}
                   onChange={(e) => setFormIsPublished(e.target.checked)}
-                  className="rounded border-[#222222] bg-[#121212] text-[#FF6B00] focus:ring-0 cursor-pointer"
+                  className="rounded border-border bg-elevated text-accent focus:ring-0 cursor-pointer"
                 />
                 <label
                   htmlFor="edit-form-is-published"
-                  className="text-xs text-[#EDEDED] cursor-pointer"
+                  className="text-xs text-foreground cursor-pointer"
                 >
                   Published (Visible to students in target cohort)
                 </label>
               </div>
 
               {/* Buttons */}
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setEditingResource(null)}
                   disabled={isPending}
-                  className="text-xs border-[#222222]"
+                  className="text-xs border-border"
                 >
                   Cancel
                 </Button>
@@ -1061,12 +1061,12 @@ export function FacultyResourcesClient({
       {/* ========================================================================= */}
       {deletingResourceId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg max-w-sm w-full p-5 space-y-4 text-[#EDEDED]">
+          <div className="bg-surface border border-border rounded-lg max-w-sm w-full p-5 space-y-4 text-foreground">
             <div className="flex items-center gap-2.5 text-red-400">
               <AlertCircle className="h-5 w-5 shrink-0" />
               <h3 className="text-base font-semibold">Delete Resource?</h3>
             </div>
-            <p className="text-xs text-[#9AA1AA]">
+            <p className="text-xs text-muted">
               This will permanently delete the resource record and remove the file from storage. This action cannot be undone.
             </p>
             <div className="flex items-center justify-end gap-2 pt-2">
@@ -1075,7 +1075,7 @@ export function FacultyResourcesClient({
                 size="sm"
                 onClick={() => setDeletingResourceId(null)}
                 disabled={isPending}
-                className="text-xs border-[#222222]"
+                className="text-xs border-border"
               >
                 Cancel
               </Button>

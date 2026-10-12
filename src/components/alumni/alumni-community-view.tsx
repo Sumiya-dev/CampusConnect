@@ -67,15 +67,15 @@ export function AlumniCommunityView({
       <AlumniNavigation baseHref={baseHref} isStudentOrAlumni={isStudentOrAlumni} />
 
       {/* Scope Banner */}
-      <div className="p-3.5 rounded-lg border border-[#FF6B00]/20 bg-[#FF6B00]/5 flex items-start gap-3 text-xs">
-        <div className="p-1 rounded bg-[#FF6B00]/10 text-[#FF6B00] shrink-0 mt-0.5">
+      <div className="p-3.5 rounded-lg border border-accent/20 bg-accent/5 flex items-start gap-3 text-xs">
+        <div className="p-1 rounded bg-accent/10 text-accent shrink-0 mt-0.5">
           <ShieldCheck className="h-4 w-4" />
         </div>
         <div className="space-y-0.5">
-          <span className="font-semibold text-[#EDEDED] text-xs block">
+          <span className="font-semibold text-foreground text-xs block">
             Alumni & Student Exclusive Community
           </span>
-          <p className="text-[#9AA1AA] leading-relaxed text-[11px]">
+          <p className="text-muted leading-relaxed text-[11px]">
             A career-focused dialogue channel connecting current students directly with university alumni. Ask questions, discuss technical interviews, and exchange workplace preparation insights.
           </p>
         </div>
@@ -92,8 +92,8 @@ export function AlumniCommunityView({
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1 text-xs rounded transition-colors whitespace-nowrap ${
                 selectedCategory === cat
-                  ? 'bg-[#FF6B00] text-black font-semibold'
-                  : 'bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED] border border-[#222222]'
+                  ? 'bg-accent text-black font-semibold'
+                  : 'bg-elevated text-muted hover:text-foreground border border-border'
               }`}
             >
               {cat}
@@ -109,14 +109,14 @@ export function AlumniCommunityView({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search discussions..."
-              className="pl-8 text-xs bg-[#0A0A0A] border-[#222222] h-8"
+              className="pl-8 text-xs bg-surface border-border h-8"
             />
           </div>
 
           <Button
             onClick={() => setIsCreateOpen(true)}
             size="sm"
-            className="gap-1.5 font-semibold text-xs bg-[#FF6B00] text-black hover:bg-[#E05E00] shrink-0 h-8"
+            className="gap-1.5 font-semibold text-xs bg-accent text-black hover:bg-[#E05E00] shrink-0 h-8"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>Create Post</span>
@@ -127,20 +127,20 @@ export function AlumniCommunityView({
       {/* Posts Feed */}
       <div className="space-y-3">
         {filteredPosts.length === 0 ? (
-          <div className="text-center py-16 px-4 border border-[#222222] bg-[#0A0A0A] rounded-lg space-y-3">
+          <div className="text-center py-16 px-4 border border-border bg-surface rounded-lg space-y-3">
             <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#161616] text-[#717784]">
               <MessageSquare className="h-5 w-5" />
             </div>
             <div className="space-y-1">
-              <h4 className="text-sm font-semibold text-[#EDEDED]">No discussions yet.</h4>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <h4 className="text-sm font-semibold text-foreground">No discussions yet.</h4>
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 Be the first to share an interview experience, career transition tip, or ask a question.
               </p>
             </div>
             <Button
               size="sm"
               onClick={() => setIsCreateOpen(true)}
-              className="text-xs gap-1.5 mt-2 bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+              className="text-xs gap-1.5 mt-2 bg-accent text-black hover:bg-[#E05E00]"
             >
               <Plus className="h-3.5 w-3.5" />
               <span>Create Post</span>

@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { cache } from 'react';
 import { createClient } from '../supabase/server';
 import { Profile, UserRole } from '../types/database.types';
 import {
@@ -21,7 +22,7 @@ export interface CurrentUserContext {
   profile?: Profile;
 }
 
-export async function getCurrentUser(): Promise<CurrentUserContext | null> {
+export async function getCurrentUserBase(): Promise<CurrentUserContext | null> {
   const cookieStore = await cookies();
 
   // 1. Try Supabase
@@ -87,7 +88,9 @@ export async function getCurrentUser(): Promise<CurrentUserContext | null> {
   return null;
 }
 
-export async function getFullUserProfile(): Promise<FullUserProfile | null> {
+export const getCurrentUser = cache(getCurrentUserBase);
+
+export async function getFullUserProfileBase(): Promise<FullUserProfile | null> {
   const user = await getCurrentUser();
   if (!user) return null;
 
@@ -343,3 +346,5 @@ export async function getFullUserProfile(): Promise<FullUserProfile | null> {
   };
   return adminProfile;
 }
+
+export const getFullUserProfile = cache(getFullUserProfileBase);

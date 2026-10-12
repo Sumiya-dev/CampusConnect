@@ -158,7 +158,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
               ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
               : notice.type === 'error'
               ? 'border-rose-500/20 bg-rose-500/10 text-rose-400'
-              : 'border-[#FF6B00]/20 bg-[#FF6B00]/10 text-[#FF6B00]'
+              : 'border-accent/20 bg-accent/10 text-accent'
           }`}
         >
           <span>{notice.message}</span>
@@ -169,22 +169,22 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
       )}
 
       {/* Filter and Action Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0E0E0E] p-3 rounded-md border border-[#222222]">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0E0E0E] p-3 rounded-md border border-border">
         <div className="flex flex-wrap items-center gap-2.5 flex-1">
           {/* Search */}
           <div className="relative min-w-[220px] flex-1 max-w-sm">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search faculty by name, employee ID, role..."
-              className="pl-8 h-8 text-xs bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#666666] focus:border-[#FF6B00]"
+              className="pl-8 h-8 text-xs bg-surface border-border text-foreground placeholder:text-[#666666] focus:border-accent"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted hover:text-foreground"
               >
                 <X className="h-3 w-3" />
               </button>
@@ -195,7 +195,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
           <select
             value={departmentFilter}
             onChange={(e) => setDepartmentFilter(e.target.value)}
-            className="h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00] max-w-[200px] truncate"
+            className="h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent max-w-[200px] truncate"
           >
             <option value="all">All Departments</option>
             {data.departments.map((d) => (
@@ -209,7 +209,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+            className="h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
           >
             <option value="all">All Statuses</option>
             <option value="active">Active Only</option>
@@ -223,7 +223,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
               variant="ghost"
               size="sm"
               onClick={clearFilters}
-              className="h-8 text-xs text-[#9AA1AA] hover:text-[#EDEDED] gap-1 px-2"
+              className="h-8 text-xs text-muted hover:text-foreground gap-1 px-2"
             >
               <RotateCcw className="h-3 w-3" />
               Reset
@@ -235,7 +235,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
           <Button
             size="sm"
             onClick={() => setIsCreateOpen(true)}
-            className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold gap-1.5 shadow-none"
+            className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold gap-1.5 shadow-none"
           >
             <Plus className="h-3.5 w-3.5" />
             Add Faculty Member
@@ -244,10 +244,10 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
       </div>
 
       {/* Faculty Table */}
-      <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+      <div className="border border-border rounded-md bg-surface overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+            <thead className="bg-elevated border-b border-border text-muted">
               <tr>
                 <th className="py-2.5 px-3 font-medium">Faculty Member</th>
                 <th className="py-2.5 px-3 font-medium">Department & Designation</th>
@@ -260,21 +260,21 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
             <tbody className="divide-y divide-[#1A1A1A]">
               {filteredFaculty.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="text-center py-8 text-[#9AA1AA]">
+                  <td colSpan={6} className="text-center py-8 text-muted">
                     No faculty members found matching your search criteria.
                   </td>
                 </tr>
               ) : (
                 filteredFaculty.map((faculty) => (
-                  <tr key={faculty.id} className="hover:bg-[#121212]/60 transition-colors">
+                  <tr key={faculty.id} className="hover:bg-elevated/60 transition-colors">
                     {/* Faculty Details */}
                     <td className="py-3 px-3">
-                      <div className="font-medium text-[#EDEDED] flex items-center gap-1.5">
+                      <div className="font-medium text-foreground flex items-center gap-1.5">
                         <span>{faculty.name}</span>
                       </div>
-                      <div className="text-[11px] text-[#9AA1AA]">{faculty.email}</div>
+                      <div className="text-[11px] text-muted">{faculty.email}</div>
                       <div className="mt-1 flex items-center gap-2">
-                        <span className="font-mono text-[10px] text-[#FF6B00] bg-[#FF6B00]/10 px-1.5 py-0.5 rounded border border-[#FF6B00]/20">
+                        <span className="font-mono text-[10px] text-accent bg-accent/10 px-1.5 py-0.5 rounded border border-accent/20">
                           {faculty.employee_id}
                         </span>
                         {faculty.cabin_location && (
@@ -285,8 +285,8 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
 
                     {/* Department & Designation */}
                     <td className="py-3 px-3">
-                      <div className="text-[#EDEDED] font-medium">{faculty.department}</div>
-                      <div className="text-[11px] text-[#9AA1AA]">{faculty.designation}</div>
+                      <div className="text-foreground font-medium">{faculty.department}</div>
+                      <div className="text-[11px] text-muted">{faculty.designation}</div>
                     </td>
 
                     {/* Class Allocations */}
@@ -301,7 +301,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
                               title={`${ca.department_code || ''} Year ${ca.year} - ${ca.section_name} (${ca.students_count} students enrolled)`}
                               className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono bg-[#161616] border border-[#282828] text-[#CCCCCC]"
                             >
-                              <span className="text-[#FF6B00] font-semibold">{ca.department_code || ca.program_code}</span>
+                              <span className="text-accent font-semibold">{ca.department_code || ca.program_code}</span>
                               <span className="text-[#666666]">Yr{ca.year}</span>
                               <span>{ca.section_name}</span>
                             </span>
@@ -362,7 +362,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
                           size="sm"
                           variant="outline"
                           onClick={() => setAllocatingFaculty(faculty)}
-                          className="h-7 text-xs border-[#262626] text-[#FF6B00] hover:bg-[#FF6B00]/10 hover:border-[#FF6B00]/30 px-2 gap-1"
+                          className="h-7 text-xs border-[#262626] text-accent hover:bg-accent/10 hover:border-accent/30 px-2 gap-1"
                         >
                           <Layers className="h-3 w-3" />
                           <span>Allocations</span>
@@ -372,7 +372,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
                           type="button"
                           title="Edit Faculty Details"
                           onClick={() => setEditingFaculty(faculty)}
-                          className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] transition-colors"
+                          className="p-1 rounded text-muted hover:text-foreground hover:bg-[#1A1A1A] transition-colors"
                         >
                           <Edit2 className="h-3.5 w-3.5" />
                         </button>
@@ -480,7 +480,7 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
       {/* -------------------------------------------------------------------- */}
       {deleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
+          <div className="bg-elevated border border-border rounded-lg max-w-md w-full p-5 shadow-2xl space-y-4">
             <div className="flex items-start gap-3">
               <div
                 className={`p-2 rounded-full ${
@@ -490,10 +490,10 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div className="flex-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   {deleteConfirm.dependencyCount > 0 ? 'Institutional Record Safeguard' : 'Confirm Permanent Deletion'}
                 </h3>
-                <p className="text-xs text-[#9AA1AA] mt-1 font-medium">
+                <p className="text-xs text-muted mt-1 font-medium">
                   {deleteConfirm.faculty.name} ({deleteConfirm.faculty.employee_id})
                 </p>
               </div>
@@ -501,43 +501,43 @@ export function FacultyManagementClient({ initialData }: FacultyManagementClient
 
             {deleteConfirm.dependencyCount > 0 ? (
               <div className="p-3 rounded-md bg-[#1A1A1A] border border-[#282828] text-xs text-[#CCCCCC] space-y-2">
-                <p className="text-[#EDEDED] font-medium">Active Allocations & Schedule History:</p>
+                <p className="text-foreground font-medium">Active Allocations & Schedule History:</p>
                 <p>
                   This faculty member currently holds{' '}
-                  <span className="font-semibold text-[#FF6B00]">
+                  <span className="font-semibold text-accent">
                     {deleteConfirm.faculty.class_assignments.length} class section(s)
                   </span>
                   ,{' '}
-                  <span className="font-semibold text-[#FF6B00]">
+                  <span className="font-semibold text-accent">
                     {deleteConfirm.faculty.training_assignments.length} training group(s)
                   </span>
                   , and{' '}
-                  <span className="font-semibold text-[#FF6B00]">
+                  <span className="font-semibold text-accent">
                     {deleteConfirm.faculty.total_sessions_count} scheduled session(s)
                   </span>
                   .
                 </p>
-                <p className="text-[11px] text-[#9AA1AA]">
+                <p className="text-[11px] text-muted">
                   Hard deletion is prevented by database constraints to safeguard class timetables and student learning
-                  histories. You can safely <span className="text-[#EDEDED] font-semibold">deactivate</span> their
+                  histories. You can safely <span className="text-foreground font-semibold">deactivate</span> their
                   account instead.
                 </p>
               </div>
             ) : (
-              <p className="text-xs text-[#9AA1AA]">
+              <p className="text-xs text-muted">
                 This faculty member has no active class or training allocations. Are you sure you want to permanently
                 delete their user account and profile? This action cannot be undone.
               </p>
             )}
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setDeleteConfirm(null)}
                 disabled={isPending}
-                className="h-8 text-xs border-[#262626] text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="h-8 text-xs border-[#262626] text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -646,13 +646,13 @@ function CreateFacultyDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-lg w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <GraduationCap className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-lg w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <GraduationCap className="h-4 w-4 text-accent" />
             <span>Add New Faculty Member</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -666,23 +666,23 @@ function CreateFacultyDialog({
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Full Name</label>
+              <label className="block text-muted mb-1 font-medium">Full Name</label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Dr. Rajesh Sharma"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Employee ID</label>
+              <label className="block text-muted mb-1 font-medium">Employee ID</label>
               <Input
                 value={employeeId}
                 onChange={(e) => setEmployeeId(e.target.value.toUpperCase())}
                 placeholder="e.g. FAC-CSE-012"
-                className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
@@ -690,25 +690,25 @@ function CreateFacultyDialog({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Email Address</label>
+              <label className="block text-muted mb-1 font-medium">Email Address</label>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="faculty@campusconnect.edu"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Password (Min 8 chars)</label>
+              <label className="block text-muted mb-1 font-medium">Password (Min 8 chars)</label>
               <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
@@ -716,11 +716,11 @@ function CreateFacultyDialog({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Department</label>
+              <label className="block text-muted mb-1 font-medium">Department</label>
               <select
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-                className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 {departments.map((d) => (
                   <option key={d.id} value={d.name}>
@@ -731,11 +731,11 @@ function CreateFacultyDialog({
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Designation</label>
+              <label className="block text-muted mb-1 font-medium">Designation</label>
               <select
                 value={designation}
                 onChange={(e) => setDesignation(e.target.value)}
-                className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value="Professor">Professor</option>
                 <option value="Associate Professor">Associate Professor</option>
@@ -748,34 +748,34 @@ function CreateFacultyDialog({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Cabin Location (Optional)</label>
+              <label className="block text-muted mb-1 font-medium">Cabin Location (Optional)</label>
               <Input
                 value={cabinLocation}
                 onChange={(e) => setCabinLocation(e.target.value)}
                 placeholder="e.g. Block C, Cabin 402"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               />
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Contact Number (Optional)</label>
+              <label className="block text-muted mb-1 font-medium">Contact Number (Optional)</label>
               <Input
                 value={contactNumber}
                 onChange={(e) => setContactNumber(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -783,7 +783,7 @@ function CreateFacultyDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Creating...' : 'Provision Faculty'}
             </Button>
@@ -859,13 +859,13 @@ function EditFacultyDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-lg w-full p-5 shadow-2xl space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-          <h3 className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-            <Edit2 className="h-4 w-4 text-[#FF6B00]" />
+      <div className="bg-elevated border border-border rounded-lg max-w-lg w-full p-5 shadow-2xl space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <Edit2 className="h-4 w-4 text-accent" />
             <span>Edit Faculty Profile</span>
           </h3>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -879,21 +879,21 @@ function EditFacultyDialog({
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Full Name</label>
+              <label className="block text-muted mb-1 font-medium">Full Name</label>
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Employee ID</label>
+              <label className="block text-muted mb-1 font-medium">Employee ID</label>
               <Input
                 value={employeeId}
                 onChange={(e) => setEmployeeId(e.target.value.toUpperCase())}
-                className="h-8 text-xs font-mono bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs font-mono bg-surface border-[#262626] text-foreground focus:border-accent"
                 required
               />
             </div>
@@ -901,11 +901,11 @@ function EditFacultyDialog({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Department</label>
+              <label className="block text-muted mb-1 font-medium">Department</label>
               <select
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-                className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 {departments.map((d) => (
                   <option key={d.id} value={d.name}>
@@ -916,11 +916,11 @@ function EditFacultyDialog({
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Designation</label>
+              <label className="block text-muted mb-1 font-medium">Designation</label>
               <select
                 value={designation}
                 onChange={(e) => setDesignation(e.target.value)}
-                className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#262626] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2.5 text-xs bg-surface border border-[#262626] text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value="Professor">Professor</option>
                 <option value="Associate Professor">Associate Professor</option>
@@ -933,34 +933,34 @@ function EditFacultyDialog({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Cabin Location</label>
+              <label className="block text-muted mb-1 font-medium">Cabin Location</label>
               <Input
                 value={cabinLocation}
                 onChange={(e) => setCabinLocation(e.target.value)}
                 placeholder="e.g. Block C, Cabin 402"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               />
             </div>
 
             <div>
-              <label className="block text-[#9AA1AA] mb-1 font-medium">Contact Number</label>
+              <label className="block text-muted mb-1 font-medium">Contact Number</label>
               <Input
                 value={contactNumber}
                 onChange={(e) => setContactNumber(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="h-8 text-xs bg-[#0A0A0A] border-[#262626] text-[#EDEDED] focus:border-[#FF6B00]"
+                className="h-8 text-xs bg-surface border-[#262626] text-foreground focus:border-accent"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onClose}
               disabled={loading}
-              className="h-8 text-xs border-[#262626] text-[#9AA1AA]"
+              className="h-8 text-xs border-[#262626] text-muted"
             >
               Cancel
             </Button>
@@ -968,7 +968,7 @@ function EditFacultyDialog({
               type="submit"
               size="sm"
               disabled={loading}
-              className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold"
+              className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold"
             >
               {loading ? 'Saving...' : 'Update Faculty'}
             </Button>
@@ -1158,21 +1158,21 @@ function ManageAllocationsDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#121212] border border-[#222222] rounded-lg max-w-2xl w-full p-5 shadow-2xl space-y-4 max-h-[90vh] flex flex-col">
+      <div className="bg-elevated border border-border rounded-lg max-w-2xl w-full p-5 shadow-2xl space-y-4 max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-[#222222] pb-3">
+        <div className="flex items-start justify-between border-b border-border pb-3">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-semibold text-[#EDEDED]">{faculty.name}</h3>
-              <span className="font-mono text-[10px] text-[#FF6B00] bg-[#FF6B00]/10 px-1.5 py-0.5 rounded border border-[#FF6B00]/20">
+              <h3 className="text-sm font-semibold text-foreground">{faculty.name}</h3>
+              <span className="font-mono text-[10px] text-accent bg-accent/10 px-1.5 py-0.5 rounded border border-accent/20">
                 {faculty.employee_id}
               </span>
             </div>
-            <p className="text-xs text-[#9AA1AA] mt-0.5">
+            <p className="text-xs text-muted mt-0.5">
               {faculty.designation} • {faculty.department}
             </p>
           </div>
-          <button type="button" onClick={onClose} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button type="button" onClick={onClose} className="text-muted hover:text-foreground">
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -1184,19 +1184,19 @@ function ManageAllocationsDialog({
         )}
 
         {/* Sub Tabs */}
-        <div className="flex items-center gap-2 border-b border-[#222222] pb-px">
+        <div className="flex items-center gap-2 border-b border-border pb-px">
           <button
             type="button"
             onClick={() => setActiveSubTab('sections')}
             className={`flex items-center gap-2 px-3 py-1.5 text-xs font-medium border-b-2 transition-colors ${
               activeSubTab === 'sections'
-                ? 'border-[#FF6B00] text-[#EDEDED]'
-                : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'border-accent text-foreground'
+                : 'border-transparent text-muted hover:text-foreground'
             }`}
           >
             <Users className="h-3.5 w-3.5" />
             <span>Class Section Allocations</span>
-            <span className="ml-1 px-1.5 py-0.2 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#282828]">
+            <span className="ml-1 px-1.5 py-0.2 rounded text-[10px] bg-[#161616] text-muted border border-[#282828]">
               {faculty.class_assignments.length}
             </span>
           </button>
@@ -1206,13 +1206,13 @@ function ManageAllocationsDialog({
             onClick={() => setActiveSubTab('trainings')}
             className={`flex items-center gap-2 px-3 py-1.5 text-xs font-medium border-b-2 transition-colors ${
               activeSubTab === 'trainings'
-                ? 'border-[#FF6B00] text-[#EDEDED]'
-                : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'border-accent text-foreground'
+                : 'border-transparent text-muted hover:text-foreground'
             }`}
           >
             <Code className="h-3.5 w-3.5" />
             <span>Training Group Allocations</span>
-            <span className="ml-1 px-1.5 py-0.2 rounded text-[10px] bg-[#161616] text-[#9AA1AA] border border-[#282828]">
+            <span className="ml-1 px-1.5 py-0.2 rounded text-[10px] bg-[#161616] text-muted border border-[#282828]">
               {faculty.training_assignments.length}
             </span>
           </button>
@@ -1222,9 +1222,9 @@ function ManageAllocationsDialog({
         {activeSubTab === 'sections' && (
           <div className="space-y-4 overflow-y-auto pr-1 flex-1">
             {/* Add Section Form */}
-            <form onSubmit={handleAssignSection} className="p-3 bg-[#0A0A0A] rounded-md border border-[#222222] space-y-2.5">
-              <span className="text-xs font-medium text-[#EDEDED] flex items-center gap-1.5">
-                <Plus className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <form onSubmit={handleAssignSection} className="p-3 bg-surface rounded-md border border-border space-y-2.5">
+              <span className="text-xs font-medium text-foreground flex items-center gap-1.5">
+                <Plus className="h-3.5 w-3.5 text-accent" />
                 Allocate Academic Class Section
               </span>
 
@@ -1232,7 +1232,7 @@ function ManageAllocationsDialog({
                 <select
                   value={selectedSectionId}
                   onChange={(e) => setSelectedSectionId(e.target.value)}
-                  className="flex-1 h-8 px-2.5 text-xs bg-[#121212] border border-[#282828] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                  className="flex-1 h-8 px-2.5 text-xs bg-elevated border border-[#282828] text-foreground rounded-md focus:outline-none focus:border-accent"
                 >
                   <option value="">Select an academic section to allocate...</option>
                   {availableSections.map((s) => (
@@ -1246,7 +1246,7 @@ function ManageAllocationsDialog({
                   type="submit"
                   size="sm"
                   disabled={loading || !selectedSectionId}
-                  className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold whitespace-nowrap"
+                  className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold whitespace-nowrap"
                 >
                   Allocate Section
                 </Button>
@@ -1255,9 +1255,9 @@ function ManageAllocationsDialog({
 
             {/* List Allocated Sections */}
             <div className="space-y-2">
-              <span className="text-xs font-medium text-[#9AA1AA]">Currently Assigned Sections</span>
+              <span className="text-xs font-medium text-muted">Currently Assigned Sections</span>
               {faculty.class_assignments.length === 0 ? (
-                <div className="text-xs text-[#666666] py-4 text-center border border-[#1A1A1A] rounded bg-[#0A0A0A]">
+                <div className="text-xs text-[#666666] py-4 text-center border border-[#1A1A1A] rounded bg-surface">
                   No academic sections allocated to this faculty member yet.
                 </div>
               ) : (
@@ -1265,18 +1265,18 @@ function ManageAllocationsDialog({
                   {faculty.class_assignments.map((ca) => (
                     <div
                       key={ca.id}
-                      className="flex items-center justify-between p-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs hover:border-[#333333] transition-colors"
+                      className="flex items-center justify-between p-2.5 rounded bg-surface border border-border text-xs hover:border-[#333333] transition-colors"
                     >
                       <div>
-                        <div className="font-medium text-[#EDEDED] flex items-center gap-1.5">
-                          <span className="font-semibold text-[#FF6B00]">{ca.department_code || ca.program_code}</span>
+                        <div className="font-medium text-foreground flex items-center gap-1.5">
+                          <span className="font-semibold text-accent">{ca.department_code || ca.program_code}</span>
                           <span className="text-[#666666]">→</span>
                           <span>Year {ca.year}</span>
                           <span className="text-[#666666]">→</span>
-                          <span className="text-[#EDEDED] font-semibold">{ca.section_name}</span>
+                          <span className="text-foreground font-semibold">{ca.section_name}</span>
                           <span className="text-[#666666] text-[10px]">({ca.academic_year})</span>
                         </div>
-                        <div className="text-[11px] text-[#9AA1AA] mt-0.5">
+                        <div className="text-[11px] text-muted mt-0.5">
                           {ca.program_name} • {ca.students_count} students currently enrolled
                         </div>
                       </div>
@@ -1302,9 +1302,9 @@ function ManageAllocationsDialog({
         {activeSubTab === 'trainings' && (
           <div className="space-y-4 overflow-y-auto pr-1 flex-1">
             {/* Add Training Group Form */}
-            <form onSubmit={handleAssignTraining} className="p-3 bg-[#0A0A0A] rounded-md border border-[#222222] space-y-2.5">
-              <span className="text-xs font-medium text-[#EDEDED] flex items-center gap-1.5">
-                <Plus className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <form onSubmit={handleAssignTraining} className="p-3 bg-surface rounded-md border border-border space-y-2.5">
+              <span className="text-xs font-medium text-foreground flex items-center gap-1.5">
+                <Plus className="h-3.5 w-3.5 text-accent" />
                 Allocate Training Cohort / Mentor Track
               </span>
 
@@ -1312,7 +1312,7 @@ function ManageAllocationsDialog({
                 <select
                   value={selectedTrainingGroupId}
                   onChange={(e) => setSelectedTrainingGroupId(e.target.value)}
-                  className="flex-1 h-8 px-2.5 text-xs bg-[#121212] border border-[#282828] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                  className="flex-1 h-8 px-2.5 text-xs bg-elevated border border-[#282828] text-foreground rounded-md focus:outline-none focus:border-accent"
                 >
                   <option value="">Select a specialized training group...</option>
                   {availableTrainingGroups.map((tg) => (
@@ -1326,7 +1326,7 @@ function ManageAllocationsDialog({
                   type="submit"
                   size="sm"
                   disabled={loading || !selectedTrainingGroupId}
-                  className="h-8 text-xs bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold whitespace-nowrap"
+                  className="h-8 text-xs bg-accent hover:bg-[#E56000] text-black font-semibold whitespace-nowrap"
                 >
                   Allocate Group
                 </Button>
@@ -1335,9 +1335,9 @@ function ManageAllocationsDialog({
 
             {/* List Allocated Training Groups */}
             <div className="space-y-2">
-              <span className="text-xs font-medium text-[#9AA1AA]">Currently Assigned Training Groups</span>
+              <span className="text-xs font-medium text-muted">Currently Assigned Training Groups</span>
               {faculty.training_assignments.length === 0 ? (
-                <div className="text-xs text-[#666666] py-4 text-center border border-[#1A1A1A] rounded bg-[#0A0A0A]">
+                <div className="text-xs text-[#666666] py-4 text-center border border-[#1A1A1A] rounded bg-surface">
                   No training tracks allocated to this faculty member yet.
                 </div>
               ) : (
@@ -1345,15 +1345,15 @@ function ManageAllocationsDialog({
                   {faculty.training_assignments.map((ta) => (
                     <div
                       key={ta.id}
-                      className="flex items-center justify-between p-2.5 rounded bg-[#0A0A0A] border border-[#222222] text-xs hover:border-[#333333] transition-colors"
+                      className="flex items-center justify-between p-2.5 rounded bg-surface border border-border text-xs hover:border-[#333333] transition-colors"
                     >
                       <div>
-                        <div className="font-medium text-[#EDEDED] flex items-center gap-1.5">
+                        <div className="font-medium text-foreground flex items-center gap-1.5">
                           <Code className="h-3.5 w-3.5 text-blue-400" />
-                          <span className="text-[#EDEDED] font-semibold">{ta.training_group_name}</span>
+                          <span className="text-foreground font-semibold">{ta.training_group_name}</span>
                         </div>
                         {ta.description && (
-                          <div className="text-[11px] text-[#9AA1AA] mt-0.5 line-clamp-1">{ta.description}</div>
+                          <div className="text-[11px] text-muted mt-0.5 line-clamp-1">{ta.description}</div>
                         )}
                         <div className="text-[10px] text-[#666666] mt-0.5">
                           {ta.students_count} students enrolled in this track
@@ -1377,12 +1377,12 @@ function ManageAllocationsDialog({
           </div>
         )}
 
-        <div className="flex items-center justify-end pt-3 border-t border-[#222222]">
+        <div className="flex items-center justify-end pt-3 border-t border-border">
           <Button
             type="button"
             size="sm"
             onClick={onClose}
-            className="h-8 text-xs bg-[#222222] hover:bg-[#2A2A2A] text-[#EDEDED]"
+            className="h-8 text-xs bg-border hover:bg-[#2A2A2A] text-foreground"
           >
             Done
           </Button>

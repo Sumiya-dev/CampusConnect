@@ -106,7 +106,7 @@ export function AdminProfileForm({ initialData }: AdminProfileFormProps) {
       </section>
 
       {/* Actions */}
-      <div className="pt-6 border-t border-[#252A31] flex items-center justify-end">
+      <div className="pt-6 border-t border-border flex items-center justify-end">
         <Button
           type="submit"
           className="text-sm font-medium gap-2 px-6 h-10"

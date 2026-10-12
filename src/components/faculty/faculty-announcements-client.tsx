@@ -316,17 +316,17 @@ export function FacultyAnnouncementsClient({
   return (
     <div className="space-y-6">
       {/* Top Action & Sub-bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#222222] pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border pb-4">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs text-[#9AA1AA]">
-            <span className="text-[#EDEDED] font-mono font-medium">{totalCount}</span> Total
+          <div className="flex items-center gap-1.5 text-xs text-muted">
+            <span className="text-foreground font-mono font-medium">{totalCount}</span> Total
           </div>
           <span className="text-[#262626]">•</span>
-          <div className="flex items-center gap-1.5 text-xs text-[#9AA1AA]">
+          <div className="flex items-center gap-1.5 text-xs text-muted">
             <span className="text-emerald-400 font-mono font-medium">{publishedCount}</span> Published
           </div>
           <span className="text-[#262626]">•</span>
-          <div className="flex items-center gap-1.5 text-xs text-[#9AA1AA]">
+          <div className="flex items-center gap-1.5 text-xs text-muted">
             <span className="text-amber-400 font-mono font-medium">{draftCount}</span> Drafts
           </div>
         </div>
@@ -334,7 +334,7 @@ export function FacultyAnnouncementsClient({
         <Button
           onClick={handleOpenCreate}
           size="sm"
-          className="bg-[#EDEDED] text-black hover:bg-white text-xs h-8 px-3 gap-1.5 font-medium shrink-0"
+          className="bg-foreground text-black hover:bg-white text-xs h-8 px-3 gap-1.5 font-medium shrink-0"
         >
           <Plus className="h-3.5 w-3.5" />
           <span>New Announcement</span>
@@ -345,24 +345,24 @@ export function FacultyAnnouncementsClient({
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
         {/* Search */}
         <div className="sm:col-span-6 relative">
-          <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by title, directive keyword, or target audience..."
-            className="pl-8 text-xs bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA] h-8"
+            className="pl-8 text-xs bg-surface border-border text-foreground placeholder:text-muted h-8"
           />
         </div>
 
         {/* Status Filter */}
-        <div className="sm:col-span-3 flex items-center bg-[#0A0A0A] border border-[#222222] rounded-md p-0.5">
+        <div className="sm:col-span-3 flex items-center bg-surface border border-border rounded-md p-0.5">
           <button
             type="button"
             onClick={() => setStatusFilter('all')}
             className={`flex-1 text-xs py-1 rounded transition-colors text-center font-medium ${
               statusFilter === 'all'
-                ? 'bg-[#181818] text-[#EDEDED]'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#181818] text-foreground'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             All
@@ -373,7 +373,7 @@ export function FacultyAnnouncementsClient({
             className={`flex-1 text-xs py-1 rounded transition-colors text-center font-medium ${
               statusFilter === 'published'
                 ? 'bg-[#181818] text-emerald-400'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Published
@@ -384,7 +384,7 @@ export function FacultyAnnouncementsClient({
             className={`flex-1 text-xs py-1 rounded transition-colors text-center font-medium ${
               statusFilter === 'draft'
                 ? 'bg-[#181818] text-amber-400'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Drafts
@@ -396,7 +396,7 @@ export function FacultyAnnouncementsClient({
           <select
             value={targetTypeFilter}
             onChange={(e) => setTargetTypeFilter(e.target.value)}
-            className="w-full h-8 px-2.5 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+            className="w-full h-8 px-2.5 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
           >
             <option value="all">Audience: All Scopes</option>
             <option value="department">Department Directives</option>
@@ -408,12 +408,12 @@ export function FacultyAnnouncementsClient({
       </div>
 
       {/* Announcements Feed / List Style with Thin Dividers */}
-      <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#1A1A1A]">
+      <div className="border border-border rounded-md bg-surface divide-y divide-[#1A1A1A]">
         {filteredAnnouncements.length === 0 ? (
           <div className="py-12 px-4 text-center space-y-2">
-            <Megaphone className="h-6 w-6 text-[#9AA1AA] mx-auto opacity-50" />
-            <div className="text-sm font-medium text-[#EDEDED]">No announcements found</div>
-            <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+            <Megaphone className="h-6 w-6 text-muted mx-auto opacity-50" />
+            <div className="text-sm font-medium text-foreground">No announcements found</div>
+            <p className="text-xs text-muted max-w-sm mx-auto">
               {searchQuery || statusFilter !== 'all' || targetTypeFilter !== 'all'
                 ? 'No circulars match your current search or filter criteria.'
                 : 'You have not authored any departmental announcements or class notices yet.'}
@@ -427,7 +427,7 @@ export function FacultyAnnouncementsClient({
                   setStatusFilter('all');
                   setTargetTypeFilter('all');
                 }}
-                className="text-xs border-[#222222] text-[#EDEDED] h-7 mt-2"
+                className="text-xs border-border text-foreground h-7 mt-2"
               >
                 Clear Filters
               </Button>
@@ -435,7 +435,7 @@ export function FacultyAnnouncementsClient({
               <Button
                 onClick={handleOpenCreate}
                 size="sm"
-                className="text-xs bg-[#EDEDED] text-black hover:bg-white h-7 mt-2 font-medium"
+                className="text-xs bg-foreground text-black hover:bg-white h-7 mt-2 font-medium"
               >
                 <Plus className="h-3 w-3 mr-1" />
                 Create First Notice
@@ -466,31 +466,31 @@ export function FacultyAnnouncementsClient({
                     )}
 
                     {/* Target Scope Badge */}
-                    <span className="inline-flex items-center gap-1 text-[11px] font-mono text-[#9AA1AA] bg-[#141414] border border-[#222222] px-2 py-0.5 rounded">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-mono text-muted bg-[#141414] border border-border px-2 py-0.5 rounded">
                       {item.target_type === 'department' && (
-                        <Building className="h-2.5 w-2.5 text-[#FF6B00]" />
+                        <Building className="h-2.5 w-2.5 text-accent" />
                       )}
                       {item.target_type === 'year' && (
-                        <GraduationCap className="h-2.5 w-2.5 text-[#FF6B00]" />
+                        <GraduationCap className="h-2.5 w-2.5 text-accent" />
                       )}
                       {item.target_type === 'section' && (
-                        <Layers className="h-2.5 w-2.5 text-[#FF6B00]" />
+                        <Layers className="h-2.5 w-2.5 text-accent" />
                       )}
                       {item.target_type === 'training_group' && (
-                        <Users className="h-2.5 w-2.5 text-[#FF6B00]" />
+                        <Users className="h-2.5 w-2.5 text-accent" />
                       )}
                       {item.target_type === 'all' && (
-                        <Radio className="h-2.5 w-2.5 text-[#FF6B00]" />
+                        <Radio className="h-2.5 w-2.5 text-accent" />
                       )}
                       <span>{item.target_label || 'All Students'}</span>
                     </span>
 
-                    <span className="text-xs text-[#9AA1AA] font-mono ml-auto sm:ml-0">
+                    <span className="text-xs text-muted font-mono ml-auto sm:ml-0">
                       {formatAnnouncementDate(item.created_at)}
                     </span>
                   </div>
 
-                  <h3 className="text-sm font-semibold text-[#EDEDED] tracking-tight leading-snug">
+                  <h3 className="text-sm font-semibold text-foreground tracking-tight leading-snug">
                     {item.title}
                   </h3>
                 </div>
@@ -503,7 +503,7 @@ export function FacultyAnnouncementsClient({
                     disabled={isPending}
                     onClick={() => handleTogglePublish(item)}
                     title={item.is_published ? 'Unpublish Notice' : 'Publish Notice'}
-                    className="h-7 px-2 text-xs text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] gap-1"
+                    className="h-7 px-2 text-xs text-muted hover:text-foreground hover:bg-[#1A1A1A] gap-1"
                   >
                     {item.is_published ? (
                       <>
@@ -524,7 +524,7 @@ export function FacultyAnnouncementsClient({
                     disabled={isPending}
                     onClick={() => handleOpenEdit(item)}
                     title="Edit Announcement"
-                    className="h-7 px-2 text-xs text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#1A1A1A] gap-1"
+                    className="h-7 px-2 text-xs text-muted hover:text-foreground hover:bg-[#1A1A1A] gap-1"
                   >
                     <Edit2 className="h-3 w-3" />
                     <span className="hidden md:inline text-[11px]">Edit</span>
@@ -536,7 +536,7 @@ export function FacultyAnnouncementsClient({
                     disabled={isPending}
                     onClick={() => setDeletingId(item.id)}
                     title="Delete Announcement"
-                    className="h-7 px-2 text-xs text-[#9AA1AA] hover:text-rose-400 hover:bg-[#1A1A1A] gap-1"
+                    className="h-7 px-2 text-xs text-muted hover:text-rose-400 hover:bg-[#1A1A1A] gap-1"
                   >
                     <Trash2 className="h-3 w-3" />
                     <span className="hidden md:inline text-[11px]">Delete</span>
@@ -545,18 +545,18 @@ export function FacultyAnnouncementsClient({
               </div>
 
               {/* Main Content Body */}
-              <p className="text-xs text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+              <p className="text-xs text-muted leading-relaxed whitespace-pre-line">
                 {item.content}
               </p>
 
               {/* Footer Meta */}
-              <div className="flex items-center justify-between text-[11px] text-[#9AA1AA] font-mono pt-1">
+              <div className="flex items-center justify-between text-[11px] text-muted font-mono pt-1">
                 <span>
-                  Author: <span className="text-[#EDEDED]">{item.faculty_name}</span> (
+                  Author: <span className="text-foreground">{item.faculty_name}</span> (
                   {item.faculty_designation || 'Faculty Member'})
                 </span>
                 {item.updated_at !== item.created_at && (
-                  <span className="text-[#9AA1AA]">
+                  <span className="text-muted">
                     Edited {formatAnnouncementDate(item.updated_at)}
                   </span>
                 )}
@@ -569,18 +569,18 @@ export function FacultyAnnouncementsClient({
       {/* Create / Edit Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in-0">
-          <div className="bg-[#0D0D0D] border border-[#222222] rounded-md max-w-xl w-full p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="bg-[#0D0D0D] border border-border rounded-md max-w-xl w-full p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <Megaphone className="h-4 w-4 text-[#FF6B00]" />
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <Megaphone className="h-4 w-4 text-accent" />
+                <h3 className="text-sm font-semibold text-foreground">
                   {editingItem ? 'Edit Announcement' : 'Author Official Circular'}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED] p-1 rounded hover:bg-[#181818]"
+                className="text-muted hover:text-foreground p-1 rounded hover:bg-[#181818]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -596,22 +596,22 @@ export function FacultyAnnouncementsClient({
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Notice Title */}
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-[#EDEDED]">
-                  Announcement Title <span className="text-[#FF6B00]">*</span>
+                <label className="text-xs font-medium text-foreground">
+                  Announcement Title <span className="text-accent">*</span>
                 </label>
                 <Input
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Mandatory Pre-Placement Briefing & Lab Reschedule"
-                  className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA]"
+                  className="text-xs bg-elevated border-border text-foreground placeholder:text-muted"
                 />
               </div>
 
               {/* Target Audience Scope */}
               <div className="space-y-2">
-                <label className="text-xs font-medium text-[#EDEDED]">
-                  Target Audience Scope <span className="text-[#FF6B00]">*</span>
+                <label className="text-xs font-medium text-foreground">
+                  Target Audience Scope <span className="text-accent">*</span>
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
                   <button
@@ -619,8 +619,8 @@ export function FacultyAnnouncementsClient({
                     onClick={() => setTargetType('all')}
                     className={`text-xs py-1.5 px-2 rounded border transition-colors text-center font-medium ${
                       targetType === 'all'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#FF6B00]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-accent'
+                        : 'border-border bg-elevated text-muted hover:text-foreground'
                     }`}
                   >
                     All Students
@@ -630,8 +630,8 @@ export function FacultyAnnouncementsClient({
                     onClick={() => setTargetType('department')}
                     className={`text-xs py-1.5 px-2 rounded border transition-colors text-center font-medium ${
                       targetType === 'department'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#FF6B00]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-accent'
+                        : 'border-border bg-elevated text-muted hover:text-foreground'
                     }`}
                   >
                     Department
@@ -641,8 +641,8 @@ export function FacultyAnnouncementsClient({
                     onClick={() => setTargetType('year')}
                     className={`text-xs py-1.5 px-2 rounded border transition-colors text-center font-medium ${
                       targetType === 'year'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#FF6B00]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-accent'
+                        : 'border-border bg-elevated text-muted hover:text-foreground'
                     }`}
                   >
                     Class / Year
@@ -652,8 +652,8 @@ export function FacultyAnnouncementsClient({
                     onClick={() => setTargetType('section')}
                     className={`text-xs py-1.5 px-2 rounded border transition-colors text-center font-medium ${
                       targetType === 'section'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#FF6B00]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-accent'
+                        : 'border-border bg-elevated text-muted hover:text-foreground'
                     }`}
                   >
                     Section
@@ -663,8 +663,8 @@ export function FacultyAnnouncementsClient({
                     onClick={() => setTargetType('training_group')}
                     className={`text-xs py-1.5 px-2 rounded border transition-colors text-center font-medium col-span-2 sm:col-span-1 ${
                       targetType === 'training_group'
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#FF6B00]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-accent'
+                        : 'border-border bg-elevated text-muted hover:text-foreground'
                     }`}
                   >
                     Training
@@ -674,13 +674,13 @@ export function FacultyAnnouncementsClient({
                 {/* Sub-selectors depending on targetType */}
                 {targetType === 'department' && (
                   <div className="pt-1.5">
-                    <label className="text-[11px] text-[#9AA1AA] block mb-1">
+                    <label className="text-[11px] text-muted block mb-1">
                       Allocated Department
                     </label>
                     <select
                       value={targetDepartment}
                       onChange={(e) => setTargetDepartment(e.target.value)}
-                      className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                      className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
                     >
                       {allocations.departments.map((dept) => (
                         <option key={dept} value={dept}>
@@ -693,13 +693,13 @@ export function FacultyAnnouncementsClient({
 
                 {targetType === 'year' && (
                   <div className="pt-1.5">
-                    <label className="text-[11px] text-[#9AA1AA] block mb-1">
+                    <label className="text-[11px] text-muted block mb-1">
                       Academic Year Level
                     </label>
                     <select
                       value={targetYear}
                       onChange={(e) => setTargetYear(Number(e.target.value))}
-                      className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                      className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
                     >
                       <option value={4}>4th Year (Graduating Cohort 2026)</option>
                       <option value={3}>3rd Year (Pre-Final Cohort 2027)</option>
@@ -711,7 +711,7 @@ export function FacultyAnnouncementsClient({
 
                 {targetType === 'section' && (
                   <div className="pt-1.5">
-                    <label className="text-[11px] text-[#9AA1AA] block mb-1">
+                    <label className="text-[11px] text-muted block mb-1">
                       Allocated Academic Section
                     </label>
                     {allocations.sections.length === 0 ? (
@@ -722,7 +722,7 @@ export function FacultyAnnouncementsClient({
                       <select
                         value={sectionId}
                         onChange={(e) => setSectionId(e.target.value)}
-                        className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                        className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
                       >
                         {allocations.sections.map((sec) => (
                           <option key={sec.id} value={sec.id}>
@@ -736,7 +736,7 @@ export function FacultyAnnouncementsClient({
 
                 {targetType === 'training_group' && (
                   <div className="pt-1.5">
-                    <label className="text-[11px] text-[#9AA1AA] block mb-1">
+                    <label className="text-[11px] text-muted block mb-1">
                       Allocated Training Group
                     </label>
                     {allocations.training_groups.length === 0 ? (
@@ -747,7 +747,7 @@ export function FacultyAnnouncementsClient({
                       <select
                         value={trainingGroupId}
                         onChange={(e) => setTrainingGroupId(e.target.value)}
-                        className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                        className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
                       >
                         {allocations.training_groups.map((grp) => (
                           <option key={grp.id} value={grp.id}>
@@ -762,8 +762,8 @@ export function FacultyAnnouncementsClient({
 
               {/* Announcement Content */}
               <div className="space-y-1.5">
-                <label className="text-xs font-medium text-[#EDEDED]">
-                  Announcement Content <span className="text-[#FF6B00]">*</span>
+                <label className="text-xs font-medium text-foreground">
+                  Announcement Content <span className="text-accent">*</span>
                 </label>
                 <textarea
                   required
@@ -771,17 +771,17 @@ export function FacultyAnnouncementsClient({
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   placeholder="Detail instructions, deadlines, lab venue updates, or exam guidelines..."
-                  className="w-full rounded-md border border-[#222222] bg-[#121212] p-2.5 text-xs text-[#EDEDED] placeholder:text-[#9AA1AA] focus:outline-none focus:border-[#FF6B00] resize-y"
+                  className="w-full rounded-md border border-border bg-elevated p-2.5 text-xs text-foreground placeholder:text-muted focus:outline-none focus:border-accent resize-y"
                 />
               </div>
 
               {/* Publishing Status Toggle */}
-              <div className="flex items-center justify-between p-3 rounded bg-[#121212] border border-[#222222]">
+              <div className="flex items-center justify-between p-3 rounded bg-elevated border border-border">
                 <div className="space-y-0.5">
-                  <div className="text-xs font-medium text-[#EDEDED]">
+                  <div className="text-xs font-medium text-foreground">
                     Publish Immediately
                   </div>
-                  <div className="text-[11px] text-[#9AA1AA]">
+                  <div className="text-[11px] text-muted">
                     {isPublished
                       ? 'Notice will be visible to authorized students on their dashboard bulletin.'
                       : 'Saved as draft. Only visible to you until published.'}
@@ -791,19 +791,19 @@ export function FacultyAnnouncementsClient({
                   type="checkbox"
                   checked={isPublished}
                   onChange={(e) => setIsPublished(e.target.checked)}
-                  className="h-4 w-4 rounded border-[#333333] bg-[#181818] accent-[#FF6B00] cursor-pointer"
+                  className="h-4 w-4 rounded border-[#333333] bg-[#181818] accent-accent cursor-pointer"
                 />
               </div>
 
               {/* Modal Actions */}
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   disabled={isPending}
                   onClick={() => setIsModalOpen(false)}
-                  className="text-xs border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED] h-8"
+                  className="text-xs border-border text-muted hover:text-foreground h-8"
                 >
                   Cancel
                 </Button>
@@ -811,7 +811,7 @@ export function FacultyAnnouncementsClient({
                   type="submit"
                   size="sm"
                   disabled={isPending}
-                  className="bg-[#EDEDED] text-black hover:bg-white text-xs h-8 px-4 font-medium"
+                  className="bg-foreground text-black hover:bg-white text-xs h-8 px-4 font-medium"
                 >
                   {isPending ? (
                     'Saving...'
@@ -832,21 +832,21 @@ export function FacultyAnnouncementsClient({
       {/* Delete Confirmation Modal */}
       {deletingId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in-0">
-          <div className="bg-[#0D0D0D] border border-[#222222] rounded-md max-w-sm w-full p-5 space-y-4">
+          <div className="bg-[#0D0D0D] border border-border rounded-md max-w-sm w-full p-5 space-y-4">
             <div className="flex items-center gap-2 text-rose-400">
               <Trash2 className="h-4 w-4" />
               <h3 className="text-sm font-semibold">Delete Announcement</h3>
             </div>
-            <p className="text-xs text-[#9AA1AA] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               Are you sure you want to permanently remove this announcement? This action cannot be undone.
             </p>
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="outline"
                 size="sm"
                 disabled={isPending}
                 onClick={() => setDeletingId(null)}
-                className="text-xs border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED] h-8"
+                className="text-xs border-border text-muted hover:text-foreground h-8"
               >
                 Cancel
               </Button>

@@ -121,50 +121,50 @@ export function FacultyPlacementsListClient({
     <div className="space-y-6">
       {/* Metric Counters Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Placement Drives
           </span>
-          <div className="text-2xl font-semibold text-[#EDEDED] mt-1">
+          <div className="text-2xl font-semibold text-foreground mt-1">
             {initialDrives.length}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             {totalActiveDrives} Active Cycles
           </span>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Monitored Students
           </span>
-          <div className="text-2xl font-semibold text-[#EDEDED] mt-1">
+          <div className="text-2xl font-semibold text-foreground mt-1">
             {totalAuthorizedStudents}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Allocated Department Cohort
           </span>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Cohort Applications
           </span>
           <div className="text-2xl font-semibold text-sky-400 mt-1">
             {totalApplicationsCount}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Submitted Registrations
           </span>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] p-4 rounded-md">
-          <span className="text-xs uppercase font-medium text-[#9AA1AA] block">
+        <div className="bg-surface border border-border p-4 rounded-md">
+          <span className="text-xs uppercase font-medium text-muted block">
             Students Placed
           </span>
           <div className="text-2xl font-semibold text-emerald-400 mt-1">
             {totalPlacedAuthorizedStudents}
           </div>
-          <span className="text-xs text-[#9AA1AA] mt-0.5 block">
+          <span className="text-xs text-muted mt-0.5 block">
             Offers Secured
           </span>
         </div>
@@ -174,13 +174,13 @@ export function FacultyPlacementsListClient({
       <div className="flex flex-col gap-3 pt-2">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
             <Input
               type="text"
               placeholder="Search by company, role, package, skills..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-9"
+              className="pl-9 bg-surface border-border text-foreground text-sm h-9"
             />
           </div>
 
@@ -189,7 +189,7 @@ export function FacultyPlacementsListClient({
             <select
               value={departmentFilter}
               onChange={(e) => setDepartmentFilter(e.target.value)}
-              className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Departments</option>
               {allocatedDepartments.map((d) => (
@@ -203,7 +203,7 @@ export function FacultyPlacementsListClient({
             <select
               value={yearFilter}
               onChange={(e) => setYearFilter(e.target.value)}
-              className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Years</option>
               {allocatedYears.map((yr) => (
@@ -217,7 +217,7 @@ export function FacultyPlacementsListClient({
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Status</option>
               <option value="open">Open</option>
@@ -230,7 +230,7 @@ export function FacultyPlacementsListClient({
             <select
               value={tierFilter}
               onChange={(e) => setTierFilter(e.target.value)}
-              className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Tiers</option>
               <option value="Tier 1 (Super Dream)">Super Dream</option>
@@ -244,14 +244,14 @@ export function FacultyPlacementsListClient({
 
       {/* Drives List */}
       {filteredDrives.length === 0 ? (
-        <div className="border border-[#222222] bg-[#0A0A0A] rounded-md p-10 text-center space-y-3">
-          <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-[#9AA1AA]">
-            <Briefcase className="h-6 w-6 text-[#FF6B00]" />
+        <div className="border border-border bg-surface rounded-md p-10 text-center space-y-3">
+          <div className="inline-flex p-3 rounded-full bg-[#161616] border border-[#262626] text-muted">
+            <Briefcase className="h-6 w-6 text-accent" />
           </div>
-          <h3 className="text-base font-medium text-[#EDEDED]">
+          <h3 className="text-base font-medium text-foreground">
             No placement drives found
           </h3>
-          <p className="text-xs text-[#9AA1AA] max-w-md mx-auto">
+          <p className="text-xs text-muted max-w-md mx-auto">
             {searchQuery || departmentFilter !== 'all' || statusFilter !== 'all'
               ? 'Try resetting the filters or modifying your search terms.'
               : 'Placement drives scheduled by the placement directorate will appear here.'}
@@ -267,14 +267,14 @@ export function FacultyPlacementsListClient({
             return (
               <div
                 key={drive.id}
-                className="border border-[#222222] bg-[#0A0A0A] rounded-md p-5 space-y-4 hover:border-[#333333] transition-colors"
+                className="border border-border bg-surface rounded-md p-5 space-y-4 hover:border-[#333333] transition-colors"
               >
                 {/* Header row: Company, Role, Tier, Status */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1A1A1A] pb-3">
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] flex items-center gap-1">
-                        <Building className="h-3 w-3 text-[#FF6B00]" />
+                      <span className="text-xs font-semibold px-2 py-0.5 rounded border border-border bg-elevated text-foreground flex items-center gap-1">
+                        <Building className="h-3 w-3 text-accent" />
                         {drive.company_name}
                       </span>
 
@@ -304,17 +304,17 @@ export function FacultyPlacementsListClient({
                       )}
                     </div>
 
-                    <h3 className="text-lg font-semibold text-[#EDEDED] tracking-tight">
+                    <h3 className="text-lg font-semibold text-foreground tracking-tight">
                       {drive.job_role}
                     </h3>
                   </div>
 
                   <div className="text-left sm:text-right shrink-0">
-                    <div className="text-base font-semibold text-[#FF6B00]">
+                    <div className="text-base font-semibold text-accent">
                       {drive.package_details}
                     </div>
                     {drive.location && (
-                      <div className="text-xs text-[#9AA1AA] flex items-center sm:justify-end gap-1 mt-0.5">
+                      <div className="text-xs text-muted flex items-center sm:justify-end gap-1 mt-0.5">
                         <MapPin className="h-3 w-3" />
                         <span>{drive.location}</span>
                       </div>
@@ -323,12 +323,12 @@ export function FacultyPlacementsListClient({
                 </div>
 
                 {/* Eligibility & Criteria Pills */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-[#9AA1AA]">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-muted">
                   <div className="space-y-1">
                     <span className="text-[11px] uppercase tracking-wider text-[#777777] block font-medium">
                       Eligibility Cutoff
                     </span>
-                    <span className="text-[#EDEDED] font-medium block">
+                    <span className="text-foreground font-medium block">
                       Min CGPA: {drive.min_cgpa.toFixed(2)} • Backlogs: Max {drive.max_backlogs}
                     </span>
                   </div>
@@ -337,7 +337,7 @@ export function FacultyPlacementsListClient({
                     <span className="text-[11px] uppercase tracking-wider text-[#777777] block font-medium">
                       Eligible Cohorts
                     </span>
-                    <span className="text-[#EDEDED] font-medium block truncate">
+                    <span className="text-foreground font-medium block truncate">
                       {drive.eligible_years.map((y) => `Yr ${y}`).join(', ')} •{' '}
                       {drive.eligible_departments.length > 2
                         ? `${drive.eligible_departments.slice(0, 2).join(', ')} +${drive.eligible_departments.length - 2}`
@@ -351,7 +351,7 @@ export function FacultyPlacementsListClient({
                     </span>
                     <span
                       className={`font-medium block ${
-                        deadlinePassed ? 'text-amber-400' : 'text-[#EDEDED]'
+                        deadlinePassed ? 'text-amber-400' : 'text-foreground'
                       }`}
                     >
                       {deadlineText} {deadlinePassed ? '(Closed)' : ''}
@@ -361,13 +361,13 @@ export function FacultyPlacementsListClient({
 
                 {/* Schedule & Venue Details (if set) */}
                 {(drive.drive_date || drive.venue) && (
-                  <div className="p-2.5 rounded bg-[#121212] border border-[#1A1A1A] flex flex-wrap items-center gap-4 text-xs text-[#9AA1AA]">
+                  <div className="p-2.5 rounded bg-elevated border border-[#1A1A1A] flex flex-wrap items-center gap-4 text-xs text-muted">
                     {drive.drive_date && (
                       <div className="flex items-center gap-1.5">
-                        <Calendar className="h-3.5 w-3.5 text-[#FF6B00]" />
+                        <Calendar className="h-3.5 w-3.5 text-accent" />
                         <span>
                           Drive Date:{' '}
-                          <strong className="text-[#EDEDED] font-medium">
+                          <strong className="text-foreground font-medium">
                             {new Date(drive.drive_date).toLocaleDateString('en-US', {
                               month: 'short',
                               day: 'numeric',
@@ -379,10 +379,10 @@ export function FacultyPlacementsListClient({
                     )}
                     {drive.drive_time && (
                       <div className="flex items-center gap-1.5">
-                        <Clock className="h-3.5 w-3.5 text-[#FF6B00]" />
+                        <Clock className="h-3.5 w-3.5 text-accent" />
                         <span>
                           Time:{' '}
-                          <strong className="text-[#EDEDED] font-medium">
+                          <strong className="text-foreground font-medium">
                             {drive.drive_time}
                           </strong>
                         </span>
@@ -390,10 +390,10 @@ export function FacultyPlacementsListClient({
                     )}
                     {drive.venue && (
                       <div className="flex items-center gap-1.5">
-                        <MapPin className="h-3.5 w-3.5 text-[#FF6B00]" />
+                        <MapPin className="h-3.5 w-3.5 text-accent" />
                         <span>
                           Venue:{' '}
-                          <strong className="text-[#EDEDED] font-medium">
+                          <strong className="text-foreground font-medium">
                             {drive.venue}
                           </strong>
                         </span>
@@ -405,18 +405,18 @@ export function FacultyPlacementsListClient({
                 {/* Footer: Authorized Cohort Metrics + View Details Button */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-[#1A1A1A]">
                   <div className="flex flex-wrap items-center gap-3 text-xs">
-                    <span className="text-[#9AA1AA]">Cohort Monitor:</span>
+                    <span className="text-muted">Cohort Monitor:</span>
 
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#161616] border border-[#222222] text-[#EDEDED]">
-                      <Users className="h-3 w-3 text-[#9AA1AA]" />
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#161616] border border-border text-foreground">
+                      <Users className="h-3 w-3 text-muted" />
                       <strong>{drive.authorized_eligible_count}</strong> Eligible
                     </span>
 
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#161616] border border-[#222222] text-sky-400">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#161616] border border-border text-sky-400">
                       <strong>{drive.authorized_applied_count}</strong> Applied
                     </span>
 
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#161616] border border-[#222222] text-amber-400">
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#161616] border border-border text-amber-400">
                       <strong>{drive.authorized_shortlisted_count}</strong> Shortlisted
                     </span>
 
@@ -432,7 +432,7 @@ export function FacultyPlacementsListClient({
                     <Button
                       size="sm"
                       variant="outline"
-                      className="text-xs h-8 gap-1.5 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00] w-full sm:w-auto"
+                      className="text-xs h-8 gap-1.5 border-border text-foreground hover:border-accent hover:text-accent w-full sm:w-auto"
                     >
                       <span>View Details & Pipeline</span>
                       <ArrowRight className="h-3.5 w-3.5" />

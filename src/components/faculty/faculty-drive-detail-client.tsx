@@ -131,7 +131,7 @@ export function FacultyDriveDetailClient({
       <div>
         <Link
           href="/faculty/placements"
-          className="inline-flex items-center gap-1.5 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-3 w-3" />
           <span>Back to Placement Drives</span>
@@ -139,12 +139,12 @@ export function FacultyDriveDetailClient({
       </div>
 
       {/* Main Drive Header */}
-      <div className="border border-[#222222] bg-[#0A0A0A] rounded-md p-6 space-y-5">
+      <div className="border border-border bg-surface rounded-md p-6 space-y-5">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-[#1A1A1A] pb-5">
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] flex items-center gap-1">
-                <Building className="h-3.5 w-3.5 text-[#FF6B00]" />
+              <span className="text-xs font-semibold px-2 py-0.5 rounded border border-border bg-elevated text-foreground flex items-center gap-1">
+                <Building className="h-3.5 w-3.5 text-accent" />
                 {drive.company_name}
               </span>
 
@@ -169,7 +169,7 @@ export function FacultyDriveDetailClient({
               )}
             </div>
 
-            <h1 className="text-2xl font-semibold text-[#EDEDED] tracking-tight">
+            <h1 className="text-2xl font-semibold text-foreground tracking-tight">
               {drive.job_role}
             </h1>
 
@@ -178,7 +178,7 @@ export function FacultyDriveDetailClient({
                 href={drive.company_website.startsWith('http') ? drive.company_website : `https://${drive.company_website}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-[#FF6B00] hover:underline"
+                className="inline-flex items-center gap-1 text-xs text-accent hover:underline"
               >
                 <span>Company Portal</span>
                 <ExternalLink className="h-3 w-3" />
@@ -187,11 +187,11 @@ export function FacultyDriveDetailClient({
           </div>
 
           <div className="text-left md:text-right shrink-0">
-            <div className="text-xl font-semibold text-[#FF6B00]">
+            <div className="text-xl font-semibold text-accent">
               {drive.package_details}
             </div>
             {drive.location && (
-              <div className="text-xs text-[#9AA1AA] flex items-center md:justify-end gap-1 mt-1">
+              <div className="text-xs text-muted flex items-center md:justify-end gap-1 mt-1">
                 <MapPin className="h-3.5 w-3.5" />
                 <span>{drive.location}</span>
               </div>
@@ -210,7 +210,7 @@ export function FacultyDriveDetailClient({
             <span className="text-[#777777] uppercase font-medium tracking-wider text-[11px] block">
               CGPA Cutoff
             </span>
-            <span className="text-[#EDEDED] font-semibold text-sm">
+            <span className="text-foreground font-semibold text-sm">
               ≥ {drive.min_cgpa.toFixed(2)}
             </span>
           </div>
@@ -219,7 +219,7 @@ export function FacultyDriveDetailClient({
             <span className="text-[#777777] uppercase font-medium tracking-wider text-[11px] block">
               Backlogs Allowed
             </span>
-            <span className="text-[#EDEDED] font-semibold text-sm">
+            <span className="text-foreground font-semibold text-sm">
               Max {drive.max_backlogs}
             </span>
           </div>
@@ -228,7 +228,7 @@ export function FacultyDriveDetailClient({
             <span className="text-[#777777] uppercase font-medium tracking-wider text-[11px] block">
               Eligible Batches
             </span>
-            <span className="text-[#EDEDED] font-semibold text-sm">
+            <span className="text-foreground font-semibold text-sm">
               {drive.eligible_years.map((y) => `Year ${y}`).join(', ')}
             </span>
           </div>
@@ -239,7 +239,7 @@ export function FacultyDriveDetailClient({
             </span>
             <span
               className={`font-semibold text-sm ${
-                deadlinePassed ? 'text-amber-400' : 'text-[#EDEDED]'
+                deadlinePassed ? 'text-amber-400' : 'text-foreground'
               }`}
             >
               {deadlineText}
@@ -249,13 +249,13 @@ export function FacultyDriveDetailClient({
 
         {/* Schedule & Venue Strip */}
         {(drive.drive_date || drive.venue) && (
-          <div className="p-3.5 rounded bg-[#121212] border border-[#1A1A1A] flex flex-wrap items-center gap-5 text-xs text-[#9AA1AA]">
+          <div className="p-3.5 rounded bg-elevated border border-[#1A1A1A] flex flex-wrap items-center gap-5 text-xs text-muted">
             {drive.drive_date && (
               <div className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 text-[#FF6B00]" />
+                <Calendar className="h-4 w-4 text-accent" />
                 <span>
                   Date:{' '}
-                  <strong className="text-[#EDEDED] font-medium">
+                  <strong className="text-foreground font-medium">
                     {new Date(drive.drive_date).toLocaleDateString('en-US', {
                       month: 'long',
                       day: 'numeric',
@@ -267,10 +267,10 @@ export function FacultyDriveDetailClient({
             )}
             {drive.drive_time && (
               <div className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4 text-[#FF6B00]" />
+                <Clock className="h-4 w-4 text-accent" />
                 <span>
                   Time:{' '}
-                  <strong className="text-[#EDEDED] font-medium">
+                  <strong className="text-foreground font-medium">
                     {drive.drive_time}
                   </strong>
                 </span>
@@ -278,10 +278,10 @@ export function FacultyDriveDetailClient({
             )}
             {drive.venue && (
               <div className="flex items-center gap-1.5">
-                <MapPin className="h-4 w-4 text-[#FF6B00]" />
+                <MapPin className="h-4 w-4 text-accent" />
                 <span>
                   Venue:{' '}
-                  <strong className="text-[#EDEDED] font-medium">
+                  <strong className="text-foreground font-medium">
                     {drive.venue}
                   </strong>
                 </span>
@@ -293,10 +293,10 @@ export function FacultyDriveDetailClient({
         {/* Description & Roles */}
         {drive.description && (
           <div className="space-y-1.5 pt-1 text-xs">
-            <h4 className="font-semibold text-[#EDEDED] uppercase tracking-wider text-[11px]">
+            <h4 className="font-semibold text-foreground uppercase tracking-wider text-[11px]">
               Role Profile & Responsibilities
             </h4>
-            <p className="text-[#9AA1AA] leading-relaxed">
+            <p className="text-muted leading-relaxed">
               {drive.description}
             </p>
           </div>
@@ -305,16 +305,16 @@ export function FacultyDriveDetailClient({
         {/* Recruitment Stages */}
         {drive.recruitment_stages.length > 0 && (
           <div className="space-y-2 pt-1 text-xs">
-            <h4 className="font-semibold text-[#EDEDED] uppercase tracking-wider text-[11px]">
+            <h4 className="font-semibold text-foreground uppercase tracking-wider text-[11px]">
               Recruitment Evaluation Stages ({drive.recruitment_stages.length})
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {drive.recruitment_stages.map((stage, idx) => (
                 <div
                   key={idx}
-                  className="p-2.5 rounded bg-[#121212] border border-[#1A1A1A] flex items-center gap-2 text-xs text-[#EDEDED]"
+                  className="p-2.5 rounded bg-elevated border border-[#1A1A1A] flex items-center gap-2 text-xs text-foreground"
                 >
-                  <span className="font-mono text-[11px] text-[#FF6B00] px-1.5 py-0.5 rounded bg-[#1A1A1A] shrink-0">
+                  <span className="font-mono text-[11px] text-accent px-1.5 py-0.5 rounded bg-[#1A1A1A] shrink-0">
                     0{idx + 1}
                   </span>
                   <span className="truncate">{stage}</span>
@@ -326,10 +326,10 @@ export function FacultyDriveDetailClient({
 
         {/* Required Documents / Instructions */}
         {(drive.instructions.length > 0 || drive.required_documents.length > 0) && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 text-xs text-[#9AA1AA]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 text-xs text-muted">
             {drive.instructions.length > 0 && (
               <div className="space-y-1">
-                <span className="font-semibold text-[#EDEDED] uppercase tracking-wider text-[11px] block">
+                <span className="font-semibold text-foreground uppercase tracking-wider text-[11px] block">
                   Mandatory Directives
                 </span>
                 <ul className="list-disc list-inside space-y-0.5 text-[11px]">
@@ -342,7 +342,7 @@ export function FacultyDriveDetailClient({
 
             {drive.required_documents.length > 0 && (
               <div className="space-y-1">
-                <span className="font-semibold text-[#EDEDED] uppercase tracking-wider text-[11px] block">
+                <span className="font-semibold text-foreground uppercase tracking-wider text-[11px] block">
                   Required Verification Documents
                 </span>
                 <ul className="list-disc list-inside space-y-0.5 text-[11px]">
@@ -360,22 +360,22 @@ export function FacultyDriveDetailClient({
       {/* AUTHORIZED CANDIDATES PIPELINE & MONITOR */}
       {/* ========================================================================= */}
       <div className="space-y-5">
-        <div className="border-b border-[#222222] pb-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div className="border-b border-border pb-3 flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-[#FF6B00]" />
-              <h2 className="text-lg font-semibold text-[#EDEDED] tracking-tight">
+              <Users className="h-4 w-4 text-accent" />
+              <h2 className="text-lg font-semibold text-foreground tracking-tight">
                 Authorized Cohort Pipeline & Progress
               </h2>
             </div>
-            <p className="text-xs text-[#9AA1AA] mt-0.5">
+            <p className="text-xs text-muted mt-0.5">
               Read-only advisory monitor for students in Department of {facultyDepartment}.
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             <span className="text-xs text-[#777777]">
-              Total Authorized: <strong className="text-[#EDEDED]">{candidates.length}</strong>
+              Total Authorized: <strong className="text-foreground">{candidates.length}</strong>
             </span>
           </div>
         </div>
@@ -386,8 +386,8 @@ export function FacultyDriveDetailClient({
             onClick={() => setStatusTab('all')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
               statusTab === 'all'
-                ? 'bg-[#1E1E1E] text-[#EDEDED] border border-[#333333]'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#1E1E1E] text-foreground border border-[#333333]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             All Candidates ({candidates.length})
@@ -398,7 +398,7 @@ export function FacultyDriveDetailClient({
             className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
               statusTab === 'applied'
                 ? 'bg-[#1E1E1E] text-sky-400 border border-sky-500/30'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Applied ({appliedCount})
@@ -409,7 +409,7 @@ export function FacultyDriveDetailClient({
             className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
               statusTab === 'interview'
                 ? 'bg-[#1E1E1E] text-amber-400 border border-amber-500/30'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Shortlisted / Interview ({interviewCount})
@@ -420,7 +420,7 @@ export function FacultyDriveDetailClient({
             className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
               statusTab === 'selected'
                 ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Selected / Placed ({selectedCount})
@@ -430,8 +430,8 @@ export function FacultyDriveDetailClient({
             onClick={() => setStatusTab('eligible')}
             className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
               statusTab === 'eligible'
-                ? 'bg-[#1E1E1E] text-[#EDEDED] border border-[#333333]'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#1E1E1E] text-foreground border border-[#333333]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Eligible (Not Applied) ({eligibleNotAppliedCount})
@@ -442,7 +442,7 @@ export function FacultyDriveDetailClient({
             className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
               statusTab === 'ineligible'
                 ? 'bg-[#1E1E1E] text-red-400 border border-red-500/30'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             Ineligible ({ineligibleCount})
@@ -452,13 +452,13 @@ export function FacultyDriveDetailClient({
         {/* Search and Section Filter */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="relative flex-1 max-w-sm">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
             <Input
               type="text"
               placeholder="Search candidate by name or roll no..."
               value={candidateSearch}
               onChange={(e) => setCandidateSearch(e.target.value)}
-              className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9"
+              className="pl-9 bg-surface border-border text-foreground text-xs h-9"
             />
           </div>
 
@@ -466,7 +466,7 @@ export function FacultyDriveDetailClient({
             <select
               value={sectionFilter}
               onChange={(e) => setSectionFilter(e.target.value)}
-              className="h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Academic Sections</option>
               {allocatedSections.map((sec) => (
@@ -480,44 +480,44 @@ export function FacultyDriveDetailClient({
 
         {/* Candidate Table / Rows */}
         {filteredCandidates.length === 0 ? (
-          <div className="border border-[#222222] bg-[#0A0A0A] rounded-md p-8 text-center space-y-2">
-            <Users className="h-6 w-6 text-[#9AA1AA] mx-auto opacity-50" />
-            <h4 className="text-sm font-medium text-[#EDEDED]">
+          <div className="border border-border bg-surface rounded-md p-8 text-center space-y-2">
+            <Users className="h-6 w-6 text-muted mx-auto opacity-50" />
+            <h4 className="text-sm font-medium text-foreground">
               No candidates found in this view
             </h4>
-            <p className="text-xs text-[#9AA1AA]">
+            <p className="text-xs text-muted">
               {candidateSearch || sectionFilter !== 'all' || statusTab !== 'all'
                 ? 'Adjust your search query or reset the filter tabs.'
                 : 'No students currently mapped to your authorized cohort.'}
             </p>
           </div>
         ) : (
-          <div className="border border-[#222222] bg-[#0A0A0A] rounded-md divide-y divide-[#1A1A1A] overflow-hidden">
+          <div className="border border-border bg-surface rounded-md divide-y divide-[#1A1A1A] overflow-hidden">
             {filteredCandidates.map((c) => {
               const cgpaPass = c.cgpa >= drive.min_cgpa;
 
               return (
                 <div
                   key={c.id}
-                  className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#121212]/50 transition-colors text-xs"
+                  className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-elevated/50 transition-colors text-xs"
                 >
                   {/* Left: Roll No, Name, Section, CGPA */}
                   <div className="space-y-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-[#FF6B00] font-medium">
+                      <span className="font-mono text-accent font-medium">
                         {c.student_id}
                       </span>
                       <span className="text-[#777777]">•</span>
-                      <span className="text-xs font-semibold text-[#EDEDED]">
+                      <span className="text-xs font-semibold text-foreground">
                         {c.name}
                       </span>
                       <span className="text-[#777777]">•</span>
-                      <span className="px-1.5 py-0.2 rounded bg-[#161616] border border-[#222222] text-[#9AA1AA]">
+                      <span className="px-1.5 py-0.2 rounded bg-[#161616] border border-border text-muted">
                         {c.section_name}
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 text-[#9AA1AA]">
+                    <div className="flex flex-wrap items-center gap-3 text-muted">
                       <span>
                         CGPA:{' '}
                         <strong
@@ -544,11 +544,11 @@ export function FacultyDriveDetailClient({
 
                     {/* Interview details / venue if in interview stage */}
                     {(c.interview_date || c.interview_venue || c.notes) && (
-                      <div className="text-[11px] text-[#CCCCCC] bg-[#141414] p-2 rounded border border-[#222222] mt-1 space-y-0.5">
+                      <div className="text-[11px] text-[#CCCCCC] bg-[#141414] p-2 rounded border border-border mt-1 space-y-0.5">
                         {c.interview_date && (
                           <div>
                             Interview:{' '}
-                            <strong className="text-[#EDEDED]">
+                            <strong className="text-foreground">
                               {new Date(c.interview_date).toLocaleString('en-US', {
                                 month: 'short',
                                 day: 'numeric',
@@ -560,11 +560,11 @@ export function FacultyDriveDetailClient({
                         )}
                         {c.interview_venue && (
                           <div>
-                            Venue: <strong className="text-[#EDEDED]">{c.interview_venue}</strong>
+                            Venue: <strong className="text-foreground">{c.interview_venue}</strong>
                           </div>
                         )}
                         {c.notes && (
-                          <div className="text-[#9AA1AA] italic">Note: {c.notes}</div>
+                          <div className="text-muted italic">Note: {c.notes}</div>
                         )}
                       </div>
                     )}
@@ -611,7 +611,7 @@ export function FacultyDriveDetailClient({
                       <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] ${
                           c.is_eligible
-                            ? 'border border-[#222222] bg-[#121212] text-[#9AA1AA]'
+                            ? 'border border-border bg-elevated text-muted'
                             : 'border border-red-500/20 bg-red-500/10 text-red-400'
                         }`}
                       >

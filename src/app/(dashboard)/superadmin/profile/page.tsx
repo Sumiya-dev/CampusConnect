@@ -4,7 +4,7 @@ import { PageContainer } from '@/components/layout/page-container';
 import { getSuperadminProfileDetails } from '@/lib/superadmin/profile-queries';
 import { SuperadminProfileView } from '@/components/superadmin/superadmin-profile-view';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Superadmin Profile | CampusConnect AI',

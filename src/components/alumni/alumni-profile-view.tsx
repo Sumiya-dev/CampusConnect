@@ -44,7 +44,7 @@ export function AlumniProfileView({
         <AlumniNavigation baseHref={baseHref} isStudentOrAlumni={isStudent} />
         <Link
           href={baseHref}
-          className="inline-flex items-center gap-1.5 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Back to Alumni Directory</span>
@@ -52,10 +52,10 @@ export function AlumniProfileView({
       </div>
 
       {/* Profile Header Hero */}
-      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-6 relative overflow-hidden">
+      <div className="bg-surface border border-border rounded-lg p-6 relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="h-16 w-16 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-xl font-bold text-[#FF6B00] shrink-0 overflow-hidden">
+            <div className="h-16 w-16 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-xl font-bold text-accent shrink-0 overflow-hidden">
               {profile.user?.avatar_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -70,15 +70,15 @@ export function AlumniProfileView({
 
             <div className="space-y-1">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <h1 className="text-xl font-bold text-[#EDEDED]">{displayName}</h1>
-                <span className="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-[#FF6B00]/10 text-[#FF6B00] border border-[#FF6B00]/30">
+                <h1 className="text-xl font-bold text-foreground">{displayName}</h1>
+                <span className="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-accent/10 text-accent border border-accent/30">
                   Verified Alumni
                 </span>
               </div>
 
               {(profile.job_role || profile.current_company) && (
-                <p className="text-sm text-[#EDEDED] font-medium flex items-center gap-1.5">
-                  <Briefcase className="h-4 w-4 text-[#FF6B00]" />
+                <p className="text-sm text-foreground font-medium flex items-center gap-1.5">
+                  <Briefcase className="h-4 w-4 text-accent" />
                   <span>
                     {profile.job_role}
                     {profile.current_company && ` at ${profile.current_company}`}
@@ -86,7 +86,7 @@ export function AlumniProfileView({
                 </p>
               )}
 
-              <div className="flex items-center gap-3 text-xs text-[#9AA1AA] pt-1 flex-wrap">
+              <div className="flex items-center gap-3 text-xs text-muted pt-1 flex-wrap">
                 <span className="flex items-center gap-1">
                   <GraduationCap className="h-3.5 w-3.5 text-[#717784]" />
                   {displayDepartment}
@@ -94,7 +94,7 @@ export function AlumniProfileView({
                 {profile.graduation_year && (
                   <>
                     <span className="text-[#333333]">•</span>
-                    <span className="font-mono text-[#FF6B00]">Class of {profile.graduation_year}</span>
+                    <span className="font-mono text-accent">Class of {profile.graduation_year}</span>
                   </>
                 )}
                 {profile.location && (
@@ -117,7 +117,7 @@ export function AlumniProfileView({
                 href={profile.linkedin_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#9AA1AA] hover:text-[#EDEDED] bg-[#121212] border border-[#222222] rounded-md transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-muted hover:text-foreground bg-elevated border border-border rounded-md transition-colors"
               >
                 <span>LinkedIn</span>
                 <ExternalLink className="h-3 w-3 text-[#717784]" />
@@ -128,7 +128,7 @@ export function AlumniProfileView({
               <Button
                 onClick={() => setIsGuidanceOpen(true)}
                 size="sm"
-                className="gap-1.5 text-xs font-semibold bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+                className="gap-1.5 text-xs font-semibold bg-accent text-black hover:bg-[#E05E00]"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span>Request Guidance</span>
@@ -143,27 +143,27 @@ export function AlumniProfileView({
         {/* Left Column (2 Cols) */}
         <div className="lg:col-span-2 space-y-6">
           {/* ABOUT */}
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-3">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00]">
+          <div className="bg-surface border border-border rounded-lg p-5 space-y-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
               About
             </span>
-            <p className="text-xs text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+            <p className="text-xs text-muted leading-relaxed whitespace-pre-line">
               {profile.bio || 'No personal bio has been provided by this alumni member.'}
             </p>
           </div>
 
           {/* EXPERIENCES */}
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-4">
+          <div className="bg-surface border border-border rounded-lg p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00]">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
                 Alumni Experiences ({experiences.length})
               </span>
             </div>
 
             {experiences.length === 0 ? (
-              <div className="text-center py-8 border border-dashed border-[#222222] rounded-md space-y-1">
+              <div className="text-center py-8 border border-dashed border-border rounded-md space-y-1">
                 <BookOpen className="h-6 w-6 text-[#717784] mx-auto" />
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   No experiences shared yet by this alumni.
                 </p>
               </div>
@@ -172,18 +172,18 @@ export function AlumniProfileView({
                 {experiences.map((exp) => (
                   <div
                     key={exp.id}
-                    className="p-4 bg-[#121212] border border-[#222222] rounded-md space-y-3"
+                    className="p-4 bg-elevated border border-border rounded-md space-y-3"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <span className="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-[#1C1C1C] text-[#FF6B00] border border-[#2A2A2A]">
+                        <span className="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-[#1C1C1C] text-accent border border-[#2A2A2A]">
                           {exp.type}
                         </span>
-                        <h4 className="text-sm font-semibold text-[#EDEDED] mt-1.5">
+                        <h4 className="text-sm font-semibold text-foreground mt-1.5">
                           {exp.title}
                         </h4>
                         {(exp.company || exp.job_role) && (
-                          <p className="text-xs text-[#9AA1AA] mt-0.5">
+                          <p className="text-xs text-muted mt-0.5">
                             {[exp.job_role, exp.company].filter(Boolean).join(' • ')}
                           </p>
                         )}
@@ -193,38 +193,38 @@ export function AlumniProfileView({
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+                    <p className="text-xs text-muted leading-relaxed whitespace-pre-line">
                       {exp.content}
                     </p>
 
                     {exp.selection_process && (
-                      <div className="p-3 bg-[#0A0A0A] border border-[#1F1F1F] rounded text-xs space-y-1">
-                        <span className="font-semibold text-[#EDEDED] text-[11px] block">
+                      <div className="p-3 bg-surface border border-[#1F1F1F] rounded text-xs space-y-1">
+                        <span className="font-semibold text-foreground text-[11px] block">
                           Selection Process
                         </span>
-                        <p className="text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+                        <p className="text-muted leading-relaxed whitespace-pre-line">
                           {exp.selection_process}
                         </p>
                       </div>
                     )}
 
                     {exp.preparation_tips && (
-                      <div className="p-3 bg-[#0A0A0A] border border-[#1F1F1F] rounded text-xs space-y-1">
-                        <span className="font-semibold text-[#EDEDED] text-[11px] block">
+                      <div className="p-3 bg-surface border border-[#1F1F1F] rounded text-xs space-y-1">
+                        <span className="font-semibold text-foreground text-[11px] block">
                           Preparation Advice
                         </span>
-                        <p className="text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+                        <p className="text-muted leading-relaxed whitespace-pre-line">
                           {exp.preparation_tips}
                         </p>
                       </div>
                     )}
 
                     {exp.advice_for_juniors && (
-                      <div className="p-3 bg-[#0A0A0A] border border-[#1F1F1F] rounded text-xs space-y-1">
-                        <span className="font-semibold text-[#EDEDED] text-[11px] block text-[#FF6B00]">
+                      <div className="p-3 bg-surface border border-[#1F1F1F] rounded text-xs space-y-1">
+                        <span className="font-semibold text-foreground text-[11px] block text-accent">
                           Advice for Juniors
                         </span>
-                        <p className="text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+                        <p className="text-muted leading-relaxed whitespace-pre-line">
                           {exp.advice_for_juniors}
                         </p>
                       </div>
@@ -239,8 +239,8 @@ export function AlumniProfileView({
         {/* Right Column (1 Col) */}
         <div className="space-y-6">
           {/* CURRENT CAREER */}
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-3">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00]">
+          <div className="bg-surface border border-border rounded-lg p-5 space-y-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
               Current Career
             </span>
 
@@ -249,7 +249,7 @@ export function AlumniProfileView({
                 <span className="text-[10px] text-[#717784] uppercase font-mono block">
                   Current Company
                 </span>
-                <span className="text-[#EDEDED] font-medium">
+                <span className="text-foreground font-medium">
                   {profile.current_company || 'Not Specified'}
                 </span>
               </div>
@@ -258,7 +258,7 @@ export function AlumniProfileView({
                 <span className="text-[10px] text-[#717784] uppercase font-mono block">
                   Designation / Role
                 </span>
-                <span className="text-[#EDEDED] font-medium">
+                <span className="text-foreground font-medium">
                   {profile.job_role || 'Not Specified'}
                 </span>
               </div>
@@ -267,7 +267,7 @@ export function AlumniProfileView({
                 <span className="text-[10px] text-[#717784] uppercase font-mono block">
                   Work Location
                 </span>
-                <span className="text-[#EDEDED] font-medium">
+                <span className="text-foreground font-medium">
                   {profile.location || 'Not Specified'}
                 </span>
               </div>
@@ -275,8 +275,8 @@ export function AlumniProfileView({
           </div>
 
           {/* EDUCATION */}
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-3">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00]">
+          <div className="bg-surface border border-border rounded-lg p-5 space-y-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
               Education
             </span>
 
@@ -285,21 +285,21 @@ export function AlumniProfileView({
                 <span className="text-[10px] text-[#717784] uppercase font-mono block">
                   Degree
                 </span>
-                <span className="text-[#EDEDED] font-medium">{profile.degree || 'B.Tech'}</span>
+                <span className="text-foreground font-medium">{profile.degree || 'B.Tech'}</span>
               </div>
 
               <div>
                 <span className="text-[10px] text-[#717784] uppercase font-mono block">
                   Department
                 </span>
-                <span className="text-[#EDEDED] font-medium">{displayDepartment}</span>
+                <span className="text-foreground font-medium">{displayDepartment}</span>
               </div>
 
               <div>
                 <span className="text-[10px] text-[#717784] uppercase font-mono block">
                   Graduation Year
                 </span>
-                <span className="text-[#EDEDED] font-medium font-mono">
+                <span className="text-foreground font-medium font-mono">
                   {profile.graduation_year ? `Batch of ${profile.graduation_year}` : 'Not Specified'}
                 </span>
               </div>
@@ -307,8 +307,8 @@ export function AlumniProfileView({
           </div>
 
           {/* SKILLS */}
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 space-y-3">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00]">
+          <div className="bg-surface border border-border rounded-lg p-5 space-y-3">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
               Skills & Expertise
             </span>
 
@@ -317,7 +317,7 @@ export function AlumniProfileView({
                 {profile.skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="px-2.5 py-1 text-xs rounded bg-[#121212] border border-[#222222] text-[#9AA1AA]"
+                    className="px-2.5 py-1 text-xs rounded bg-elevated border border-border text-muted"
                   >
                     {skill}
                   </span>
@@ -330,17 +330,17 @@ export function AlumniProfileView({
 
           {/* GUIDANCE CARD */}
           {isStudent && (
-            <div className="bg-[#FF6B00]/5 border border-[#FF6B00]/20 rounded-lg p-5 space-y-3">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-[#FF6B00]">
+            <div className="bg-accent/5 border border-accent/20 rounded-lg p-5 space-y-3">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-accent">
                 Career Guidance
               </span>
-              <p className="text-xs text-[#9AA1AA] leading-relaxed">
+              <p className="text-xs text-muted leading-relaxed">
                 Connect directly with {displayName} to request placement guidance, resume review, or mock interview pointers.
               </p>
               <Button
                 onClick={() => setIsGuidanceOpen(true)}
                 size="sm"
-                className="w-full gap-1.5 text-xs font-semibold bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+                className="w-full gap-1.5 text-xs font-semibold bg-accent text-black hover:bg-[#E05E00]"
               >
                 <Send className="h-3.5 w-3.5" />
                 <span>Request Guidance</span>

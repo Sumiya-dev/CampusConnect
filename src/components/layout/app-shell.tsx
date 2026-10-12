@@ -23,7 +23,7 @@ export function AppShell({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#000000]">
+    <div className="flex min-h-screen bg-background">
       {/* Persistent Sidebar (responsive mobile drawer) */}
       <Sidebar
         role={role}

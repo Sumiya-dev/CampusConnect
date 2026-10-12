@@ -68,20 +68,20 @@ export function SkillsInput({ initialSkills = [], onChange }: SkillsInputProps) 
       {/* Current Skills Tags - No unnecessary enclosing box */}
       <div className="flex flex-wrap gap-2 min-h-[32px] items-center">
         {skills.length === 0 ? (
-          <span className="text-sm text-[#9AA1AA]">
+          <span className="text-sm text-muted">
             No skills added yet. Add competencies below.
           </span>
         ) : (
           skills.map((skill) => (
             <span
               key={skill}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] text-sm font-normal"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-border bg-elevated text-foreground text-sm font-normal"
             >
               <span>{skill}</span>
               <button
                 type="button"
                 onClick={() => removeSkill(skill)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED] transition-colors cursor-pointer"
+                className="text-muted hover:text-foreground transition-colors cursor-pointer"
                 title={`Remove ${skill}`}
               >
                 <X className="h-3 w-3" />
@@ -99,7 +99,7 @@ export function SkillsInput({ initialSkills = [], onChange }: SkillsInputProps) 
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Add skill (e.g. Docker, Python) and press Enter"
-          className="text-sm h-10 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA] focus:border-[#FF6B00]"
+          className="text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted focus:border-accent"
         />
         <Button
           type="button"
@@ -114,14 +114,14 @@ export function SkillsInput({ initialSkills = [], onChange }: SkillsInputProps) 
 
       {/* Suggestions as subtle text triggers */}
       {availableSuggestions.length > 0 && (
-        <div className="flex flex-wrap items-center gap-2 text-sm text-[#9AA1AA]">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-muted">
           <span className="text-sm">Suggestions:</span>
           {availableSuggestions.map((suggestion) => (
             <button
               key={suggestion}
               type="button"
               onClick={() => addSkill(suggestion)}
-              className="text-sm text-[#9AA1AA] hover:text-[#EDEDED] underline underline-offset-2 transition-colors cursor-pointer"
+              className="text-sm text-muted hover:text-foreground underline underline-offset-2 transition-colors cursor-pointer"
             >
               +{suggestion}
             </button>

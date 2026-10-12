@@ -111,45 +111,45 @@ export function CompanyListView({
     <div className="space-y-6">
       {/* Overview Stat Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="rounded-md border border-[#222222] bg-[#0A0A0A] p-4 flex items-center justify-between">
+        <div className="rounded-md border border-border bg-surface p-4 flex items-center justify-between">
           <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+            <div className="text-xs font-medium uppercase tracking-wider text-muted">
               Registered Partners
             </div>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">{stats.total}</div>
+            <div className="text-xl font-semibold text-foreground mt-1">{stats.total}</div>
           </div>
-          <Building className="h-5 w-5 text-[#9AA1AA]" />
+          <Building className="h-5 w-5 text-muted" />
         </div>
 
-        <div className="rounded-md border border-[#222222] bg-[#0A0A0A] p-4 flex items-center justify-between">
+        <div className="rounded-md border border-border bg-surface p-4 flex items-center justify-between">
           <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+            <div className="text-xs font-medium uppercase tracking-wider text-muted">
               Active Recruiter MoUs
             </div>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">{stats.active}</div>
+            <div className="text-xl font-semibold text-foreground mt-1">{stats.active}</div>
           </div>
-          <CheckCircle2 className="h-5 w-5 text-[#22C55E]" />
+          <CheckCircle2 className="h-5 w-5 text-green-500" />
         </div>
 
-        <div className="rounded-md border border-[#222222] bg-[#0A0A0A] p-4 flex items-center justify-between">
+        <div className="rounded-md border border-border bg-surface p-4 flex items-center justify-between">
           <div>
-            <div className="text-xs font-medium uppercase tracking-wider text-[#9AA1AA]">
+            <div className="text-xs font-medium uppercase tracking-wider text-muted">
               Inactive / Suspended
             </div>
-            <div className="text-xl font-semibold text-[#EDEDED] mt-1">{stats.inactive}</div>
+            <div className="text-xl font-semibold text-foreground mt-1">{stats.inactive}</div>
           </div>
-          <XCircle className="h-5 w-5 text-[#EF4444]" />
+          <XCircle className="h-5 w-5 text-red-500" />
         </div>
       </div>
 
       {/* Action Notification */}
       {actionSuccess && (
-        <div className="p-3.5 rounded-md border border-[#22C55E]/30 bg-[#22C55E]/10 text-xs text-[#22C55E] flex items-center justify-between">
+        <div className="p-3.5 rounded-md border border-green-500/30 bg-green-500/10 text-xs text-green-500 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 shrink-0" />
             <span>{actionSuccess}</span>
           </div>
-          <button onClick={() => setActionSuccess(null)} className="text-[#9AA1AA] hover:text-[#EDEDED]">
+          <button onClick={() => setActionSuccess(null)} className="text-muted hover:text-foreground">
             &times;
           </button>
         </div>
@@ -158,24 +158,24 @@ export function CompanyListView({
       {/* Search & Filter Controls */}
       <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search companies by name, domain, location, or recruiter contact..."
-            className="pl-9 text-xs h-10 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA] focus:border-[#FF6B00]"
+            className="pl-9 text-xs h-10 bg-surface border-border text-foreground placeholder:text-muted focus:border-accent"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Status Filter */}
-          <div className="flex rounded-md border border-[#222222] bg-[#0A0A0A] p-0.5">
+          <div className="flex rounded-md border border-border bg-surface p-0.5">
             <button
               onClick={() => setStatusFilter('all')}
               className={`px-3 py-1 text-xs rounded transition-colors font-medium ${
                 statusFilter === 'all'
-                  ? 'bg-[#121212] text-[#FF6B00]'
-                  : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                  ? 'bg-elevated text-accent'
+                  : 'text-muted hover:text-foreground'
               }`}
             >
               All
@@ -184,8 +184,8 @@ export function CompanyListView({
               onClick={() => setStatusFilter('active')}
               className={`px-3 py-1 text-xs rounded transition-colors font-medium ${
                 statusFilter === 'active'
-                  ? 'bg-[#121212] text-[#FF6B00]'
-                  : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                  ? 'bg-elevated text-accent'
+                  : 'text-muted hover:text-foreground'
               }`}
             >
               Active
@@ -194,8 +194,8 @@ export function CompanyListView({
               onClick={() => setStatusFilter('inactive')}
               className={`px-3 py-1 text-xs rounded transition-colors font-medium ${
                 statusFilter === 'inactive'
-                  ? 'bg-[#121212] text-[#FF6B00]'
-                  : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                  ? 'bg-elevated text-accent'
+                  : 'text-muted hover:text-foreground'
               }`}
             >
               Inactive
@@ -207,7 +207,7 @@ export function CompanyListView({
             <select
               value={industryFilter}
               onChange={(e) => setIndustryFilter(e.target.value)}
-              className="text-xs h-10 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="text-xs h-10 px-3 rounded-md bg-surface border border-border text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Industries</option>
               {industries.map((ind) => (
@@ -223,7 +223,7 @@ export function CompanyListView({
               variant="outline"
               size="sm"
               onClick={resetFilters}
-              className="text-xs h-10 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="text-xs h-10 border-border text-muted hover:text-foreground"
             >
               Reset
             </Button>
@@ -240,12 +240,12 @@ export function CompanyListView({
       </div>
 
       {/* Companies List Table */}
-      <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+      <div className="border border-border rounded-md bg-surface overflow-hidden">
         {filteredCompanies.length === 0 ? (
           <div className="py-12 px-4 text-center space-y-3">
-            <Building className="h-9 w-8 text-[#9AA1AA] mx-auto opacity-50" />
-            <div className="text-sm font-medium text-[#EDEDED]">No companies match your query</div>
-            <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+            <Building className="h-9 w-8 text-muted mx-auto opacity-50" />
+            <div className="text-sm font-medium text-foreground">No companies match your query</div>
+            <p className="text-xs text-muted max-w-sm mx-auto">
               {hasActiveFilters
                 ? 'Try adjusting your search criteria or filter options to locate the company.'
                 : 'No corporate recruiting partners have been registered yet.'}
@@ -255,7 +255,7 @@ export function CompanyListView({
                 variant="outline"
                 size="sm"
                 onClick={resetFilters}
-                className="text-xs border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED] mt-2"
+                className="text-xs border-border text-muted hover:text-foreground mt-2"
               >
                 Clear all filters
               </Button>
@@ -271,7 +271,7 @@ export function CompanyListView({
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-[#222222] bg-[#121212] text-[#9AA1AA] uppercase tracking-wider text-xs">
+              <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-xs">
                 <tr>
                   <th className="py-3 px-4 font-semibold">Corporate Partner</th>
                   <th className="py-3 px-4 font-semibold">Industry Sector</th>
@@ -282,24 +282,24 @@ export function CompanyListView({
                   <th className="py-3 px-4 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#222222] text-[#EDEDED]">
+              <tbody className="divide-y divide-border text-foreground">
                 {filteredCompanies.map((c) => {
                   const isActive = c.status === 'active';
                   const drivesCount = c.drivesCount || 0;
                   return (
                     <tr
                       key={c.id}
-                      className="hover:bg-[#121212]/50 transition-colors group"
+                      className="hover:bg-elevated/50 transition-colors group"
                     >
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-2.5">
-                          <div className="flex h-7 w-7 items-center justify-center rounded border border-[#222222] bg-[#000000] text-[#FF6B00] shrink-0 font-semibold text-xs">
+                          <div className="flex h-7 w-7 items-center justify-center rounded border border-border bg-background text-accent shrink-0 font-semibold text-xs">
                             {c.company_name.substring(0, 1).toUpperCase()}
                           </div>
                           <div className="min-w-0">
                             <Link
                               href={`${basePath}/${c.id}`}
-                              className="font-medium text-[#EDEDED] hover:text-[#FF6B00] transition-colors truncate block"
+                              className="font-medium text-foreground hover:text-accent transition-colors truncate block"
                             >
                               {c.company_name}
                             </Link>
@@ -308,7 +308,7 @@ export function CompanyListView({
                                 href={c.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED] inline-flex items-center gap-1 mt-0.5 truncate max-w-[200px]"
+                                className="text-xs text-muted hover:text-foreground inline-flex items-center gap-1 mt-0.5 truncate max-w-[200px]"
                               >
                                 <span>{c.website.replace(/^https?:\/\//, '')}</span>
                                 <ExternalLink className="h-2.5 w-2.5 shrink-0" />
@@ -318,35 +318,35 @@ export function CompanyListView({
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 text-[#9AA1AA]">
+                      <td className="py-3 px-4 text-muted">
                         <div className="flex items-center gap-1.5 truncate max-w-[180px]">
-                          <Briefcase className="h-3.5 w-3.5 shrink-0 text-[#9AA1AA]/60" />
+                          <Briefcase className="h-3.5 w-3.5 shrink-0 text-muted/60" />
                           <span className="truncate text-xs">{c.industry || 'Not specified'}</span>
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 text-[#9AA1AA]">
+                      <td className="py-3 px-4 text-muted">
                         <div className="flex items-center gap-1.5 truncate max-w-[180px]">
-                          <MapPin className="h-3.5 w-3.5 shrink-0 text-[#9AA1AA]/60" />
+                          <MapPin className="h-3.5 w-3.5 shrink-0 text-muted/60" />
                           <span className="truncate text-xs">{c.location || 'Remote / Pan-India'}</span>
                         </div>
                       </td>
 
                       <td className="py-3 px-4">
-                        <span className="inline-flex items-center gap-1 text-xs font-mono font-medium text-[#EDEDED] bg-[#121212] border border-[#222222] px-2 py-0.5 rounded">
-                          <Briefcase className="h-3 w-3 text-[#FF6B00]" />
+                        <span className="inline-flex items-center gap-1 text-xs font-mono font-medium text-foreground bg-elevated border border-border px-2 py-0.5 rounded">
+                          <Briefcase className="h-3 w-3 text-accent" />
                           {drivesCount} {drivesCount === 1 ? 'drive' : 'drives'}
                         </span>
                       </td>
 
                       <td className="py-3 px-4">
                         <div className="min-w-0">
-                          <div className="font-medium text-xs text-[#EDEDED] truncate">
+                          <div className="font-medium text-xs text-foreground truncate">
                             {c.contact_name || 'Primary Recruiter'}
                           </div>
                           {c.contact_email && (
-                            <div className="text-xs text-[#9AA1AA] truncate flex items-center gap-1">
-                              <Mail className="h-2.5 w-2.5 text-[#9AA1AA]/60" />
+                            <div className="text-xs text-muted truncate flex items-center gap-1">
+                              <Mail className="h-2.5 w-2.5 text-muted/60" />
                               <span className="truncate">{c.contact_email}</span>
                             </div>
                           )}
@@ -355,13 +355,13 @@ export function CompanyListView({
 
                       <td className="py-3 px-4">
                         {isActive ? (
-                          <span className="inline-flex items-center gap-1 text-xs font-medium text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/20 px-2 py-0.5 rounded">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#22C55E]" />
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-green-500 bg-green-500/10 border border-green-500/20 px-2 py-0.5 rounded">
+                            <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
                             Active
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1 text-xs font-medium text-[#9AA1AA] bg-[#121212] border border-[#222222] px-2 py-0.5 rounded">
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#EF4444]" />
+                          <span className="inline-flex items-center gap-1 text-xs font-medium text-muted bg-elevated border border-border px-2 py-0.5 rounded">
+                            <span className="h-1.5 w-1.5 rounded-full bg-red-500" />
                             Inactive
                           </span>
                         )}
@@ -373,7 +373,7 @@ export function CompanyListView({
                             <Button
                               variant="outline"
                               size="sm"
-                              className="h-7 text-xs px-2.5 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]"
+                              className="h-7 text-xs px-2.5 border-border text-foreground hover:border-accent hover:text-accent"
                             >
                               Details
                             </Button>
@@ -382,7 +382,7 @@ export function CompanyListView({
                             <Button
                               variant="outline"
                               size="sm"
-                              className="h-7 text-xs px-2.5 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+                              className="h-7 text-xs px-2.5 border-border text-muted hover:text-foreground"
                             >
                               Edit
                             </Button>
@@ -394,7 +394,7 @@ export function CompanyListView({
                               setModalError(null);
                               setCompanyToDelete(c);
                             }}
-                            className="h-7 text-xs px-2 border-[#222222] text-[#9AA1AA] hover:text-[#EF4444] hover:border-[#EF4444]/30"
+                            className="h-7 text-xs px-2 border-border text-muted hover:text-red-500 hover:border-red-500/30"
                             title="Delete company"
                           >
                             <Trash2 className="h-3 w-3" />
@@ -413,23 +413,23 @@ export function CompanyListView({
       {/* Safe Deletion Modal from List */}
       {companyToDelete && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0A0A0A] border border-[#222222] rounded-md max-w-md w-full p-6 space-y-4">
+          <div className="bg-surface border border-border rounded-md max-w-md w-full p-6 space-y-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded border border-[#EF4444]/30 bg-[#EF4444]/10 text-[#EF4444] shrink-0">
+              <div className="p-2 rounded border border-red-500/30 bg-red-500/10 text-red-500 shrink-0">
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-semibold text-[#EDEDED]">
+                <h3 className="text-base font-semibold text-foreground">
                   Delete &quot;{companyToDelete.company_name}&quot;?
                 </h3>
                 {modalError && (
-                  <p className="text-xs text-[#EF4444] bg-[#EF4444]/10 p-2 rounded border border-[#EF4444]/30">
+                  <p className="text-xs text-red-500 bg-red-500/10 p-2 rounded border border-red-500/30">
                     {modalError}
                   </p>
                 )}
                 {(companyToDelete.drivesCount && companyToDelete.drivesCount > 0) ? (
-                  <div className="text-xs text-[#9AA1AA] leading-relaxed space-y-2 mt-1">
-                    <p className="text-[#EF4444] font-medium">
+                  <div className="text-xs text-muted leading-relaxed space-y-2 mt-1">
+                    <p className="text-red-500 font-medium">
                       Integrity Check: This company is linked to {companyToDelete.drivesCount} placement drive(s).
                     </p>
                     <p>
@@ -437,20 +437,20 @@ export function CompanyListView({
                     </p>
                   </div>
                 ) : (
-                  <p className="text-xs text-[#9AA1AA] leading-relaxed mt-1">
+                  <p className="text-xs text-muted leading-relaxed mt-1">
                     This company has <strong>0 associated placement drives</strong>. Are you sure you want to permanently delete it?
                   </p>
                 )}
               </div>
             </div>
 
-            <div className="pt-3 border-t border-[#222222] flex items-center justify-end gap-2.5">
+            <div className="pt-3 border-t border-border flex items-center justify-end gap-2.5">
               <Button
                 variant="outline"
                 size="sm"
                 disabled={isPending}
                 onClick={() => setCompanyToDelete(null)}
-                className="text-xs border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs border-border text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -460,7 +460,7 @@ export function CompanyListView({
                   size="sm"
                   disabled={isPending}
                   onClick={() => handleDelete(true)}
-                  className="text-xs bg-[#FF6B00] text-black hover:bg-[#FF6B00]/90 font-medium"
+                  className="text-xs bg-accent text-black hover:bg-accent/90 font-medium"
                 >
                   {isPending && <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />}
                   Safely Deactivate Instead
@@ -470,7 +470,7 @@ export function CompanyListView({
                   size="sm"
                   disabled={isPending}
                   onClick={() => handleDelete(false)}
-                  className="text-xs bg-[#EF4444] text-white hover:bg-[#DC2626] font-medium"
+                  className="text-xs bg-red-500 text-white hover:bg-[#DC2626] font-medium"
                 >
                   {isPending && <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />}
                   Permanently Delete

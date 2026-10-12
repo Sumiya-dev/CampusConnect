@@ -64,13 +64,13 @@ export default function PlacementSchedulePage() {
           {mockSchedule.map((slot, idx) => (
             <div
               key={idx}
-              className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-3"
+              className="p-4 rounded-md border border-border bg-surface space-y-3"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#222222] pb-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-border pb-2.5">
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-[#FF6B00]" />
-                  <span className="text-sm font-semibold text-[#EDEDED]">{slot.date}</span>
-                  <span className="text-sm text-[#9AA1AA]">({slot.time})</span>
+                  <Calendar className="h-4 w-4 text-accent" />
+                  <span className="text-sm font-semibold text-foreground">{slot.date}</span>
+                  <span className="text-sm text-muted">({slot.time})</span>
                 </div>
                 <Badge variant={slot.status === 'Confirmed' ? 'success' : 'secondary'} className="text-sm w-fit">
                   {slot.status}
@@ -78,15 +78,15 @@ export default function PlacementSchedulePage() {
               </div>
 
               <div className="space-y-1.5 text-sm">
-                <div className="font-semibold text-base text-[#EDEDED]">{slot.company}</div>
-                <div className="text-[#9AA1AA] font-medium">{slot.event}</div>
-                <div className="flex flex-wrap items-center gap-4 text-[#9AA1AA] pt-1 text-sm">
+                <div className="font-semibold text-base text-foreground">{slot.company}</div>
+                <div className="text-muted font-medium">{slot.event}</div>
+                <div className="flex flex-wrap items-center gap-4 text-muted pt-1 text-sm">
                   <span className="flex items-center gap-1">
-                    <MapPin className="h-3 w-3 text-[#9AA1AA]" />
+                    <MapPin className="h-3 w-3 text-muted" />
                     <span>{slot.venue}</span>
                   </span>
                   <span className="flex items-center gap-1">
-                    <UserCheck className="h-3 w-3 text-[#9AA1AA]" />
+                    <UserCheck className="h-3 w-3 text-muted" />
                     <span>{slot.candidates} candidates attending</span>
                   </span>
                 </div>

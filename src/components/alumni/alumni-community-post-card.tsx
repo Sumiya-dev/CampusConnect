@@ -66,11 +66,11 @@ export function AlumniCommunityPostCard({
   }
 
   return (
-    <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-5 hover:border-[#333333] transition-all space-y-3.5 group">
+    <div className="bg-surface border border-border rounded-lg p-5 hover:border-[#333333] transition-all space-y-3.5 group">
       {/* Top Bar: Author Meta + Category Badge */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-3">
-          <div className="h-9 w-9 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-xs font-semibold text-[#FF6B00] shrink-0 mt-0.5 overflow-hidden">
+          <div className="h-9 w-9 rounded-full bg-[#161616] border border-[#262626] flex items-center justify-center text-xs font-semibold text-accent shrink-0 mt-0.5 overflow-hidden">
             {post.author.avatar_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -86,13 +86,13 @@ export function AlumniCommunityPostCard({
           <div className="space-y-0.5">
             {/* Author Line: e.g. Rahul Kumar · ALUMNI · CSE 2024 or Sumiya · STUDENT · CSE */}
             <div className="flex items-center gap-1.5 flex-wrap text-xs">
-              <span className="font-semibold text-[#EDEDED]">{post.author.name}</span>
+              <span className="font-semibold text-foreground">{post.author.name}</span>
               <span className="text-[#333333]">•</span>
               <span
                 className={`font-mono text-[10px] uppercase font-bold px-1.5 py-0.2 rounded border ${
                   isAlumni
-                    ? 'bg-[#FF6B00]/10 text-[#FF6B00] border-[#FF6B00]/30'
-                    : 'bg-[#161616] text-[#9AA1AA] border-[#262626]'
+                    ? 'bg-accent/10 text-accent border-accent/30'
+                    : 'bg-[#161616] text-muted border-[#262626]'
                 }`}
               >
                 {isAlumni ? 'ALUMNI' : 'STUDENT'}
@@ -100,11 +100,11 @@ export function AlumniCommunityPostCard({
               {post.author.department && (
                 <>
                   <span className="text-[#333333]">•</span>
-                  <span className="text-[#9AA1AA] text-[11px]">{post.author.department}</span>
+                  <span className="text-muted text-[11px]">{post.author.department}</span>
                 </>
               )}
               {isAlumni && post.author.graduation_year && (
-                <span className="text-[#FF6B00] font-mono text-[11px]">
+                <span className="text-accent font-mono text-[11px]">
                   {post.author.graduation_year}
                 </span>
               )}
@@ -112,7 +112,7 @@ export function AlumniCommunityPostCard({
 
             {/* Alumni Career Subtitle: e.g. Software Engineer @ Microsoft */}
             {isAlumni && (post.author.job_role || post.author.current_company) && (
-              <div className="flex items-center gap-1 text-[11px] text-[#9AA1AA]">
+              <div className="flex items-center gap-1 text-[11px] text-muted">
                 <Briefcase className="h-3 w-3 text-[#717784]" />
                 <span>
                   {post.author.job_role}
@@ -132,17 +132,17 @@ export function AlumniCommunityPostCard({
         </div>
 
         {/* Category Pill */}
-        <span className="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-[#121212] border border-[#222222] text-[#9AA1AA] shrink-0">
+        <span className="px-2 py-0.5 text-[10px] font-mono uppercase rounded bg-elevated border border-border text-muted shrink-0">
           {post.category}
         </span>
       </div>
 
       {/* Post Content */}
       <Link href={`${baseHref}/${post.id}`} className="block space-y-2">
-        <h3 className="text-sm font-semibold text-[#EDEDED] group-hover:text-[#FF6B00] transition-colors leading-snug">
+        <h3 className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors leading-snug">
           {post.title}
         </h3>
-        <p className="text-xs text-[#9AA1AA] line-clamp-3 leading-relaxed">
+        <p className="text-xs text-muted line-clamp-3 leading-relaxed">
           {post.content}
         </p>
       </Link>
@@ -156,17 +156,17 @@ export function AlumniCommunityPostCard({
             onClick={handleToggleLike}
             disabled={isLiking}
             className={`inline-flex items-center gap-1.5 transition-colors ${
-              isLiked ? 'text-[#FF6B00]' : 'text-[#717784] hover:text-[#EDEDED]'
+              isLiked ? 'text-accent' : 'text-[#717784] hover:text-foreground'
             }`}
           >
-            <Heart className={`h-3.5 w-3.5 ${isLiked ? 'fill-[#FF6B00]' : ''}`} />
+            <Heart className={`h-3.5 w-3.5 ${isLiked ? 'fill-accent' : ''}`} />
             <span className="font-mono text-xs">{likesCount}</span>
           </button>
 
           {/* Comments Link */}
           <Link
             href={`${baseHref}/${post.id}`}
-            className="inline-flex items-center gap-1.5 text-[#717784] hover:text-[#EDEDED] transition-colors"
+            className="inline-flex items-center gap-1.5 text-[#717784] hover:text-foreground transition-colors"
           >
             <MessageSquare className="h-3.5 w-3.5" />
             <span className="font-mono text-xs">{post.comments_count}</span>

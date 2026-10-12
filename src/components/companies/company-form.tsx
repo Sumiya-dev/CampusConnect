@@ -73,7 +73,7 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
       <div>
         <Link
           href={initialCompany ? `${basePath}/${initialCompany.id}` : basePath}
-          className="inline-flex items-center gap-1.5 text-sm text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+          className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Back to {initialCompany ? initialCompany.company_name : 'Companies Directory'}</span>
@@ -82,7 +82,7 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
 
       {/* Status Banners */}
       {state?.error && (
-        <div className="p-3.5 rounded-md border border-[#EF4444]/30 bg-[#EF4444]/10 text-sm text-[#EF4444] flex items-start gap-2.5">
+        <div className="p-3.5 rounded-md border border-red-500/30 bg-red-500/10 text-sm text-red-500 flex items-start gap-2.5">
           <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <div className="font-semibold">Submission failed</div>
@@ -92,7 +92,7 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
       )}
 
       {state?.success && (
-        <div className="p-3.5 rounded-md border border-[#22C55E]/30 bg-[#22C55E]/10 text-sm text-[#22C55E] flex items-start gap-2.5">
+        <div className="p-3.5 rounded-md border border-green-500/30 bg-green-500/10 text-sm text-green-500 flex items-start gap-2.5">
           <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <div className="font-semibold">Success</div>
@@ -104,11 +104,11 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
       {/* SECTION 1: CORPORATE IDENTITY */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED]">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
             Corporate Entity Information
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-sm text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-sm text-muted">
             Primary institutional details regarding the recruitment partner.
           </p>
         </div>
@@ -116,68 +116,68 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
         <div className="space-y-4 pt-1">
           {/* Company Name */}
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-[#9AA1AA]">
-              Company Name <span className="text-[#FF6B00]">*</span>
+            <label className="text-sm font-medium text-muted">
+              Company Name <span className="text-accent">*</span>
             </label>
             <Input
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               placeholder="e.g. Microsoft India Development Center"
               required
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
             />
             {state?.fieldErrors?.company_name && (
-              <div className="text-sm text-[#EF4444]">{state.fieldErrors.company_name}</div>
+              <div className="text-sm text-red-500">{state.fieldErrors.company_name}</div>
             )}
           </div>
 
           {/* Industry & Location */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#9AA1AA]">Industry / Domain</label>
+              <label className="text-sm font-medium text-muted">Industry / Domain</label>
               <Input
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
                 placeholder="e.g. Cloud & Systems Software"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#9AA1AA]">Office Location(s)</label>
+              <label className="text-sm font-medium text-muted">Office Location(s)</label>
               <Input
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. Hyderabad / Bengaluru / Pune"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
               />
             </div>
           </div>
 
           {/* Website */}
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-[#9AA1AA]">Corporate Website / Careers URL</label>
+            <label className="text-sm font-medium text-muted">Corporate Website / Careers URL</label>
             <Input
               type="text"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
               placeholder="e.g. https://careers.microsoft.com"
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
             />
             {state?.fieldErrors?.website && (
-              <div className="text-sm text-[#EF4444]">{state.fieldErrors.website}</div>
+              <div className="text-sm text-red-500">{state.fieldErrors.website}</div>
             )}
           </div>
 
           {/* Description */}
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-[#9AA1AA]">Entity Description & Overview</label>
+            <label className="text-sm font-medium text-muted">Entity Description & Overview</label>
             <textarea
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Brief summary of company operations, business units, and recruiting profile..."
-              className="w-full rounded-md bg-[#0A0A0A] border border-[#222222] p-2.5 text-sm text-[#EDEDED] placeholder:text-[#9AA1AA] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full rounded-md bg-surface border border-border p-2.5 text-sm text-foreground placeholder:text-muted focus:outline-none focus:border-accent"
             />
           </div>
         </div>
@@ -186,11 +186,11 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
       {/* SECTION 2: PRIMARY RECRUITMENT POC */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED]">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
             Campus Recruitment Contact
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-sm text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-sm text-muted">
             Direct institutional contact details for university hiring coordination.
           </p>
         </div>
@@ -198,39 +198,39 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
         <div className="space-y-4 pt-1">
           {/* Contact Person Name */}
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-[#9AA1AA]">HR / University Hiring Lead</label>
+            <label className="text-sm font-medium text-muted">HR / University Hiring Lead</label>
             <Input
               value={contactName}
               onChange={(e) => setContactName(e.target.value)}
               placeholder="e.g. Aditi Sharma (Lead Talent Partner)"
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
             />
           </div>
 
           {/* Contact Email & Phone */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#9AA1AA]">Recruitment Email</label>
+              <label className="text-sm font-medium text-muted">Recruitment Email</label>
               <Input
                 type="email"
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
                 placeholder="e.g. university-relations@microsoft.com"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
               />
               {state?.fieldErrors?.contact_email && (
-                <div className="text-sm text-[#EF4444]">{state.fieldErrors.contact_email}</div>
+                <div className="text-sm text-red-500">{state.fieldErrors.contact_email}</div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-[#9AA1AA]">Contact Phone / Boardline</label>
+              <label className="text-sm font-medium text-muted">Contact Phone / Boardline</label>
               <Input
                 type="tel"
                 value={contactPhone}
                 onChange={(e) => setContactPhone(e.target.value)}
                 placeholder="e.g. +91 80 6789 1200"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-sm h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-sm h-10 focus:border-accent"
               />
             </div>
           </div>
@@ -240,11 +240,11 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
       {/* SECTION 3: STATUS CONFIGURATION */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED]">
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
             Operational Partnership Status
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-sm text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-sm text-muted">
             Active partners can participate in drives. Inactive partners are preserved for historical reporting.
           </p>
         </div>
@@ -258,9 +258,9 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
                 value="active"
                 checked={status === 'active'}
                 onChange={() => setStatus('active')}
-                className="accent-[#FF6B00]"
+                className="accent-accent"
               />
-              <span className="text-sm font-medium text-[#EDEDED]">
+              <span className="text-sm font-medium text-foreground">
                 Active Recruiter
               </span>
             </label>
@@ -272,9 +272,9 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
                 value="inactive"
                 checked={status === 'inactive'}
                 onChange={() => setStatus('inactive')}
-                className="accent-[#FF6B00]"
+                className="accent-accent"
               />
-              <span className="text-sm font-medium text-[#9AA1AA]">
+              <span className="text-sm font-medium text-muted">
                 Inactive / Suspended
               </span>
             </label>
@@ -283,7 +283,7 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
       </div>
 
       {/* Action Buttons */}
-      <div className="flex items-center gap-3 pt-4 border-t border-[#222222]">
+      <div className="flex items-center gap-3 pt-4 border-t border-border">
         <Button
           type="submit"
           disabled={isPending}
@@ -298,7 +298,7 @@ export function CompanyForm({ mode, initialCompany, basePath }: CompanyFormProps
             type="button"
             variant="outline"
             disabled={isPending}
-            className="text-sm h-10 px-4 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+            className="text-sm h-10 px-4 border-border text-muted hover:text-foreground"
           >
             Cancel
           </Button>

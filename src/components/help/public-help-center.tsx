@@ -49,42 +49,42 @@ export function PublicHelpCenter({ initialArticles }: PublicHelpCenterProps) {
   return (
     <div className="space-y-8 max-w-4xl">
       {/* Contact Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-[#222222] border border-[#222222] rounded-md overflow-hidden text-sm">
-        <div className="bg-[#0A0A0A] p-4 space-y-1">
-          <span className="text-[#9AA1AA] flex items-center gap-1.5 text-xs uppercase font-semibold">
-            <Mail className="h-3.5 w-3.5 text-[#FF6B00]" />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-border border border-border rounded-md overflow-hidden text-sm">
+        <div className="bg-surface p-4 space-y-1">
+          <span className="text-muted flex items-center gap-1.5 text-xs uppercase font-semibold">
+            <Mail className="h-3.5 w-3.5 text-accent" />
             <span>Directorate Email</span>
           </span>
-          <div className="font-medium text-[#EDEDED] text-xs">placements@university.edu</div>
+          <div className="font-medium text-foreground text-xs">placements@university.edu</div>
         </div>
 
-        <div className="bg-[#0A0A0A] p-4 space-y-1">
-          <span className="text-[#9AA1AA] flex items-center gap-1.5 text-xs uppercase font-semibold">
-            <Phone className="h-3.5 w-3.5 text-[#FF6B00]" />
+        <div className="bg-surface p-4 space-y-1">
+          <span className="text-muted flex items-center gap-1.5 text-xs uppercase font-semibold">
+            <Phone className="h-3.5 w-3.5 text-accent" />
             <span>Helpline Desk</span>
           </span>
-          <div className="font-medium text-[#EDEDED] text-xs">+91 98333 44556 (Ext 402)</div>
+          <div className="font-medium text-foreground text-xs">+91 98333 44556 (Ext 402)</div>
         </div>
 
-        <div className="bg-[#0A0A0A] p-4 space-y-1">
-          <span className="text-[#9AA1AA] flex items-center gap-1.5 text-xs uppercase font-semibold">
-            <MapPin className="h-3.5 w-3.5 text-[#FF6B00]" />
+        <div className="bg-surface p-4 space-y-1">
+          <span className="text-muted flex items-center gap-1.5 text-xs uppercase font-semibold">
+            <MapPin className="h-3.5 w-3.5 text-accent" />
             <span>Office Location</span>
           </span>
-          <div className="font-medium text-[#EDEDED] text-xs">Admin Block, Room G-04</div>
+          <div className="font-medium text-foreground text-xs">Admin Block, Room G-04</div>
         </div>
       </div>
 
       {/* Search and Category Filter */}
       <div className="space-y-4">
         <div className="relative">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
           <Input
             type="text"
             placeholder="Search FAQs, policies, and preparation guides..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-9 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9 focus-visible:ring-1 focus-visible:ring-[#FF6B00]"
+            className="pl-9 bg-surface border-border text-foreground text-xs h-9 focus-visible:ring-1 focus-visible:ring-accent"
           />
         </div>
 
@@ -94,8 +94,8 @@ export function PublicHelpCenter({ initialArticles }: PublicHelpCenterProps) {
             onClick={() => setSelectedCategory('all')}
             className={`px-3 py-1 rounded text-xs font-mono transition-colors border ${
               selectedCategory === 'all'
-                ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                ? 'bg-accent text-black border-accent font-semibold'
+                : 'bg-surface text-muted border-border hover:bg-[#161616]'
             }`}
           >
             All Categories ({initialArticles.length})
@@ -109,8 +109,8 @@ export function PublicHelpCenter({ initialArticles }: PublicHelpCenterProps) {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1 rounded text-xs font-mono transition-colors border ${
                   isSelected
-                    ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                    : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                    ? 'bg-accent text-black border-accent font-semibold'
+                    : 'bg-surface text-muted border-border hover:bg-[#161616]'
                 }`}
               >
                 {cat} ({count})
@@ -122,26 +122,26 @@ export function PublicHelpCenter({ initialArticles }: PublicHelpCenterProps) {
 
       {/* Articles Section */}
       <div className="space-y-4">
-        <div className="border-b border-[#222222] pb-2 flex items-center justify-between">
+        <div className="border-b border-border pb-2 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <FileQuestion className="h-4 w-4 text-[#FF6B00]" />
-            <h2 className="text-sm font-semibold text-[#EDEDED] uppercase tracking-wider font-mono">
+            <FileQuestion className="h-4 w-4 text-accent" />
+            <h2 className="text-sm font-semibold text-foreground uppercase tracking-wider font-mono">
               Knowledge Base & FAQs
             </h2>
           </div>
-          <span className="text-xs text-[#9AA1AA] font-mono">
+          <span className="text-xs text-muted font-mono">
             {filteredArticles.length} Article(s)
           </span>
         </div>
 
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#222222] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface divide-y divide-border overflow-hidden">
           {filteredArticles.length === 0 ? (
             <div className="p-8 text-center space-y-2">
-              <HelpCircle className="h-6 w-6 text-[#9AA1AA] mx-auto opacity-50" />
-              <div className="text-sm font-medium text-[#EDEDED]">
+              <HelpCircle className="h-6 w-6 text-muted mx-auto opacity-50" />
+              <div className="text-sm font-medium text-foreground">
                 No matching articles found
               </div>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 Try searching for different keywords or reset the category filter.
               </p>
             </div>
@@ -153,10 +153,10 @@ export function PublicHelpCenter({ initialArticles }: PublicHelpCenterProps) {
                     {article.category}
                   </Badge>
                 </div>
-                <h3 className="text-sm font-semibold text-[#EDEDED] leading-snug">
+                <h3 className="text-sm font-semibold text-foreground leading-snug">
                   {article.title}
                 </h3>
-                <p className="text-xs text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+                <p className="text-xs text-muted leading-relaxed whitespace-pre-line">
                   {article.content}
                 </p>
               </div>

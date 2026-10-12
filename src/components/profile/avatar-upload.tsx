@@ -54,7 +54,7 @@ export function AvatarUpload({ initialAvatarUrl, name }: AvatarUploadProps) {
 
       {/* Avatar Image / Fallback Container */}
       <div className="flex items-center gap-4">
-        <div className="relative h-16 w-16 rounded-full overflow-hidden border border-[#222222] bg-[#121212] flex items-center justify-center shrink-0">
+        <div className="relative h-16 w-16 rounded-full overflow-hidden border border-border bg-elevated flex items-center justify-center shrink-0">
           {avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -63,7 +63,7 @@ export function AvatarUpload({ initialAvatarUrl, name }: AvatarUploadProps) {
               className="h-full w-full object-cover"
             />
           ) : (
-            <span className="text-base font-semibold text-[#FF6B00]">
+            <span className="text-base font-semibold text-accent">
               {getInitials(name)}
             </span>
           )}
@@ -87,7 +87,7 @@ export function AvatarUpload({ initialAvatarUrl, name }: AvatarUploadProps) {
               onClick={() => fileInputRef.current?.click()}
               className="text-sm h-9 gap-1.5 font-normal"
             >
-              <Camera className="h-3.5 w-3.5 text-[#9AA1AA]" />
+              <Camera className="h-3.5 w-3.5 text-muted" />
               <span>{avatarUrl ? 'Change Photo' : 'Upload Photo'}</span>
             </Button>
 
@@ -97,14 +97,14 @@ export function AvatarUpload({ initialAvatarUrl, name }: AvatarUploadProps) {
                 variant="ghost"
                 size="sm"
                 onClick={handleRemove}
-                className="text-sm h-9 text-[#9AA1AA] hover:text-red-400 font-normal"
+                className="text-sm h-9 text-muted hover:text-red-400 font-normal"
               >
                 <Trash2 className="h-3.5 w-3.5 mr-1" />
                 <span>Remove</span>
               </Button>
             )}
           </div>
-          <p className="text-sm text-[#9AA1AA]">
+          <p className="text-sm text-muted">
             Recommended: JPG, PNG, or WebP. Max 2MB.
           </p>
         </div>

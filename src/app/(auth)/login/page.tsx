@@ -3,8 +3,8 @@
 import { Suspense, useActionState, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { GraduationCap, LogIn, Lock, Mail, KeyRound, ArrowLeft } from 'lucide-react';
-import { signInAction, forgotPasswordAction } from '@/lib/auth/actions';
+import { GraduationCap, LogIn, Lock, Mail, KeyRound, ArrowLeft, Eye, EyeOff } from 'lucide-react';
+import { signInAction, forgotPasswordAction, switchDemoRoleAction } from '@/lib/auth/actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,6 +16,7 @@ function LoginFormContent() {
   const unauthorized = searchParams.get('unauthorized');
 
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Sign In Form Action
   const [signInState, signInFormAction, isSignInPending] = useActionState(signInAction, {
@@ -30,12 +31,12 @@ function LoginFormContent() {
   });
 
   return (
-    <div className="w-full max-w-sm border border-[#222222] bg-[#0A0A0A] rounded-md p-6 space-y-5">
+    <div className="w-full max-w-sm border border-border bg-surface rounded-md p-6 space-y-5">
       <div className="space-y-1">
-        <h2 className="text-base font-semibold text-[#EDEDED] tracking-tight">
+        <h2 className="text-base font-semibold text-foreground tracking-tight">
           {isForgotPassword ? 'Reset Password' : 'Institutional Sign In'}
         </h2>
-        <p className="text-sm text-[#9AA1AA]">
+        <p className="text-sm text-muted">
           {isForgotPassword
             ? 'Enter your institutional email to receive a secure password reset link.'
             : redirectPath
@@ -64,7 +65,7 @@ function LoginFormContent() {
             <div className="space-y-1.5">
               <Label htmlFor="email">Institutional Email</Label>
               <div className="relative">
-                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="email"
                   name="email"
@@ -84,22 +85,29 @@ function LoginFormContent() {
                 <button
                   type="button"
                   onClick={() => setIsForgotPassword(true)}
-                  className="text-xs text-[#FF6B00] hover:underline"
+                  className="text-xs text-accent hover:underline"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative">
-                <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Lock className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   required
                   placeholder="••••••••"
-                  className="pl-8 text-sm"
+                  className="pl-8 pr-9 text-sm"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2.5 top-2.5 text-muted hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
               </div>
             </div>
 
@@ -113,11 +121,32 @@ function LoginFormContent() {
             </Button>
           </form>
 
-          <div className="pt-2 text-center text-sm text-[#9AA1AA] border-t border-[#222222]">
+          <div className="pt-2 text-center text-sm text-muted border-t border-border">
             Need a student or faculty account?{' '}
-            <Link href="/signup" className="text-[#FF6B00] hover:underline font-medium">
+            <Link href="/signup" className="text-accent hover:underline font-medium">
               Sign Up
             </Link>
+          </div>
+
+          {/* Localhost Demo Switcher */}
+          <div className="pt-4 mt-2 border-t border-border">
+            <p className="text-xs text-center text-[#6E7681] uppercase font-semibold mb-3 tracking-wider">
+              Demo Quick Login
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              <form action={switchDemoRoleAction.bind(null, 'student')}>
+                <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Student</Button>
+              </form>
+              <form action={switchDemoRoleAction.bind(null, 'faculty')}>
+                <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Faculty</Button>
+              </form>
+              <form action={switchDemoRoleAction.bind(null, 'placement_officer')}>
+                <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Placement Officer</Button>
+              </form>
+              <form action={switchDemoRoleAction.bind(null, 'administrator')}>
+                <Button type="submit" variant="outline" className="w-full text-xs h-8 border-border bg-elevated hover:bg-[#20252C] text-muted hover:text-foreground">Admin</Button>
+              </form>
+            </div>
           </div>
         </>
       ) : (
@@ -136,7 +165,7 @@ function LoginFormContent() {
             <div className="space-y-1.5">
               <Label htmlFor="reset-email">Institutional Email</Label>
               <div className="relative">
-                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                <Mail className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                 <Input
                   id="reset-email"
                   name="email"
@@ -159,11 +188,11 @@ function LoginFormContent() {
             </Button>
           </form>
 
-          <div className="pt-2 text-center text-sm text-[#9AA1AA] border-t border-[#222222]">
+          <div className="pt-2 text-center text-sm text-muted border-t border-border">
             <button
               type="button"
               onClick={() => setIsForgotPassword(false)}
-              className="inline-flex items-center gap-1.5 text-xs text-[#EDEDED] hover:text-[#FF6B00] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs text-foreground hover:text-accent transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               <span>Back to Sign In</span>
@@ -177,23 +206,23 @@ function LoginFormContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#000000] text-[#EDEDED] flex flex-col justify-center items-center px-4 py-12">
+    <div className="min-h-screen bg-background text-foreground flex flex-col justify-center items-center px-4 py-12">
       {/* Brand Header */}
       <div className="mb-6 text-center space-y-1">
         <Link href="/" className="inline-flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded border border-[#222222] bg-[#121212] text-[#FF6B00]">
+          <div className="flex h-7 w-7 items-center justify-center rounded border border-border bg-elevated text-accent">
             <GraduationCap className="h-4 w-4" />
           </div>
-          <span className="text-base font-semibold tracking-tight text-[#EDEDED]">
-            CampusConnect <span className="text-[#FF6B00]">AI</span>
+          <span className="text-base font-semibold tracking-tight text-foreground">
+            CampusConnect <span className="text-accent">AI</span>
           </span>
         </Link>
-        <p className="text-sm text-[#9AA1AA]">University Placement Platform</p>
+        <p className="text-sm text-muted">University Placement Platform</p>
       </div>
 
       <Suspense
         fallback={
-          <div className="w-full max-w-sm border border-[#222222] bg-[#0A0A0A] rounded-md p-6 text-center text-sm text-[#9AA1AA]">
+          <div className="w-full max-w-sm border border-border bg-surface rounded-md p-6 text-center text-sm text-muted">
             Loading institutional portal...
           </div>
         }

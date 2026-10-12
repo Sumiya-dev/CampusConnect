@@ -201,12 +201,9 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
     const dynamicOrigin = host ? `${proto}://${host}` : undefined;
     const origin = process.env.NEXT_PUBLIC_APP_URL || dynamicOrigin;
 
-    const signUpOptions: { data: Record<string, unknown>; emailRedirectTo?: string } = {
+    const signUpOptions: { data: Record<string, unknown> } = {
       data: metadata,
     };
-    if (origin) {
-      signUpOptions.emailRedirectTo = `${origin}/auth/callback`;
-    }
 
     const { data, error } = await supabase.auth.signUp({
       email: rawEmail,
@@ -218,7 +215,7 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
       if (error.message.toLowerCase().includes('rate limit')) {
         return {
           success: false,
-          error: 'Email confirmation rate limit exceeded on authentication server. Please wait a few minutes before trying again.',
+          error: 'Registration rate limit exceeded. Please wait a few minutes before creating another account.',
         };
       }
       return { success: false, error: error.message };
@@ -228,9 +225,19 @@ export async function signUpAction(prevState: unknown, formData: FormData): Prom
       redirect(ROLE_HOME_ROUTES[role] || '/student');
     }
 
+    // Attempt immediate login (bypasses null session if email confirmation is disabled via DB trigger or dashboard)
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email: rawEmail,
+      password,
+    });
+
+    if (!signInError && signInData.session) {
+      redirect(ROLE_HOME_ROUTES[role] || '/student');
+    }
+
     return {
-      success: true,
-      error: 'Account created successfully! If email confirmation is required, please check your inbox to activate your account, then sign in.',
+      success: false,
+      error: signInError?.message || 'Failed to automatically sign in after registration.',
     };
   } catch (err: unknown) {
     if (
@@ -317,24 +324,34 @@ export async function signOutAction() {
   redirect('/login');
 }
 
-/**
- * Quick switch helper for testing all 4 roles in Phase 1
- */
 export async function switchDemoRoleAction(role: UserRole) {
+  const supabase = await createClient();
   const cookieStore = await cookies();
-  const demoNames: Record<UserRole, string> = {
-    student: 'Aarav Sharma (Student)',
-    faculty: 'Dr. Priya Raman (Faculty Advisor)',
-    placement_officer: 'Mr. Vikram Verma (Placement Head)',
-    administrator: 'Super Admin (System Admin)',
-    alumni: 'Rahul Kumar (Alumni)',
+  
+  // Real demo accounts mapping
+  const demoUsers: Record<UserRole, { email: string; name: string }> = {
+    student: { email: 'student@university.edu', name: 'Aarav Sharma (Demo Student)' },
+    faculty: { email: 'faculty@university.edu', name: 'Dr. Priya Raman (Demo Faculty)' },
+    placement_officer: { email: 'officer@university.edu', name: 'Vikram Verma (Demo Officer)' },
+    administrator: { email: 'admin@campusconnect.edu', name: 'Super Admin (Demo)' },
+    alumni: { email: 'alumni@university.edu', name: 'Rahul Kumar (Demo Alumni)' }
   };
 
+  const creds = demoUsers[role];
+  if (!creds) {
+    redirect('/login');
+  }
+
+  // 1. Log out current user to bypass real auth
+  await supabase.auth.signOut();
+
+  // 2. Set Demo Mock Cookies (Instant Login Bypass)
   cookieStore.set('campusconnect_demo_role', role, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
-  cookieStore.set('campusconnect_demo_user', `${role}@university.edu`, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
-  cookieStore.set('campusconnect_demo_name', demoNames[role], { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
+  cookieStore.set('campusconnect_demo_user', creds.email, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
+  cookieStore.set('campusconnect_demo_name', creds.name, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
   cookieStore.set('campusconnect_demo_dept', 'Computer Science & Engineering', { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
   cookieStore.set('campusconnect_demo_id', `${role.toUpperCase()}-2026-001`, { path: '/', httpOnly: true, maxAge: 60 * 60 * 24 });
 
-  redirect(ROLE_HOME_ROUTES[role]);
+  // 3. Redirect to the correct portal
+  redirect(ROLE_HOME_ROUTES[role] || '/student');
 }

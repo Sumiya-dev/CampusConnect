@@ -83,17 +83,17 @@ export function CreateExperienceModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-[#0A0A0A] border border-[#222222] rounded-lg shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+      <div className="relative w-full max-w-2xl bg-surface border border-border rounded-lg shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between border-b border-border pb-3">
           <div>
-            <h3 className="text-base font-semibold text-[#EDEDED]">Share Alumni Experience</h3>
-            <p className="text-xs text-[#9AA1AA] mt-0.5">
+            <h3 className="text-base font-semibold text-foreground">Share Alumni Experience</h3>
+            <p className="text-xs text-muted mt-0.5">
               Empower university juniors with firsthand interview stages, recruitment journeys, and preparation guidance.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-[#717784] hover:text-[#EDEDED] p-1 rounded-md transition-colors"
+            className="text-[#717784] hover:text-foreground p-1 rounded-md transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -109,7 +109,7 @@ export function CreateExperienceModal({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Experience Type */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Experience Type
             </label>
             <div className="flex flex-wrap gap-1.5">
@@ -120,8 +120,8 @@ export function CreateExperienceModal({
                   onClick={() => setType(t)}
                   className={`px-3 py-1 text-xs rounded transition-colors ${
                     type === t
-                      ? 'bg-[#FF6B00] text-black font-semibold'
-                      : 'bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED] border border-[#222222]'
+                      ? 'bg-accent text-black font-semibold'
+                      : 'bg-elevated text-muted hover:text-foreground border border-border'
                   }`}
                 >
                   {t}
@@ -132,14 +132,14 @@ export function CreateExperienceModal({
 
           {/* Title */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Title
             </label>
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Software Engineer On-Campus Interview Experience 2024"
-              className="text-xs bg-[#121212] border-[#222222] h-9"
+              className="text-xs bg-elevated border-border h-9"
               required
             />
           </div>
@@ -147,33 +147,33 @@ export function CreateExperienceModal({
           {/* Company & Job Role */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+              <label className="block text-xs font-medium text-foreground mb-1.5">
                 Company (Optional)
               </label>
               <Input
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 placeholder="e.g. Microsoft"
-                className="text-xs bg-[#121212] border-[#222222] h-9"
+                className="text-xs bg-elevated border-border h-9"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+              <label className="block text-xs font-medium text-foreground mb-1.5">
                 Job Role (Optional)
               </label>
               <Input
                 value={jobRole}
                 onChange={(e) => setJobRole(e.target.value)}
                 placeholder="e.g. Software Engineer"
-                className="text-xs bg-[#121212] border-[#222222] h-9"
+                className="text-xs bg-elevated border-border h-9"
               />
             </div>
           </div>
 
           {/* Detailed Content */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Detailed Overview / Journey
             </label>
             <textarea
@@ -181,14 +181,14 @@ export function CreateExperienceModal({
               onChange={(e) => setContent(e.target.value)}
               placeholder="Provide a comprehensive walkthrough of your journey, role responsibilities, or drive structure..."
               rows={4}
-              className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] resize-none"
+              className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent resize-none"
               required
             />
           </div>
 
           {/* Selection Process */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Selection Process Breakdown (Optional)
             </label>
             <textarea
@@ -196,13 +196,13 @@ export function CreateExperienceModal({
               onChange={(e) => setSelectionProcess(e.target.value)}
               placeholder="1. Online Assessment (90 mins, 3 LeetCode Medium questions)&#10;2. Technical Round 1 (Data Structures, System Design basics)&#10;3. HR & Managerial Round"
               rows={3}
-              className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] resize-none"
+              className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent resize-none"
             />
           </div>
 
           {/* Preparation Tips */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Preparation Tips (Optional)
             </label>
             <textarea
@@ -210,13 +210,13 @@ export function CreateExperienceModal({
               onChange={(e) => setPreparationTips(e.target.value)}
               placeholder="Focus on Graphs and Dynamic Programming. Practice SQL queries and mock interviews with peers."
               rows={2}
-              className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] resize-none"
+              className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent resize-none"
             />
           </div>
 
           {/* Advice for Juniors */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Advice for Juniors (Optional)
             </label>
             <textarea
@@ -224,12 +224,12 @@ export function CreateExperienceModal({
               onChange={(e) => setAdviceForJuniors(e.target.value)}
               placeholder="Stay consistent, build solid core CS fundamentals, and don't panic if your first interview doesn't go as expected."
               rows={2}
-              className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] resize-none"
+              className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent resize-none"
             />
           </div>
 
           {/* Modal Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
@@ -244,7 +244,7 @@ export function CreateExperienceModal({
               type="submit"
               size="sm"
               disabled={isSubmitting || !title.trim() || !content.trim()}
-              className="text-xs gap-1.5 font-semibold bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+              className="text-xs gap-1.5 font-semibold bg-accent text-black hover:bg-[#E05E00]"
             >
               <Send className="h-3.5 w-3.5" />
               <span>{isSubmitting ? 'Publishing...' : 'Publish Experience'}</span>

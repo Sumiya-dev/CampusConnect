@@ -56,89 +56,22 @@ export default async function AdminDashboardPage() {
       </Suspense>
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#252A31] pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5">
         <div>
           <div className="flex items-center gap-2.5">
-            <h1 className="text-xl font-semibold text-[#F1F3F5] tracking-tight">
+            <h1 className="text-xl font-semibold text-foreground tracking-tight">
               Platform Administration & Access Governance
             </h1>
             <Badge variant="destructive" className="text-sm">
               Super Admin
             </Badge>
           </div>
-          <p className="text-sm text-[#9AA1AA] mt-1">
+          <p className="text-sm text-muted mt-1">
             CampusConnect AI Master Control Panel • Administrator: {user?.name}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <Link href="/admin/companies">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <Building className="h-3.5 w-3.5" />
-              <span>Companies</span>
-            </Button>
-          </Link>
-          <Link href="/admin/placements">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <Briefcase className="h-3.5 w-3.5" />
-              <span>Placement Drives</span>
-            </Button>
-          </Link>
-          <Link href="/admin/placements/students">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <UserCheck className="h-3.5 w-3.5" />
-              <span>Student Placements</span>
-            </Button>
-          </Link>
-          <Link href="/admin/faculty">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <GraduationCap className="h-3.5 w-3.5" />
-              <span>Faculty & Allocations</span>
-            </Button>
-          </Link>
-          <Link href="/admin/departments">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <Database className="h-3.5 w-3.5" />
-              <span>Academic Structure</span>
-            </Button>
-          </Link>
-          <Link href="/admin/notifications">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <Bell className="h-3.5 w-3.5" />
-              <span>Notifications</span>
-            </Button>
-          </Link>
-          <Link href="/admin/moderation">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <MessageSquare className="h-3.5 w-3.5" />
-              <span>Moderation</span>
-            </Button>
-          </Link>
-          <Link href="/admin/help">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <HelpCircle className="h-3.5 w-3.5" />
-              <span>Help Center</span>
-            </Button>
-          </Link>
-          <Link href="/admin/reports">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <BarChart3 className="h-3.5 w-3.5" />
-              <span>Reports & Analytics</span>
-            </Button>
-          </Link>
-          <Link href="/admin/settings">
-            <Button size="sm" variant="outline" className="text-sm gap-1.5 border-[#222222] text-[#EDEDED] hover:bg-[#1A1A1A]">
-              <Settings className="h-3.5 w-3.5" />
-              <span>System Settings</span>
-            </Button>
-          </Link>
-          <Link href="/admin/users">
-            <Button size="sm" className="text-sm gap-1.5">
-              <Users className="h-3.5 w-3.5" />
-              <span>User Directory</span>
-              <ArrowRight className="h-3 w-3" />
-            </Button>
-          </Link>
           <Badge variant="outline" className="text-sm gap-1">
             <KeyRound className="h-3 w-3 text-emerald-400" />
             <span>RLS Enforced: 5 Tables</span>
@@ -148,54 +81,54 @@ export default async function AdminDashboardPage() {
 
       {/* System Infrastructure Strip */}
       <section className="space-y-3">
-        <div className="text-sm font-medium uppercase tracking-wider text-[#9AA1AA]">
+        <div className="text-sm font-medium uppercase tracking-wider text-muted">
           Infrastructure Status
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#222222] border border-[#222222] rounded-md overflow-hidden">
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm text-[#9AA1AA]">Provisioned Accounts</span>
-            <div className="text-base font-semibold text-[#EDEDED] mt-1">1,344 Users</div>
-            <span className="text-sm text-[#9AA1AA]">Across 4 Defined Roles</span>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border border border-border rounded-md overflow-hidden">
+          <div className="bg-surface p-4">
+            <span className="text-sm text-muted">Provisioned Accounts</span>
+            <div className="text-base font-semibold text-foreground mt-1">1,344 Users</div>
+            <span className="text-sm text-muted">Across 4 Defined Roles</span>
           </div>
 
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm text-[#9AA1AA]">Row-Level Security</span>
+          <div className="bg-surface p-4">
+            <span className="text-sm text-muted">Row-Level Security</span>
             <div className="text-base font-semibold text-emerald-400 mt-1">Enforced</div>
             <span className="text-sm text-emerald-400 font-medium">All Tables Isolated</span>
           </div>
 
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm text-[#9AA1AA]">Auth Session Engine</span>
-            <div className="text-base font-semibold text-[#EDEDED] mt-1">Supabase SSR</div>
-            <span className="text-sm text-[#9AA1AA]">HTTP-Only Secure Cookies</span>
+          <div className="bg-surface p-4">
+            <span className="text-sm text-muted">Auth Session Engine</span>
+            <div className="text-base font-semibold text-foreground mt-1">Supabase SSR</div>
+            <span className="text-sm text-muted">HTTP-Only Secure Cookies</span>
           </div>
 
-          <div className="bg-[#0A0A0A] p-4">
-            <span className="text-sm text-[#9AA1AA]">Edge Middleware</span>
+          <div className="bg-surface p-4">
+            <span className="text-sm text-muted">Edge Middleware</span>
             <div className="text-base font-semibold text-emerald-400 mt-1">Active</div>
-            <span className="text-sm text-[#9AA1AA]">Cross-Role Redirection</span>
+            <span className="text-sm text-muted">Cross-Role Redirection</span>
           </div>
         </div>
       </section>
 
       {/* Role Distribution & Access Scope Table */}
       <section className="space-y-3">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-2">
+        <div className="flex items-center justify-between border-b border-border pb-2">
           <div>
-            <h2 className="text-base font-semibold text-[#EDEDED]">
+            <h2 className="text-base font-semibold text-foreground">
               Account Provisioning & Security Scope
             </h2>
-            <p className="text-sm text-[#9AA1AA]">
+            <p className="text-sm text-muted">
               Access boundaries and PostgreSQL policy enforcement by user category.
             </p>
           </div>
-          <span className="text-sm text-[#9AA1AA]">Phase 1 Audit</span>
+          <span className="text-sm text-muted">Phase 1 Audit</span>
         </div>
 
-        <div className="border border-[#222222] rounded-md overflow-hidden bg-[#0A0A0A]">
+        <div className="border border-border rounded-md overflow-hidden bg-surface">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#121212] text-[#9AA1AA] border-b border-[#222222]">
+              <thead className="bg-elevated text-muted border-b border-border">
                 <tr>
                   <th className="px-4 py-2.5 font-medium uppercase text-sm tracking-wider">Role Category</th>
                   <th className="px-4 py-2.5 font-medium uppercase text-sm tracking-wider">Active Pool</th>
@@ -203,12 +136,12 @@ export default async function AdminDashboardPage() {
                   <th className="px-4 py-2.5 font-medium uppercase text-sm tracking-wider text-right">RLS Enforcement</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#222222]">
+              <tbody className="divide-y divide-border">
                 {roleDistribution.map((r) => (
-                  <tr key={r.key} className="hover:bg-[#121212] transition-colors">
-                    <td className="px-4 py-3 font-medium text-[#EDEDED]">{r.roleName}</td>
-                    <td className="px-4 py-3 text-[#9AA1AA]">{r.count}</td>
-                    <td className="px-4 py-3 text-[#9AA1AA]">{r.scope}</td>
+                  <tr key={r.key} className="hover:bg-elevated transition-colors">
+                    <td className="px-4 py-3 font-medium text-foreground">{r.roleName}</td>
+                    <td className="px-4 py-3 text-muted">{r.count}</td>
+                    <td className="px-4 py-3 text-muted">{r.scope}</td>
                     <td className="px-4 py-3 text-right">
                       <Badge variant="outline" className="text-sm">
                         {r.rlsStatus}
@@ -222,26 +155,6 @@ export default async function AdminDashboardPage() {
         </div>
       </section>
 
-      {/* Security Architecture Verification Checklist */}
-      <section className="space-y-3">
-        <div className="border-b border-[#222222] pb-2">
-          <h2 className="text-base font-semibold text-[#EDEDED]">
-            Security Controls Verification
-          </h2>
-          <p className="text-sm text-[#9AA1AA]">
-            Foundational architecture compliance verification for Phase 1.
-          </p>
-        </div>
-
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#222222]">
-          {securityChecks.map((check, idx) => (
-            <div key={idx} className="p-3.5 flex items-center gap-3 text-sm">
-              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
-              <span className="text-[#EDEDED]">{check}</span>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

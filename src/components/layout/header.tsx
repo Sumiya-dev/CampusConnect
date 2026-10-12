@@ -84,13 +84,13 @@ export function Header({
       : `/${role === 'placement_officer' ? 'placement' : role}/announcements`;
 
   return (
-    <header className="h-14 border-b border-[#222222] bg-[#000000] px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
+    <header className="h-14 border-b border-border bg-background px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30">
       <div className="flex items-center gap-3">
         {/* Mobile Hamburger Toggle */}
         <button
           type="button"
           onClick={onOpenMobileMenu}
-          className="md:hidden text-[#9AA1AA] hover:text-[#EDEDED] p-1 rounded hover:bg-[#121212] transition-colors"
+          className="md:hidden text-muted hover:text-foreground p-1 rounded hover:bg-elevated transition-colors"
           aria-label="Open sidebar navigation"
         >
           <Menu className="h-5 w-5" />
@@ -98,10 +98,10 @@ export function Header({
 
         {/* Section title & context */}
         <div className="flex items-center gap-2.5">
-          <h1 className="text-sm font-semibold text-[#EDEDED] tracking-wide">
+          <h1 className="text-sm font-semibold text-foreground tracking-wide">
             {getSectionTitle()}
           </h1>
-          <span className="text-[#222222] hidden sm:inline">|</span>
+          <span className="text-border hidden sm:inline">|</span>
           <Badge variant="secondary" className="text-sm hidden sm:inline-flex truncate max-w-[200px]">
             {department}
           </Badge>
@@ -112,7 +112,7 @@ export function Header({
         {/* Notifications Shortcut */}
         <Link
           href={notificationPath}
-          className="text-[#9AA1AA] hover:text-[#EDEDED] p-1.5 rounded hover:bg-[#121212] transition-colors"
+          className="text-muted hover:text-foreground p-1.5 rounded hover:bg-elevated transition-colors"
           title="Notifications & Bulletins"
         >
           <Bell className="h-4 w-4" />

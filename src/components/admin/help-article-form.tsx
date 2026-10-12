@@ -142,18 +142,18 @@ export function HelpArticleForm({
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
-      <div className="space-y-1 pb-4 border-b border-[#222222]">
+      <div className="space-y-1 pb-4 border-b border-border">
         <Link
           href="/admin/help"
-          className="inline-flex items-center gap-1 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors mb-1"
+          className="inline-flex items-center gap-1 text-xs text-muted hover:text-foreground transition-colors mb-1"
         >
           <ArrowLeft className="h-3 w-3" />
           Back to Help Center
         </Link>
-        <h1 className="text-xl font-semibold text-[#EDEDED] tracking-tight">
+        <h1 className="text-xl font-semibold text-foreground tracking-tight">
           {isEditing ? 'Edit Help Article' : 'Create Help Article'}
         </h1>
-        <p className="text-xs text-[#9AA1AA]">
+        <p className="text-xs text-muted">
           {isEditing
             ? 'Update the article title, content body, category, or publication status.'
             : 'Author new guidance, FAQ answers, or policy documentation for students and faculty.'}
@@ -177,8 +177,8 @@ export function HelpArticleForm({
       {/* FORM */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Category Selection */}
-        <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-3">
-          <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono block">
+        <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-3">
+          <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono block">
             1. Knowledge Category
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
@@ -191,18 +191,18 @@ export function HelpArticleForm({
                   onClick={() => setCategory(cat.value)}
                   className={`flex flex-col items-start p-3 rounded-md border text-left transition-all ${
                     isSelected
-                      ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                      : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                      ? 'border-accent bg-accent/10 text-foreground'
+                      : 'border-border bg-surface hover:bg-[#161616] text-muted'
                   }`}
                 >
                   <span
                     className={`text-xs font-semibold mb-0.5 ${
-                      isSelected ? 'text-[#EDEDED]' : 'text-neutral-300'
+                      isSelected ? 'text-foreground' : 'text-neutral-300'
                     }`}
                   >
                     {cat.label}
                   </span>
-                  <span className="text-[10px] text-[#9AA1AA] line-clamp-2">
+                  <span className="text-[10px] text-muted line-clamp-2">
                     {cat.desc}
                   </span>
                 </button>
@@ -212,30 +212,30 @@ export function HelpArticleForm({
         </div>
 
         {/* Title and Content */}
-        <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-4">
-          <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono block">
+        <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-4">
+          <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono block">
             2. Article Content
           </label>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-[#EDEDED] font-medium flex justify-between">
+            <label className="text-xs text-foreground font-medium flex justify-between">
               <span>Article Title / Question</span>
-              <span className="text-[10px] text-[#9AA1AA]">Clear and searchable</span>
+              <span className="text-[10px] text-muted">Clear and searchable</span>
             </label>
             <Input
               type="text"
               placeholder="e.g. How does the one-offer policy apply to tier-1 companies?"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9 focus-visible:ring-1 focus-visible:ring-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-xs h-9 focus-visible:ring-1 focus-visible:ring-accent"
               required
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-[#EDEDED] font-medium flex justify-between">
+            <label className="text-xs text-foreground font-medium flex justify-between">
               <span>Content Body / Detailed Answer</span>
-              <span className="text-[10px] text-[#9AA1AA]">
+              <span className="text-[10px] text-muted">
                 Full resolution, policy steps, or guidelines
               </span>
             </label>
@@ -244,15 +244,15 @@ export function HelpArticleForm({
               placeholder="Provide clear, step-by-step guidance, policy clarifications, contact points, or FAQ explanations..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full rounded-md bg-[#0A0A0A] border border-[#222222] p-3 text-xs text-[#EDEDED] placeholder-[#555] focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] outline-none transition-colors"
+              className="w-full rounded-md bg-surface border border-border p-3 text-xs text-foreground placeholder-[#555] focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors"
               required
             />
           </div>
         </div>
 
         {/* Publication Status */}
-        <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-3">
-          <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono block">
+        <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-3">
+          <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono block">
             3. Publication State
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -261,20 +261,20 @@ export function HelpArticleForm({
               onClick={() => setStatus('published')}
               className={`flex items-start gap-3 p-3.5 rounded-md border text-left transition-all ${
                 status === 'published'
-                  ? 'border-emerald-500 bg-emerald-950/20 text-[#EDEDED]'
-                  : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                  ? 'border-emerald-500 bg-emerald-950/20 text-foreground'
+                  : 'border-border bg-surface hover:bg-[#161616] text-muted'
               }`}
             >
               <Globe
                 className={`h-4 w-4 mt-0.5 shrink-0 ${
-                  status === 'published' ? 'text-emerald-400' : 'text-[#9AA1AA]'
+                  status === 'published' ? 'text-emerald-400' : 'text-muted'
                 }`}
               />
               <div>
-                <div className="text-xs font-semibold text-[#EDEDED]">
+                <div className="text-xs font-semibold text-foreground">
                   Publish Immediately
                 </div>
-                <p className="text-[10px] text-[#9AA1AA] mt-0.5">
+                <p className="text-[10px] text-muted mt-0.5">
                   Make this article live in the Student & Faculty Help Center.
                 </p>
               </div>
@@ -285,20 +285,20 @@ export function HelpArticleForm({
               onClick={() => setStatus('draft')}
               className={`flex items-start gap-3 p-3.5 rounded-md border text-left transition-all ${
                 status === 'draft'
-                  ? 'border-neutral-500 bg-neutral-900 text-[#EDEDED]'
-                  : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                  ? 'border-neutral-500 bg-neutral-900 text-foreground'
+                  : 'border-border bg-surface hover:bg-[#161616] text-muted'
               }`}
             >
               <Lock
                 className={`h-4 w-4 mt-0.5 shrink-0 ${
-                  status === 'draft' ? 'text-neutral-300' : 'text-[#9AA1AA]'
+                  status === 'draft' ? 'text-neutral-300' : 'text-muted'
                 }`}
               />
               <div>
-                <div className="text-xs font-semibold text-[#EDEDED]">
+                <div className="text-xs font-semibold text-foreground">
                   Save as Draft
                 </div>
-                <p className="text-[10px] text-[#9AA1AA] mt-0.5">
+                <p className="text-[10px] text-muted mt-0.5">
                   Keep internal. Visible only to Superadmins.
                 </p>
               </div>
@@ -313,7 +313,7 @@ export function HelpArticleForm({
               type="button"
               variant="outline"
               disabled={isPending}
-              className="border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED] text-xs h-9 px-4"
+              className="border-border bg-elevated hover:bg-[#1A1A1A] text-foreground text-xs h-9 px-4"
             >
               Cancel
             </Button>
@@ -321,7 +321,7 @@ export function HelpArticleForm({
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold text-xs h-9 px-5"
+            className="bg-accent hover:bg-[#E05D00] text-black font-semibold text-xs h-9 px-5"
           >
             {isPending ? (
               <>

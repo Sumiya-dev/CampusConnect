@@ -484,10 +484,10 @@ export async function getAllUsersAction(): Promise<{
 
       if (profiles && profiles.length > 0) {
         // Fetch supplemental role tables
-        const { data: students } = await supabase.from('students').select('*');
-        const { data: faculty } = await supabase.from('faculty_members').select('*');
-        const { data: placement } = await supabase.from('placement_officers').select('*');
-        const { data: admins } = await supabase.from('administrators').select('*');
+        const { data: students } = await supabase.from('students').select('user_id, student_id, year, cgpa, skills, placement_status');
+        const { data: faculty } = await supabase.from('faculty_members').select('user_id, employee_id, designation, cabin_location');
+        const { data: placement } = await supabase.from('placement_officers').select('user_id, employee_id, designation, office_location');
+        const { data: admins } = await supabase.from('administrators').select('user_id, admin_code');
 
         const studentMap = new Map((students || []).map((s: any) => [s.user_id, s]));
         const facultyMap = new Map((faculty || []).map((f: any) => [f.user_id, f]));

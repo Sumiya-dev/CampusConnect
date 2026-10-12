@@ -5,7 +5,7 @@ import { getPlacementAnalyticsReport } from '@/lib/reports/queries';
 import { AnalyticsDashboard } from '@/components/admin/analytics-dashboard';
 import { AnalyticsFilterOptions } from '@/lib/types/reports.types';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Reports & Analytics | Superadmin | CampusConnect AI',

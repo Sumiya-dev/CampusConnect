@@ -8,7 +8,7 @@ import {
 } from '@/lib/resources/queries';
 import { FacultyResourcesClient } from '@/components/resources/faculty-resources-client';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function FacultyResourcesPage() {
   const user = await getCurrentUser();
@@ -33,16 +33,16 @@ export default async function FacultyResourcesPage() {
       </Suspense>
 
       {/* Header */}
-      <div className="border-b border-[#222222] pb-5">
+      <div className="border-b border-border pb-5">
         <div className="flex items-center gap-2">
-          <span className="text-xs uppercase font-mono tracking-wider text-[#FF6B00]">
+          <span className="text-xs uppercase font-mono tracking-wider text-accent">
             Academic Distribution
           </span>
         </div>
-        <h1 className="text-2xl font-semibold text-[#EDEDED] tracking-tight mt-1">
+        <h1 className="text-2xl font-semibold text-foreground tracking-tight mt-1">
           Faculty Resources
         </h1>
-        <p className="text-sm text-[#9AA1AA] mt-1">
+        <p className="text-sm text-muted mt-1">
           Distribute lecture notes, lab guides, problem sets, and course materials to your assigned cohorts.
         </p>
       </div>

@@ -87,11 +87,11 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#222222]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
         <div className="space-y-1">
           <Link
             href="/admin/help"
-            className="inline-flex items-center gap-1 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors mb-1"
+            className="inline-flex items-center gap-1 text-xs text-muted hover:text-foreground transition-colors mb-1"
           >
             <ArrowLeft className="h-3 w-3" />
             Back to Help Center Dashboard
@@ -113,7 +113,7 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
               </span>
             )}
           </div>
-          <h1 className="text-xl font-semibold text-[#EDEDED] tracking-tight mt-1">
+          <h1 className="text-xl font-semibold text-foreground tracking-tight mt-1">
             {article.title}
           </h1>
         </div>
@@ -124,7 +124,7 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
             <Button
               variant="outline"
               size="sm"
-              className="h-8 px-3 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+              className="h-8 px-3 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
             >
               <Edit className="h-3.5 w-3.5 mr-1.5" />
               Edit
@@ -137,8 +137,8 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
             disabled={isPending}
             className={`h-8 px-3 text-xs font-semibold ${
               article.status === 'published'
-                ? 'border border-[#222222] bg-[#161616] hover:bg-[#222222] text-[#EDEDED]'
-                : 'bg-[#FF6B00] hover:bg-[#E05D00] text-black'
+                ? 'border border-border bg-[#161616] hover:bg-border text-foreground'
+                : 'bg-accent hover:bg-[#E05D00] text-black'
             }`}
           >
             {article.status === 'published' ? 'Unpublish' : 'Publish Article'}
@@ -171,10 +171,10 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
       )}
 
       {/* Content Card */}
-      <div className="border border-[#222222] bg-[#121212] p-5 sm:p-6 rounded-md space-y-4">
-        <div className="flex items-center justify-between text-xs text-[#9AA1AA] font-mono border-b border-[#1C1C1C] pb-3">
+      <div className="border border-border bg-elevated p-5 sm:p-6 rounded-md space-y-4">
+        <div className="flex items-center justify-between text-xs text-muted font-mono border-b border-[#1C1C1C] pb-3">
           <span className="flex items-center gap-1.5">
-            <BookOpen className="h-3.5 w-3.5 text-[#FF6B00]" />
+            <BookOpen className="h-3.5 w-3.5 text-accent" />
             ARTICLE RESOLUTION / GUIDANCE
           </span>
           <span className="flex items-center gap-1.5">
@@ -183,28 +183,28 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
           </span>
         </div>
 
-        <div className="text-xs sm:text-sm text-[#EDEDED] leading-relaxed whitespace-pre-line font-normal">
+        <div className="text-xs sm:text-sm text-foreground leading-relaxed whitespace-pre-line font-normal">
           {article.content}
         </div>
       </div>
 
       {/* Governance & Metadata Card */}
-      <div className="border border-[#222222] bg-[#0A0A0A] p-4 rounded-md text-xs space-y-2 text-[#9AA1AA]">
+      <div className="border border-border bg-surface p-4 rounded-md text-xs space-y-2 text-muted">
         <div className="flex justify-between">
           <span>Author / Created By:</span>
-          <span className="text-[#EDEDED] font-mono">
+          <span className="text-foreground font-mono">
             {article.creator?.name || article.creator?.email || 'Superadmin'}
           </span>
         </div>
         <div className="flex justify-between">
           <span>Created Timestamp:</span>
-          <span className="text-[#EDEDED] font-mono">
+          <span className="text-foreground font-mono">
             {formatTimestamp(article.created_at)}
           </span>
         </div>
         <div className="flex justify-between">
           <span>Access Boundary:</span>
-          <span className="text-[#EDEDED] font-mono">
+          <span className="text-foreground font-mono">
             {article.status === 'published'
               ? 'Public (Visible in Student/Faculty Help Center)'
               : 'Internal (Superadmin Only)'}
@@ -215,18 +215,18 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
       {/* CONFIRM DELETE MODAL */}
       {confirmDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-rose-950/30 border border-rose-900/60 text-rose-400 shrink-0 mt-0.5">
                 <Trash2 className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Delete Help Article?
                 </h3>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   Are you sure you want to permanently delete{' '}
-                  <span className="text-[#EDEDED] font-medium">
+                  <span className="text-foreground font-medium">
                     "{article.title}"
                   </span>
                   ? This action cannot be reversed.
@@ -240,7 +240,7 @@ export function HelpArticleDetail({ article }: HelpArticleDetailProps) {
                 size="sm"
                 onClick={() => setConfirmDelete(false)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>

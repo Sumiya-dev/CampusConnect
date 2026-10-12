@@ -108,19 +108,19 @@ export function PreparationHubView({
     switch (difficulty) {
       case 'Beginner':
         return (
-          <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#22C55E]/30 bg-[#22C55E]/10 text-[#22C55E]">
+          <span className="text-sm font-medium px-2 py-0.5 rounded border border-green-500/30 bg-green-500/10 text-green-500">
             Beginner
           </span>
         );
       case 'Advanced':
         return (
-          <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#EF4444]/30 bg-[#EF4444]/10 text-[#EF4444]">
+          <span className="text-sm font-medium px-2 py-0.5 rounded border border-red-500/30 bg-red-500/10 text-red-500">
             Advanced
           </span>
         );
       default:
         return (
-          <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#FF6B00]/30 bg-[#FF6B00]/10 text-[#FF6B00]">
+          <span className="text-sm font-medium px-2 py-0.5 rounded border border-accent/30 bg-accent/10 text-accent">
             Intermediate
           </span>
         );
@@ -131,21 +131,21 @@ export function PreparationHubView({
     switch (status) {
       case 'completed':
         return (
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/30 px-2 py-0.5 rounded">
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-green-500 bg-green-500/10 border border-green-500/30 px-2 py-0.5 rounded">
             <CheckCircle2 className="h-3 w-3" />
             <span>Completed</span>
           </span>
         );
       case 'in_progress':
         return (
-          <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 px-2 py-0.5 rounded">
+          <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent bg-accent/10 border border-accent/30 px-2 py-0.5 rounded">
             <Clock className="h-3 w-3" />
             <span>In Progress</span>
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 text-sm font-medium text-[#9AA1AA] bg-[#121212] border border-[#222222] px-2 py-0.5 rounded">
+          <span className="inline-flex items-center gap-1 text-sm font-medium text-muted bg-elevated border border-border px-2 py-0.5 rounded">
             <PlayCircle className="h-3 w-3" />
             <span>Not Started</span>
           </span>
@@ -156,47 +156,47 @@ export function PreparationHubView({
   return (
     <div className="space-y-6">
       {/* 1. Progress Metric Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#222222] border border-[#222222] rounded-md overflow-hidden text-sm">
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-border border border-border rounded-md overflow-hidden text-sm">
+        <div className="bg-surface p-3.5">
+          <span className="text-sm uppercase font-semibold text-muted tracking-wider block">
             Curated Modules
           </span>
-          <div className="text-base font-semibold text-[#EDEDED] mt-0.5">
+          <div className="text-base font-semibold text-foreground mt-0.5">
             {stats.total} Training Guides
           </div>
-          <span className="text-sm text-[#9AA1AA]">Core Institutional Syllabus</span>
+          <span className="text-sm text-muted">Core Institutional Syllabus</span>
         </div>
 
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
+        <div className="bg-surface p-3.5">
+          <span className="text-sm uppercase font-semibold text-muted tracking-wider block">
             Completed Modules
           </span>
-          <div className="text-base font-semibold text-[#22C55E] mt-0.5">
+          <div className="text-base font-semibold text-green-500 mt-0.5">
             {stats.completed} Completed
           </div>
           <span className="text-sm text-emerald-400">Verified Study Progress</span>
         </div>
 
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
+        <div className="bg-surface p-3.5">
+          <span className="text-sm uppercase font-semibold text-muted tracking-wider block">
             In Progress
           </span>
-          <div className="text-base font-semibold text-[#FF6B00] mt-0.5">
+          <div className="text-base font-semibold text-accent mt-0.5">
             {stats.inProgress} Active
           </div>
-          <span className="text-sm text-[#FF6B00]">Ongoing Preparation</span>
+          <span className="text-sm text-accent">Ongoing Preparation</span>
         </div>
 
-        <div className="bg-[#0A0A0A] p-3.5">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
+        <div className="bg-surface p-3.5">
+          <span className="text-sm uppercase font-semibold text-muted tracking-wider block">
             Overall Completion
           </span>
-          <div className="text-base font-semibold text-[#EDEDED] mt-0.5">
+          <div className="text-base font-semibold text-foreground mt-0.5">
             {stats.percentCompleted}%
           </div>
-          <div className="w-full bg-[#222222] h-1 rounded-full mt-1.5 overflow-hidden">
+          <div className="w-full bg-border h-1 rounded-full mt-1.5 overflow-hidden">
             <div
-              className="bg-[#FF6B00] h-full rounded-full transition-all duration-300"
+              className="bg-accent h-full rounded-full transition-all duration-300"
               style={{ width: `${stats.percentCompleted}%` }}
             />
           </div>
@@ -204,13 +204,13 @@ export function PreparationHubView({
       </div>
 
       {/* 2. Navigation Filter Tabs */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#222222] pb-2 text-sm">
+      <div className="flex flex-wrap items-center gap-2 border-b border-border pb-2 text-sm">
         <button
           onClick={() => setActiveTab('all')}
           className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
             activeTab === 'all'
-              ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30'
-              : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]'
+              ? 'bg-elevated text-accent border border-accent/30'
+              : 'text-muted hover:text-foreground hover:bg-elevated'
           }`}
         >
           All Modules ({initialMaterials.length})
@@ -219,8 +219,8 @@ export function PreparationHubView({
           onClick={() => setActiveTab('Technical')}
           className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
             activeTab === 'Technical'
-              ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30'
-              : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]'
+              ? 'bg-elevated text-accent border border-accent/30'
+              : 'text-muted hover:text-foreground hover:bg-elevated'
           }`}
         >
           Technical Core (
@@ -230,8 +230,8 @@ export function PreparationHubView({
           onClick={() => setActiveTab('Aptitude')}
           className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
             activeTab === 'Aptitude'
-              ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30'
-              : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]'
+              ? 'bg-elevated text-accent border border-accent/30'
+              : 'text-muted hover:text-foreground hover:bg-elevated'
           }`}
         >
           Aptitude & Reasoning (
@@ -241,8 +241,8 @@ export function PreparationHubView({
           onClick={() => setActiveTab('HR')}
           className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
             activeTab === 'HR'
-              ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30'
-              : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]'
+              ? 'bg-elevated text-accent border border-accent/30'
+              : 'text-muted hover:text-foreground hover:bg-elevated'
           }`}
         >
           HR & Behavioral (
@@ -252,8 +252,8 @@ export function PreparationHubView({
           onClick={() => setActiveTab('company')}
           className={`px-3 py-1.5 rounded-md font-medium transition-colors ${
             activeTab === 'company'
-              ? 'bg-[#121212] text-[#FF6B00] border border-[#FF6B00]/30'
-              : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]'
+              ? 'bg-elevated text-accent border border-accent/30'
+              : 'text-muted hover:text-foreground hover:bg-elevated'
           }`}
         >
           Company-Specific (
@@ -264,12 +264,12 @@ export function PreparationHubView({
       {/* 3. Search & Filter Bar */}
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search preparation guides by topic, role, keyword, or company..."
-            className="pl-9 text-sm h-10 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA] focus:border-[#FF6B00]"
+            className="pl-9 text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted focus:border-accent"
           />
         </div>
 
@@ -278,7 +278,7 @@ export function PreparationHubView({
           <select
             value={companyFilter}
             onChange={(e) => setCompanyFilter(e.target.value)}
-            className="text-sm h-10 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="text-sm h-10 px-3 rounded-md bg-surface border border-border text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Companies</option>
             {companies.map((c) => (
@@ -292,7 +292,7 @@ export function PreparationHubView({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-sm h-10 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="text-sm h-10 px-3 rounded-md bg-surface border border-border text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Progress</option>
             <option value="completed">Completed</option>
@@ -304,7 +304,7 @@ export function PreparationHubView({
           <select
             value={difficultyFilter}
             onChange={(e) => setDifficultyFilter(e.target.value)}
-            className="text-sm h-10 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+            className="text-sm h-10 px-3 rounded-md bg-surface border border-border text-foreground focus:outline-none focus:border-accent"
           >
             <option value="all">All Difficulties</option>
             <option value="Beginner">Beginner</option>
@@ -317,7 +317,7 @@ export function PreparationHubView({
               variant="outline"
               size="sm"
               onClick={resetFilters}
-              className="text-sm h-10 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="text-sm h-10 border-border text-muted hover:text-foreground"
             >
               Reset
             </Button>
@@ -327,14 +327,14 @@ export function PreparationHubView({
 
       {/* 4. Materials List */}
       {filteredMaterials.length === 0 ? (
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] py-16 px-4 text-center space-y-3">
-          <BookOpen className="h-9 w-8 text-[#9AA1AA] mx-auto opacity-50" />
-          <div className="text-base font-medium text-[#EDEDED]">
+        <div className="border border-border rounded-md bg-surface py-16 px-4 text-center space-y-3">
+          <BookOpen className="h-9 w-8 text-muted mx-auto opacity-50" />
+          <div className="text-base font-medium text-foreground">
             {hasActiveFilters
               ? 'No preparation guides match your filters'
               : 'No preparation materials available'}
           </div>
-          <p className="text-sm text-[#9AA1AA] max-w-sm mx-auto">
+          <p className="text-sm text-muted max-w-sm mx-auto">
             Try adjusting your search terms or filters to explore technical, aptitude, and HR interview guides.
           </p>
           {hasActiveFilters && (
@@ -342,29 +342,29 @@ export function PreparationHubView({
               variant="outline"
               size="sm"
               onClick={resetFilters}
-              className="text-sm border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED] mt-2"
+              className="text-sm border-border text-muted hover:text-foreground mt-2"
             >
               Reset filters
             </Button>
           )}
         </div>
       ) : (
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#222222] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface divide-y divide-border overflow-hidden">
           {filteredMaterials.map((m) => (
             <div
               key={m.id}
-              className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#121212]/50 transition-colors"
+              className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-elevated/50 transition-colors"
             >
               <div className="space-y-2 max-w-2xl">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium px-2 py-0.5 rounded border border-[#222222] bg-[#121212] text-[#EDEDED]">
+                  <span className="text-sm font-medium px-2 py-0.5 rounded border border-border bg-elevated text-foreground">
                     {m.category}
                   </span>
 
                   {getDifficultyBadge(m.difficulty)}
 
                   {m.company?.company_name && (
-                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 px-2 py-0.5 rounded">
+                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-accent bg-accent/10 border border-accent/30 px-2 py-0.5 rounded">
                       <Building className="h-2.5 w-2.5" />
                       <span>{m.company.company_name}</span>
                     </span>
@@ -373,32 +373,32 @@ export function PreparationHubView({
                   {getProgressBadge(m.progress?.status)}
 
                   {m.estimated_time && (
-                    <span className="text-sm text-[#9AA1AA]">
+                    <span className="text-sm text-muted">
                       • {m.estimated_time} read
                     </span>
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-base font-semibold text-[#EDEDED] tracking-tight">
+                  <h3 className="text-base font-semibold text-foreground tracking-tight">
                     {m.title}
                   </h3>
                   {m.description && (
-                    <p className="text-sm text-[#9AA1AA] mt-1 leading-relaxed line-clamp-2">
+                    <p className="text-sm text-muted mt-1 leading-relaxed line-clamp-2">
                       {m.description}
                     </p>
                   )}
                 </div>
 
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#9AA1AA] pt-0.5">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted pt-0.5">
                   {m.sub_category && (
-                    <span className="text-[#EDEDED] font-medium">
+                    <span className="text-foreground font-medium">
                       {m.sub_category}
                     </span>
                   )}
                   {m.job_role && (
                     <>
-                      <span className="text-[#222222]">|</span>
+                      <span className="text-border">|</span>
                       <span>Role: {m.job_role}</span>
                     </>
                   )}

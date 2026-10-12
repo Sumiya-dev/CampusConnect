@@ -157,11 +157,11 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
       {/* Main Profile Form */}
       <form onSubmit={handleSaveProfile} className="space-y-6">
         {/* Section 1: Avatar & Identity Header Card */}
-        <div className="p-5 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-5">
-          <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+        <div className="p-5 rounded-md border border-border bg-surface space-y-5">
+          <div className="flex items-center justify-between border-b border-border pb-3">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-[#FF6B00]" />
-              <h2 className="text-base font-semibold text-[#EDEDED]">
+              <ShieldCheck className="h-4 w-4 text-accent" />
+              <h2 className="text-base font-semibold text-foreground">
                 Superadmin Identity & Credentials
               </h2>
             </div>
@@ -177,7 +177,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
 
           {/* Avatar Upload Component */}
           <div>
-            <label className="block text-xs font-semibold uppercase text-[#9AA1AA] mb-2">
+            <label className="block text-xs font-semibold uppercase text-muted mb-2">
               Profile Photo
             </label>
             <AvatarUpload initialAvatarUrl={profile.avatarUrl} name={profile.name} />
@@ -186,81 +186,81 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             {/* Name (Editable) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase text-[#9AA1AA] flex items-center justify-between">
+              <label className="text-xs font-semibold uppercase text-muted flex items-center justify-between">
                 <span>Full Name</span>
-                <span className="text-[11px] text-[#FF6B00] font-normal">Editable</span>
+                <span className="text-[11px] text-accent font-normal">Editable</span>
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+                <User className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
                 <Input
                   name="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
                   placeholder="Administrator Name"
-                  className="pl-9 bg-[#121212] border-[#222222] text-[#EDEDED] focus:border-[#FF6B00]"
+                  className="pl-9 bg-elevated border-border text-foreground focus:border-accent"
                 />
               </div>
             </div>
 
             {/* Phone (Editable) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase text-[#9AA1AA] flex items-center justify-between">
+              <label className="text-xs font-semibold uppercase text-muted flex items-center justify-between">
                 <span>Emergency Contact Phone</span>
-                <span className="text-[11px] text-[#FF6B00] font-normal">Editable</span>
+                <span className="text-[11px] text-accent font-normal">Editable</span>
               </label>
               <div className="relative">
-                <Phone className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+                <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
                 <Input
                   name="contactNumber"
                   value={contactNumber}
                   onChange={(e) => setContactNumber(e.target.value)}
                   placeholder="+91 98444 55667"
-                  className="pl-9 bg-[#121212] border-[#222222] text-[#EDEDED] focus:border-[#FF6B00]"
+                  className="pl-9 bg-elevated border-border text-foreground focus:border-accent"
                 />
               </div>
             </div>
 
             {/* Email (Read-Only) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase text-[#9AA1AA] flex items-center justify-between">
+              <label className="text-xs font-semibold uppercase text-muted flex items-center justify-between">
                 <span>Primary Email Address</span>
-                <span className="text-[11px] text-[#9AA1AA] flex items-center gap-1 font-normal">
+                <span className="text-[11px] text-muted flex items-center gap-1 font-normal">
                   <Lock className="h-3 w-3" /> Protected
                 </span>
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+                <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
                 <Input
                   value={profile.email}
                   disabled
                   readOnly
-                  className="pl-9 bg-[#161616] border-[#222222] text-[#9AA1AA] cursor-not-allowed select-none"
+                  className="pl-9 bg-[#161616] border-border text-muted cursor-not-allowed select-none"
                 />
               </div>
-              <span className="text-[11px] text-[#9AA1AA]">
+              <span className="text-[11px] text-muted">
                 Institutional email changes must go through the identity provider directory.
               </span>
             </div>
 
             {/* Admin Code (Read-Only) */}
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase text-[#9AA1AA] flex items-center justify-between">
+              <label className="text-xs font-semibold uppercase text-muted flex items-center justify-between">
                 <span>Admin Identifier Code</span>
-                <span className="text-[11px] text-[#9AA1AA] flex items-center gap-1 font-normal">
+                <span className="text-[11px] text-muted flex items-center gap-1 font-normal">
                   <Lock className="h-3 w-3" /> System Assigned
                 </span>
               </label>
               <div className="relative">
-                <Key className="absolute left-3 top-2.5 h-4 w-4 text-[#9AA1AA]" />
+                <Key className="absolute left-3 top-2.5 h-4 w-4 text-muted" />
                 <Input
                   value={profile.adminCode}
                   disabled
                   readOnly
-                  className="pl-9 bg-[#161616] border-[#222222] text-[#9AA1AA] font-mono cursor-not-allowed select-none"
+                  className="pl-9 bg-[#161616] border-border text-muted font-mono cursor-not-allowed select-none"
                 />
               </div>
-              <span className="text-[11px] text-[#9AA1AA]">
+              <span className="text-[11px] text-muted">
                 Unique credential tag associated with your administrative record.
               </span>
             </div>
@@ -268,37 +268,37 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
         </div>
 
         {/* Section 2: Administrative Scope & Timestamps (Read-Only Governance Info) */}
-        <div className="p-5 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-4">
-          <div className="flex items-center gap-2 border-b border-[#222222] pb-3">
-            <Building className="h-4 w-4 text-[#FF6B00]" />
-            <h2 className="text-base font-semibold text-[#EDEDED]">
+        <div className="p-5 rounded-md border border-border bg-surface space-y-4">
+          <div className="flex items-center gap-2 border-b border-border pb-3">
+            <Building className="h-4 w-4 text-accent" />
+            <h2 className="text-base font-semibold text-foreground">
               Governance Scope & Audit Metadata
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-1">
-              <span className="text-[#9AA1AA] uppercase font-semibold">Assigned Role</span>
-              <div className="text-sm font-medium text-[#EDEDED]">{profile.role}</div>
+            <div className="p-3 rounded bg-elevated border border-border space-y-1">
+              <span className="text-muted uppercase font-semibold">Assigned Role</span>
+              <div className="text-sm font-medium text-foreground">{profile.role}</div>
               <span className="text-emerald-400">Root Governance</span>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-1">
-              <span className="text-[#9AA1AA] uppercase font-semibold">Clearance Level</span>
-              <div className="text-sm font-medium text-[#EDEDED]">{profile.accessLevel}</div>
-              <span className="text-[#9AA1AA]">Full System RBAC</span>
+            <div className="p-3 rounded bg-elevated border border-border space-y-1">
+              <span className="text-muted uppercase font-semibold">Clearance Level</span>
+              <div className="text-sm font-medium text-foreground">{profile.accessLevel}</div>
+              <span className="text-muted">Full System RBAC</span>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-1">
-              <span className="text-[#9AA1AA] uppercase font-semibold">Account Created</span>
-              <div className="text-sm font-medium text-[#EDEDED]">{formatDate(profile.createdAt)}</div>
-              <span className="text-[#9AA1AA]">Initial Registration</span>
+            <div className="p-3 rounded bg-elevated border border-border space-y-1">
+              <span className="text-muted uppercase font-semibold">Account Created</span>
+              <div className="text-sm font-medium text-foreground">{formatDate(profile.createdAt)}</div>
+              <span className="text-muted">Initial Registration</span>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-1">
-              <span className="text-[#9AA1AA] uppercase font-semibold">Last Profile Update</span>
-              <div className="text-sm font-medium text-[#EDEDED]">{formatDate(profile.updatedAt)}</div>
-              <span className="text-[#9AA1AA]">Synchronized</span>
+            <div className="p-3 rounded bg-elevated border border-border space-y-1">
+              <span className="text-muted uppercase font-semibold">Last Profile Update</span>
+              <div className="text-sm font-medium text-foreground">{formatDate(profile.updatedAt)}</div>
+              <span className="text-muted">Synchronized</span>
             </div>
           </div>
         </div>
@@ -308,7 +308,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
           <Button
             type="submit"
             disabled={isPending}
-            className="bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold text-xs px-5 h-9"
+            className="bg-accent hover:bg-[#E56000] text-black font-semibold text-xs px-5 h-9"
           >
             <Save className="h-3.5 w-3.5 mr-1.5" />
             Save Profile Changes
@@ -317,15 +317,15 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
       </form>
 
       {/* Section 4: Password & Authentication Controls */}
-      <div className="p-5 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-4">
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+      <div className="p-5 rounded-md border border-border bg-surface space-y-4">
+        <div className="flex items-center justify-between border-b border-border pb-3">
           <div className="flex items-center gap-2">
-            <KeyRound className="h-4 w-4 text-[#FF6B00]" />
+            <KeyRound className="h-4 w-4 text-accent" />
             <div>
-              <h2 className="text-base font-semibold text-[#EDEDED]">
+              <h2 className="text-base font-semibold text-foreground">
                 Security & Authentication Credentials
               </h2>
-              <p className="text-xs text-[#9AA1AA]">
+              <p className="text-xs text-muted">
                 Update your login password securely through Supabase Auth.
               </p>
             </div>
@@ -336,7 +336,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
             variant="outline"
             size="sm"
             onClick={() => setShowPasswordSection(!showPasswordSection)}
-            className="border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-xs text-[#EDEDED]"
+            className="border-border bg-elevated hover:bg-[#1A1A1A] text-xs text-foreground"
           >
             {showPasswordSection ? 'Cancel' : 'Change Password'}
           </Button>
@@ -346,7 +346,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
           <div className="space-y-4 pt-2 animate-in fade-in duration-200">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase text-[#9AA1AA]">
+                <label className="text-xs font-semibold uppercase text-muted">
                   New Password
                 </label>
                 <div className="relative">
@@ -355,12 +355,12 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="Minimum 8 characters"
-                    className="pr-9 bg-[#121212] border-[#222222] text-[#EDEDED]"
+                    className="pr-9 bg-elevated border-border text-foreground"
                   />
                   <button
                     type="button"
                     onClick={() => setShowNewPassword(!showNewPassword)}
-                    className="absolute right-3 top-2.5 text-[#9AA1AA] hover:text-[#EDEDED]"
+                    className="absolute right-3 top-2.5 text-muted hover:text-foreground"
                   >
                     {showNewPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -372,7 +372,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase text-[#9AA1AA]">
+                <label className="text-xs font-semibold uppercase text-muted">
                   Confirm New Password
                 </label>
                 <div className="relative">
@@ -381,12 +381,12 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-type new password"
-                    className="pr-9 bg-[#121212] border-[#222222] text-[#EDEDED]"
+                    className="pr-9 bg-elevated border-border text-foreground"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-2.5 text-[#9AA1AA] hover:text-[#EDEDED]"
+                    className="absolute right-3 top-2.5 text-muted hover:text-foreground"
                   >
                     {showConfirmPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -399,7 +399,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
             </div>
 
             <div className="flex items-center justify-between pt-2">
-              <span className="text-xs text-[#9AA1AA]">
+              <span className="text-xs text-muted">
                 Passwords must contain at least 8 characters.
               </span>
               <Button
@@ -416,7 +416,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
                   setShowPasswordConfirmModal(true);
                 }}
                 disabled={isPending || !newPassword || !confirmPassword}
-                className="bg-[#181818] hover:bg-[#222222] text-[#EDEDED] border border-[#333333] text-xs px-4"
+                className="bg-[#181818] hover:bg-border text-foreground border border-[#333333] text-xs px-4"
               >
                 Update Password
               </Button>
@@ -428,28 +428,28 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
       {/* Confirmation Modal for Password Change */}
       {showPasswordConfirmModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-lg border border-[#222222] bg-[#121212] p-6 space-y-4 shadow-2xl">
+          <div className="w-full max-w-md rounded-lg border border-border bg-elevated p-6 space-y-4 shadow-2xl">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-amber-500/20 text-amber-400 shrink-0">
                 <AlertTriangle className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-semibold text-[#EDEDED]">
+                <h3 className="text-base font-semibold text-foreground">
                   Confirm Password Update
                 </h3>
-                <p className="text-xs text-[#9AA1AA] leading-relaxed">
+                <p className="text-xs text-muted leading-relaxed">
                   Are you sure you want to change your Superadmin password? Your current active session will remain active, but you must use the new password on future logins.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => setShowPasswordConfirmModal(false)}
-                className="border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="border-border text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -458,7 +458,7 @@ export function SuperadminProfileView({ profile }: SuperadminProfileViewProps) {
                 size="sm"
                 onClick={handleConfirmPasswordChange}
                 disabled={isPending}
-                className="bg-[#FF6B00] hover:bg-[#E56000] text-black font-semibold text-xs"
+                className="bg-accent hover:bg-[#E56000] text-black font-semibold text-xs"
               >
                 Confirm Update
               </Button>

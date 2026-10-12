@@ -76,10 +76,10 @@ export async function getSuperadminUsersOverviewAction(): Promise<{
       { data: auditLogs },
       { data: depts },
     ] = await Promise.all([
-      supabase.from('students').select('*'),
-      supabase.from('faculty_members').select('*'),
-      supabase.from('placement_officers').select('*'),
-      supabase.from('administrators').select('*'),
+      supabase.from('students').select('user_id, student_id, year, cgpa, skills, placement_status'),
+      supabase.from('faculty_members').select('user_id, employee_id, designation, cabin_location'),
+      supabase.from('placement_officers').select('user_id, employee_id, designation, office_location'),
+      supabase.from('administrators').select('user_id, admin_code'),
       supabase
         .from('admin_audit_logs')
         .select('*')

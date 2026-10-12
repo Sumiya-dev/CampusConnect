@@ -3,7 +3,7 @@ import { getCurrentUser } from '@/lib/auth/user';
 import { PageContainer } from '@/components/layout/page-container';
 import { HelpArticleForm } from '@/components/admin/help-article-form';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Create Help Article | Superadmin | CampusConnect AI',

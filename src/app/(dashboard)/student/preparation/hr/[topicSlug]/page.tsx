@@ -47,7 +47,7 @@ export default async function HRTopicMaterialsPage({ params }: PageProps) {
           <Button
             variant="outline"
             size="sm"
-            className="text-sm gap-1 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+            className="text-sm gap-1 border-border text-muted hover:text-foreground"
           >
             <ArrowLeft className="h-3 w-3" />
             <span>All HR Topics</span>

@@ -73,18 +73,18 @@ export function CreateAlumniPostModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="relative w-full max-w-xl bg-[#0A0A0A] border border-[#222222] rounded-lg shadow-2xl p-6 space-y-5">
+      <div className="relative w-full max-w-xl bg-surface border border-border rounded-lg shadow-2xl p-6 space-y-5">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+        <div className="flex items-center justify-between border-b border-border pb-3">
           <div>
-            <h3 className="text-base font-semibold text-[#EDEDED]">Create Post</h3>
-            <p className="text-xs text-[#9AA1AA] mt-0.5">
+            <h3 className="text-base font-semibold text-foreground">Create Post</h3>
+            <p className="text-xs text-muted mt-0.5">
               Share career guidance, interview tips, or ask questions to alumni & students.
             </p>
           </div>
           <button
             onClick={onClose}
-            className="text-[#717784] hover:text-[#EDEDED] p-1 rounded-md transition-colors"
+            className="text-[#717784] hover:text-foreground p-1 rounded-md transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -100,7 +100,7 @@ export function CreateAlumniPostModal({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Category */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Category
             </label>
             <div className="flex flex-wrap gap-1.5">
@@ -111,8 +111,8 @@ export function CreateAlumniPostModal({
                   onClick={() => setCategory(cat)}
                   className={`px-3 py-1 text-xs rounded transition-colors ${
                     category === cat
-                      ? 'bg-[#FF6B00] text-black font-semibold'
-                      : 'bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED] border border-[#222222]'
+                      ? 'bg-accent text-black font-semibold'
+                      : 'bg-elevated text-muted hover:text-foreground border border-border'
                   }`}
                 >
                   {cat}
@@ -123,14 +123,14 @@ export function CreateAlumniPostModal({
 
           {/* Title */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Title
             </label>
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. How should I prepare for software engineering technical interviews?"
-              className="text-xs bg-[#121212] border-[#222222] h-9"
+              className="text-xs bg-elevated border-border h-9"
               maxLength={250}
               disabled={isSubmitting}
             />
@@ -138,7 +138,7 @@ export function CreateAlumniPostModal({
 
           {/* Content */}
           <div>
-            <label className="block text-xs font-medium text-[#EDEDED] mb-1.5">
+            <label className="block text-xs font-medium text-foreground mb-1.5">
               Content
             </label>
             <textarea
@@ -146,13 +146,13 @@ export function CreateAlumniPostModal({
               onChange={(e) => setContent(e.target.value)}
               placeholder="Write your post here... Share details about the role, questions, or guidance."
               rows={6}
-              className="w-full bg-[#121212] border border-[#222222] rounded-md p-3 text-xs text-[#EDEDED] placeholder-[#717784] focus:outline-none focus:border-[#FF6B00] transition-colors resize-none"
+              className="w-full bg-elevated border border-border rounded-md p-3 text-xs text-foreground placeholder-[#717784] focus:outline-none focus:border-accent transition-colors resize-none"
               disabled={isSubmitting}
             />
           </div>
 
           {/* Modal Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#222222]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-border">
             <Button
               type="button"
               variant="outline"
@@ -167,7 +167,7 @@ export function CreateAlumniPostModal({
               type="submit"
               size="sm"
               disabled={isSubmitting || !title.trim() || !content.trim()}
-              className="text-xs gap-1.5 font-semibold bg-[#FF6B00] text-black hover:bg-[#E05E00]"
+              className="text-xs gap-1.5 font-semibold bg-accent text-black hover:bg-[#E05E00]"
             >
               <Send className="h-3.5 w-3.5" />
               <span>{isSubmitting ? 'Posting...' : 'Post'}</span>

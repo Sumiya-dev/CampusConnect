@@ -4,7 +4,7 @@ import { getCurrentUser } from '@/lib/auth/user';
 import { getCommunityPosts } from '@/lib/community/queries';
 import { CommunityView } from '@/components/community/community-view';
 
-export const dynamic = 'force-dynamic';
+
 
 export default async function FacultyCommunityPage() {
   const user = await getCurrentUser();

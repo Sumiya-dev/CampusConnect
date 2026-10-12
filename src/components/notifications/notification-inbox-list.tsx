@@ -70,10 +70,10 @@ export function NotificationInboxList({
 
   if (notifications.length === 0) {
     return (
-      <div className="p-8 text-center space-y-2 border border-[#222222] rounded-md bg-[#0A0A0A]">
-        <Bell className="h-6 w-6 text-[#9AA1AA] mx-auto opacity-50" />
-        <div className="text-sm font-medium text-[#EDEDED]">No official broadcasts</div>
-        <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+      <div className="p-8 text-center space-y-2 border border-border rounded-md bg-surface">
+        <Bell className="h-6 w-6 text-muted mx-auto opacity-50" />
+        <div className="text-sm font-medium text-foreground">No official broadcasts</div>
+        <p className="text-xs text-muted max-w-sm mx-auto">
           You do not have any direct administrative circulars or placement advisories at this time.
         </p>
       </div>
@@ -81,7 +81,7 @@ export function NotificationInboxList({
   }
 
   return (
-    <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#1A1A1A] overflow-hidden">
+    <div className="border border-border rounded-md bg-surface divide-y divide-[#1A1A1A] overflow-hidden">
       {notifications.map((item) => {
         const Icon = TYPE_ICONS[item.type] || Bell;
 
@@ -89,10 +89,10 @@ export function NotificationInboxList({
           <div
             key={item.userNotificationId}
             className={`p-4 sm:p-5 flex items-start gap-3.5 transition-colors ${
-              item.isRead ? 'bg-[#0A0A0A]' : 'bg-[#121212]/80 hover:bg-[#121212]'
+              item.isRead ? 'bg-surface' : 'bg-elevated/80 hover:bg-elevated'
             }`}
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded border border-[#222222] bg-[#161616] text-[#FF6B00] shrink-0 mt-0.5">
+            <div className="flex h-7 w-7 items-center justify-center rounded border border-border bg-[#161616] text-accent shrink-0 mt-0.5">
               <Icon className="h-3.5 w-3.5" />
             </div>
 
@@ -102,14 +102,14 @@ export function NotificationInboxList({
                   <Badge variant="secondary" className="text-xs font-mono">
                     {item.type}
                   </Badge>
-                  <span className="text-xs text-[#9AA1AA] font-mono">
+                  <span className="text-xs text-muted font-mono">
                     {formatTimestamp(item.sentAt || item.deliveredAt)}
                   </span>
                 </div>
 
                 <div>
                   {item.isRead ? (
-                    <span className="inline-flex items-center gap-1 text-[11px] text-[#9AA1AA] font-mono">
+                    <span className="inline-flex items-center gap-1 text-[11px] text-muted font-mono">
                       <CheckCheck className="h-3 w-3 text-emerald-400" />
                       Read
                     </span>
@@ -119,7 +119,7 @@ export function NotificationInboxList({
                       variant="outline"
                       onClick={() => handleMarkAsRead(item.userNotificationId)}
                       disabled={isPending}
-                      className="h-6 px-2 text-[10px] font-mono border-[#333333] bg-[#161616] text-[#FF6B00] hover:text-[#EDEDED]"
+                      className="h-6 px-2 text-[10px] font-mono border-[#333333] bg-[#161616] text-accent hover:text-foreground"
                     >
                       <Check className="h-2.5 w-2.5 mr-1" />
                       Acknowledge
@@ -128,10 +128,10 @@ export function NotificationInboxList({
                 </div>
               </div>
 
-              <h3 className="text-sm font-semibold text-[#EDEDED] leading-snug">
+              <h3 className="text-sm font-semibold text-foreground leading-snug">
                 {item.title}
               </h3>
-              <p className="text-xs text-[#9AA1AA] leading-relaxed whitespace-pre-line">
+              <p className="text-xs text-muted leading-relaxed whitespace-pre-line">
                 {item.message}
               </p>
             </div>

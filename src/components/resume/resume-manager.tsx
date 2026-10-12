@@ -20,8 +20,8 @@ export function ResumeManager({ initialResume }: ResumeManagerProps) {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-lg font-medium text-[#EDEDED]">No resume uploaded</h2>
-          <p className="text-sm text-[#9AA1AA] mt-1">
+          <h2 className="text-lg font-medium text-foreground">No resume uploaded</h2>
+          <p className="text-sm text-muted mt-1">
             Upload your current resume to use it for placement applications.
           </p>
         </div>
@@ -34,8 +34,8 @@ export function ResumeManager({ initialResume }: ResumeManagerProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-lg font-medium text-[#EDEDED]">Current Resume</h2>
-        <p className="text-sm text-[#9AA1AA] mt-1">
+        <h2 className="text-lg font-medium text-foreground">Current Resume</h2>
+        <p className="text-sm text-muted mt-1">
           This is the resume that will be used for your placement applications.
         </p>
       </div>
@@ -46,8 +46,8 @@ export function ResumeManager({ initialResume }: ResumeManagerProps) {
       />
 
       {isReplacing && (
-        <div className="mt-8 pt-8 border-t border-[#222222]">
-          <h3 className="text-base font-medium text-[#EDEDED] mb-4">Upload New Resume</h3>
+        <div className="mt-8 pt-8 border-t border-border">
+          <h3 className="text-base font-medium text-foreground mb-4">Upload New Resume</h3>
           <ResumeUpload 
             isReplacing={true} 
             onCancel={() => setIsReplacing(false)} 

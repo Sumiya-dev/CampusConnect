@@ -282,19 +282,19 @@ export function NotificationForm({
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-[#222222]">
+      <div className="flex items-center justify-between pb-4 border-b border-border">
         <div className="space-y-1">
           <Link
             href="/admin/notifications"
-            className="inline-flex items-center gap-1 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors mb-1"
+            className="inline-flex items-center gap-1 text-xs text-muted hover:text-foreground transition-colors mb-1"
           >
             <ArrowLeft className="h-3 w-3" />
             Back to Notifications
           </Link>
-          <h1 className="text-xl font-semibold text-[#EDEDED] tracking-tight">
+          <h1 className="text-xl font-semibold text-foreground tracking-tight">
             {isEditing ? 'Edit Notification' : 'Compose Administrative Broadcast'}
           </h1>
-          <p className="text-xs text-[#9AA1AA]">
+          <p className="text-xs text-muted">
             {isEditing
               ? 'Update the title, content, or scheduled time of this draft notification.'
               : 'Broadcast official directives, placement alerts, deadlines, and circulars.'}
@@ -325,7 +325,7 @@ export function NotificationForm({
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 text-xs border-[#222222] bg-[#121212] text-[#EDEDED]"
+                  className="h-7 text-xs border-border bg-elevated text-foreground"
                 >
                   View Details & Delivery Logs
                 </Button>
@@ -354,12 +354,12 @@ export function NotificationForm({
       {/* FORM */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* 1. NOTIFICATION TYPE SELECTOR */}
-        <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-3">
+        <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-3">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono">
+            <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono">
               1. Notification Type
             </label>
-            <span className="text-[11px] text-[#9AA1AA]">
+            <span className="text-[11px] text-muted">
               Categorizes alerts across user interfaces
             </span>
           </div>
@@ -376,25 +376,25 @@ export function NotificationForm({
                   onClick={() => setType(t.value)}
                   className={`flex flex-col items-start p-3 rounded-md border text-left transition-all ${
                     isSelected
-                      ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                      : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                      ? 'border-accent bg-accent/10 text-foreground'
+                      : 'border-border bg-surface hover:bg-[#161616] text-muted'
                   } ${isSentLocked ? 'opacity-60 cursor-not-allowed' : ''}`}
                 >
                   <div className="flex items-center gap-1.5 mb-1">
                     <Icon
                       className={`h-3.5 w-3.5 ${
-                        isSelected ? 'text-[#FF6B00]' : 'text-[#9AA1AA]'
+                        isSelected ? 'text-accent' : 'text-muted'
                       }`}
                     />
                     <span
                       className={`text-xs font-semibold ${
-                        isSelected ? 'text-[#EDEDED]' : 'text-neutral-300'
+                        isSelected ? 'text-foreground' : 'text-neutral-300'
                       }`}
                     >
                       {t.label}
                     </span>
                   </div>
-                  <span className="text-[10px] text-[#9AA1AA] line-clamp-2">
+                  <span className="text-[10px] text-muted line-clamp-2">
                     {t.desc}
                   </span>
                 </button>
@@ -404,15 +404,15 @@ export function NotificationForm({
         </div>
 
         {/* 2. MESSAGE CONTENT */}
-        <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-4">
-          <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono block">
+        <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-4">
+          <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono block">
             2. Notification Content
           </label>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-[#EDEDED] font-medium flex justify-between">
+            <label className="text-xs text-foreground font-medium flex justify-between">
               <span>Title</span>
-              <span className="text-[10px] text-[#9AA1AA]">
+              <span className="text-[10px] text-muted">
                 Clear and descriptive subject
               </span>
             </label>
@@ -422,15 +422,15 @@ export function NotificationForm({
               value={title}
               disabled={isSentLocked}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-9 focus-visible:ring-1 focus-visible:ring-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-xs h-9 focus-visible:ring-1 focus-visible:ring-accent"
               required
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs text-[#EDEDED] font-medium flex justify-between">
+            <label className="text-xs text-foreground font-medium flex justify-between">
               <span>Message Body</span>
-              <span className="text-[10px] text-[#9AA1AA]">
+              <span className="text-[10px] text-muted">
                 Full circular text, guidelines, or instructions
               </span>
             </label>
@@ -440,26 +440,26 @@ export function NotificationForm({
               value={message}
               disabled={isSentLocked}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full rounded-md bg-[#0A0A0A] border border-[#222222] p-3 text-xs text-[#EDEDED] placeholder-[#555] focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00] outline-none transition-colors"
+              className="w-full rounded-md bg-surface border border-border p-3 text-xs text-foreground placeholder-[#555] focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors"
               required
             />
           </div>
         </div>
 
         {/* 3. AUDIENCE TARGETING */}
-        <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-4">
+        <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-4">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono">
+            <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono">
               3. Target Audience & Cohort Isolation
             </label>
-            <span className="text-[11px] text-[#9AA1AA]">
+            <span className="text-[11px] text-muted">
               Strict RLS boundary: Non-recipients cannot view this broadcast
             </span>
           </div>
 
           {/* Role selector chips */}
           <div className="space-y-2">
-            <label className="text-xs text-[#EDEDED] font-medium block">
+            <label className="text-xs text-foreground font-medium block">
               Target Role(s)
             </label>
             <div className="flex flex-wrap gap-2">
@@ -469,8 +469,8 @@ export function NotificationForm({
                 onClick={handleSelectAllRoles}
                 className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                   targetAllRoles
-                    ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                    : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                    ? 'bg-accent text-black border-accent font-semibold'
+                    : 'bg-surface text-muted border-border hover:bg-[#161616]'
                 } ${isSentLocked ? 'opacity-60 cursor-not-allowed' : ''}`}
               >
                 All Users (Campus Broadcast)
@@ -486,8 +486,8 @@ export function NotificationForm({
                     onClick={() => toggleRole(r.id)}
                     className={`px-3 py-1.5 rounded text-xs font-mono transition-colors border ${
                       isSelected
-                        ? 'bg-[#FF6B00] text-black border-[#FF6B00] font-semibold'
-                        : 'bg-[#0A0A0A] text-[#9AA1AA] border-[#222222] hover:bg-[#161616]'
+                        ? 'bg-accent text-black border-accent font-semibold'
+                        : 'bg-surface text-muted border-border hover:bg-[#161616]'
                     } ${isSentLocked ? 'opacity-60 cursor-not-allowed' : ''}`}
                   >
                     {r.label}
@@ -501,8 +501,8 @@ export function NotificationForm({
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-[#1C1C1C]">
             {/* Department */}
             <div className="space-y-1.5">
-              <label className="text-xs text-[#EDEDED] font-medium flex items-center gap-1.5">
-                <Building2 className="h-3.5 w-3.5 text-[#FF6B00]" />
+              <label className="text-xs text-foreground font-medium flex items-center gap-1.5">
+                <Building2 className="h-3.5 w-3.5 text-accent" />
                 Department
               </label>
               <select
@@ -512,7 +512,7 @@ export function NotificationForm({
                   setTargetDepartment(e.target.value);
                   setTargetSectionId('all');
                 }}
-                className="w-full h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+                className="w-full h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
               >
                 <option value="all">All Departments</option>
                 {structureOptions.departments.map((d) => (
@@ -525,8 +525,8 @@ export function NotificationForm({
 
             {/* Academic Year */}
             <div className="space-y-1.5">
-              <label className="text-xs text-[#EDEDED] font-medium flex items-center gap-1.5">
-                <GraduationCap className="h-3.5 w-3.5 text-[#FF6B00]" />
+              <label className="text-xs text-foreground font-medium flex items-center gap-1.5">
+                <GraduationCap className="h-3.5 w-3.5 text-accent" />
                 Academic Year
               </label>
               <select
@@ -536,7 +536,7 @@ export function NotificationForm({
                   setTargetYear(e.target.value);
                   setTargetSectionId('all');
                 }}
-                className="w-full h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+                className="w-full h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
               >
                 <option value="all">All Academic Years</option>
                 {structureOptions.academicYears.map((y) => (
@@ -549,15 +549,15 @@ export function NotificationForm({
 
             {/* Specific Academic Section */}
             <div className="space-y-1.5">
-              <label className="text-xs text-[#EDEDED] font-medium flex items-center gap-1.5">
-                <Users className="h-3.5 w-3.5 text-[#FF6B00]" />
+              <label className="text-xs text-foreground font-medium flex items-center gap-1.5">
+                <Users className="h-3.5 w-3.5 text-accent" />
                 Specific Section
               </label>
               <select
                 value={targetSectionId}
                 disabled={isSentLocked}
                 onChange={(e) => setTargetSectionId(e.target.value)}
-                className="w-full h-9 px-3 rounded-md bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] focus:border-[#FF6B00] outline-none"
+                className="w-full h-9 px-3 rounded-md bg-surface border border-border text-xs text-foreground focus:border-accent outline-none"
               >
                 <option value="all">All Sections</option>
                 {availableSections.map((sec) => (
@@ -573,8 +573,8 @@ export function NotificationForm({
 
         {/* 4. DISPATCH MODE & SCHEDULING (Disabled when editing already-sent) */}
         {!isSentLocked && (
-          <div className="border border-[#222222] bg-[#121212] p-4 sm:p-5 rounded-md space-y-4">
-            <label className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider font-mono block">
+          <div className="border border-border bg-elevated p-4 sm:p-5 rounded-md space-y-4">
+            <label className="text-xs font-semibold text-foreground uppercase tracking-wider font-mono block">
               4. Dispatch Mode & Scheduling
             </label>
 
@@ -586,22 +586,22 @@ export function NotificationForm({
                   onClick={() => setDispatchMode('immediate')}
                   className={`flex items-start gap-3 p-3.5 rounded-md border text-left transition-all ${
                     dispatchMode === 'immediate'
-                      ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                      : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                      ? 'border-accent bg-accent/10 text-foreground'
+                      : 'border-border bg-surface hover:bg-[#161616] text-muted'
                   }`}
                 >
                   <Send
                     className={`h-4 w-4 mt-0.5 shrink-0 ${
                       dispatchMode === 'immediate'
-                        ? 'text-[#FF6B00]'
-                        : 'text-[#9AA1AA]'
+                        ? 'text-accent'
+                        : 'text-muted'
                     }`}
                   />
                   <div>
-                    <div className="text-xs font-semibold text-[#EDEDED]">
+                    <div className="text-xs font-semibold text-foreground">
                       Send Immediately
                     </div>
-                    <p className="text-[10px] text-[#9AA1AA] mt-0.5">
+                    <p className="text-[10px] text-muted mt-0.5">
                       Broadcast and deliver into user inboxes right now.
                     </p>
                   </div>
@@ -614,22 +614,22 @@ export function NotificationForm({
                 onClick={() => setDispatchMode('schedule')}
                 className={`flex items-start gap-3 p-3.5 rounded-md border text-left transition-all ${
                   dispatchMode === 'schedule'
-                    ? 'border-amber-500 bg-amber-950/20 text-[#EDEDED]'
-                    : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                    ? 'border-amber-500 bg-amber-950/20 text-foreground'
+                    : 'border-border bg-surface hover:bg-[#161616] text-muted'
                 }`}
               >
                 <Clock
                   className={`h-4 w-4 mt-0.5 shrink-0 ${
                     dispatchMode === 'schedule'
                       ? 'text-amber-400'
-                      : 'text-[#9AA1AA]'
+                      : 'text-muted'
                   }`}
                 />
                 <div>
-                  <div className="text-xs font-semibold text-[#EDEDED]">
+                  <div className="text-xs font-semibold text-foreground">
                     Schedule for Later
                   </div>
-                  <p className="text-[10px] text-[#9AA1AA] mt-0.5">
+                  <p className="text-[10px] text-muted mt-0.5">
                     Set a future timestamp for automated delivery.
                   </p>
                 </div>
@@ -641,22 +641,22 @@ export function NotificationForm({
                 onClick={() => setDispatchMode('draft')}
                 className={`flex items-start gap-3 p-3.5 rounded-md border text-left transition-all ${
                   dispatchMode === 'draft'
-                    ? 'border-neutral-500 bg-neutral-900 text-[#EDEDED]'
-                    : 'border-[#222222] bg-[#0A0A0A] hover:bg-[#161616] text-[#9AA1AA]'
+                    ? 'border-neutral-500 bg-neutral-900 text-foreground'
+                    : 'border-border bg-surface hover:bg-[#161616] text-muted'
                 }`}
               >
                 <FileText
                   className={`h-4 w-4 mt-0.5 shrink-0 ${
                     dispatchMode === 'draft'
                       ? 'text-neutral-300'
-                      : 'text-[#9AA1AA]'
+                      : 'text-muted'
                   }`}
                 />
                 <div>
-                  <div className="text-xs font-semibold text-[#EDEDED]">
+                  <div className="text-xs font-semibold text-foreground">
                     Save as Draft
                   </div>
-                  <p className="text-[10px] text-[#9AA1AA] mt-0.5">
+                  <p className="text-[10px] text-muted mt-0.5">
                     Keep in drafts without scheduling or sending.
                   </p>
                 </div>
@@ -665,7 +665,7 @@ export function NotificationForm({
 
             {/* Datetime input if scheduled */}
             {dispatchMode === 'schedule' && (
-              <div className="p-3 bg-[#0A0A0A] border border-amber-900/50 rounded-md space-y-2">
+              <div className="p-3 bg-surface border border-amber-900/50 rounded-md space-y-2">
                 <label className="text-xs text-amber-400 font-medium flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5" />
                   Select Schedule Date & Time
@@ -674,10 +674,10 @@ export function NotificationForm({
                   type="datetime-local"
                   value={scheduledAt}
                   onChange={(e) => setScheduledAt(e.target.value)}
-                  className="bg-[#121212] border-[#222222] text-[#EDEDED] text-xs h-9 focus-visible:ring-1 focus-visible:ring-amber-500 max-w-sm"
+                  className="bg-elevated border-border text-foreground text-xs h-9 focus-visible:ring-1 focus-visible:ring-amber-500 max-w-sm"
                   required={dispatchMode === 'schedule'}
                 />
-                <p className="text-[11px] text-[#9AA1AA]">
+                <p className="text-[11px] text-muted">
                   The system will register this notification under Scheduled status
                   until the target timestamp.
                 </p>
@@ -693,7 +693,7 @@ export function NotificationForm({
               type="button"
               variant="outline"
               disabled={isPending}
-              className="border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED] text-xs h-9 px-4"
+              className="border-border bg-elevated hover:bg-[#1A1A1A] text-foreground text-xs h-9 px-4"
             >
               Cancel
             </Button>
@@ -703,7 +703,7 @@ export function NotificationForm({
             <Button
               type="submit"
               disabled={isPending}
-              className="bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold text-xs h-9 px-5"
+              className="bg-accent hover:bg-[#E05D00] text-black font-semibold text-xs h-9 px-5"
             >
               {isPending ? (
                 <>

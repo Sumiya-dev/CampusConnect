@@ -83,7 +83,7 @@ export default async function CompanyMaterialsPage({
             <Button
               variant="outline"
               size="sm"
-              className="text-sm gap-1 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="text-sm gap-1 border-border text-muted hover:text-foreground"
             >
               <ArrowLeft className="h-3 w-3" />
               <span>All {companyName} Roles</span>
@@ -94,7 +94,7 @@ export default async function CompanyMaterialsPage({
             <Button
               variant="outline"
               size="sm"
-              className="text-sm gap-1 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="text-sm gap-1 border-border text-muted hover:text-foreground"
             >
               <ArrowLeft className="h-3 w-3" />
               <span>All Companies</span>
@@ -111,8 +111,8 @@ export default async function CompanyMaterialsPage({
               href={`/student/preparation/company-specific/${companyId}`}
               className={`px-3 py-1 rounded text-sm transition-colors ${
                 !role
-                  ? 'text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 font-medium'
-                  : 'text-[#9AA1AA] hover:text-[#EDEDED] border border-[#222222]'
+                  ? 'text-accent bg-accent/10 border border-accent/30 font-medium'
+                  : 'text-muted hover:text-foreground border border-border'
               }`}
             >
               All Roles ({companyMaterials.length})
@@ -128,8 +128,8 @@ export default async function CompanyMaterialsPage({
                   )}`}
                   className={`px-3 py-1 rounded text-sm transition-colors whitespace-nowrap ${
                     isSelected
-                      ? 'text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 font-medium'
-                      : 'text-[#9AA1AA] hover:text-[#EDEDED] border border-[#222222]'
+                      ? 'text-accent bg-accent/10 border border-accent/30 font-medium'
+                      : 'text-muted hover:text-foreground border border-border'
                   }`}
                 >
                   {r} ({count})

@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { FileText, Download, Trash2, Eye, Calendar, RefreshCw, ExternalLink, Sparkles, Wand2 } from 'lucide-react';
 import { Resume } from '@/lib/types/resume.types';
 import { getResumeUrl, deleteResume } from '@/lib/resume/actions';
+import { ResumeAskAIModal } from './resume-ask-ai-modal';
+import { ResumeModifyAIModal } from './resume-modify-ai-modal';
 
 interface ResumeViewProps {
   resume: Resume;
@@ -17,6 +19,9 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
   const [viewUrl, setViewUrl] = useState<string | null>(null);
   const [isLoadingView, setIsLoadingView] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  
+  const [isAskAIOpen, setIsAskAIOpen] = useState(false);
+  const [isModifyAIOpen, setIsModifyAIOpen] = useState(false);
 
   const handleView = async () => {
     if (isViewing) {
@@ -82,13 +87,11 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
   };
 
   const handleAskAI = () => {
-    // Placeholder handler for Ask AI
-    console.log('Ask AI clicked for resume:', resume.id);
+    setIsAskAIOpen(true);
   };
 
   const handleModifyWithAI = () => {
-    // Placeholder handler for Modify with AI
-    console.log('Modify with AI clicked for resume:', resume.id);
+    setIsModifyAIOpen(true);
   };
 
   const formatDate = (dateString: string) => {
@@ -101,23 +104,23 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
   };
 
   return (
-    <div className="border border-[#222222] rounded-md overflow-hidden bg-[#0A0A0A]">
+    <div className="border border-border rounded-md overflow-hidden bg-surface">
       <div className="p-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-lg bg-[#121212] border border-[#222222] flex items-center justify-center shrink-0">
-              <FileText className="w-6 h-6 text-[#FF6B00]" />
+            <div className="w-12 h-12 rounded-lg bg-elevated border border-border flex items-center justify-center shrink-0">
+              <FileText className="w-6 h-6 text-accent" />
             </div>
             <div>
-              <h3 className="text-base font-medium text-[#EDEDED] break-all">
+              <h3 className="text-base font-medium text-foreground break-all">
                 {resume.file_name}
               </h3>
               <div className="flex items-center gap-4 mt-2">
-                <div className="flex items-center gap-1.5 text-xs text-[#9AA1AA]">
+                <div className="flex items-center gap-1.5 text-xs text-muted">
                   <Calendar className="w-3.5 h-3.5" />
                   <span>Uploaded {formatDate(resume.created_at)}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-[#9AA1AA]">
+                <div className="flex items-center gap-1.5 text-xs text-muted">
                   <span>{(resume.file_size / 1024 / 1024).toFixed(2)} MB</span>
                 </div>
               </div>
@@ -131,7 +134,7 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
               className={`flex items-center gap-2 px-3 py-1.5 border text-sm font-medium rounded-md transition-colors disabled:opacity-50 ${
                 isViewing 
                   ? 'bg-[#1A1A1A] border-[#444444] text-white' 
-                  : 'bg-[#121212] border-[#333333] text-[#EDEDED] hover:bg-[#1A1A1A]'
+                  : 'bg-elevated border-[#333333] text-foreground hover:bg-[#1A1A1A]'
               }`}
             >
               <Eye className="w-4 h-4" />
@@ -140,7 +143,7 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
             <button
               onClick={handleDownload}
               disabled={isDownloading}
-              className="flex items-center gap-2 px-3 py-1.5 bg-[#121212] border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] transition-colors disabled:opacity-50"
+              className="flex items-center gap-2 px-3 py-1.5 bg-elevated border border-[#333333] text-foreground text-sm font-medium rounded-md hover:bg-[#1A1A1A] transition-colors disabled:opacity-50"
             >
               <Download className="w-4 h-4" />
               {isDownloading ? 'Downloading...' : 'Download'}
@@ -148,22 +151,22 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
             <button
               type="button"
               onClick={handleAskAI}
-              className="flex items-center gap-2 px-3 py-1.5 bg-[#121212] border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] hover:border-[#444444] transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 bg-elevated border border-[#333333] text-foreground text-sm font-medium rounded-md hover:bg-[#1A1A1A] hover:border-[#444444] transition-colors"
             >
-              <Sparkles className="w-4 h-4 text-[#FF6B00]" />
+              <Sparkles className="w-4 h-4 text-accent" />
               Ask AI
             </button>
             <button
               type="button"
               onClick={handleModifyWithAI}
-              className="flex items-center gap-2 px-3 py-1.5 bg-[#121212] border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] hover:border-[#444444] transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 bg-elevated border border-[#333333] text-foreground text-sm font-medium rounded-md hover:bg-[#1A1A1A] hover:border-[#444444] transition-colors"
             >
-              <Wand2 className="w-4 h-4 text-[#FF6B00]" />
+              <Wand2 className="w-4 h-4 text-accent" />
               Modify with AI
             </button>
             <button
               onClick={onReplace}
-              className="flex items-center gap-2 px-3 py-1.5 bg-[#121212] border border-[#333333] text-[#EDEDED] text-sm font-medium rounded-md hover:bg-[#1A1A1A] transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 bg-elevated border border-[#333333] text-foreground text-sm font-medium rounded-md hover:bg-[#1A1A1A] transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               Replace
@@ -180,14 +183,14 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
         </div>
         
         {isViewing && viewUrl && (
-          <div className="mt-6 pt-6 border-t border-[#222222]">
+          <div className="mt-6 pt-6 border-t border-border">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="text-sm font-medium text-[#EDEDED]">Resume Preview</h4>
+              <h4 className="text-sm font-medium text-foreground">Resume Preview</h4>
               <a
                 href={viewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-[#FF6B00] hover:text-[#FF6B00]/80 transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs text-accent hover:text-accent/80 transition-colors"
               >
                 <span>Open in new window</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -201,13 +204,13 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
                   title="Resume Preview"
                 />
               ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 bg-[#0A0A0A]">
-                  <FileText className="w-12 h-12 text-[#9AA1AA] mb-4" />
-                  <p className="text-[#EDEDED] font-medium mb-2">Preview not available</p>
-                  <p className="text-[#9AA1AA] text-sm mb-4">This file type cannot be previewed directly in the browser.</p>
+                <div className="w-full h-full flex flex-col items-center justify-center text-center p-6 bg-surface">
+                  <FileText className="w-12 h-12 text-muted mb-4" />
+                  <p className="text-foreground font-medium mb-2">Preview not available</p>
+                  <p className="text-muted text-sm mb-4">This file type cannot be previewed directly in the browser.</p>
                   <button
                     onClick={handleDownload}
-                    className="flex items-center gap-2 px-4 py-2 bg-[#FF6B00] text-white text-sm font-medium rounded-md hover:bg-[#FF6B00]/90 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-accent text-white text-sm font-medium rounded-md hover:bg-accent/90 transition-colors"
                   >
                     <Download className="w-4 h-4" />
                     Download to view
@@ -218,6 +221,19 @@ export function ResumeView({ resume, onReplace }: ResumeViewProps) {
           </div>
         )}
       </div>
+
+      <ResumeAskAIModal 
+        isOpen={isAskAIOpen} 
+        onClose={() => setIsAskAIOpen(false)} 
+        resumePath={resume.file_path} 
+      />
+
+      <ResumeModifyAIModal 
+        isOpen={isModifyAIOpen} 
+        onClose={() => setIsModifyAIOpen(false)} 
+        resumePath={resume.file_path} 
+        onReplaceInitiate={onReplace}
+      />
     </div>
   );
 }

@@ -11,20 +11,20 @@ export interface ButtonProps
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", isLoading, children, disabled, ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FF6B00] disabled:pointer-events-none disabled:opacity-40 cursor-pointer select-none";
+      "inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent disabled:pointer-events-none disabled:opacity-40 cursor-pointer select-none";
 
     const variantStyles = {
       default:
-        "bg-[#FF6B00] text-black font-semibold hover:bg-[#E05E00]",
+        "bg-accent text-black font-semibold hover:bg-[#E05E00]",
       destructive:
         "bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20",
       outline:
-        "border border-[#222222] bg-[#0A0A0A] text-[#EDEDED] hover:bg-[#141414] hover:border-[#333333]",
+        "border border-border bg-surface text-foreground hover:bg-[#141414] hover:border-[#333333]",
       secondary:
-        "bg-[#141414] text-[#EDEDED] hover:bg-[#1E1E1E] border border-[#222222]",
+        "bg-[#141414] text-foreground hover:bg-[#1E1E1E] border border-border",
       ghost:
-        "text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#141414]",
-      link: "text-[#FF6B00] hover:underline underline-offset-4 p-0 h-auto",
+        "text-muted hover:text-foreground hover:bg-[#141414]",
+      link: "text-accent hover:underline underline-offset-4 p-0 h-auto",
     };
 
     const sizeStyles = {

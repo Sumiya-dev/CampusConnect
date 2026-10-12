@@ -228,7 +228,7 @@ export function CommunityModerationDashboard({
         );
       case 'Dismissed':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-[#1F242C] text-[#9AA1AA] border border-[#2A313C]">
+          <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-[#1F242C] text-muted border border-[#2A313C]">
             Dismissed
           </span>
         );
@@ -241,40 +241,40 @@ export function CommunityModerationDashboard({
     <div className="space-y-6">
       {/* Top Moderation Stats Strip */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="p-3.5 rounded-md border border-[#222222] bg-[#0A0A0A]">
-          <div className="text-xs text-[#9AA1AA]">Pending Reports</div>
+        <div className="p-3.5 rounded-md border border-border bg-surface">
+          <div className="text-xs text-muted">Pending Reports</div>
           <div className="text-lg font-semibold text-amber-400 mt-1">{stats.pendingReports}</div>
-          <div className="text-[11px] text-[#9AA1AA] mt-0.5">Needs admin action</div>
+          <div className="text-[11px] text-muted mt-0.5">Needs admin action</div>
         </div>
 
-        <div className="p-3.5 rounded-md border border-[#222222] bg-[#0A0A0A]">
-          <div className="text-xs text-[#9AA1AA]">Resolved Reports</div>
+        <div className="p-3.5 rounded-md border border-border bg-surface">
+          <div className="text-xs text-muted">Resolved Reports</div>
           <div className="text-lg font-semibold text-emerald-400 mt-1">{stats.resolvedReports}</div>
-          <div className="text-[11px] text-[#9AA1AA] mt-0.5">Cases closed</div>
+          <div className="text-[11px] text-muted mt-0.5">Cases closed</div>
         </div>
 
-        <div className="p-3.5 rounded-md border border-[#222222] bg-[#0A0A0A]">
-          <div className="text-xs text-[#9AA1AA]">Total Posts</div>
-          <div className="text-lg font-semibold text-[#EDEDED] mt-1">{stats.totalPosts}</div>
-          <div className="text-[11px] text-[#9AA1AA] mt-0.5">Community threads</div>
+        <div className="p-3.5 rounded-md border border-border bg-surface">
+          <div className="text-xs text-muted">Total Posts</div>
+          <div className="text-lg font-semibold text-foreground mt-1">{stats.totalPosts}</div>
+          <div className="text-[11px] text-muted mt-0.5">Community threads</div>
         </div>
 
-        <div className="p-3.5 rounded-md border border-[#222222] bg-[#0A0A0A]">
-          <div className="text-xs text-[#9AA1AA]">Moderated Posts</div>
-          <div className="text-lg font-semibold text-[#FF6B00] mt-1">{stats.moderatedPosts}</div>
-          <div className="text-[11px] text-[#9AA1AA] mt-0.5">Hidden / filtered</div>
+        <div className="p-3.5 rounded-md border border-border bg-surface">
+          <div className="text-xs text-muted">Moderated Posts</div>
+          <div className="text-lg font-semibold text-accent mt-1">{stats.moderatedPosts}</div>
+          <div className="text-[11px] text-muted mt-0.5">Hidden / filtered</div>
         </div>
 
-        <div className="p-3.5 rounded-md border border-[#222222] bg-[#0A0A0A]">
-          <div className="text-xs text-[#9AA1AA]">Total Comments</div>
-          <div className="text-lg font-semibold text-[#EDEDED] mt-1">{stats.totalComments}</div>
-          <div className="text-[11px] text-[#9AA1AA] mt-0.5">Thread replies</div>
+        <div className="p-3.5 rounded-md border border-border bg-surface">
+          <div className="text-xs text-muted">Total Comments</div>
+          <div className="text-lg font-semibold text-foreground mt-1">{stats.totalComments}</div>
+          <div className="text-[11px] text-muted mt-0.5">Thread replies</div>
         </div>
 
-        <div className="p-3.5 rounded-md border border-[#222222] bg-[#0A0A0A]">
-          <div className="text-xs text-[#9AA1AA]">Moderated Comments</div>
-          <div className="text-lg font-semibold text-[#FF6B00] mt-1">{stats.moderatedComments}</div>
-          <div className="text-[11px] text-[#9AA1AA] mt-0.5">Hidden replies</div>
+        <div className="p-3.5 rounded-md border border-border bg-surface">
+          <div className="text-xs text-muted">Moderated Comments</div>
+          <div className="text-lg font-semibold text-accent mt-1">{stats.moderatedComments}</div>
+          <div className="text-[11px] text-muted mt-0.5">Hidden replies</div>
         </div>
       </div>
 
@@ -304,7 +304,7 @@ export function CommunityModerationDashboard({
       )}
 
       {/* Tabs Bar */}
-      <div className="flex items-center gap-2 border-b border-[#222222]">
+      <div className="flex items-center gap-2 border-b border-border">
         <button
           onClick={() => {
             setActiveTab('reports');
@@ -312,8 +312,8 @@ export function CommunityModerationDashboard({
           }}
           className={`px-3.5 py-2.5 text-xs font-medium border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'reports'
-              ? 'border-[#FF6B00] text-[#FF6B00]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-accent'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <Flag className="h-3.5 w-3.5" />
@@ -327,8 +327,8 @@ export function CommunityModerationDashboard({
           }}
           className={`px-3.5 py-2.5 text-xs font-medium border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'posts'
-              ? 'border-[#FF6B00] text-[#FF6B00]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-accent'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <MessageSquare className="h-3.5 w-3.5" />
@@ -342,8 +342,8 @@ export function CommunityModerationDashboard({
           }}
           className={`px-3.5 py-2.5 text-xs font-medium border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'comments'
-              ? 'border-[#FF6B00] text-[#FF6B00]'
-              : 'border-transparent text-[#9AA1AA] hover:text-[#EDEDED]'
+              ? 'border-accent text-accent'
+              : 'border-transparent text-muted hover:text-foreground'
           }`}
         >
           <MessageCircle className="h-3.5 w-3.5" />
@@ -352,10 +352,10 @@ export function CommunityModerationDashboard({
       </div>
 
       {/* Search & Filter Controls */}
-      <div className="p-4 rounded-md border border-[#222222] bg-[#0A0A0A] space-y-3">
+      <div className="p-4 rounded-md border border-border bg-surface space-y-3">
         <div className="flex flex-col sm:flex-row gap-2.5">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -366,7 +366,7 @@ export function CommunityModerationDashboard({
                   ? 'Search posts by title, content, or author name...'
                   : 'Search comments by content, author, or parent post...'
               }
-              className="pl-9 text-xs h-9 bg-[#121212] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA]/60"
+              className="pl-9 text-xs h-9 bg-elevated border-border text-foreground placeholder:text-muted/60"
             />
           </div>
 
@@ -383,7 +383,7 @@ export function CommunityModerationDashboard({
                 setStatusFilter('all');
                 setReportStatusFilter('all');
               }}
-              className="text-xs h-9 text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="text-xs h-9 text-muted hover:text-foreground"
             >
               Reset Filters
             </Button>
@@ -392,15 +392,15 @@ export function CommunityModerationDashboard({
 
         {activeTab === 'reports' && (
           <div className="flex items-center gap-2 flex-wrap text-xs">
-            <span className="text-[#9AA1AA]">Status:</span>
+            <span className="text-muted">Status:</span>
             {(['all', 'Pending', 'Reviewed', 'Resolved', 'Dismissed'] as const).map((st) => (
               <button
                 key={st}
                 onClick={() => setReportStatusFilter(st)}
                 className={`px-2.5 py-1 rounded border transition-colors ${
                   reportStatusFilter === st
-                    ? 'bg-[#121212] border-[#FF6B00] text-[#FF6B00] font-medium'
-                    : 'border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]'
+                    ? 'bg-elevated border-accent text-accent font-medium'
+                    : 'border-border text-muted hover:text-foreground'
                 }`}
               >
                 {st === 'all' ? 'All Reports' : st}
@@ -412,11 +412,11 @@ export function CommunityModerationDashboard({
         {activeTab === 'posts' && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
             <div>
-              <label className="text-[11px] text-[#9AA1AA] block mb-1">Category</label>
+              <label className="text-[11px] text-muted block mb-1">Category</label>
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value as any)}
-                className="w-full h-8 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] px-2 focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 rounded border border-border bg-elevated text-foreground px-2 focus:outline-none focus:border-accent"
               >
                 <option value="All">All Categories</option>
                 <option value="Placement">Placement</option>
@@ -428,11 +428,11 @@ export function CommunityModerationDashboard({
             </div>
 
             <div>
-              <label className="text-[11px] text-[#9AA1AA] block mb-1">Moderation Status</label>
+              <label className="text-[11px] text-muted block mb-1">Moderation Status</label>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as any)}
-                className="w-full h-8 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] px-2 focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 rounded border border-border bg-elevated text-foreground px-2 focus:outline-none focus:border-accent"
               >
                 <option value="all">All Posts</option>
                 <option value="active">Active (Visible)</option>
@@ -446,11 +446,11 @@ export function CommunityModerationDashboard({
         {activeTab === 'comments' && (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
             <div>
-              <label className="text-[11px] text-[#9AA1AA] block mb-1">Status</label>
+              <label className="text-[11px] text-muted block mb-1">Status</label>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as any)}
-                className="w-full h-8 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] px-2 focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 rounded border border-border bg-elevated text-foreground px-2 focus:outline-none focus:border-accent"
               >
                 <option value="all">All Comments</option>
                 <option value="active">Active</option>
@@ -464,18 +464,18 @@ export function CommunityModerationDashboard({
 
       {/* TAB 1: REPORTS QUEUE */}
       {activeTab === 'reports' && (
-        <div className="rounded-md border border-[#222222] bg-[#0A0A0A] overflow-hidden">
-          <div className="p-4 border-b border-[#222222] flex items-center justify-between text-xs">
-            <span className="text-[#9AA1AA]">
-              Showing <span className="text-[#EDEDED] font-mono">{filteredReports.length}</span> reports
+        <div className="rounded-md border border-border bg-surface overflow-hidden">
+          <div className="p-4 border-b border-border flex items-center justify-between text-xs">
+            <span className="text-muted">
+              Showing <span className="text-foreground font-mono">{filteredReports.length}</span> reports
             </span>
           </div>
 
           {filteredReports.length === 0 ? (
             <div className="p-12 text-center space-y-2">
               <ShieldCheck className="h-8 w-8 text-emerald-400 mx-auto opacity-60" />
-              <div className="text-sm font-medium text-[#EDEDED]">No Flagged Reports In Queue</div>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <div className="text-sm font-medium text-foreground">No Flagged Reports In Queue</div>
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 No community reports match your current filter. Student and faculty discussions are operating
                 smoothly.
               </p>
@@ -483,7 +483,7 @@ export function CommunityModerationDashboard({
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-[#222222] bg-[#121212] text-[#9AA1AA] uppercase tracking-wider text-[11px]">
+                <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-[11px]">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Report Reason</th>
                     <th className="py-3 px-4 font-semibold">Reported Target</th>
@@ -493,26 +493,26 @@ export function CommunityModerationDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Moderation Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#222222] text-[#EDEDED]">
+                <tbody className="divide-y divide-border text-foreground">
                   {filteredReports.map((report) => (
-                    <tr key={report.id} className="hover:bg-[#121212]/50 transition-colors">
+                    <tr key={report.id} className="hover:bg-elevated/50 transition-colors">
                       <td className="py-3 px-4">
-                        <div className="font-semibold text-[#EDEDED] flex items-center gap-1.5">
+                        <div className="font-semibold text-foreground flex items-center gap-1.5">
                           <Flag className="h-3 w-3 text-red-400" />
                           {report.reason}
                         </div>
                         {report.details && (
-                          <div className="text-[11px] text-[#9AA1AA] mt-0.5 line-clamp-1">
+                          <div className="text-[11px] text-muted mt-0.5 line-clamp-1">
                             {report.details}
                           </div>
                         )}
                       </td>
 
                       <td className="py-3 px-4 max-w-xs">
-                        <div className="text-[11px] font-mono uppercase text-[#9AA1AA]">
+                        <div className="text-[11px] font-mono uppercase text-muted">
                           {report.target_type === 'post' ? 'Post' : 'Comment'}
                         </div>
-                        <div className="truncate text-xs font-medium text-[#EDEDED] mt-0.5">
+                        <div className="truncate text-xs font-medium text-foreground mt-0.5">
                           {report.target_type === 'post'
                             ? report.post?.title || 'Reported Post'
                             : report.comment?.content || 'Reported Comment'}
@@ -520,7 +520,7 @@ export function CommunityModerationDashboard({
                         {report.post_id && (
                           <Link
                             href={`/admin/moderation/posts/${report.post_id}`}
-                            className="inline-flex items-center gap-1 text-[11px] text-[#FF6B00] hover:underline mt-0.5"
+                            className="inline-flex items-center gap-1 text-[11px] text-accent hover:underline mt-0.5"
                           >
                             <span>Inspect Discussion</span>
                             <ChevronRight className="h-2.5 w-2.5" />
@@ -529,13 +529,13 @@ export function CommunityModerationDashboard({
                       </td>
 
                       <td className="py-3 px-4">
-                        <div className="font-medium text-[#EDEDED]">{report.reporter?.name || 'Anonymous'}</div>
-                        <div className="text-[11px] text-[#9AA1AA] capitalize">
+                        <div className="font-medium text-foreground">{report.reporter?.name || 'Anonymous'}</div>
+                        <div className="text-[11px] text-muted capitalize">
                           {report.reporter?.role || 'User'}
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 text-[#9AA1AA] font-mono">
+                      <td className="py-3 px-4 text-muted font-mono">
                         {formatDate(report.created_at)}
                       </td>
 
@@ -552,7 +552,7 @@ export function CommunityModerationDashboard({
                               setResolutionNotes(report.resolution_notes || '');
                               clearAlerts();
                             }}
-                            className="h-7 text-xs px-2.5 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]"
+                            className="h-7 text-xs px-2.5 border-border text-foreground hover:border-accent hover:text-accent"
                           >
                             Review Report
                           </Button>
@@ -584,25 +584,25 @@ export function CommunityModerationDashboard({
 
       {/* TAB 2: POSTS DIRECTORY */}
       {activeTab === 'posts' && (
-        <div className="rounded-md border border-[#222222] bg-[#0A0A0A] overflow-hidden">
-          <div className="p-4 border-b border-[#222222] flex items-center justify-between text-xs">
-            <span className="text-[#9AA1AA]">
-              Showing <span className="text-[#EDEDED] font-mono">{filteredPosts.length}</span> community posts
+        <div className="rounded-md border border-border bg-surface overflow-hidden">
+          <div className="p-4 border-b border-border flex items-center justify-between text-xs">
+            <span className="text-muted">
+              Showing <span className="text-foreground font-mono">{filteredPosts.length}</span> community posts
             </span>
           </div>
 
           {filteredPosts.length === 0 ? (
             <div className="p-12 text-center space-y-2">
-              <MessageSquare className="h-8 w-8 text-[#9AA1AA] mx-auto opacity-40" />
-              <div className="text-sm font-medium text-[#EDEDED]">No Discussion Posts Found</div>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <MessageSquare className="h-8 w-8 text-muted mx-auto opacity-40" />
+              <div className="text-sm font-medium text-foreground">No Discussion Posts Found</div>
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 No community posts match the current filter parameters.
               </p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-[#222222] bg-[#121212] text-[#9AA1AA] uppercase tracking-wider text-[11px]">
+                <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-[11px]">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Post Title & Snippet</th>
                     <th className="py-3 px-4 font-semibold">Category & Scope</th>
@@ -612,19 +612,19 @@ export function CommunityModerationDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#222222] text-[#EDEDED]">
+                <tbody className="divide-y divide-border text-foreground">
                   {filteredPosts.map((post) => {
                     const isHidden = post.is_deleted || post.is_moderated;
                     return (
-                      <tr key={post.id} className="hover:bg-[#121212]/50 transition-colors">
+                      <tr key={post.id} className="hover:bg-elevated/50 transition-colors">
                         <td className="py-3 px-4 max-w-sm">
                           <Link
                             href={`/admin/moderation/posts/${post.id}`}
-                            className="font-medium text-xs text-[#EDEDED] hover:text-[#FF6B00] transition-colors line-clamp-1"
+                            className="font-medium text-xs text-foreground hover:text-accent transition-colors line-clamp-1"
                           >
                             {post.title}
                           </Link>
-                          <div className="text-[11px] text-[#9AA1AA] line-clamp-1 mt-0.5">
+                          <div className="text-[11px] text-muted line-clamp-1 mt-0.5">
                             {post.content}
                           </div>
                           {post.moderation_reason && (
@@ -635,24 +635,24 @@ export function CommunityModerationDashboard({
                         </td>
 
                         <td className="py-3 px-4">
-                          <span className="px-2 py-0.5 rounded text-[10px] bg-[#121212] border border-[#222222] text-[#EDEDED]">
+                          <span className="px-2 py-0.5 rounded text-[10px] bg-elevated border border-border text-foreground">
                             {post.category}
                           </span>
-                          <div className="text-[11px] text-[#9AA1AA] mt-1 font-mono">
+                          <div className="text-[11px] text-muted mt-1 font-mono">
                             {post.visibility}
                           </div>
                         </td>
 
                         <td className="py-3 px-4">
-                          <div className="font-medium text-[#EDEDED]">
+                          <div className="font-medium text-foreground">
                             {post.author?.name || 'Anonymous'}
                           </div>
-                          <div className="text-[11px] text-[#9AA1AA]">
+                          <div className="text-[11px] text-muted">
                             {post.author?.role} • {post.author?.department}
                           </div>
                         </td>
 
-                        <td className="py-3 px-4 font-mono text-[11px] text-[#9AA1AA]">
+                        <td className="py-3 px-4 font-mono text-[11px] text-muted">
                           <div>{post.comment_count} comments</div>
                           <div>{post.like_count} likes</div>
                           {(post.reports_count || 0) > 0 && (
@@ -682,7 +682,7 @@ export function CommunityModerationDashboard({
                               <Button
                                 variant="outline"
                                 size="sm"
-                                className="h-7 text-xs px-2 border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]"
+                                className="h-7 text-xs px-2 border-border text-foreground hover:border-accent hover:text-accent"
                               >
                                 Details
                               </Button>
@@ -728,25 +728,25 @@ export function CommunityModerationDashboard({
 
       {/* TAB 3: COMMENTS DIRECTORY */}
       {activeTab === 'comments' && (
-        <div className="rounded-md border border-[#222222] bg-[#0A0A0A] overflow-hidden">
-          <div className="p-4 border-b border-[#222222] flex items-center justify-between text-xs">
-            <span className="text-[#9AA1AA]">
-              Showing <span className="text-[#EDEDED] font-mono">{filteredComments.length}</span> comments
+        <div className="rounded-md border border-border bg-surface overflow-hidden">
+          <div className="p-4 border-b border-border flex items-center justify-between text-xs">
+            <span className="text-muted">
+              Showing <span className="text-foreground font-mono">{filteredComments.length}</span> comments
             </span>
           </div>
 
           {filteredComments.length === 0 ? (
             <div className="p-12 text-center space-y-2">
-              <MessageCircle className="h-8 w-8 text-[#9AA1AA] mx-auto opacity-40" />
-              <div className="text-sm font-medium text-[#EDEDED]">No Comments Found</div>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <MessageCircle className="h-8 w-8 text-muted mx-auto opacity-40" />
+              <div className="text-sm font-medium text-foreground">No Comments Found</div>
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 No discussion comments match the current filters.
               </p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-[#222222] bg-[#121212] text-[#9AA1AA] uppercase tracking-wider text-[11px]">
+                <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-[11px]">
                   <tr>
                     <th className="py-3 px-4 font-semibold">Comment Content</th>
                     <th className="py-3 px-4 font-semibold">Author</th>
@@ -756,13 +756,13 @@ export function CommunityModerationDashboard({
                     <th className="py-3 px-4 font-semibold text-right">Moderation Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#222222] text-[#EDEDED]">
+                <tbody className="divide-y divide-border text-foreground">
                   {filteredComments.map((comment) => {
                     const isHidden = comment.is_deleted || comment.is_moderated;
                     return (
-                      <tr key={comment.id} className="hover:bg-[#121212]/50 transition-colors">
+                      <tr key={comment.id} className="hover:bg-elevated/50 transition-colors">
                         <td className="py-3 px-4 max-w-sm">
-                          <div className="text-xs text-[#EDEDED] line-clamp-2">{comment.content}</div>
+                          <div className="text-xs text-foreground line-clamp-2">{comment.content}</div>
                           {comment.moderation_reason && (
                             <div className="text-[10px] text-red-400 bg-red-500/10 border border-red-500/20 px-1.5 py-0.5 rounded mt-1 inline-block">
                               Reason: {comment.moderation_reason}
@@ -771,10 +771,10 @@ export function CommunityModerationDashboard({
                         </td>
 
                         <td className="py-3 px-4">
-                          <div className="font-medium text-[#EDEDED]">
+                          <div className="font-medium text-foreground">
                             {comment.author?.name || 'Anonymous'}
                           </div>
-                          <div className="text-[11px] text-[#9AA1AA]">
+                          <div className="text-[11px] text-muted">
                             {comment.author?.role} • {comment.author?.department}
                           </div>
                         </td>
@@ -783,16 +783,16 @@ export function CommunityModerationDashboard({
                           {comment.post ? (
                             <Link
                               href={`/admin/moderation/posts/${comment.post_id}`}
-                              className="text-xs text-[#FF6B00] hover:underline line-clamp-1"
+                              className="text-xs text-accent hover:underline line-clamp-1"
                             >
                               {comment.post.title}
                             </Link>
                           ) : (
-                            <span className="text-[#9AA1AA]">Unknown Post</span>
+                            <span className="text-muted">Unknown Post</span>
                           )}
                         </td>
 
-                        <td className="py-3 px-4 text-[#9AA1AA] font-mono">
+                        <td className="py-3 px-4 text-muted font-mono">
                           {formatDate(comment.created_at)}
                         </td>
 
@@ -853,29 +853,29 @@ export function CommunityModerationDashboard({
       {/* MODAL 1: HIDE POST */}
       {hidePostModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-md border border-[#222222] bg-[#0A0A0A] p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="w-full max-w-md rounded-md border border-border bg-surface p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="text-sm font-semibold text-red-400 flex items-center gap-2">
                 <AlertTriangle className="h-4 w-4" />
                 Hide Discussion Post
               </div>
               <button
                 onClick={() => setHidePostModal(null)}
-                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs text-muted hover:text-foreground"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] text-xs space-y-1">
-              <div className="font-semibold text-[#EDEDED]">{hidePostModal.title}</div>
-              <div className="text-[#9AA1AA]">
+            <div className="p-3 rounded bg-elevated border border-border text-xs space-y-1">
+              <div className="font-semibold text-foreground">{hidePostModal.title}</div>
+              <div className="text-muted">
                 Author: {hidePostModal.author?.name} ({hidePostModal.author?.role})
               </div>
             </div>
 
             <div>
-              <label className="text-xs text-[#9AA1AA] block mb-1.5">
+              <label className="text-xs text-muted block mb-1.5">
                 Moderation Reason (Logged & Recorded)
               </label>
               <textarea
@@ -883,22 +883,22 @@ export function CommunityModerationDashboard({
                 onChange={(e) => setModerationReason(e.target.value)}
                 placeholder="Violates institutional code of conduct, inappropriate language..."
                 rows={3}
-                className="w-full text-xs rounded border border-[#222222] bg-[#121212] text-[#EDEDED] p-2.5 focus:outline-none focus:border-[#FF6B00]"
+                className="w-full text-xs rounded border border-border bg-elevated text-foreground p-2.5 focus:outline-none focus:border-accent"
               />
             </div>
 
-            <p className="text-[11px] text-[#9AA1AA]">
+            <p className="text-[11px] text-muted">
               Note: This action hides the post from public feeds while preserving database records and author
               attribution for historical auditing.
             </p>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setHidePostModal(null)}
                 disabled={isPending}
-                className="text-xs h-8 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs h-8 text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -918,36 +918,36 @@ export function CommunityModerationDashboard({
       {/* MODAL 2: RESTORE POST */}
       {restorePostModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-md border border-[#222222] bg-[#0A0A0A] p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="w-full max-w-md rounded-md border border-border bg-surface p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="text-sm font-semibold text-emerald-400 flex items-center gap-2">
                 <RotateCcw className="h-4 w-4" />
                 Restore Discussion Post
               </div>
               <button
                 onClick={() => setRestorePostModal(null)}
-                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs text-muted hover:text-foreground"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] text-xs space-y-1">
-              <div className="font-semibold text-[#EDEDED]">{restorePostModal.title}</div>
-              <div className="text-[#9AA1AA]">Author: {restorePostModal.author?.name}</div>
+            <div className="p-3 rounded bg-elevated border border-border text-xs space-y-1">
+              <div className="font-semibold text-foreground">{restorePostModal.title}</div>
+              <div className="text-muted">Author: {restorePostModal.author?.name}</div>
             </div>
 
-            <p className="text-xs text-[#9AA1AA]">
+            <p className="text-xs text-muted">
               Restoring will make this post publicly visible again on the community feeds.
             </p>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setRestorePostModal(null)}
                 disabled={isPending}
-                className="text-xs h-8 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs h-8 text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -967,43 +967,43 @@ export function CommunityModerationDashboard({
       {/* MODAL 3: HIDE COMMENT */}
       {hideCommentModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-md border border-[#222222] bg-[#0A0A0A] p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="w-full max-w-md rounded-md border border-border bg-surface p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="text-sm font-semibold text-red-400 flex items-center gap-2">
                 <AlertTriangle className="h-4 w-4" />
                 Hide Comment
               </div>
               <button
                 onClick={() => setHideCommentModal(null)}
-                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs text-muted hover:text-foreground"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] text-xs space-y-1">
-              <div className="text-[#EDEDED] line-clamp-2">{hideCommentModal.content}</div>
-              <div className="text-[#9AA1AA]">Author: {hideCommentModal.author?.name}</div>
+            <div className="p-3 rounded bg-elevated border border-border text-xs space-y-1">
+              <div className="text-foreground line-clamp-2">{hideCommentModal.content}</div>
+              <div className="text-muted">Author: {hideCommentModal.author?.name}</div>
             </div>
 
             <div>
-              <label className="text-xs text-[#9AA1AA] block mb-1.5">Moderation Reason</label>
+              <label className="text-xs text-muted block mb-1.5">Moderation Reason</label>
               <textarea
                 value={moderationReason}
                 onChange={(e) => setModerationReason(e.target.value)}
                 placeholder="Inappropriate remarks, harassment, off-topic spam..."
                 rows={2}
-                className="w-full text-xs rounded border border-[#222222] bg-[#121212] text-[#EDEDED] p-2.5 focus:outline-none focus:border-[#FF6B00]"
+                className="w-full text-xs rounded border border-border bg-elevated text-foreground p-2.5 focus:outline-none focus:border-accent"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setHideCommentModal(null)}
                 disabled={isPending}
-                className="text-xs h-8 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs h-8 text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -1023,31 +1023,31 @@ export function CommunityModerationDashboard({
       {/* MODAL 4: RESTORE COMMENT */}
       {restoreCommentModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-md border border-[#222222] bg-[#0A0A0A] p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="w-full max-w-md rounded-md border border-border bg-surface p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="text-sm font-semibold text-emerald-400 flex items-center gap-2">
                 <RotateCcw className="h-4 w-4" />
                 Restore Comment
               </div>
               <button
                 onClick={() => setRestoreCommentModal(null)}
-                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs text-muted hover:text-foreground"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] text-xs">
-              <div className="text-[#EDEDED] line-clamp-2">{restoreCommentModal.content}</div>
+            <div className="p-3 rounded bg-elevated border border-border text-xs">
+              <div className="text-foreground line-clamp-2">{restoreCommentModal.content}</div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setRestoreCommentModal(null)}
                 disabled={isPending}
-                className="text-xs h-8 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs h-8 text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -1067,26 +1067,26 @@ export function CommunityModerationDashboard({
       {/* MODAL 5: REVIEW / RESOLVE REPORT */}
       {reportModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-md border border-[#222222] bg-[#0A0A0A] p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
-              <div className="text-sm font-semibold text-[#EDEDED] flex items-center gap-2">
-                <Flag className="h-4 w-4 text-[#FF6B00]" />
+          <div className="w-full max-w-md rounded-md border border-border bg-surface p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <div className="text-sm font-semibold text-foreground flex items-center gap-2">
+                <Flag className="h-4 w-4 text-accent" />
                 Review Community Report
               </div>
               <button
                 onClick={() => setReportModal(null)}
-                className="text-xs text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs text-muted hover:text-foreground"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 rounded bg-[#121212] border border-[#222222] text-xs space-y-1.5">
+            <div className="p-3 rounded bg-elevated border border-border text-xs space-y-1.5">
               <div className="font-semibold text-red-400">Reason: {reportModal.reason}</div>
               {reportModal.details && (
-                <div className="text-[#9AA1AA]">Details: {reportModal.details}</div>
+                <div className="text-muted">Details: {reportModal.details}</div>
               )}
-              <div className="text-[11px] text-[#9AA1AA] pt-1 border-t border-[#222222]">
+              <div className="text-[11px] text-muted pt-1 border-t border-border">
                 Reported target: {reportModal.target_type === 'post' ? 'Post' : 'Comment'} • Filed by{' '}
                 {reportModal.reporter?.name || 'User'} on {formatDate(reportModal.created_at)}
               </div>
@@ -1094,11 +1094,11 @@ export function CommunityModerationDashboard({
 
             <div className="space-y-3">
               <div>
-                <label className="text-xs text-[#9AA1AA] block mb-1.5">Update Report Status</label>
+                <label className="text-xs text-muted block mb-1.5">Update Report Status</label>
                 <select
                   value={targetReportStatus}
                   onChange={(e) => setTargetReportStatus(e.target.value as CommunityReportStatus)}
-                  className="w-full text-xs h-9 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] px-3 focus:outline-none focus:border-[#FF6B00]"
+                  className="w-full text-xs h-9 rounded border border-border bg-elevated text-foreground px-3 focus:outline-none focus:border-accent"
                 >
                   <option value="Reviewed">Reviewed (Under Investigation)</option>
                   <option value="Resolved">Resolved (Action Taken / Content Moderated)</option>
@@ -1108,7 +1108,7 @@ export function CommunityModerationDashboard({
               </div>
 
               <div>
-                <label className="text-xs text-[#9AA1AA] block mb-1.5">
+                <label className="text-xs text-muted block mb-1.5">
                   Resolution Notes / Findings (Optional)
                 </label>
                 <textarea
@@ -1116,18 +1116,18 @@ export function CommunityModerationDashboard({
                   onChange={(e) => setResolutionNotes(e.target.value)}
                   placeholder="Notes on decision taken or rationale..."
                   rows={2}
-                  className="w-full text-xs rounded border border-[#222222] bg-[#121212] text-[#EDEDED] p-2.5 focus:outline-none focus:border-[#FF6B00]"
+                  className="w-full text-xs rounded border border-border bg-elevated text-foreground p-2.5 focus:outline-none focus:border-accent"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setReportModal(null)}
                 disabled={isPending}
-                className="text-xs h-8 text-[#9AA1AA] hover:text-[#EDEDED]"
+                className="text-xs h-8 text-muted hover:text-foreground"
               >
                 Cancel
               </Button>
@@ -1135,7 +1135,7 @@ export function CommunityModerationDashboard({
                 size="sm"
                 onClick={handleUpdateReportStatus}
                 disabled={isPending}
-                className="text-xs h-8 bg-[#FF6B00] text-black font-medium hover:bg-[#E05E00]"
+                className="text-xs h-8 bg-accent text-black font-medium hover:bg-[#E05E00]"
               >
                 {isPending ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : 'Save Report Status'}
               </Button>

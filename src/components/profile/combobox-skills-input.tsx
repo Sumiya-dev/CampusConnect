@@ -98,12 +98,12 @@ export function ComboboxSkillsInput({
               onFocus={() => setIsOpen(true)}
               onKeyDown={handleKeyDown}
               placeholder={placeholder}
-              className="text-sm h-10 bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA] focus:border-[#FF6B00] pr-8"
+              className="text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted focus:border-accent pr-8"
             />
             <button
               type="button"
               onClick={() => setIsOpen((prev) => !prev)}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#9AA1AA] hover:text-[#EDEDED] cursor-pointer"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted hover:text-foreground cursor-pointer"
               tabIndex={-1}
             >
               <ChevronDown className="h-3.5 w-3.5" />
@@ -124,15 +124,15 @@ export function ComboboxSkillsInput({
 
         {/* Dropdown Options List */}
         {isOpen && (
-          <div className="absolute z-30 w-full mt-1 max-h-52 overflow-y-auto bg-[#0A0A0A] border border-[#222222] rounded-md shadow-xl py-1 text-sm">
+          <div className="absolute z-30 w-full mt-1 max-h-52 overflow-y-auto bg-surface border border-border rounded-md shadow-xl py-1 text-sm">
             {isCustomSkill && (
               <button
                 type="button"
                 onClick={() => addSkill(inputValue)}
-                className="w-full text-left px-3 py-2 text-[#FF6B00] hover:bg-[#121212] flex items-center justify-between transition-colors cursor-pointer border-b border-[#222222]"
+                className="w-full text-left px-3 py-2 text-accent hover:bg-elevated flex items-center justify-between transition-colors cursor-pointer border-b border-border"
               >
                 <span>Add custom: &quot;{inputValue.trim()}&quot;</span>
-                <span className="text-sm text-[#9AA1AA]">Press Enter</span>
+                <span className="text-sm text-muted">Press Enter</span>
               </button>
             )}
 
@@ -142,13 +142,13 @@ export function ComboboxSkillsInput({
                   key={option}
                   type="button"
                   onClick={() => addSkill(option)}
-                  className="w-full text-left px-3 py-2 text-[#EDEDED] hover:bg-[#121212] flex items-center justify-between transition-colors cursor-pointer"
+                  className="w-full text-left px-3 py-2 text-foreground hover:bg-elevated flex items-center justify-between transition-colors cursor-pointer"
                 >
                   <span>{option}</span>
                 </button>
               ))
             ) : !isCustomSkill ? (
-              <div className="px-3 py-2 text-[#9AA1AA] text-sm">
+              <div className="px-3 py-2 text-muted text-sm">
                 {inputValue ? 'No matching preset skills. Type custom skill and press Add.' : 'All preset skills added.'}
               </div>
             ) : null}
@@ -159,20 +159,20 @@ export function ComboboxSkillsInput({
       {/* Selected Skills Chips */}
       <div className="flex flex-wrap gap-2 min-h-[28px] items-center">
         {skills.length === 0 ? (
-          <span className="text-sm text-[#9AA1AA]">
+          <span className="text-sm text-muted">
             No skills selected yet. Select from the dropdown or type custom above.
           </span>
         ) : (
           skills.map((skill) => (
             <span
               key={skill}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-[#222222] bg-[#121212] text-[#EDEDED] text-sm font-normal"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded border border-border bg-elevated text-foreground text-sm font-normal"
             >
               <span>{skill}</span>
               <button
                 type="button"
                 onClick={() => removeSkill(skill)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED] transition-colors cursor-pointer"
+                className="text-muted hover:text-foreground transition-colors cursor-pointer"
                 title={`Remove ${skill}`}
               >
                 <X className="h-3 w-3" />

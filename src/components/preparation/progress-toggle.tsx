@@ -52,34 +52,34 @@ export function ProgressToggle({
   };
 
   return (
-    <div className="border border-[#222222] rounded-md bg-[#0A0A0A] p-4 sm:p-5 space-y-3">
+    <div className="border border-border rounded-md bg-surface p-4 sm:p-5 space-y-3">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="space-y-1">
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
+          <span className="text-sm uppercase font-semibold text-muted tracking-wider block">
             Your Preparation Standing
           </span>
           <div className="flex items-center gap-2">
             {status === 'completed' && (
-              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#22C55E] bg-[#22C55E]/10 border border-[#22C55E]/30 px-2.5 py-1 rounded">
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-green-500 bg-green-500/10 border border-green-500/30 px-2.5 py-1 rounded">
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 <span>Completed</span>
               </span>
             )}
             {status === 'in_progress' && (
-              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#FF6B00] bg-[#FF6B00]/10 border border-[#FF6B00]/30 px-2.5 py-1 rounded">
+              <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent bg-accent/10 border border-accent/30 px-2.5 py-1 rounded">
                 <Clock className="h-3.5 w-3.5" />
                 <span>In Progress</span>
               </span>
             )}
             {status === 'not_started' && (
-              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-[#9AA1AA] bg-[#121212] border border-[#222222] px-2.5 py-1 rounded">
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-muted bg-elevated border border-border px-2.5 py-1 rounded">
                 <PlayCircle className="h-3.5 w-3.5" />
                 <span>Not Started</span>
               </span>
             )}
 
             {completedAt && status === 'completed' && (
-              <span className="text-sm text-[#9AA1AA]">
+              <span className="text-sm text-muted">
                 Completed on {formatTimestamp(completedAt)}
               </span>
             )}
@@ -94,7 +94,7 @@ export function ProgressToggle({
               variant="outline"
               onClick={() => handleUpdate('in_progress')}
               disabled={isPending}
-              className="text-sm border-[#222222] text-[#EDEDED] hover:border-[#FF6B00] hover:text-[#FF6B00]"
+              className="text-sm border-border text-foreground hover:border-accent hover:text-accent"
             >
               {isPending ? <Loader2 className="h-3 w-3 animate-spin mr-1" /> : null}
               <span>Mark In Progress</span>
@@ -123,7 +123,7 @@ export function ProgressToggle({
               variant="ghost"
               onClick={() => handleUpdate('not_started')}
               disabled={isPending}
-              className="text-sm text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]"
+              className="text-sm text-muted hover:text-foreground hover:bg-elevated"
               title="Reset progress to Not Started"
             >
               <RotateCcw className="h-3 w-3 mr-1" />
@@ -134,7 +134,7 @@ export function ProgressToggle({
       </div>
 
       {message && (
-        <p className="text-sm text-[#22C55E] pt-1 font-medium">{message}</p>
+        <p className="text-sm text-green-500 pt-1 font-medium">{message}</p>
       )}
     </div>
   );

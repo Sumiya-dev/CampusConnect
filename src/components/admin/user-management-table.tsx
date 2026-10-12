@@ -478,7 +478,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
         );
       case 'inactive':
         return (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[#9AA1AA] font-mono">
+          <span className="inline-flex items-center gap-1 text-[11px] text-muted font-mono">
             <span className="h-1.5 w-1.5 rounded-full bg-[#666666]"></span>
             Inactive
           </span>
@@ -496,15 +496,15 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
   return (
     <div className="space-y-6">
       {/* View Switcher Tabs & Action Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#222222] pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-3">
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => setActiveTab('users')}
             className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
               activeTab === 'users'
-                ? 'bg-[#181818] text-[#EDEDED] border border-[#333333]'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#181818] text-foreground border border-[#333333]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             User Accounts ({users.length})
@@ -514,11 +514,11 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
             onClick={() => setActiveTab('audit_logs')}
             className={`px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 ${
               activeTab === 'audit_logs'
-                ? 'bg-[#181818] text-[#EDEDED] border border-[#333333]'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#181818] text-foreground border border-[#333333]'
+                : 'text-muted hover:text-foreground'
             }`}
           >
-            <History className="h-3 w-3 text-[#FF6B00]" />
+            <History className="h-3 w-3 text-accent" />
             <span>Audit Trail ({auditLogs.length})</span>
           </button>
         </div>
@@ -527,7 +527,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
           <Button
             size="sm"
             onClick={handleOpenCreate}
-            className="bg-[#EDEDED] text-black hover:bg-white text-xs h-8 px-3 gap-1.5 font-medium shrink-0"
+            className="bg-foreground text-black hover:bg-white text-xs h-8 px-3 gap-1.5 font-medium shrink-0"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>Create User</span>
@@ -541,7 +541,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
             {/* Search */}
             <div className="sm:col-span-4 relative">
-              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
               <Input
                 value={searchQuery}
                 onChange={(e) => {
@@ -549,7 +549,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   setCurrentPage(1);
                 }}
                 placeholder="Search name, email, roll/emp ID..."
-                className="pl-8 text-xs bg-[#0A0A0A] border-[#222222] text-[#EDEDED] placeholder:text-[#9AA1AA] h-8"
+                className="pl-8 text-xs bg-surface border-border text-foreground placeholder:text-muted h-8"
               />
             </div>
 
@@ -561,7 +561,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   setRoleFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full h-8 px-2 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value="all">All Roles</option>
                 <option value="student">Student</option>
@@ -579,7 +579,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   setDepartmentFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full h-8 px-2 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value="all">All Departments</option>
                 {departments.map((dept) => (
@@ -598,7 +598,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   setStatusFilter(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full h-8 px-2 text-xs bg-[#0A0A0A] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                className="w-full h-8 px-2 text-xs bg-surface border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
               >
                 <option value="all">All Statuses</option>
                 <option value="active">Active</option>
@@ -610,14 +610,14 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
 
           {/* Active filters notice */}
           {hasActiveFilters && (
-            <div className="flex items-center justify-between text-xs text-[#9AA1AA] bg-[#0E0E0E] px-3 py-1.5 rounded border border-[#222222]">
+            <div className="flex items-center justify-between text-xs text-muted bg-[#0E0E0E] px-3 py-1.5 rounded border border-border">
               <span>
                 Filtering {filteredUsers.length} of {users.length} users
               </span>
               <button
                 type="button"
                 onClick={clearFilters}
-                className="text-[#FF6B00] hover:underline flex items-center gap-1"
+                className="text-accent hover:underline flex items-center gap-1"
               >
                 <RotateCcw className="h-3 w-3" />
                 Clear Filters
@@ -626,10 +626,10 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
           )}
 
           {/* Users Table */}
-          <div className="border border-[#222222] rounded-md bg-[#0A0A0A] overflow-hidden">
+          <div className="border border-border rounded-md bg-surface overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-[#121212] border-b border-[#222222] text-[#9AA1AA]">
+                <thead className="bg-elevated border-b border-border text-muted">
                   <tr>
                     <th className="py-2.5 px-3 font-medium">User / Identity</th>
                     <th className="py-2.5 px-3 font-medium">Role</th>
@@ -643,7 +643,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                 <tbody className="divide-y divide-[#1A1A1A]">
                   {paginatedUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="py-8 text-center text-[#9AA1AA]">
+                      <td colSpan={7} className="py-8 text-center text-muted">
                         No users match the selected query and filters.
                       </td>
                     </tr>
@@ -651,16 +651,16 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                     paginatedUsers.map((u) => (
                       <tr key={u.id} className="hover:bg-[#0E0E0E] transition-colors">
                         <td className="py-2.5 px-3">
-                          <div className="font-medium text-[#EDEDED]">{u.name}</div>
-                          <div className="text-[11px] text-[#9AA1AA] font-mono">{u.email}</div>
+                          <div className="font-medium text-foreground">{u.name}</div>
+                          <div className="text-[11px] text-muted font-mono">{u.email}</div>
                         </td>
                         <td className="py-2.5 px-3">{getRoleBadge(u.role)}</td>
-                        <td className="py-2.5 px-3 text-[#EDEDED] truncate max-w-[180px]">
+                        <td className="py-2.5 px-3 text-foreground truncate max-w-[180px]">
                           {u.department}
                         </td>
-                        <td className="py-2.5 px-3 text-[#9AA1AA] font-mono">{u.identifier}</td>
+                        <td className="py-2.5 px-3 text-muted font-mono">{u.identifier}</td>
                         <td className="py-2.5 px-3">{getStatusBadge(u.accountStatus)}</td>
-                        <td className="py-2.5 px-3 text-[#9AA1AA] font-mono">
+                        <td className="py-2.5 px-3 text-muted font-mono">
                           {formatDate(u.createdAt).split(',')[0]}
                         </td>
                         <td className="py-2.5 px-3 text-right">
@@ -670,7 +670,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                               type="button"
                               onClick={() => setInspectUser(u)}
                               title="View Complete Details"
-                              className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#181818]"
+                              className="p-1 rounded text-muted hover:text-foreground hover:bg-[#181818]"
                             >
                               <Eye className="h-3.5 w-3.5" />
                             </button>
@@ -680,7 +680,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                               type="button"
                               onClick={() => handleOpenEdit(u)}
                               title="Edit User Profile"
-                              className="p-1 rounded text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#181818]"
+                              className="p-1 rounded text-muted hover:text-foreground hover:bg-[#181818]"
                             >
                               <Edit2 className="h-3.5 w-3.5" />
                             </button>
@@ -700,7 +700,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                                 })
                               }
                               title="Modify Role"
-                              className="p-1 rounded text-[#9AA1AA] hover:text-[#FF6B00] hover:bg-[#181818]"
+                              className="p-1 rounded text-muted hover:text-accent hover:bg-[#181818]"
                             >
                               <Shield className="h-3.5 w-3.5" />
                             </button>
@@ -721,7 +721,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                               }
                               className={`p-1 rounded hover:bg-[#181818] ${
                                 u.accountStatus === 'active'
-                                  ? 'text-[#9AA1AA] hover:text-amber-400'
+                                  ? 'text-muted hover:text-amber-400'
                                   : 'text-emerald-400 hover:text-emerald-300'
                               }`}
                             >
@@ -739,7 +739,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                                 setConfirmDelete({ user: u, forceHardDelete: false })
                               }
                               title="Safe Delete User"
-                              className="p-1 rounded text-[#9AA1AA] hover:text-rose-400 hover:bg-[#181818]"
+                              className="p-1 rounded text-muted hover:text-rose-400 hover:bg-[#181818]"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
                             </button>
@@ -753,7 +753,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
             </div>
 
             {/* Pagination Controls */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-[#101010] border-t border-[#222222] text-xs text-[#9AA1AA]">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-[#101010] border-t border-border text-xs text-muted">
               <div className="flex items-center gap-2">
                 <span>Rows per page:</span>
                 <select
@@ -762,7 +762,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                     setPageSize(Number(e.target.value));
                     setCurrentPage(1);
                   }}
-                  className="h-6 px-1.5 text-xs bg-[#181818] border border-[#262626] rounded text-[#EDEDED]"
+                  className="h-6 px-1.5 text-xs bg-[#181818] border border-[#262626] rounded text-foreground"
                 >
                   <option value={10}>10</option>
                   <option value={25}>25</option>
@@ -780,7 +780,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   size="sm"
                   disabled={currentPage <= 1}
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  className="h-7 px-2 text-xs border-[#262626] text-[#EDEDED] disabled:opacity-30"
+                  className="h-7 px-2 text-xs border-[#262626] text-foreground disabled:opacity-30"
                 >
                   <ChevronLeft className="h-3.5 w-3.5" />
                   <span className="sr-only">Previous</span>
@@ -793,7 +793,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   size="sm"
                   disabled={currentPage >= totalPages}
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  className="h-7 px-2 text-xs border-[#262626] text-[#EDEDED] disabled:opacity-30"
+                  className="h-7 px-2 text-xs border-[#262626] text-foreground disabled:opacity-30"
                 >
                   <ChevronRight className="h-3.5 w-3.5" />
                   <span className="sr-only">Next</span>
@@ -804,23 +804,23 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
         </>
       ) : (
         /* Audit Logs Feed */
-        <div className="border border-[#222222] rounded-md bg-[#0A0A0A] divide-y divide-[#1A1A1A]">
-          <div className="p-4 bg-[#121212] border-b border-[#222222] flex items-center justify-between">
+        <div className="border border-border rounded-md bg-surface divide-y divide-[#1A1A1A]">
+          <div className="p-4 bg-elevated border-b border-border flex items-center justify-between">
             <div>
-              <h3 className="text-xs font-semibold text-[#EDEDED] uppercase tracking-wider">
+              <h3 className="text-xs font-semibold text-foreground uppercase tracking-wider">
                 Immutable Privileged Audit Stream
               </h3>
-              <p className="text-[11px] text-[#9AA1AA] mt-0.5">
+              <p className="text-[11px] text-muted mt-0.5">
                 Every user creation, role modification, status toggle, and deletion event recorded cryptographically.
               </p>
             </div>
-            <Badge variant="outline" className="text-xs border-[#333333] text-[#9AA1AA]">
+            <Badge variant="outline" className="text-xs border-[#333333] text-muted">
               {auditLogs.length} Records Logged
             </Badge>
           </div>
 
           {auditLogs.length === 0 ? (
-            <div className="py-12 text-center text-xs text-[#9AA1AA]">No audit logs recorded yet.</div>
+            <div className="py-12 text-center text-xs text-muted">No audit logs recorded yet.</div>
           ) : (
             auditLogs.map((log) => (
               <div key={log.id} className="p-4 hover:bg-[#0E0E0E] transition-colors space-y-1.5">
@@ -836,28 +836,28 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                           ? 'border-rose-800/40 bg-rose-950/40 text-rose-300'
                           : log.action === 'user_deactivated'
                           ? 'border-amber-800/40 bg-amber-950/40 text-amber-300'
-                          : 'border-[#333333] bg-[#181818] text-[#9AA1AA]'
+                          : 'border-[#333333] bg-[#181818] text-muted'
                       }`}
                     >
                       {log.action.replace('_', ' ')}
                     </span>
-                    <span className="text-xs text-[#EDEDED] font-mono">
+                    <span className="text-xs text-foreground font-mono">
                       Target: {log.target_user_email || log.target_user_id || 'System'}
                     </span>
                   </div>
-                  <span className="text-[11px] text-[#9AA1AA] font-mono">
+                  <span className="text-[11px] text-muted font-mono">
                     {formatDate(log.created_at)}
                   </span>
                 </div>
 
-                <div className="text-xs text-[#9AA1AA] font-mono flex items-center gap-2">
+                <div className="text-xs text-muted font-mono flex items-center gap-2">
                   <span>Actor: {log.actor_email}</span>
                   <span className="text-[#333333]">•</span>
                   <span>Status: {log.status}</span>
                 </div>
 
                 {log.details && Object.keys(log.details).length > 0 && (
-                  <div className="p-2 rounded bg-[#121212] border border-[#222222] text-[11px] font-mono text-[#9AA1AA] overflow-x-auto">
+                  <div className="p-2 rounded bg-elevated border border-border text-[11px] font-mono text-muted overflow-x-auto">
                     {JSON.stringify(log.details)}
                   </div>
                 )}
@@ -870,54 +870,54 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
       {/* Inspect User Modal */}
       {inspectUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in-0">
-          <div className="bg-[#0D0D0D] border border-[#222222] rounded-md max-w-lg w-full p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="bg-[#0D0D0D] border border-border rounded-md max-w-lg w-full p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-[#FF6B00]" />
-                <h3 className="text-sm font-semibold text-[#EDEDED]">Complete User Profile Dossier</h3>
+                <User className="h-4 w-4 text-accent" />
+                <h3 className="text-sm font-semibold text-foreground">Complete User Profile Dossier</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setInspectUser(null)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED] p-1 rounded"
+                className="text-muted hover:text-foreground p-1 rounded"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-3 p-3 rounded bg-[#121212] border border-[#222222]">
+              <div className="grid grid-cols-2 gap-3 p-3 rounded bg-elevated border border-border">
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Full Name</span>
-                  <span className="font-medium text-[#EDEDED]">{inspectUser.name}</span>
+                  <span className="text-[11px] text-muted block">Full Name</span>
+                  <span className="font-medium text-foreground">{inspectUser.name}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Institutional Email</span>
-                  <span className="font-mono text-[#EDEDED]">{inspectUser.email}</span>
+                  <span className="text-[11px] text-muted block">Institutional Email</span>
+                  <span className="font-mono text-foreground">{inspectUser.email}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Assigned Role</span>
+                  <span className="text-[11px] text-muted block">Assigned Role</span>
                   <div className="mt-0.5">{getRoleBadge(inspectUser.role)}</div>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Account Status</span>
+                  <span className="text-[11px] text-muted block">Account Status</span>
                   <div className="mt-0.5">{getStatusBadge(inspectUser.accountStatus)}</div>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Department</span>
-                  <span className="text-[#EDEDED]">{inspectUser.department}</span>
+                  <span className="text-[11px] text-muted block">Department</span>
+                  <span className="text-foreground">{inspectUser.department}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Primary Identifier</span>
-                  <span className="font-mono text-[#EDEDED]">{inspectUser.identifier}</span>
+                  <span className="text-[11px] text-muted block">Primary Identifier</span>
+                  <span className="font-mono text-foreground">{inspectUser.identifier}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">Contact Number</span>
-                  <span className="text-[#EDEDED]">{inspectUser.contactNumber || 'Not specified'}</span>
+                  <span className="text-[11px] text-muted block">Contact Number</span>
+                  <span className="text-foreground">{inspectUser.contactNumber || 'Not specified'}</span>
                 </div>
                 <div>
-                  <span className="text-[11px] text-[#9AA1AA] block">User UUID</span>
-                  <span className="font-mono text-[10px] text-[#9AA1AA] truncate block">
+                  <span className="text-[11px] text-muted block">User UUID</span>
+                  <span className="font-mono text-[10px] text-muted truncate block">
                     {inspectUser.id}
                   </span>
                 </div>
@@ -925,36 +925,36 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
 
               {/* Role-Specific Records */}
               {inspectUser.role === 'student' && (
-                <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-2">
-                  <span className="text-[11px] text-[#FF6B00] font-mono uppercase block">
+                <div className="p-3 rounded bg-elevated border border-border space-y-2">
+                  <span className="text-[11px] text-accent font-mono uppercase block">
                     Academic Candidate Specifications
                   </span>
                   <div className="grid grid-cols-3 gap-2">
                     <div>
-                      <span className="text-[10px] text-[#9AA1AA] block">Academic Year</span>
-                      <span className="text-[#EDEDED] font-mono">Year {inspectUser.year || 4}</span>
+                      <span className="text-[10px] text-muted block">Academic Year</span>
+                      <span className="text-foreground font-mono">Year {inspectUser.year || 4}</span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-[#9AA1AA] block">Cumulative CGPA</span>
-                      <span className="text-[#EDEDED] font-mono">
+                      <span className="text-[10px] text-muted block">Cumulative CGPA</span>
+                      <span className="text-foreground font-mono">
                         {inspectUser.cgpa?.toFixed(2) || '8.00'}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-[#9AA1AA] block">Placement Status</span>
-                      <span className="text-[#EDEDED] font-mono uppercase text-[10px]">
+                      <span className="text-[10px] text-muted block">Placement Status</span>
+                      <span className="text-foreground font-mono uppercase text-[10px]">
                         {inspectUser.placementStatus || 'unplaced'}
                       </span>
                     </div>
                   </div>
                   {inspectUser.skills && inspectUser.skills.length > 0 && (
                     <div>
-                      <span className="text-[10px] text-[#9AA1AA] block mb-1">Endorsed Skills</span>
+                      <span className="text-[10px] text-muted block mb-1">Endorsed Skills</span>
                       <div className="flex flex-wrap gap-1">
                         {inspectUser.skills.map((s) => (
                           <span
                             key={s}
-                            className="px-1.5 py-0.5 rounded bg-[#1A1A1A] border border-[#262626] text-[10px] text-[#EDEDED]"
+                            className="px-1.5 py-0.5 rounded bg-[#1A1A1A] border border-[#262626] text-[10px] text-foreground"
                           >
                             {s}
                           </span>
@@ -966,32 +966,32 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
               )}
 
               {inspectUser.role === 'faculty' && (
-                <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-1">
-                  <span className="text-[11px] text-[#FF6B00] font-mono uppercase block">
+                <div className="p-3 rounded bg-elevated border border-border space-y-1">
+                  <span className="text-[11px] text-accent font-mono uppercase block">
                     Faculty Appointment Details
                   </span>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <span className="text-[10px] text-[#9AA1AA] block">Designation</span>
-                      <span className="text-[#EDEDED]">
+                      <span className="text-[10px] text-muted block">Designation</span>
+                      <span className="text-foreground">
                         {inspectUser.designation || 'Assistant Professor'}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-[#9AA1AA] block">Cabin / Office</span>
-                      <span className="text-[#EDEDED]">{inspectUser.location || 'Faculty Block'}</span>
+                      <span className="text-[10px] text-muted block">Cabin / Office</span>
+                      <span className="text-foreground">{inspectUser.location || 'Faculty Block'}</span>
                     </div>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setInspectUser(null)}
-                className="text-xs border-[#222222] text-[#EDEDED] h-8"
+                className="text-xs border-border text-foreground h-8"
               >
                 Close Dossier
               </Button>
@@ -1003,16 +1003,16 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
       {/* Create User Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in-0">
-          <div className="bg-[#0D0D0D] border border-[#222222] rounded-md max-w-lg w-full p-5 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="bg-[#0D0D0D] border border-border rounded-md max-w-lg w-full p-5 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <Plus className="h-4 w-4 text-[#FF6B00]" />
-                <h3 className="text-sm font-semibold text-[#EDEDED]">Provision Institutional Account</h3>
+                <Plus className="h-4 w-4 text-accent" />
+                <h3 className="text-sm font-semibold text-foreground">Provision Institutional Account</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsCreateModalOpen(false)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED] p-1 rounded"
+                className="text-muted hover:text-foreground p-1 rounded"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1028,21 +1028,21 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
             <form onSubmit={handleCreateSubmit} className="space-y-3 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">
-                    Full Name <span className="text-[#FF6B00]">*</span>
+                  <label className="text-[11px] font-medium text-foreground">
+                    Full Name <span className="text-accent">*</span>
                   </label>
                   <Input
                     required
                     value={createForm.name}
                     onChange={(e) => setCreateForm({ ...createForm, name: e.target.value })}
                     placeholder="e.g. Dr. Priya Raman"
-                    className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                    className="text-xs bg-elevated border-border text-foreground h-8"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">
-                    Institutional Email <span className="text-[#FF6B00]">*</span>
+                  <label className="text-[11px] font-medium text-foreground">
+                    Institutional Email <span className="text-accent">*</span>
                   </label>
                   <Input
                     required
@@ -1050,15 +1050,15 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                     value={createForm.email}
                     onChange={(e) => setCreateForm({ ...createForm, email: e.target.value })}
                     placeholder="priya.raman@university.edu"
-                    className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                    className="text-xs bg-elevated border-border text-foreground h-8"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">
-                    Temporary Password <span className="text-[#FF6B00]">*</span>
+                  <label className="text-[11px] font-medium text-foreground">
+                    Temporary Password <span className="text-accent">*</span>
                   </label>
                   <Input
                     required
@@ -1066,20 +1066,20 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                     value={createForm.password}
                     onChange={(e) => setCreateForm({ ...createForm, password: e.target.value })}
                     placeholder="Min 8 characters"
-                    className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                    className="text-xs bg-elevated border-border text-foreground h-8"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">
-                    Account Role <span className="text-[#FF6B00]">*</span>
+                  <label className="text-[11px] font-medium text-foreground">
+                    Account Role <span className="text-accent">*</span>
                   </label>
                   <select
                     value={createForm.role}
                     onChange={(e) =>
                       setCreateForm({ ...createForm, role: e.target.value as UserRole })
                     }
-                    className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                    className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
                   >
                     <option value="student">Student</option>
                     <option value="faculty">Faculty Member</option>
@@ -1091,13 +1091,13 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">
-                    Department <span className="text-[#FF6B00]">*</span>
+                  <label className="text-[11px] font-medium text-foreground">
+                    Department <span className="text-accent">*</span>
                   </label>
                   <select
                     value={createForm.department}
                     onChange={(e) => setCreateForm({ ...createForm, department: e.target.value })}
-                    className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md focus:outline-none focus:border-[#FF6B00]"
+                    className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md focus:outline-none focus:border-accent"
                   >
                     {departments.map((d) => (
                       <option key={d} value={d}>
@@ -1108,44 +1108,44 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">Contact Number</label>
+                  <label className="text-[11px] font-medium text-foreground">Contact Number</label>
                   <Input
                     value={createForm.contactNumber}
                     onChange={(e) =>
                       setCreateForm({ ...createForm, contactNumber: e.target.value })
                     }
                     placeholder="+91 98765 43210"
-                    className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                    className="text-xs bg-elevated border-border text-foreground h-8"
                   />
                 </div>
               </div>
 
               {/* Dynamic role fields */}
               {createForm.role === 'student' && (
-                <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-2">
-                  <span className="text-[10px] text-[#FF6B00] font-mono uppercase block">
+                <div className="p-3 rounded bg-elevated border border-border space-y-2">
+                  <span className="text-[10px] text-accent font-mono uppercase block">
                     Student Academic Fields
                   </span>
                   <div className="grid grid-cols-3 gap-2">
                     <div className="space-y-1">
-                      <label className="text-[10px] text-[#9AA1AA]">Roll No / Identifier</label>
+                      <label className="text-[10px] text-muted">Roll No / Identifier</label>
                       <Input
                         value={createForm.identifier}
                         onChange={(e) =>
                           setCreateForm({ ...createForm, identifier: e.target.value })
                         }
                         placeholder="24CSE001"
-                        className="text-xs bg-[#181818] border-[#262626] text-[#EDEDED] h-7"
+                        className="text-xs bg-[#181818] border-[#262626] text-foreground h-7"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] text-[#9AA1AA]">Academic Year</label>
+                      <label className="text-[10px] text-muted">Academic Year</label>
                       <select
                         value={createForm.year}
                         onChange={(e) =>
                           setCreateForm({ ...createForm, year: Number(e.target.value) })
                         }
-                        className="w-full h-7 px-1.5 text-xs bg-[#181818] border border-[#262626] text-[#EDEDED] rounded"
+                        className="w-full h-7 px-1.5 text-xs bg-[#181818] border border-[#262626] text-foreground rounded"
                       >
                         <option value={4}>Year 4</option>
                         <option value={3}>Year 3</option>
@@ -1154,7 +1154,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                       </select>
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] text-[#9AA1AA]">Initial CGPA</label>
+                      <label className="text-[10px] text-muted">Initial CGPA</label>
                       <Input
                         type="number"
                         step="0.01"
@@ -1164,7 +1164,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                         onChange={(e) =>
                           setCreateForm({ ...createForm, cgpa: Number(e.target.value) })
                         }
-                        className="text-xs bg-[#181818] border-[#262626] text-[#EDEDED] h-7"
+                        className="text-xs bg-[#181818] border-[#262626] text-foreground h-7"
                       />
                     </div>
                   </div>
@@ -1172,44 +1172,44 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
               )}
 
               {createForm.role === 'faculty' && (
-                <div className="p-3 rounded bg-[#121212] border border-[#222222] space-y-2">
-                  <span className="text-[10px] text-[#FF6B00] font-mono uppercase block">
+                <div className="p-3 rounded bg-elevated border border-border space-y-2">
+                  <span className="text-[10px] text-accent font-mono uppercase block">
                     Faculty Details
                   </span>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-1">
-                      <label className="text-[10px] text-[#9AA1AA]">Employee ID</label>
+                      <label className="text-[10px] text-muted">Employee ID</label>
                       <Input
                         value={createForm.identifier}
                         onChange={(e) =>
                           setCreateForm({ ...createForm, identifier: e.target.value })
                         }
                         placeholder="FAC-CSE-002"
-                        className="text-xs bg-[#181818] border-[#262626] text-[#EDEDED] h-7"
+                        className="text-xs bg-[#181818] border-[#262626] text-foreground h-7"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[10px] text-[#9AA1AA]">Designation</label>
+                      <label className="text-[10px] text-muted">Designation</label>
                       <Input
                         value={createForm.designation}
                         onChange={(e) =>
                           setCreateForm({ ...createForm, designation: e.target.value })
                         }
                         placeholder="Associate Professor"
-                        className="text-xs bg-[#181818] border-[#262626] text-[#EDEDED] h-7"
+                        className="text-xs bg-[#181818] border-[#262626] text-foreground h-7"
                       />
                     </div>
                   </div>
                 </div>
               )}
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setIsCreateModalOpen(false)}
-                  className="text-xs border-[#222222] text-[#EDEDED] h-8"
+                  className="text-xs border-border text-foreground h-8"
                 >
                   Cancel
                 </Button>
@@ -1217,7 +1217,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   type="submit"
                   size="sm"
                   disabled={isPending}
-                  className="bg-[#EDEDED] text-black hover:bg-white text-xs h-8 px-4 font-medium"
+                  className="bg-foreground text-black hover:bg-white text-xs h-8 px-4 font-medium"
                 >
                   {isPending ? 'Provisioning...' : 'Provision User'}
                 </Button>
@@ -1230,18 +1230,18 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
       {/* Edit User Modal */}
       {editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in-0">
-          <div className="bg-[#0D0D0D] border border-[#222222] rounded-md max-w-lg w-full p-5 space-y-4 shadow-xl">
-            <div className="flex items-center justify-between border-b border-[#222222] pb-3">
+          <div className="bg-[#0D0D0D] border border-border rounded-md max-w-lg w-full p-5 space-y-4 shadow-xl">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div className="flex items-center gap-2">
-                <Edit2 className="h-4 w-4 text-[#FF6B00]" />
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <Edit2 className="h-4 w-4 text-accent" />
+                <h3 className="text-sm font-semibold text-foreground">
                   Edit Profile: {editingUser.name}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setEditingUser(null)}
-                className="text-[#9AA1AA] hover:text-[#EDEDED] p-1 rounded"
+                className="text-muted hover:text-foreground p-1 rounded"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -1256,22 +1256,22 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
 
             <form onSubmit={handleEditSubmit} className="space-y-3 text-xs">
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#EDEDED]">Full Name</label>
+                <label className="text-[11px] font-medium text-foreground">Full Name</label>
                 <Input
                   required
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                  className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                  className="text-xs bg-elevated border-border text-foreground h-8"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">Department</label>
+                  <label className="text-[11px] font-medium text-foreground">Department</label>
                   <select
                     value={editForm.department}
                     onChange={(e) => setEditForm({ ...editForm, department: e.target.value })}
-                    className="w-full h-8 px-2 text-xs bg-[#121212] border border-[#222222] text-[#EDEDED] rounded-md"
+                    className="w-full h-8 px-2 text-xs bg-elevated border border-border text-foreground rounded-md"
                   >
                     {departments.map((d) => (
                       <option key={d} value={d}>
@@ -1282,31 +1282,31 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-medium text-[#EDEDED]">Identifier / ID</label>
+                  <label className="text-[11px] font-medium text-foreground">Identifier / ID</label>
                   <Input
                     value={editForm.identifier}
                     onChange={(e) => setEditForm({ ...editForm, identifier: e.target.value })}
-                    className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                    className="text-xs bg-elevated border-border text-foreground h-8"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[11px] font-medium text-[#EDEDED]">Contact Number</label>
+                <label className="text-[11px] font-medium text-foreground">Contact Number</label>
                 <Input
                   value={editForm.contactNumber}
                   onChange={(e) => setEditForm({ ...editForm, contactNumber: e.target.value })}
-                  className="text-xs bg-[#121212] border-[#222222] text-[#EDEDED] h-8"
+                  className="text-xs bg-elevated border-border text-foreground h-8"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#222222]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-border">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={() => setEditingUser(null)}
-                  className="text-xs border-[#222222] text-[#EDEDED] h-8"
+                  className="text-xs border-border text-foreground h-8"
                 >
                   Cancel
                 </Button>
@@ -1314,7 +1314,7 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   type="submit"
                   size="sm"
                   disabled={isPending}
-                  className="bg-[#EDEDED] text-black hover:bg-white text-xs h-8 px-4 font-medium"
+                  className="bg-foreground text-black hover:bg-white text-xs h-8 px-4 font-medium"
                 >
                   {isPending ? 'Saving...' : 'Save Changes'}
                 </Button>
@@ -1332,9 +1332,9 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
               <ShieldAlert className="h-4 w-4" />
               <h3 className="text-sm font-semibold">Modify Account Authorization</h3>
             </div>
-            <p className="text-xs text-[#9AA1AA] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               Changing user authorization is a privileged operation. Select the new role for{' '}
-              <strong className="text-[#EDEDED]">{confirmRoleChange.user.name}</strong>:
+              <strong className="text-foreground">{confirmRoleChange.user.name}</strong>:
             </p>
 
             <div className="space-y-2">
@@ -1348,25 +1348,25 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                     }
                     className={`w-full p-2.5 rounded text-left text-xs border transition-colors flex items-center justify-between ${
                       confirmRoleChange.targetRole === r
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-foreground'
+                        : 'border-border bg-elevated text-muted hover:text-foreground'
                     }`}
                   >
                     <span>{ROLE_LABELS[r]}</span>
                     {confirmRoleChange.targetRole === r && (
-                      <Check className="h-3 w-3 text-[#FF6B00]" />
+                      <Check className="h-3 w-3 text-accent" />
                     )}
                   </button>
                 )
               )}
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setConfirmRoleChange(null)}
-                className="text-xs border-[#222222] text-[#EDEDED] h-8"
+                className="text-xs border-border text-foreground h-8"
               >
                 Cancel
               </Button>
@@ -1395,10 +1395,10 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                   : 'Deactivate Account'}
               </h3>
             </div>
-            <p className="text-xs text-[#9AA1AA] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               Are you sure you want to change the status of{' '}
-              <strong className="text-[#EDEDED]">{confirmStatusChange.user.name}</strong> to{' '}
-              <strong className="text-[#EDEDED] uppercase">
+              <strong className="text-foreground">{confirmStatusChange.user.name}</strong> to{' '}
+              <strong className="text-foreground uppercase">
                 {confirmStatusChange.targetStatus}
               </strong>
               ?{' '}
@@ -1406,12 +1406,12 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
                 'The user will be immediately barred from logging in.'}
             </p>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setConfirmStatusChange(null)}
-                className="text-xs border-[#222222] text-[#EDEDED] h-8"
+                className="text-xs border-border text-foreground h-8"
               >
                 Cancel
               </Button>
@@ -1436,18 +1436,18 @@ export function UserManagementTable({ initialData }: UserManagementTableProps) {
               <Trash2 className="h-4 w-4" />
               <h3 className="text-sm font-semibold">Delete Account: {confirmDelete.user.name}</h3>
             </div>
-            <p className="text-xs text-[#9AA1AA] leading-relaxed">
+            <p className="text-xs text-muted leading-relaxed">
               If this account has historical placement drives, application history, or academic
               records, the system will apply a <strong>Safe Deactivation (soft delete)</strong> to
               preserve university audit integrity.
             </p>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#222222]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setConfirmDelete(null)}
-                className="text-xs border-[#222222] text-[#EDEDED] h-8"
+                className="text-xs border-border text-foreground h-8"
               >
                 Cancel
               </Button>

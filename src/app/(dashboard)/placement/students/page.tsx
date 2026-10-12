@@ -64,7 +64,7 @@ export default function PlacementStudentsPage() {
       badgeText="1,240 Registered Candidates"
       actions={
         <Button variant="outline" size="sm" className="text-sm gap-1.5 font-normal">
-          <Download className="h-3.5 w-3.5 text-[#9AA1AA]" />
+          <Download className="h-3.5 w-3.5 text-muted" />
           <span>Export Candidate Master CSV</span>
         </Button>
       }
@@ -73,14 +73,14 @@ export default function PlacementStudentsPage() {
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#9AA1AA]" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted" />
             <Input
               placeholder="Search by student name, roll number, department, or skill..."
-              className="pl-9 text-sm h-10 bg-[#111418] border-[#252A31] text-[#F1F3F5] placeholder:text-[#9AA1AA]"
+              className="pl-9 text-sm h-10 bg-surface border-border text-foreground placeholder:text-muted"
             />
           </div>
           <Button variant="outline" size="sm" className="text-sm h-10 font-normal">
-            <Filter className="h-3.5 w-3.5 text-[#9AA1AA] mr-1.5" />
+            <Filter className="h-3.5 w-3.5 text-muted mr-1.5" />
             <span>Filter: Min CGPA 8.0</span>
           </Button>
           <Button variant="outline" size="sm" className="text-sm h-10 font-normal">
@@ -89,10 +89,10 @@ export default function PlacementStudentsPage() {
         </div>
 
         {/* Candidate Table */}
-        <div className="border border-[#252A31] rounded-md bg-[#111418] overflow-hidden">
+        <div className="border border-border rounded-md bg-surface overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-[#252A31] bg-[#171B20] text-[#9AA1AA] uppercase tracking-wider text-sm">
+              <thead className="border-b border-border bg-elevated text-muted uppercase tracking-wider text-sm">
                 <tr>
                   <th className="py-3 px-4 font-semibold">Student & ID</th>
                   <th className="py-3 px-4 font-semibold">Department</th>
@@ -102,16 +102,16 @@ export default function PlacementStudentsPage() {
                   <th className="py-3 px-4 font-semibold text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#252A31] text-[#F1F3F5]">
+              <tbody className="divide-y divide-border text-foreground">
                 {mockCandidates.map((c) => (
-                  <tr key={c.id} className="hover:bg-[#171B20]/50 transition-colors">
+                  <tr key={c.id} className="hover:bg-elevated/50 transition-colors">
                     <td className="py-3 px-4">
-                      <div className="font-medium text-[#F1F3F5]">{c.name}</div>
-                      <div className="text-sm text-[#9AA1AA] font-mono">{c.id}</div>
+                      <div className="font-medium text-foreground">{c.name}</div>
+                      <div className="text-sm text-muted font-mono">{c.id}</div>
                     </td>
-                    <td className="py-3 px-4 text-[#9AA1AA]">{c.dept}</td>
-                    <td className="py-3 px-4 font-mono font-medium text-[#F1F3F5]">{c.cgpa}</td>
-                    <td className="py-3 px-4 text-[#9AA1AA]">{c.tier1Offer}</td>
+                    <td className="py-3 px-4 text-muted">{c.dept}</td>
+                    <td className="py-3 px-4 font-mono font-medium text-foreground">{c.cgpa}</td>
+                    <td className="py-3 px-4 text-muted">{c.tier1Offer}</td>
                     <td className="py-3 px-4">
                       <Badge variant={c.statusVariant} className="text-sm">
                         {c.status}

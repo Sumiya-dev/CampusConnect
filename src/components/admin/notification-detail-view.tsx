@@ -62,7 +62,7 @@ const TYPE_COLORS: Record<NotificationType, string> = {
   Interview: 'text-purple-400 border-purple-900/40 bg-purple-950/20',
   Announcement: 'text-sky-400 border-sky-900/40 bg-sky-950/20',
   System: 'text-neutral-300 border-neutral-700 bg-neutral-900/40',
-  General: 'text-[#FF6B00] border-[#FF6B00]/30 bg-[#FF6B00]/10',
+  General: 'text-accent border-accent/30 bg-accent/10',
 };
 
 export function NotificationDetailView({
@@ -158,7 +158,7 @@ export function NotificationDetailView({
   const TypeIcon = TYPE_ICONS[notification.type] || Bell;
   const typeColorClass =
     TYPE_COLORS[notification.type] ||
-    'text-[#FF6B00] border-[#FF6B00]/30 bg-[#FF6B00]/10';
+    'text-accent border-accent/30 bg-accent/10';
 
   const readRate =
     recipients.length > 0
@@ -170,11 +170,11 @@ export function NotificationDetailView({
   return (
     <div className="space-y-6 max-w-5xl">
       {/* Back button and Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#222222]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
         <div className="space-y-1">
           <Link
             href="/admin/notifications"
-            className="inline-flex items-center gap-1 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors mb-1"
+            className="inline-flex items-center gap-1 text-xs text-muted hover:text-foreground transition-colors mb-1"
           >
             <ArrowLeft className="h-3 w-3" />
             Back to Notifications Dashboard
@@ -212,7 +212,7 @@ export function NotificationDetailView({
               </span>
             )}
           </div>
-          <h1 className="text-xl font-semibold text-[#EDEDED] tracking-tight mt-1">
+          <h1 className="text-xl font-semibold text-foreground tracking-tight mt-1">
             {notification.title}
           </h1>
         </div>
@@ -224,7 +224,7 @@ export function NotificationDetailView({
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 px-3 text-xs border-[#222222] bg-[#121212] hover:bg-[#1A1A1A] text-[#EDEDED]"
+                className="h-8 px-3 text-xs border-border bg-elevated hover:bg-[#1A1A1A] text-foreground"
               >
                 <Edit className="h-3.5 w-3.5 mr-1.5" />
                 Edit
@@ -236,7 +236,7 @@ export function NotificationDetailView({
             <Button
               size="sm"
               onClick={() => setConfirmSendOpen(true)}
-              className="h-8 px-3.5 text-xs bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold"
+              className="h-8 px-3.5 text-xs bg-accent hover:bg-[#E05D00] text-black font-semibold"
             >
               <Send className="h-3.5 w-3.5 mr-1.5" />
               Send Now
@@ -269,7 +269,7 @@ export function NotificationDetailView({
           )}
 
           {notification.status === 'sent' && (
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-xs text-[#9AA1AA]">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#161616] border border-[#262626] text-xs text-muted">
               <Lock className="h-3.5 w-3.5 text-emerald-400" />
               Historical Record Locked
             </div>
@@ -295,8 +295,8 @@ export function NotificationDetailView({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Left Column: Full Message Body */}
         <div className="lg:col-span-2 space-y-5">
-          <div className="border border-[#222222] bg-[#121212] p-5 rounded-md space-y-3">
-            <div className="flex items-center justify-between text-xs text-[#9AA1AA] font-mono border-b border-[#1C1C1C] pb-2.5">
+          <div className="border border-border bg-elevated p-5 rounded-md space-y-3">
+            <div className="flex items-center justify-between text-xs text-muted font-mono border-b border-[#1C1C1C] pb-2.5">
               <span>BROADCAST MESSAGE BODY</span>
               <span>
                 Created by{' '}
@@ -305,40 +305,40 @@ export function NotificationDetailView({
                   'Superadmin'}
               </span>
             </div>
-            <div className="text-xs text-[#EDEDED] leading-relaxed whitespace-pre-line font-normal">
+            <div className="text-xs text-foreground leading-relaxed whitespace-pre-line font-normal">
               {notification.message}
             </div>
           </div>
 
           {/* Delivery & Read Analytics */}
-          <div className="border border-[#222222] bg-[#121212] p-5 rounded-md space-y-4">
+          <div className="border border-border bg-elevated p-5 rounded-md space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-semibold text-[#EDEDED] uppercase font-mono tracking-wider">
+              <h3 className="text-xs font-semibold text-foreground uppercase font-mono tracking-wider">
                 Delivery & Read Status
               </h3>
-              <span className="text-[11px] text-[#9AA1AA] font-mono">
+              <span className="text-[11px] text-muted font-mono">
                 {recipients.length} inboxes targeted
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <div className="p-3 bg-[#0A0A0A] border border-[#222222] rounded-md">
-                <div className="text-[11px] text-[#9AA1AA]">Total Inboxes</div>
-                <div className="text-lg font-bold font-mono text-[#EDEDED] mt-1">
+              <div className="p-3 bg-surface border border-border rounded-md">
+                <div className="text-[11px] text-muted">Total Inboxes</div>
+                <div className="text-lg font-bold font-mono text-foreground mt-1">
                   {recipients.length}
                 </div>
               </div>
 
-              <div className="p-3 bg-[#0A0A0A] border border-[#222222] rounded-md">
-                <div className="text-[11px] text-[#9AA1AA]">Read Confirmations</div>
+              <div className="p-3 bg-surface border border-border rounded-md">
+                <div className="text-[11px] text-muted">Read Confirmations</div>
                 <div className="text-lg font-bold font-mono text-emerald-400 mt-1">
                   {recipients.filter((r) => r.is_read).length}
                 </div>
               </div>
 
-              <div className="p-3 bg-[#0A0A0A] border border-[#222222] rounded-md">
-                <div className="text-[11px] text-[#9AA1AA]">Read Rate</div>
-                <div className="text-lg font-bold font-mono text-[#FF6B00] mt-1">
+              <div className="p-3 bg-surface border border-border rounded-md">
+                <div className="text-[11px] text-muted">Read Rate</div>
+                <div className="text-lg font-bold font-mono text-accent mt-1">
                   {readRate}%
                 </div>
               </div>
@@ -349,13 +349,13 @@ export function NotificationDetailView({
               <div className="space-y-3 pt-2">
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
                   <div className="relative flex-1">
-                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-[#9AA1AA]" />
+                    <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted" />
                     <input
                       type="text"
                       placeholder="Filter recipients by name, email, or department..."
                       value={recipientSearch}
                       onChange={(e) => setRecipientSearch(e.target.value)}
-                      className="w-full pl-8 pr-3 h-8 rounded bg-[#0A0A0A] border border-[#222222] text-xs text-[#EDEDED] outline-none focus:border-[#FF6B00]"
+                      className="w-full pl-8 pr-3 h-8 rounded bg-surface border border-border text-xs text-foreground outline-none focus:border-accent"
                     />
                   </div>
 
@@ -364,8 +364,8 @@ export function NotificationDetailView({
                       onClick={() => setReadFilter('all')}
                       className={`px-2.5 py-1 rounded text-xs font-mono border ${
                         readFilter === 'all'
-                          ? 'border-[#FF6B00] text-[#FF6B00] bg-[#FF6B00]/10'
-                          : 'border-[#222222] text-[#9AA1AA] bg-[#0A0A0A]'
+                          ? 'border-accent text-accent bg-accent/10'
+                          : 'border-border text-muted bg-surface'
                       }`}
                     >
                       All ({recipients.length})
@@ -375,7 +375,7 @@ export function NotificationDetailView({
                       className={`px-2.5 py-1 rounded text-xs font-mono border ${
                         readFilter === 'read'
                           ? 'border-emerald-500 text-emerald-400 bg-emerald-950/20'
-                          : 'border-[#222222] text-[#9AA1AA] bg-[#0A0A0A]'
+                          : 'border-border text-muted bg-surface'
                       }`}
                     >
                       Read ({recipients.filter((r) => r.is_read).length})
@@ -385,7 +385,7 @@ export function NotificationDetailView({
                       className={`px-2.5 py-1 rounded text-xs font-mono border ${
                         readFilter === 'unread'
                           ? 'border-neutral-500 text-neutral-300 bg-neutral-900'
-                          : 'border-[#222222] text-[#9AA1AA] bg-[#0A0A0A]'
+                          : 'border-border text-muted bg-surface'
                       }`}
                     >
                       Unread ({recipients.filter((r) => !r.is_read).length})
@@ -394,20 +394,20 @@ export function NotificationDetailView({
                 </div>
 
                 {/* Recipient Logs Table */}
-                <div className="border border-[#222222] bg-[#0A0A0A] rounded-md overflow-hidden max-h-80 overflow-y-auto divide-y divide-[#1A1A1A]">
+                <div className="border border-border bg-surface rounded-md overflow-hidden max-h-80 overflow-y-auto divide-y divide-[#1A1A1A]">
                   {filteredRecipients.length === 0 ? (
-                    <div className="p-6 text-center text-xs text-[#9AA1AA]">
+                    <div className="p-6 text-center text-xs text-muted">
                       No recipients matching filter criteria.
                     </div>
                   ) : (
                     filteredRecipients.map((r) => (
                       <div
                         key={r.id}
-                        className="p-3 hover:bg-[#121212] transition-colors flex items-center justify-between gap-3 text-xs"
+                        className="p-3 hover:bg-elevated transition-colors flex items-center justify-between gap-3 text-xs"
                       >
                         <div className="space-y-0.5 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="font-semibold text-[#EDEDED] truncate">
+                            <span className="font-semibold text-foreground truncate">
                               {r.user?.name || 'Unknown User'}
                             </span>
                             <Badge
@@ -417,7 +417,7 @@ export function NotificationDetailView({
                               {r.user?.role?.replace('_', ' ') || 'User'}
                             </Badge>
                           </div>
-                          <div className="text-[11px] text-[#9AA1AA] truncate">
+                          <div className="text-[11px] text-muted truncate">
                             {r.user?.email} • {r.user?.department || 'Department'}
                           </div>
                         </div>
@@ -429,7 +429,7 @@ export function NotificationDetailView({
                               Read {formatTimestamp(r.read_at)}
                             </span>
                           ) : (
-                            <span className="text-[11px] text-[#9AA1AA] font-mono">
+                            <span className="text-[11px] text-muted font-mono">
                               Delivered (Unread)
                             </span>
                           )}
@@ -445,14 +445,14 @@ export function NotificationDetailView({
 
         {/* Right Column: Targeting Specs & Timestamps */}
         <div className="space-y-5">
-          <div className="border border-[#222222] bg-[#121212] p-5 rounded-md space-y-4">
-            <h3 className="text-xs font-semibold text-[#EDEDED] uppercase font-mono tracking-wider">
+          <div className="border border-border bg-elevated p-5 rounded-md space-y-4">
+            <h3 className="text-xs font-semibold text-foreground uppercase font-mono tracking-wider">
               Target Audience Specifications
             </h3>
 
             <div className="space-y-3 text-xs">
               <div>
-                <span className="text-[11px] text-[#9AA1AA] block">Target Roles</span>
+                <span className="text-[11px] text-muted block">Target Roles</span>
                 <div className="flex flex-wrap gap-1.5 mt-1">
                   {!notification.target_roles ||
                   notification.target_roles.length === 0 ||
@@ -475,17 +475,17 @@ export function NotificationDetailView({
               </div>
 
               <div className="pt-2 border-t border-[#1C1C1C]">
-                <span className="text-[11px] text-[#9AA1AA] block">Department</span>
-                <span className="text-[#EDEDED] font-medium mt-0.5 block">
+                <span className="text-[11px] text-muted block">Department</span>
+                <span className="text-foreground font-medium mt-0.5 block">
                   {notification.target_department || 'All Departments'}
                 </span>
               </div>
 
               <div className="pt-2 border-t border-[#1C1C1C]">
-                <span className="text-[11px] text-[#9AA1AA] block">
+                <span className="text-[11px] text-muted block">
                   Academic Year
                 </span>
-                <span className="text-[#EDEDED] font-medium mt-0.5 block">
+                <span className="text-foreground font-medium mt-0.5 block">
                   {notification.target_year
                     ? `Year ${notification.target_year}`
                     : 'All Academic Years'}
@@ -493,10 +493,10 @@ export function NotificationDetailView({
               </div>
 
               <div className="pt-2 border-t border-[#1C1C1C]">
-                <span className="text-[11px] text-[#9AA1AA] block">
+                <span className="text-[11px] text-muted block">
                   Academic Section
                 </span>
-                <span className="text-[#EDEDED] font-medium mt-0.5 block">
+                <span className="text-foreground font-medium mt-0.5 block">
                   {notification.target_section?.section_name
                     ? `${notification.target_section.section_name} (${notification.target_section.academic_year})`
                     : 'All Sections'}
@@ -506,15 +506,15 @@ export function NotificationDetailView({
           </div>
 
           {/* Schedule & History info */}
-          <div className="border border-[#222222] bg-[#121212] p-5 rounded-md space-y-3 text-xs">
-            <h3 className="text-xs font-semibold text-[#EDEDED] uppercase font-mono tracking-wider">
+          <div className="border border-border bg-elevated p-5 rounded-md space-y-3 text-xs">
+            <h3 className="text-xs font-semibold text-foreground uppercase font-mono tracking-wider">
               Timeline & Governance
             </h3>
 
-            <div className="space-y-2 text-[#9AA1AA]">
+            <div className="space-y-2 text-muted">
               <div className="flex justify-between">
                 <span>Created:</span>
-                <span className="text-[#EDEDED] font-mono">
+                <span className="text-foreground font-mono">
                   {formatTimestamp(notification.created_at)}
                 </span>
               </div>
@@ -539,7 +539,7 @@ export function NotificationDetailView({
 
               <div className="flex justify-between">
                 <span>Last Updated:</span>
-                <span className="text-[#EDEDED] font-mono">
+                <span className="text-foreground font-mono">
                   {formatTimestamp(notification.updated_at)}
                 </span>
               </div>
@@ -551,16 +551,16 @@ export function NotificationDetailView({
       {/* CONFIRM SEND MODAL */}
       {confirmSendOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 rounded bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-[#FF6B00] shrink-0 mt-0.5">
+              <div className="p-2 rounded bg-accent/10 border border-accent/30 text-accent shrink-0 mt-0.5">
                 <Send className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Dispatch Notification Now?
                 </h3>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   This will immediately deliver this notification to all matching
                   targeted users. Historical records will be locked.
                 </p>
@@ -573,7 +573,7 @@ export function NotificationDetailView({
                 size="sm"
                 onClick={() => setConfirmSendOpen(false)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>
@@ -581,7 +581,7 @@ export function NotificationDetailView({
                 size="sm"
                 onClick={handleSendNow}
                 disabled={isPending}
-                className="bg-[#FF6B00] hover:bg-[#E05D00] text-black font-semibold text-xs h-8"
+                className="bg-accent hover:bg-[#E05D00] text-black font-semibold text-xs h-8"
               >
                 {isPending ? (
                   <>
@@ -600,16 +600,16 @@ export function NotificationDetailView({
       {/* CONFIRM CANCEL MODAL */}
       {confirmCancelOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-amber-950/30 border border-amber-900/60 text-amber-400 shrink-0 mt-0.5">
                 <Ban className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Cancel Scheduled Broadcast?
                 </h3>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   This notification will be marked as cancelled and will not be
                   dispatched to recipients.
                 </p>
@@ -622,7 +622,7 @@ export function NotificationDetailView({
                 size="sm"
                 onClick={() => setConfirmCancelOpen(false)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Keep Scheduled
               </Button>
@@ -649,16 +649,16 @@ export function NotificationDetailView({
       {/* CONFIRM DELETE MODAL */}
       {confirmDeleteOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="border border-[#222222] bg-[#121212] max-w-md w-full rounded-lg p-5 space-y-4">
+          <div className="border border-border bg-elevated max-w-md w-full rounded-lg p-5 space-y-4">
             <div className="flex items-start gap-3">
               <div className="p-2 rounded bg-rose-950/30 border border-rose-900/60 text-rose-400 shrink-0 mt-0.5">
                 <Trash2 className="h-5 w-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-sm font-semibold text-[#EDEDED]">
+                <h3 className="text-sm font-semibold text-foreground">
                   Permanently Delete Notification?
                 </h3>
-                <p className="text-xs text-[#9AA1AA]">
+                <p className="text-xs text-muted">
                   This will permanently delete this notification record.
                 </p>
               </div>
@@ -670,7 +670,7 @@ export function NotificationDetailView({
                 size="sm"
                 onClick={() => setConfirmDeleteOpen(false)}
                 disabled={isPending}
-                className="border-[#222222] bg-[#161616] text-[#EDEDED] text-xs h-8"
+                className="border-border bg-[#161616] text-foreground text-xs h-8"
               >
                 Cancel
               </Button>

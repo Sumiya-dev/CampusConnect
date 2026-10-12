@@ -4,7 +4,7 @@ import { PageContainer } from '@/components/layout/page-container';
 import { getTargetStructureOptions } from '@/lib/notifications/admin-queries';
 import { NotificationForm } from '@/components/admin/notification-form';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Compose Notification | Superadmin | CampusConnect AI',

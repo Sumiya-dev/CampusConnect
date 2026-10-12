@@ -22,19 +22,19 @@ export function EmptyState({
   badgeText,
 }: EmptyStateProps) {
   return (
-    <div className="border border-[#222222] rounded-md bg-[#0A0A0A] p-8 sm:p-12 text-center space-y-4 max-w-xl mx-auto">
-      <div className="flex h-10 w-10 items-center justify-center rounded border border-[#222222] bg-[#121212] text-[#FF6B00] mx-auto">
+    <div className="border border-border rounded-md bg-surface p-8 sm:p-12 text-center space-y-4 max-w-xl mx-auto">
+      <div className="flex h-10 w-10 items-center justify-center rounded border border-border bg-elevated text-accent mx-auto">
         <Icon className="h-5 w-5" />
       </div>
 
       <div className="space-y-1.5">
         {badgeText && (
-          <span className="text-sm uppercase font-semibold text-[#9AA1AA] tracking-wider block">
+          <span className="text-sm uppercase font-semibold text-muted tracking-wider block">
             {badgeText}
           </span>
         )}
-        <h3 className="text-base font-semibold text-[#F1F3F5] tracking-tight">{title}</h3>
-        <p className="text-sm text-[#9AA1AA] leading-relaxed max-w-md mx-auto">{description}</p>
+        <h3 className="text-base font-semibold text-foreground tracking-tight">{title}</h3>
+        <p className="text-sm text-muted leading-relaxed max-w-md mx-auto">{description}</p>
       </div>
 
       {(actionLabel && actionHref) && (

@@ -65,16 +65,16 @@ export function CommunityView({
   return (
     <div className="space-y-6 max-w-5xl">
       {/* Top Controls: Space Selector & Create Action */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#222222]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-border">
         {/* Space Tabs: Only students see the Students Only tab */}
-        <div className="flex items-center gap-1.5 p-1 bg-[#0A0A0A] border border-[#222222] rounded-md">
+        <div className="flex items-center gap-1.5 p-1 bg-surface border border-border rounded-md">
           <button
             type="button"
             onClick={() => setActiveTab('PUBLIC')}
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded transition-colors ${
               activeTab === 'PUBLIC'
-                ? 'bg-[#161616] text-[#FF6B00] border border-[#FF6B00]/30 shadow-sm'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                ? 'bg-[#161616] text-accent border border-accent/30 shadow-sm'
+                : 'text-muted hover:text-foreground'
             }`}
           >
             <Globe className="h-3.5 w-3.5" />
@@ -87,8 +87,8 @@ export function CommunityView({
               onClick={() => setActiveTab('STUDENTS_ONLY')}
               className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded transition-colors ${
                 activeTab === 'STUDENTS_ONLY'
-                  ? 'bg-[#161616] text-[#FF6B00] border border-[#FF6B00]/30 shadow-sm'
-                  : 'text-[#9AA1AA] hover:text-[#EDEDED]'
+                  ? 'bg-[#161616] text-accent border border-accent/30 shadow-sm'
+                  : 'text-muted hover:text-foreground'
               }`}
             >
               <Lock className="h-3.5 w-3.5" />
@@ -110,15 +110,15 @@ export function CommunityView({
 
       {/* Students Only Space Banner */}
       {activeTab === 'STUDENTS_ONLY' && (
-        <div className="p-4 rounded-md border border-[#FF6B00]/20 bg-[#FF6B00]/5 flex items-start gap-3 text-xs">
-          <div className="p-1.5 rounded bg-[#FF6B00]/10 text-[#FF6B00] shrink-0 mt-0.5">
+        <div className="p-4 rounded-md border border-accent/20 bg-accent/5 flex items-start gap-3 text-xs">
+          <div className="p-1.5 rounded bg-accent/10 text-accent shrink-0 mt-0.5">
             <Lock className="h-4 w-4" />
           </div>
           <div className="space-y-1">
-            <span className="font-semibold text-[#EDEDED] text-sm block">
+            <span className="font-semibold text-foreground text-sm block">
               Students Only Space
             </span>
-            <p className="text-[#9AA1AA] leading-relaxed">
+            <p className="text-muted leading-relaxed">
               A private space for students to discuss placements, preparation and campus experiences.
             </p>
           </div>
@@ -136,8 +136,8 @@ export function CommunityView({
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1 text-xs font-medium rounded-full transition-colors whitespace-nowrap ${
                 selectedCategory === cat
-                  ? 'bg-[#FF6B00] text-black font-semibold'
-                  : 'bg-[#121212] text-[#9AA1AA] hover:text-[#EDEDED] border border-[#222222]'
+                  ? 'bg-accent text-black font-semibold'
+                  : 'bg-elevated text-muted hover:text-foreground border border-border'
               }`}
             >
               {cat}
@@ -152,7 +152,7 @@ export function CommunityView({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search discussions..."
-            className="pl-8 text-xs bg-[#0A0A0A] border-[#222222] h-8"
+            className="pl-8 text-xs bg-surface border-border h-8"
           />
         </div>
       </div>
@@ -160,13 +160,13 @@ export function CommunityView({
       {/* Discussions Feed */}
       <div className="space-y-3">
         {filteredPosts.length === 0 ? (
-          <div className="text-center py-14 px-4 border border-[#222222] bg-[#0A0A0A] rounded-md space-y-3">
-            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#161616] text-[#9AA1AA]">
+          <div className="text-center py-14 px-4 border border-border bg-surface rounded-md space-y-3">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#161616] text-muted">
               <MessageSquare className="h-5 w-5" />
             </div>
             <div className="space-y-1">
-              <h4 className="text-sm font-semibold text-[#EDEDED]">No discussions yet.</h4>
-              <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+              <h4 className="text-sm font-semibold text-foreground">No discussions yet.</h4>
+              <p className="text-xs text-muted max-w-sm mx-auto">
                 {activeTab === 'STUDENTS_ONLY'
                   ? 'Be the first to share an interview experience or ask a question in the student circle.'
                   : 'Start a university-wide conversation on placement opportunities, technical skills, or career guidance.'}

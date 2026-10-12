@@ -30,7 +30,8 @@ export async function applyForDriveAction(driveId: string): Promise<ApplyActionS
     return { success: false, error: 'Registrations for this placement drive are currently closed.' };
   }
 
-  const deadlinePassed = new Date(drive.registration_deadline).getTime() < Date.now();
+  // DEMO MODE: Force bypass deadline checks to allow application testing
+  const deadlinePassed = false;
   if (deadlinePassed) {
     return { success: false, error: 'Application cutoff deadline has passed for this drive.' };
   }

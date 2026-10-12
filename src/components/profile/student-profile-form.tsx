@@ -108,13 +108,13 @@ export function StudentProfileForm({ initialData }: StudentProfileFormProps) {
               id="year"
               name="year"
               defaultValue={initialData.year}
-              className="text-sm h-10 bg-[#111418] border-[#252A31] text-[#F1F3F5] rounded-md px-3 py-2"
+              className="text-sm h-10 bg-surface border-border text-foreground rounded-md px-3 py-2"
             >
-              <option value="1" className="bg-[#111418] text-[#F1F3F5]">Year 1 (Freshman)</option>
-              <option value="2" className="bg-[#111418] text-[#F1F3F5]">Year 2 (Sophomore)</option>
-              <option value="3" className="bg-[#111418] text-[#F1F3F5]">Year 3 (Pre-Final)</option>
-              <option value="4" className="bg-[#111418] text-[#F1F3F5]">Year 4 (Final Year)</option>
-              <option value="5" className="bg-[#111418] text-[#F1F3F5]">Year 5 (Integrated Dual)</option>
+              <option value="1" className="bg-surface text-foreground">Year 1 (Freshman)</option>
+              <option value="2" className="bg-surface text-foreground">Year 2 (Sophomore)</option>
+              <option value="3" className="bg-surface text-foreground">Year 3 (Pre-Final)</option>
+              <option value="4" className="bg-surface text-foreground">Year 4 (Final Year)</option>
+              <option value="5" className="bg-surface text-foreground">Year 5 (Integrated Dual)</option>
             </Select>
           </ProfileField>
 
@@ -241,7 +241,7 @@ export function StudentProfileForm({ initialData }: StudentProfileFormProps) {
       </section>
 
       {/* Actions */}
-      <div className="pt-6 border-t border-[#252A31] flex items-center justify-end">
+      <div className="pt-6 border-t border-border flex items-center justify-end">
         <Button
           type="submit"
           className="text-sm font-medium gap-2 px-6 h-10"

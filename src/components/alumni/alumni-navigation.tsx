@@ -54,7 +54,7 @@ export function AlumniNavigation({
   };
 
   return (
-    <div className="flex items-center gap-1.5 p-1 bg-[#0A0A0A] border border-[#222222] rounded-md overflow-x-auto scrollbar-none w-full sm:w-auto">
+    <div className="flex items-center gap-1.5 p-1 bg-surface border border-border rounded-md overflow-x-auto scrollbar-none w-full sm:w-auto">
       {navItems.map((item) => {
         const active = isActive(item);
         const Icon = item.icon;
@@ -64,8 +64,8 @@ export function AlumniNavigation({
             href={item.href}
             className={`inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold rounded whitespace-nowrap transition-colors ${
               active
-                ? 'bg-[#161616] text-[#FF6B00] border border-[#FF6B00]/30 shadow-sm'
-                : 'text-[#9AA1AA] hover:text-[#EDEDED] hover:bg-[#121212]'
+                ? 'bg-[#161616] text-accent border border-accent/30 shadow-sm'
+                : 'text-muted hover:text-foreground hover:bg-elevated'
             }`}
           >
             <Icon className="h-3.5 w-3.5 shrink-0" />

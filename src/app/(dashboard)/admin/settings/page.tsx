@@ -4,7 +4,7 @@ import { PageContainer } from '@/components/layout/page-container';
 import { getSystemSettings } from '@/lib/settings/queries';
 import { SettingsManager } from '@/components/admin/settings-manager';
 
-export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'System Settings | Superadmin | CampusConnect AI',

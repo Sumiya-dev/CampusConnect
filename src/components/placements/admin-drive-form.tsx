@@ -182,7 +182,7 @@ export function AdminDriveForm({
       <div>
         <Link
           href={initialDrive ? `${basePath}/${initialDrive.id}` : basePath}
-          className="inline-flex items-center gap-1.5 text-xs text-[#9AA1AA] hover:text-[#EDEDED] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>Back to {initialDrive ? initialDrive.job_role : 'Placement Drives Directory'}</span>
@@ -191,7 +191,7 @@ export function AdminDriveForm({
 
       {/* Status Banners */}
       {state?.error && (
-        <div className="p-3.5 rounded-md border border-[#EF4444]/30 bg-[#EF4444]/10 text-xs text-[#EF4444] flex items-start gap-2.5">
+        <div className="p-3.5 rounded-md border border-red-500/30 bg-red-500/10 text-xs text-red-500 flex items-start gap-2.5">
           <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <div className="font-semibold">Validation or submission error</div>
@@ -201,7 +201,7 @@ export function AdminDriveForm({
       )}
 
       {state?.success && (
-        <div className="p-3.5 rounded-md border border-[#22C55E]/30 bg-[#22C55E]/10 text-xs text-[#22C55E] flex items-start gap-2.5">
+        <div className="p-3.5 rounded-md border border-green-500/30 bg-green-500/10 text-xs text-green-500 flex items-start gap-2.5">
           <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <div className="font-semibold">Success</div>
@@ -213,12 +213,12 @@ export function AdminDriveForm({
       {/* SECTION 1: CORPORATE RECRUITER & ROLE INFORMATION */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED] flex items-center gap-2">
-            <Building className="h-4 w-4 text-[#FF6B00]" />
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground flex items-center gap-2">
+            <Building className="h-4 w-4 text-accent" />
             Corporate Recruiter & Role Information
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-xs text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-xs text-muted">
             Specify the hiring partner organization, designation, compensation tier, and workplace details.
           </p>
         </div>
@@ -226,14 +226,14 @@ export function AdminDriveForm({
         <div className="space-y-4 pt-1">
           {/* Company Selection */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">
-              Recruiting Partner Company <span className="text-[#FF6B00]">*</span>
+            <label className="text-xs font-medium text-muted">
+              Recruiting Partner Company <span className="text-accent">*</span>
             </label>
             <select
               value={companyId}
               onChange={(e) => setCompanyId(e.target.value)}
               required
-              className="w-full bg-[#0A0A0A] border border-[#222222] rounded-md text-[#EDEDED] text-xs h-10 px-3 focus:outline-none focus:border-[#FF6B00]"
+              className="w-full bg-surface border border-border rounded-md text-foreground text-xs h-10 px-3 focus:outline-none focus:border-accent"
             >
               <option value="">Select an active company...</option>
               {metadata.companies.map((c) => (
@@ -243,41 +243,41 @@ export function AdminDriveForm({
               ))}
             </select>
             {state?.fieldErrors?.company_id && (
-              <div className="text-xs text-[#EF4444]">{state.fieldErrors.company_id}</div>
+              <div className="text-xs text-red-500">{state.fieldErrors.company_id}</div>
             )}
           </div>
 
           {/* Job Role & Compensation */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">
-                Job Role / Designation <span className="text-[#FF6B00]">*</span>
+              <label className="text-xs font-medium text-muted">
+                Job Role / Designation <span className="text-accent">*</span>
               </label>
               <Input
                 value={jobRole}
                 onChange={(e) => setJobRole(e.target.value)}
                 placeholder="e.g. Software Development Engineer - I"
                 required
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
               {state?.fieldErrors?.job_role && (
-                <div className="text-xs text-[#EF4444]">{state.fieldErrors.job_role}</div>
+                <div className="text-xs text-red-500">{state.fieldErrors.job_role}</div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">
-                Package / CTC (Compensation) <span className="text-[#FF6B00]">*</span>
+              <label className="text-xs font-medium text-muted">
+                Package / CTC (Compensation) <span className="text-accent">*</span>
               </label>
               <Input
                 value={packageDetails}
                 onChange={(e) => setPackageDetails(e.target.value)}
                 placeholder="e.g. ₹14.5 LPA (₹12.0 LPA Fixed + Bonus)"
                 required
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
               {state?.fieldErrors?.package_details && (
-                <div className="text-xs text-[#EF4444]">{state.fieldErrors.package_details}</div>
+                <div className="text-xs text-red-500">{state.fieldErrors.package_details}</div>
               )}
             </div>
           </div>
@@ -285,11 +285,11 @@ export function AdminDriveForm({
           {/* Tier & Work Location */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Recruitment Tier</label>
+              <label className="text-xs font-medium text-muted">Recruitment Tier</label>
               <select
                 value={tier}
                 onChange={(e) => setTier(e.target.value)}
-                className="w-full bg-[#0A0A0A] border border-[#222222] rounded-md text-[#EDEDED] text-xs h-10 px-3 focus:outline-none focus:border-[#FF6B00]"
+                className="w-full bg-surface border border-border rounded-md text-foreground text-xs h-10 px-3 focus:outline-none focus:border-accent"
               >
                 <option value="Super Dream (20+ LPA)">Super Dream (20+ LPA)</option>
                 <option value="Dream (10–20 LPA)">Dream (10–20 LPA)</option>
@@ -300,25 +300,25 @@ export function AdminDriveForm({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Job Location</label>
+              <label className="text-xs font-medium text-muted">Job Location</label>
               <Input
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="e.g. Bengaluru / Hyderabad / Remote"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
           </div>
 
           {/* Description */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">Role Overview & Description</label>
+            <label className="text-xs font-medium text-muted">Role Overview & Description</label>
             <textarea
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Outline candidate responsibilities, expectations, team description, and day-to-day workflow..."
-              className="w-full rounded-md bg-[#0A0A0A] border border-[#222222] p-2.5 text-xs text-[#EDEDED] placeholder:text-[#9AA1AA] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full rounded-md bg-surface border border-border p-2.5 text-xs text-foreground placeholder:text-muted focus:outline-none focus:border-accent"
             />
           </div>
         </div>
@@ -327,12 +327,12 @@ export function AdminDriveForm({
       {/* SECTION 2: ELIGIBILITY & ACADEMIC RESTRICTIONS */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED] flex items-center gap-2">
-            <GraduationCap className="h-4 w-4 text-[#FF6B00]" />
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground flex items-center gap-2">
+            <GraduationCap className="h-4 w-4 text-accent" />
             Academic Eligibility & Cohort Guardrails
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-xs text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-xs text-muted">
             Define quantitative GPA cutoffs, active backlog restrictions, and authorized departments or degree programs.
           </p>
         </div>
@@ -341,7 +341,7 @@ export function AdminDriveForm({
           {/* CGPA, Backlogs, Graduation Year */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Minimum CGPA Required</label>
+              <label className="text-xs font-medium text-muted">Minimum CGPA Required</label>
               <Input
                 type="number"
                 step="0.01"
@@ -351,15 +351,15 @@ export function AdminDriveForm({
                 onChange={(e) => setMinCgpa(e.target.value)}
                 placeholder="6.50"
                 required
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
               {state?.fieldErrors?.min_cgpa && (
-                <div className="text-xs text-[#EF4444]">{state.fieldErrors.min_cgpa}</div>
+                <div className="text-xs text-red-500">{state.fieldErrors.min_cgpa}</div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Max Active Backlogs Allowed</label>
+              <label className="text-xs font-medium text-muted">Max Active Backlogs Allowed</label>
               <Input
                 type="number"
                 min="0"
@@ -368,26 +368,26 @@ export function AdminDriveForm({
                 onChange={(e) => setMaxBacklogs(e.target.value)}
                 placeholder="0"
                 required
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Graduation Year (Batch)</label>
+              <label className="text-xs font-medium text-muted">Graduation Year (Batch)</label>
               <Input
                 type="number"
                 value={graduationYear}
                 onChange={(e) => setGraduationYear(e.target.value)}
                 placeholder="2026"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
           </div>
 
           {/* Academic Year Selection (1st, 2nd, 3rd, 4th Year) */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">
-              Eligible Academic Standing / Years <span className="text-[#FF6B00]">*</span>
+            <label className="text-xs font-medium text-muted">
+              Eligible Academic Standing / Years <span className="text-accent">*</span>
             </label>
             <div className="flex flex-wrap gap-2 pt-1">
               {metadata.years.map((y) => {
@@ -399,8 +399,8 @@ export function AdminDriveForm({
                     onClick={() => toggleYear(y)}
                     className={`px-3 py-1.5 rounded text-xs font-medium border transition-colors ${
                       checked
-                        ? 'border-[#FF6B00] bg-[#FF6B00]/10 text-[#FF6B00]'
-                        : 'border-[#222222] bg-[#0A0A0A] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent bg-accent/10 text-accent'
+                        : 'border-border bg-surface text-muted hover:text-foreground'
                     }`}
                   >
                     Year {y}
@@ -409,14 +409,14 @@ export function AdminDriveForm({
               })}
             </div>
             {state?.fieldErrors?.eligible_years && (
-              <div className="text-xs text-[#EF4444]">{state.fieldErrors.eligible_years}</div>
+              <div className="text-xs text-red-500">{state.fieldErrors.eligible_years}</div>
             )}
           </div>
 
           {/* Eligible Departments */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">
-              Eligible Departments <span className="text-[#FF6B00]">*</span>
+            <label className="text-xs font-medium text-muted">
+              Eligible Departments <span className="text-accent">*</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
               {metadata.departments.map((dept) => {
@@ -426,15 +426,15 @@ export function AdminDriveForm({
                     key={dept}
                     className={`flex items-center gap-2 p-2 rounded border cursor-pointer text-xs transition-colors ${
                       isSelected
-                        ? 'border-[#FF6B00]/60 bg-[#FF6B00]/5 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#0A0A0A] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent/60 bg-accent/5 text-foreground'
+                        : 'border-border bg-surface text-muted hover:text-foreground'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleDept(dept)}
-                      className="accent-[#FF6B00]"
+                      className="accent-accent"
                     />
                     <span>{dept}</span>
                   </label>
@@ -442,13 +442,13 @@ export function AdminDriveForm({
               })}
             </div>
             {state?.fieldErrors?.eligible_departments && (
-              <div className="text-xs text-[#EF4444]">{state.fieldErrors.eligible_departments}</div>
+              <div className="text-xs text-red-500">{state.fieldErrors.eligible_departments}</div>
             )}
           </div>
 
           {/* Eligible Programs */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">
+            <label className="text-xs font-medium text-muted">
               Eligible Degree Programs / Specializations
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
@@ -459,15 +459,15 @@ export function AdminDriveForm({
                     key={prog}
                     className={`flex items-center gap-2 p-2 rounded border cursor-pointer text-xs transition-colors ${
                       isSelected
-                        ? 'border-[#FF6B00]/60 bg-[#FF6B00]/5 text-[#EDEDED]'
-                        : 'border-[#222222] bg-[#0A0A0A] text-[#9AA1AA] hover:text-[#EDEDED]'
+                        ? 'border-accent/60 bg-accent/5 text-foreground'
+                        : 'border-border bg-surface text-muted hover:text-foreground'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => toggleProgram(prog)}
-                      className="accent-[#FF6B00]"
+                      className="accent-accent"
                     />
                     <span>{prog}</span>
                   </label>
@@ -478,14 +478,14 @@ export function AdminDriveForm({
 
           {/* Required Skills */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">
+            <label className="text-xs font-medium text-muted">
               Required Technical Competencies & Skills (Comma-separated)
             </label>
             <Input
               value={skillsStr}
               onChange={(e) => setSkillsStr(e.target.value)}
               placeholder="e.g. Python, SQL, REST APIs, Distributed Systems"
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
             />
           </div>
         </div>
@@ -494,12 +494,12 @@ export function AdminDriveForm({
       {/* SECTION 3: DRIVE SCHEDULE & LOGISTICS */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED] flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-[#FF6B00]" />
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-accent" />
             Drive Schedule, Venue & Logistics
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-xs text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-xs text-muted">
             Specify application cutoff deadline, assessment dates, interview stages, and test venue.
           </p>
         </div>
@@ -508,31 +508,31 @@ export function AdminDriveForm({
           {/* Registration Deadline & Drive Date */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">
-                Application Cutoff Deadline <span className="text-[#FF6B00]">*</span>
+              <label className="text-xs font-medium text-muted">
+                Application Cutoff Deadline <span className="text-accent">*</span>
               </label>
               <Input
                 type="datetime-local"
                 value={deadline}
                 onChange={(e) => setDeadline(e.target.value)}
                 required
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
               {state?.fieldErrors?.registration_deadline && (
-                <div className="text-xs text-[#EF4444]">{state.fieldErrors.registration_deadline}</div>
+                <div className="text-xs text-red-500">{state.fieldErrors.registration_deadline}</div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Recruitment Drive Date</label>
+              <label className="text-xs font-medium text-muted">Recruitment Drive Date</label>
               <Input
                 type="datetime-local"
                 value={driveDate}
                 onChange={(e) => setDriveDate(e.target.value)}
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
               {state?.fieldErrors?.drive_date && (
-                <div className="text-xs text-[#EF4444]">{state.fieldErrors.drive_date}</div>
+                <div className="text-xs text-red-500">{state.fieldErrors.drive_date}</div>
               )}
             </div>
           </div>
@@ -540,81 +540,81 @@ export function AdminDriveForm({
           {/* Time & Venue */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Time / Slot</label>
+              <label className="text-xs font-medium text-muted">Time / Slot</label>
               <Input
                 value={driveTime}
                 onChange={(e) => setDriveTime(e.target.value)}
                 placeholder="e.g. 09:00 AM – 05:00 PM"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Venue / Platform</label>
+              <label className="text-xs font-medium text-muted">Venue / Platform</label>
               <Input
                 value={venue}
                 onChange={(e) => setVenue(e.target.value)}
                 placeholder="e.g. Main Auditorium / Lab 3 / Online Webex"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
           </div>
 
           {/* Recruitment Stages */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">
+            <label className="text-xs font-medium text-muted">
               Recruitment Evaluation Stages (Comma-separated)
             </label>
             <Input
               value={stagesStr}
               onChange={(e) => setStagesStr(e.target.value)}
               placeholder="e.g. Online Test, Technical Interview 1, Technical Interview 2, HR Round"
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
             />
           </div>
 
           {/* Instructions */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">Candidate Instructions (One per line)</label>
+            <label className="text-xs font-medium text-muted">Candidate Instructions (One per line)</label>
             <textarea
               rows={3}
               value={instructionsStr}
               onChange={(e) => setInstructionsStr(e.target.value)}
               placeholder="Enter special candidate instructions..."
-              className="w-full rounded-md bg-[#0A0A0A] border border-[#222222] p-2.5 text-xs text-[#EDEDED] placeholder:text-[#9AA1AA] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full rounded-md bg-surface border border-border p-2.5 text-xs text-foreground placeholder:text-muted focus:outline-none focus:border-accent"
             />
           </div>
 
           {/* Required Documents */}
           <div className="space-y-1.5">
-            <label className="text-xs font-medium text-[#9AA1AA]">Required Documents (Comma-separated)</label>
+            <label className="text-xs font-medium text-muted">Required Documents (Comma-separated)</label>
             <Input
               value={documentsStr}
               onChange={(e) => setDocumentsStr(e.target.value)}
               placeholder="e.g. 2 Hard Copies of Resume, College ID, 10th/12th Marksheets"
-              className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+              className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
             />
           </div>
 
           {/* Vacancies & Bond Period */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Estimated Vacancies</label>
+              <label className="text-xs font-medium text-muted">Estimated Vacancies</label>
               <Input
                 value={vacancies}
                 onChange={(e) => setVacancies(e.target.value)}
                 placeholder="e.g. 15 Openings"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-medium text-[#9AA1AA]">Service Agreement / Bond</label>
+              <label className="text-xs font-medium text-muted">Service Agreement / Bond</label>
               <Input
                 value={bondPeriod}
                 onChange={(e) => setBondPeriod(e.target.value)}
                 placeholder="e.g. None / 1 Year"
-                className="bg-[#0A0A0A] border-[#222222] text-[#EDEDED] text-xs h-10 focus:border-[#FF6B00]"
+                className="bg-surface border-border text-foreground text-xs h-10 focus:border-accent"
               />
             </div>
           </div>
@@ -624,12 +624,12 @@ export function AdminDriveForm({
       {/* SECTION 4: GOVERNANCE & STATUS CONFIGURATION */}
       <div className="space-y-4">
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-[#EDEDED] flex items-center gap-2">
-            <ListChecks className="h-4 w-4 text-[#FF6B00]" />
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground flex items-center gap-2">
+            <ListChecks className="h-4 w-4 text-accent" />
             Governance, Publishing & Status
           </h3>
-          <div className="border-b border-[#222222] my-2" />
-          <p className="text-xs text-[#9AA1AA]">
+          <div className="border-b border-border my-2" />
+          <p className="text-xs text-muted">
             Control student portal visibility and operational lifecycle phase.
           </p>
         </div>
@@ -637,7 +637,7 @@ export function AdminDriveForm({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-1">
           {/* Drive Status Radio */}
           <div className="space-y-2">
-            <label className="text-xs font-medium text-[#9AA1AA]">Drive Operational Phase</label>
+            <label className="text-xs font-medium text-muted">Drive Operational Phase</label>
             <div className="space-y-2">
               {[
                 { value: 'open', label: 'Applications Open' },
@@ -653,9 +653,9 @@ export function AdminDriveForm({
                     value={item.value}
                     checked={status === item.value}
                     onChange={() => setStatus(item.value as any)}
-                    className="accent-[#FF6B00]"
+                    className="accent-accent"
                   />
-                  <span className={status === item.value ? 'text-[#EDEDED] font-medium' : 'text-[#9AA1AA]'}>
+                  <span className={status === item.value ? 'text-foreground font-medium' : 'text-muted'}>
                     {item.label}
                   </span>
                 </label>
@@ -665,17 +665,17 @@ export function AdminDriveForm({
 
           {/* Visibility Checkbox */}
           <div className="space-y-2">
-            <label className="text-xs font-medium text-[#9AA1AA]">Student Portal Visibility</label>
-            <label className="flex items-start gap-2.5 p-3 rounded border border-[#222222] bg-[#0A0A0A] cursor-pointer">
+            <label className="text-xs font-medium text-muted">Student Portal Visibility</label>
+            <label className="flex items-start gap-2.5 p-3 rounded border border-border bg-surface cursor-pointer">
               <input
                 type="checkbox"
                 checked={isPublished}
                 onChange={(e) => setIsPublished(e.target.checked)}
-                className="accent-[#FF6B00] mt-0.5"
+                className="accent-accent mt-0.5"
               />
               <div className="text-xs">
-                <div className="font-semibold text-[#EDEDED]">Publish Drive Immediately</div>
-                <div className="text-[#9AA1AA] mt-0.5">
+                <div className="font-semibold text-foreground">Publish Drive Immediately</div>
+                <div className="text-muted mt-0.5">
                   When enabled, eligible students will see this campaign in their placement dashboard. When disabled, the drive remains in draft mode.
                 </div>
               </div>
@@ -685,7 +685,7 @@ export function AdminDriveForm({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex items-center gap-3 pt-4 border-t border-[#222222]">
+      <div className="flex items-center gap-3 pt-4 border-t border-border">
         <Button
           type="submit"
           disabled={isPending}
@@ -700,7 +700,7 @@ export function AdminDriveForm({
             type="button"
             variant="outline"
             disabled={isPending}
-            className="text-xs h-10 px-4 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+            className="text-xs h-10 px-4 border-border text-muted hover:text-foreground"
           >
             Cancel
           </Button>

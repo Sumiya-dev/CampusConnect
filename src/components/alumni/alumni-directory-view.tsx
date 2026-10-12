@@ -121,7 +121,7 @@ export function AlumniDirectoryView({
       <AlumniNavigation baseHref={baseHref} isStudentOrAlumni={isStudent} />
 
       {/* Filter and Search Bar */}
-      <div className="bg-[#0A0A0A] border border-[#222222] rounded-lg p-4 space-y-3">
+      <div className="bg-surface border border-border rounded-lg p-4 space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
           {/* Search Query */}
           <div className="relative flex-1">
@@ -130,7 +130,7 @@ export function AlumniDirectoryView({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by alumni name, company, role, or skills..."
-              className="pl-9 text-xs bg-[#121212] border-[#222222] h-9"
+              className="pl-9 text-xs bg-elevated border-border h-9"
             />
           </div>
 
@@ -139,7 +139,7 @@ export function AlumniDirectoryView({
               variant="outline"
               size="sm"
               onClick={resetFilters}
-              className="text-xs gap-1.5 shrink-0 border-[#222222] text-[#9AA1AA] hover:text-[#EDEDED]"
+              className="text-xs gap-1.5 shrink-0 border-border text-muted hover:text-foreground"
             >
               <RotateCcw className="h-3.5 w-3.5" />
               <span>Reset Filters</span>
@@ -157,7 +157,7 @@ export function AlumniDirectoryView({
             <select
               value={selectedDept}
               onChange={(e) => setSelectedDept(e.target.value)}
-              className="w-full bg-[#121212] border border-[#222222] rounded px-2.5 py-1.5 text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full bg-elevated border border-border rounded px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Departments</option>
               {departments.map((d) => (
@@ -176,7 +176,7 @@ export function AlumniDirectoryView({
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="w-full bg-[#121212] border border-[#222222] rounded px-2.5 py-1.5 text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full bg-elevated border border-border rounded px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Batches</option>
               {years.map((y) => (
@@ -195,7 +195,7 @@ export function AlumniDirectoryView({
             <select
               value={selectedCompany}
               onChange={(e) => setSelectedCompany(e.target.value)}
-              className="w-full bg-[#121212] border border-[#222222] rounded px-2.5 py-1.5 text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full bg-elevated border border-border rounded px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Companies</option>
               {companies.map((c) => (
@@ -214,7 +214,7 @@ export function AlumniDirectoryView({
             <select
               value={selectedRole}
               onChange={(e) => setSelectedRole(e.target.value)}
-              className="w-full bg-[#121212] border border-[#222222] rounded px-2.5 py-1.5 text-xs text-[#EDEDED] focus:outline-none focus:border-[#FF6B00]"
+              className="w-full bg-elevated border border-border rounded px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:border-accent"
             >
               <option value="all">All Job Roles</option>
               {roles.map((r) => (
@@ -228,22 +228,22 @@ export function AlumniDirectoryView({
       </div>
 
       {/* Directory Results Header */}
-      <div className="flex items-center justify-between text-xs text-[#9AA1AA]">
+      <div className="flex items-center justify-between text-xs text-muted">
         <span>
-          Showing <span className="text-[#EDEDED] font-semibold">{filteredProfiles.length}</span>{' '}
+          Showing <span className="text-foreground font-semibold">{filteredProfiles.length}</span>{' '}
           {filteredProfiles.length === 1 ? 'alumni profile' : 'alumni profiles'}
         </span>
       </div>
 
       {/* Profiles Grid */}
       {filteredProfiles.length === 0 ? (
-        <div className="text-center py-16 px-4 border border-[#222222] bg-[#0A0A0A] rounded-lg space-y-3">
+        <div className="text-center py-16 px-4 border border-border bg-surface rounded-lg space-y-3">
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#161616] text-[#717784]">
             <Users className="h-6 w-6" />
           </div>
           <div className="space-y-1">
-            <h4 className="text-sm font-semibold text-[#EDEDED]">No alumni profiles available.</h4>
-            <p className="text-xs text-[#9AA1AA] max-w-sm mx-auto">
+            <h4 className="text-sm font-semibold text-foreground">No alumni profiles available.</h4>
+            <p className="text-xs text-muted max-w-sm mx-auto">
               {hasActiveFilters
                 ? 'No alumni matched your current filter criteria. Try adjusting or resetting your search filters.'
                 : 'Alumni members will appear here once verified on the university network.'}

@@ -48,7 +48,7 @@ export function ProfileField({
     <div className="space-y-1.5 w-full">
       <label
         htmlFor={id}
-        className="block text-sm font-medium text-[#9AA1AA] select-none"
+        className="block text-sm font-medium text-muted select-none"
       >
         {label}
       </label>
@@ -71,18 +71,18 @@ export function ProfileField({
           max={max}
           onChange={onChange}
           className={cn(
-            'flex h-10 w-full rounded-md border border-[#222222] bg-[#0A0A0A] px-3 py-2 text-sm text-[#EDEDED] transition-colors',
-            'focus:outline-none focus:border-[#FF6B00] focus:ring-1 focus:ring-[#FF6B00]',
-            'placeholder:text-[#9AA1AA]/40',
+            'flex h-10 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors',
+            'focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent',
+            'placeholder:text-muted/40',
             isInactive &&
-              'opacity-80 text-[#9AA1AA] cursor-not-allowed select-all focus:border-[#222222] focus:ring-0',
+              'opacity-80 text-muted cursor-not-allowed select-all focus:border-border focus:ring-0',
             className
           )}
         />
       )}
 
       {description && (
-        <p className="text-sm text-[#9AA1AA] leading-relaxed">
+        <p className="text-sm text-muted leading-relaxed">
           {description}
         </p>
       )}
@@ -99,15 +99,15 @@ export function ProfileSectionHeader({
 }) {
   return (
     <div className="space-y-1 pt-2">
-      <h2 className="text-base font-bold uppercase tracking-wider text-[#EDEDED]">
+      <h2 className="text-base font-bold uppercase tracking-wider text-foreground">
         {title}
       </h2>
       {description && (
-        <p className="text-sm text-[#9AA1AA] leading-relaxed">
+        <p className="text-sm text-muted leading-relaxed">
           {description}
         </p>
       )}
-      <div className="border-b border-[#222222] pt-1.5" />
+      <div className="border-b border-border pt-1.5" />
     </div>
   );
 }
